@@ -24,8 +24,17 @@ import json
 import datetime
 import re
 import sys
+import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, os.path.dirname(__file__))
+try:
+    from translate import load_cache, save_cache, enrich_with_translations
+    HAS_TRANSLATE = True
+except ImportError:
+    HAS_TRANSLATE = False
+    print("[警告] translate モジュール未検出: 翻訳スキップ", file=sys.stderr)
 
 try:
     import yfinance as yf
@@ -384,6 +393,14 @@ def main():
     # 6. テーマキーワード抽出
     theme_keywords = extract_theme_keywords(stop_high, sector_analysis)
     print(f"[日本株] テーマキーワード: {theme_keywords[:8]}", file=sys.stderr)
+
+    # 7. 翻訳（description → description_ja, industry → industry_ja）
+    if HAS_TRANSLATE:
+        print("[日本株] 事業説明を日本語化中...", file=sys.stderr)
+        cache = load_cache()
+        all_stocks, cache = enrich_with_translations(all_stocks, cache)
+        save_cache(cache)
+        print(f"  翻訳キャッシュ保存: {len(cache)}件", file=sys.stderr)
 
     jst = datetime.timezone(datetime.timedelta(hours=9))
     output = {

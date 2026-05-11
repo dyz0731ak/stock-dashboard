@@ -41,12 +41,24 @@ jobs:
           cd ${{ github.workspace }}
           python scripts/fetch_japan_stocks.py
         continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Fetch US stocks (Yahoo Finance top gainers)
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_us_stocks.py
         continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Fetch volume surge stocks (出来高急増)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_volume_stocks.py
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Check if data changed
         id: check-changes
@@ -58,7 +70,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/japan_stocks.json data/us_stocks.json
+          git add data/japan_stocks.json data/us_stocks.json data/volume_stocks.json data/translation_cache.json
           git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
           git pull --rebase origin main
           git push

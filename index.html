@@ -106,6 +106,9 @@
     .b-down{background:var(--down-bg);color:var(--down)}
     .b-stop{background:rgba(239,68,68,.25);color:#fca5a5;font-size:10px}
     .b-near{background:rgba(234,179,8,.15);color:#fbbf24;font-size:10px}
+    .b-vol-high{background:rgba(6,182,212,.2);color:#22d3ee;font-size:10px}
+    .b-vol-mid{background:rgba(99,102,241,.2);color:#818cf8;font-size:10px}
+    .b-vol-low{background:rgba(148,163,184,.15);color:#94a3b8;font-size:10px}
     .sec-tag{background:#2e3250;color:var(--muted);padding:2px 7px;
              border-radius:5px;font-size:11px}
     .code-link{color:var(--accent2);font-weight:700;font-family:monospace;text-decoration:none}
@@ -213,6 +216,9 @@
   </button>
   <button class="tab" onclick="switchTab('us',this)">
     🇺🇸 米国株<span class="tab-cnt" id="cnt-us">-</span>
+  </button>
+  <button class="tab" onclick="switchTab('volume',this)">
+    📊 出来高急増<span class="tab-cnt" id="cnt-vol">-</span>
   </button>
   <button class="tab" onclick="switchTab('sector',this)">
     📈 セクター分析
@@ -324,6 +330,71 @@
           <div class="chart-wrap"><canvas id="us-pie-chart"></canvas></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ═══ VOLUME TAB ═══ -->
+  <div id="tab-volume" class="tab-pane">
+    <div id="vol-err" class="err-banner"></div>
+    <div id="vol-loading" class="loading"><div class="spinner"></div>データ読み込み中...</div>
+    <div id="vol-content" style="display:none">
+
+      <!-- JP volume -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">
+            <div class="c-icon i-jp">🇯🇵</div>
+            日本株 ─ 出来高急増ランキング
+            <span style="font-size:11px;color:var(--muted);font-weight:400">（クリックでチャート表示）</span>
+          </div>
+          <div class="search-wrap">
+            <input type="text" id="vol-jp-search" placeholder="コード・銘柄名で検索..."
+                   oninput="filterTable('vol-jp-tbl',this.value)">
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table id="vol-jp-tbl">
+            <thead><tr>
+              <th>コード</th><th>銘柄名</th><th>業種</th><th>市場</th>
+              <th style="text-align:right">本日出来高</th>
+              <th style="text-align:right">前日出来高</th>
+              <th style="text-align:right">増加率</th>
+              <th style="text-align:right">株価</th>
+              <th style="text-align:right">前日比</th>
+            </tr></thead>
+            <tbody id="vol-jp-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- US volume -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">
+            <div class="c-icon i-us">🇺🇸</div>
+            米国株 ─ 出来高急増ランキング（S&P500）
+            <span style="font-size:11px;color:var(--muted);font-weight:400">（クリックでチャート表示）</span>
+          </div>
+          <div class="search-wrap">
+            <input type="text" id="vol-us-search" placeholder="ティッカー・銘柄名..."
+                   oninput="filterTable('vol-us-tbl',this.value)">
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table id="vol-us-tbl">
+            <thead><tr>
+              <th>ティッカー</th><th>銘柄名</th><th>セクター</th>
+              <th style="text-align:right">本日出来高</th>
+              <th style="text-align:right">前日出来高</th>
+              <th style="text-align:right">増加率</th>
+              <th style="text-align:right">株価($)</th>
+              <th style="text-align:right">前日比</th>
+            </tr></thead>
+            <tbody id="vol-us-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -448,7 +519,7 @@
 /* ════════════════════════════════════════════
    状態
 ════════════════════════════════════════════ */
-let jpData = null, usData = null;
+let jpData = null, usData = null, volData = null;
 let modalPriceChart = null, modalVolChart = null;
 
 const COLORS = [
@@ -517,6 +588,7 @@ function switchTab(name, btn) {
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
   if (name === 'sector' && jpData && usData) renderSectorTab();
+  if (name === 'volume' && volData) renderVolume();
 }
 
 /* ════════════════════════════════════════════
@@ -540,6 +612,15 @@ async function loadData() {
       .catch(e => {
         showErr('us-err', 'データ取得失敗: '+e.message);
         document.getElementById('us-loading').style.display = 'none';
+      }),
+
+    fetch(`data/volume_stocks.json?t=${ts}`)
+      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(d => { volData = d; document.getElementById('cnt-vol').textContent =
+        (d.jp_count||0)+(d.us_count||0); })
+      .catch(() => {
+        document.getElementById('vol-loading').style.display = 'none';
+        showErr('vol-err', '出来高データ未取得（初回 Actions 実行後に表示）');
       }),
   ]);
 
@@ -712,6 +793,59 @@ function renderUS() {
 /* ════════════════════════════════════════════
    セクタータブ
 ════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   出来高急増 レンダリング
+════════════════════════════════════════════ */
+function volRatioBadge(ratio) {
+  const n = parseFloat(ratio||0);
+  const cls = n >= 200 ? 'b-vol-high' : n >= 100 ? 'b-vol-mid' : 'b-vol-low';
+  return `<span class="badge ${cls}">+${n.toFixed(0)}%</span>`;
+}
+
+function renderVolume() {
+  if (!volData) return;
+  document.getElementById('vol-loading').style.display = 'none';
+  document.getElementById('vol-content').style.display = 'block';
+
+  const jpStocks = volData.jp_stocks || [];
+  const usStocks = volData.us_stocks || [];
+
+  // ── 日本株 出来高急増テーブル ──
+  document.getElementById('vol-jp-tbody').innerHTML = jpStocks.map((s, i) => `
+    <tr onclick="openModal('vol-jp', ${i})" style="cursor:pointer">
+      <td><a class="code-link">${esc(s.code)}</a></td>
+      <td style="font-weight:500">${esc(s.name)}</td>
+      <td>${s.sector ? `<span class="badge b-sec">${esc(s.sector)}</span>` : '-'}</td>
+      <td style="color:var(--muted)">${esc(s.market||'-')}</td>
+      <td style="text-align:right;font-family:monospace">${fmtVol(s.volume_today)}</td>
+      <td style="text-align:right;font-family:monospace;color:var(--muted)">${fmtVol(s.volume_yesterday)}</td>
+      <td style="text-align:right">${volRatioBadge(s.volume_ratio)}</td>
+      <td style="text-align:right;font-family:monospace">${s.price ? s.price.toLocaleString()+'円' : '-'}</td>
+      <td style="text-align:right">
+        <span style="color:${s.change_pct>=0?'var(--up)':'var(--down)'}">
+          ${s.change_pct>=0?'▲':'▼'} ${Math.abs(s.change_pct||0).toFixed(2)}%
+        </span>
+      </td>
+    </tr>`).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">データなし</td></tr>';
+
+  // ── 米国株 出来高急増テーブル ──
+  document.getElementById('vol-us-tbody').innerHTML = usStocks.map((s, i) => `
+    <tr onclick="openModal('vol-us', ${i})" style="cursor:pointer">
+      <td><a class="code-link">${esc(s.symbol)}</a></td>
+      <td style="font-weight:500">${esc(s.name||s.symbol)}</td>
+      <td>${s.sector ? `<span class="badge b-sec">${esc(s.sector)}</span>` : '-'}</td>
+      <td style="text-align:right;font-family:monospace">${fmtVol(s.volume_today)}</td>
+      <td style="text-align:right;font-family:monospace;color:var(--muted)">${fmtVol(s.volume_yesterday)}</td>
+      <td style="text-align:right">${volRatioBadge(s.volume_ratio)}</td>
+      <td style="text-align:right;font-family:monospace">$${(s.price||0).toFixed(2)}</td>
+      <td style="text-align:right">
+        <span style="color:${(s.change_pct||0)>=0?'var(--up)':'var(--down)'}">
+          ${(s.change_pct||0)>=0?'▲':'▼'} ${Math.abs(s.change_pct||0).toFixed(2)}%
+        </span>
+      </td>
+    </tr>`).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">データなし</td></tr>';
+}
+
 function renderSectorTab() {
   document.getElementById('sec-loading').style.display = 'none';
   document.getElementById('sec-content').style.display = 'block';
@@ -830,44 +964,50 @@ function renderSecGrid(id, data, key) {
    MODAL: チャート + 会社情報
 ════════════════════════════════════════════ */
 function openModal(market, idx) {
-  const stock = market === 'jp'
-    ? (jpData?.all_stocks || [])[idx]
-    : (usData?.gainers || [])[idx];
+  let stock;
+  if      (market === 'jp')     stock = (jpData?.all_stocks || [])[idx];
+  else if (market === 'us')     stock = (usData?.gainers    || [])[idx];
+  else if (market === 'vol-jp') stock = (volData?.jp_stocks || [])[idx];
+  else if (market === 'vol-us') stock = (volData?.us_stocks || [])[idx];
   if (!stock) return;
 
   // ── ヘッダー ──
-  const isJP = market === 'jp';
-  const code  = isJP ? stock.code  : stock.symbol;
-  const name  = isJP ? stock.name  : stock.name;
-  const mkt   = isJP ? stock.market : 'NYSE/NASDAQ';
-  const pct   = isJP ? stock.change_pct : stock.change_pct;
+  const isJP  = market === 'jp' || market === 'vol-jp';
+  const code  = isJP ? stock.code   : stock.symbol;
+  const name  = stock.name  || code;
+  const mkt   = isJP ? (stock.market||'') : 'NYSE/NASDAQ';
+  const pct   = stock.change_pct;
   const price = isJP
     ? (stock.price != null ? Number(stock.price).toLocaleString()+'円' : '-')
     : (stock.price != null ? '$'+stock.price.toFixed(2) : '-');
+  const chgSign = (stock.change_pct||0) >= 0 ? '▲' : '▼';
   const chgTxt = isJP
-    ? `▲ ${stock.change_amount||'-'}  (${stock.change_pct||'-'}%)`
-    : `${(stock.change||0)>=0?'▲':'▼'} $${Math.abs(stock.change||0).toFixed(2)} (${(stock.change_pct||0)>=0?'+':''}${(stock.change_pct||0).toFixed(2)}%)`;
+    ? `${chgSign} ${Math.abs(stock.change_amount||0)}  (${stock.change_pct||'-'}%)`
+    : `${chgSign} $${Math.abs(stock.change||0).toFixed(2)} (${(stock.change_pct||0)>=0?'+':''}${(stock.change_pct||0).toFixed(2)}%)`;
 
-  document.getElementById('m-code').textContent    = code;
-  document.getElementById('m-name').textContent    = name;
-  document.getElementById('m-market').textContent  = mkt;
-  document.getElementById('m-price').textContent   = price;
-  document.getElementById('m-change').textContent  = chgTxt;
-  document.getElementById('m-change').style.color  = 'var(--up)';
+  document.getElementById('m-code').textContent   = code;
+  document.getElementById('m-name').textContent   = name;
+  document.getElementById('m-market').textContent = mkt;
+  document.getElementById('m-price').textContent  = price;
+  document.getElementById('m-change').textContent = chgTxt;
+  document.getElementById('m-change').style.color =
+    (pct||0) >= 0 ? 'var(--up)' : 'var(--down)';
 
-  // S高バッジ
-  document.getElementById('m-badge').innerHTML = stock.is_stop_high
-    ? '<span class="badge b-stop" style="font-size:11px">🔴 S高</span>' : '';
+  // S高バッジ / 出来高バッジ
+  let extraBadge = '';
+  if (stock.is_stop_high) extraBadge = '<span class="badge b-stop" style="font-size:11px">🔴 S高</span>';
+  else if (market.startsWith('vol')) extraBadge = `<span class="badge b-vol-high" style="font-size:11px">📊 +${(stock.volume_ratio||0).toFixed(0)}%</span>`;
+  document.getElementById('m-badge').innerHTML    = extraBadge;
   document.getElementById('m-pct-badge').innerHTML = pctBadge(pct);
 
   // ── 会社情報 ──
-  const sec = stock.sector || '-';
-  document.getElementById('m-sector').textContent = sec;
+  document.getElementById('m-sector').textContent = stock.sector || '-';
 
   const indRow = document.getElementById('m-industry-row');
-  if (stock.industry) {
+  const indDisp = stock.industry_ja || stock.industry;
+  if (indDisp) {
     indRow.style.display = 'block';
-    document.getElementById('m-industry').textContent = stock.industry;
+    document.getElementById('m-industry').textContent = indDisp;
   } else { indRow.style.display = 'none'; }
 
   const webRow = document.getElementById('m-website-row');
@@ -877,18 +1017,16 @@ function openModal(market, idx) {
     a.href = stock.website; a.textContent = stock.website.replace(/^https?:\/\//,'');
   } else { webRow.style.display = 'none'; }
 
-  // キーワードタグ（業種 + インダストリー + テーマキーワードとの一致）
-  const tagsRow  = document.getElementById('m-tags-row');
-  const tagsCon  = document.getElementById('m-tags');
-  const tagSet   = new Set();
-  if (stock.sector)   tagSet.add(stock.sector);
-  if (stock.industry) tagSet.add(stock.industry);
-  // テーマキーワードとのマッチング
+  // キーワードタグ（業種 + インダストリー日本語 + テーマキーワードとの一致）
+  const tagsRow = document.getElementById('m-tags-row');
+  const tagsCon = document.getElementById('m-tags');
+  const tagSet  = new Set();
+  if (stock.sector) tagSet.add(stock.sector);
+  if (stock.industry_ja || stock.industry) tagSet.add(stock.industry_ja || stock.industry);
   const themeKws = jpData?.theme_keywords || [];
-  const descLow  = (stock.description||'').toLowerCase();
+  const descLow  = (stock.description_ja||stock.description||'').toLowerCase();
   themeKws.forEach(kw => {
-    if (descLow.includes(kw.toLowerCase()) || stock.sector?.includes(kw) ||
-        stock.industry?.includes(kw)) tagSet.add(kw);
+    if (descLow.includes(kw.toLowerCase()) || stock.sector?.includes(kw)) tagSet.add(kw);
   });
   if (tagSet.size > 0) {
     tagsRow.style.display = 'block';
@@ -896,10 +1034,12 @@ function openModal(market, idx) {
       `<span class="info-tag">#${esc(t)}</span>`).join('');
   } else { tagsRow.style.display = 'none'; }
 
-  const descRow = document.getElementById('m-desc-row');
-  if (stock.description) {
+  // 事業内容（日本語優先）
+  const descRow  = document.getElementById('m-desc-row');
+  const descText = stock.description_ja || stock.description;
+  if (descText) {
     descRow.style.display = 'block';
-    document.getElementById('m-desc').textContent = stock.description;
+    document.getElementById('m-desc').textContent = descText;
   } else { descRow.style.display = 'none'; }
 
   // ── チャート ──

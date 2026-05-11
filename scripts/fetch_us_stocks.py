@@ -9,10 +9,19 @@ import pandas as pd
 import json
 import datetime
 import sys
+import os
 import time
 import requests
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+sys.path.insert(0, os.path.dirname(__file__))
+try:
+    from translate import load_cache, save_cache, enrich_with_translations
+    HAS_TRANSLATE = True
+except ImportError:
+    HAS_TRANSLATE = False
+    print("[警告] translate モジュール未検出: 翻訳スキップ", file=sys.stderr)
 
 HEADERS = {
     "User-Agent": (
@@ -221,6 +230,14 @@ def main():
 
     if gainers:
         gainers = enrich_gainers(gainers)
+
+    # 翻訳（description → description_ja, industry → industry_ja）
+    if HAS_TRANSLATE and gainers:
+        print("[米国株] 事業説明を日本語化中...", file=sys.stderr)
+        cache = load_cache()
+        gainers, cache = enrich_with_translations(gainers, cache)
+        save_cache(cache)
+        print(f"  翻訳キャッシュ保存: {len(cache)}件", file=sys.stderr)
 
     sector_analysis = aggregate_by_sector(gainers)
 
