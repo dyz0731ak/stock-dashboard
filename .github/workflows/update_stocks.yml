@@ -41,24 +41,18 @@ jobs:
           cd ${{ github.workspace }}
           python scripts/fetch_japan_stocks.py
         continue-on-error: true
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Fetch US stocks (Yahoo Finance top gainers)
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_us_stocks.py
         continue-on-error: true
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Fetch volume surge stocks (出来高急増)
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_volume_stocks.py
         continue-on-error: true
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Check if data changed
         id: check-changes

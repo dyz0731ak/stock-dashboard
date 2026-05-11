@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-Claude API を使った翻訳モジュール（キャッシュ付き）
+無料翻訳モジュール（deep-translator + キャッシュ）
 - 事業説明（longBusinessSummary）を英語 → 日本語に翻訳
-- インダストリー名は静的マッピング優先、未知は API で翻訳
-- MD5 キャッシュにより再翻訳を防止
+- インダストリー名は静的マッピング辞書で即変換
+- MD5 キャッシュにより再翻訳を防止（API 不要・課金不要）
 """
 
-import anthropic
 import json
 import hashlib
 import os
@@ -180,22 +179,23 @@ def cache_key(text: str) -> str:
 
 
 def translate_industry(name: str) -> str:
-    """インダストリー名を日本語に変換（静的マッピング優先）"""
+    """インダストリー名を日本語に変換（静的マッピング）"""
     if not name:
         return name
     return INDUSTRY_JP.get(name, name)
 
 
-def translate_descriptions(texts: list[str], cache: dict) -> tuple[dict, dict]:
+def translate_descriptions(texts: list, cache: dict) -> tuple:
     """
-    英語説明文を一括翻訳（キャッシュ利用）。
+    Google翻訳（deep-translator）で英語説明文を日本語に一括翻訳。
+    キャッシュ済みはスキップ。
     Returns: (results dict: orig_text → ja_text, updated cache)
     """
     if not texts:
         return {}, cache
 
     results: dict = {}
-    to_translate: list[str] = []
+    to_translate: list = []
 
     for text in texts:
         if not text:
@@ -208,62 +208,46 @@ def translate_descriptions(texts: list[str], cache: dict) -> tuple[dict, dict]:
             to_translate.append(text)
 
     if not to_translate:
+        print(f"  翻訳: 全{len(texts)}件キャッシュ済み", file=sys.stderr)
         return results, cache
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("  警告: ANTHROPIC_API_KEY 未設定 → 翻訳スキップ", file=sys.stderr)
+    try:
+        from deep_translator import GoogleTranslator
+    except ImportError:
+        print("  警告: deep-translator 未インストール → 翻訳スキップ", file=sys.stderr)
+        print("  インストール方法: pip install deep-translator", file=sys.stderr)
         for t in to_translate:
             results[t] = t
         return results, cache
 
-    client = anthropic.Anthropic(api_key=api_key)
-    BATCH = 8  # 1リクエストで翻訳する件数
+    translator = GoogleTranslator(source="en", target="ja")
+    success = 0
 
-    for i in range(0, len(to_translate), BATCH):
-        batch = to_translate[i : i + BATCH]
-        items = [{"id": j, "text": t[:400]} for j, t in enumerate(batch)]
-
-        prompt = (
-            "以下のJSON配列にある英語の企業事業説明文をそれぞれ日本語に翻訳してください。\n"
-            "翻訳は簡潔に200文字以内、専門用語は適切な日本語で表現してください。\n"
-            "同じJSON構造（idとtextフィールド）で翻訳結果のみを返してください。\n\n"
-            + json.dumps(items, ensure_ascii=False)
-        )
-
+    for i, text in enumerate(to_translate):
         try:
-            response = client.messages.create(
-                model="claude-haiku-4-5",
-                max_tokens=4096,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            resp_text = response.content[0].text
-            # JSON を抽出
-            start = resp_text.find("[")
-            end   = resp_text.rfind("]") + 1
-            if start >= 0 and end > start:
-                translated_items = json.loads(resp_text[start:end])
-                for item in translated_items:
-                    idx = item.get("id", -1)
-                    if 0 <= idx < len(batch):
-                        orig = batch[idx]
-                        ja   = item.get("text", orig)
-                        cache[cache_key(orig)] = ja
-                        results[orig] = ja
-            print(f"  翻訳完了: {i+1}〜{min(i+BATCH, len(to_translate))}/{len(to_translate)}件",
-                  file=sys.stderr)
-            time.sleep(0.3)
-
+            # Google翻訳は1リクエスト5000文字まで
+            truncated = text[:4500]
+            translated = translator.translate(truncated)
+            if translated:
+                key = cache_key(text)
+                cache[key] = translated
+                results[text] = translated
+                success += 1
+            else:
+                results[text] = text
+            # レート制限対策：少し待機
+            time.sleep(0.15)
         except Exception as e:
-            print(f"  翻訳エラー (batch {i//BATCH}): {e}", file=sys.stderr)
-            for t in batch:
-                results[t] = t  # フォールバック
+            print(f"  翻訳エラー [{i+1}/{len(to_translate)}]: {e}", file=sys.stderr)
+            results[text] = text  # 失敗時は英語のまま
+            time.sleep(0.5)   # エラー時は少し長めに待機
 
+    print(f"  翻訳完了: {success}/{len(to_translate)}件 新規翻訳", file=sys.stderr)
     return results, cache
 
 
-def enrich_with_translations(stocks: list[dict], cache: dict,
-                              desc_key: str = "description") -> tuple[list[dict], dict]:
+def enrich_with_translations(stocks: list, cache: dict,
+                             desc_key: str = "description") -> tuple:
     """
     stocks リストの description を一括翻訳して description_ja に追加。
     industry も翻訳して industry_ja に追加。
