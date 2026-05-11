@@ -5,8 +5,6 @@ on:
     # 15分おきに実行（UTC）
     - cron: '0,15,30,45 * * * *'
   workflow_dispatch:   # 手動実行も可能
-  push:
-    branches: [ main ]  # プッシュ時も1回実行
 
 permissions:
   contents: write
@@ -62,6 +60,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add data/japan_stocks.json data/us_stocks.json
           git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git pull --rebase origin main
           git push
 
       - name: No changes detected
