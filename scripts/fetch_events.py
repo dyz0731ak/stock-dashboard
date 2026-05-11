@@ -61,12 +61,214 @@ def earnings_time_to_jst_label(code: str) -> str:
     → JST での目安ラベルに変換
     """
     mapping = {
-        "AMC": "引け後 (翌朝)",   # ~5:00 AM UTC → 14:00 JST
-        "BMO": "寄り前",          # ~11:30 AM UTC → 20:30 JST (前日夜)
-        "TAS": "時刻調整中",
+        "AMC": "引け後",
+        "BMO": "寄り前",
+        "TAS": "時刻未定",
         "TNS": "発表なし",
     }
     return mapping.get(code.upper(), code)
+
+
+# ─────────────────────────────────────────────────
+# 経済指標名の日本語マッピング
+# ─────────────────────────────────────────────────
+
+EVENT_NAME_JP: dict[str, str] = {
+    # 米国 - 住宅
+    "Existing Home Sales":              "中古住宅販売件数",
+    "Exist. Home Sales % Chg":          "中古住宅販売 前月比",
+    "New Home Sales":                   "新築住宅販売件数",
+    "New Home Sales MoM":               "新築住宅販売 前月比",
+    "Housing Starts":                   "住宅着工件数",
+    "Building Permits":                 "建設許可件数",
+    "Pending Home Sales":               "住宅販売保留件数",
+    "Pending Home Sales MoM":           "住宅販売保留 前月比",
+    "Case-Shiller Home Price Index":    "ケース・シラー住宅価格指数",
+    "FHFA House Price Index":           "FHFA住宅価格指数",
+    "FHFA House Price Index MoM":       "FHFA住宅価格 前月比",
+    "FHFA House Price Index YoY":       "FHFA住宅価格 前年比",
+    "MBA Mortgage Applications":        "MBA住宅ローン申請件数",
+    "MBA Mortgage Market Index":        "MBA住宅ローン市場指数",
+    "Mortgage Market Index":            "住宅ローン市場指数",
+
+    # 米国 - 雇用
+    "Nonfarm Payrolls":                 "非農業部門雇用者数",
+    "Non-Farm Payrolls":                "非農業部門雇用者数",
+    "NFP":                              "非農業部門雇用者数",
+    "Unemployment Rate":                "失業率",
+    "Initial Jobless Claims":           "新規失業保険申請件数",
+    "Continuing Jobless Claims":        "継続失業保険申請件数",
+    "Jobless Claims 4-Wk Avg":         "失業保険申請 4週平均",
+    "Average Hourly Earnings MoM":      "平均時給 前月比",
+    "Average Hourly Earnings YoY":      "平均時給 前年比",
+    "Average Weekly Hours":             "平均週労働時間",
+    "Labor Force Participation Rate":   "労働参加率",
+    "Employment Trends":                "雇用トレンド指数",
+    "Employment Trends*":               "雇用トレンド指数",
+    "ADP Employment Change":            "ADP雇用者数変化",
+    "ADP Nonfarm Employment Change":    "ADP非農業部門雇用変化",
+    "JOLTS Job Openings":               "JOLTS求人件数",
+    "JOLTS Quits Rate":                 "JOLTS離職率",
+    "Challenger Job Cuts":              "チャレンジャー人員削減数",
+    "Employment Cost Index":            "雇用コスト指数",
+
+    # 米国 - 物価・インフレ
+    "Consumer Price Index":             "消費者物価指数（CPI）",
+    "CPI":                              "消費者物価指数（CPI）",
+    "CPI MoM":                          "CPI 前月比",
+    "CPI YoY":                          "CPI 前年比",
+    "Core CPI MoM":                     "コアCPI 前月比",
+    "Core CPI YoY":                     "コアCPI 前年比",
+    "CPI ex Food & Energy MoM":         "コアCPI 前月比",
+    "CPI ex Food & Energy YoY":         "コアCPI 前年比",
+    "Producer Price Index":             "生産者物価指数（PPI）",
+    "PPI":                              "生産者物価指数（PPI）",
+    "PPI MoM":                          "PPI 前月比",
+    "PPI YoY":                          "PPI 前年比",
+    "Core PPI MoM":                     "コアPPI 前月比",
+    "Core PPI YoY":                     "コアPPI 前年比",
+    "PCE Price Index":                  "PCE物価指数",
+    "PCE Price Index MoM":              "PCE物価指数 前月比",
+    "PCE Price Index YoY":              "PCE物価指数 前年比",
+    "Core PCE Price Index":             "コアPCE物価指数",
+    "Core PCE Price Index MoM":         "コアPCE物価指数 前月比",
+    "Core PCE Price Index YoY":         "コアPCE物価指数 前年比",
+    "Import Price Index":               "輸入物価指数",
+    "Export Price Index":               "輸出物価指数",
+    "Wholesale Inventories":            "卸売在庫",
+
+    # 米国 - GDP・成長
+    "GDP":                              "GDP（国内総生産）",
+    "Gross Domestic Product":           "GDP（国内総生産）",
+    "GDP QoQ":                          "GDP 前期比",
+    "GDP Growth Rate":                  "GDP成長率",
+    "GDP Price Index":                  "GDPデフレーター",
+    "Real GDP":                         "実質GDP",
+    "Personal Spending":                "個人消費支出",
+    "Personal Income":                  "個人所得",
+    "Personal Consumption Expenditures":"個人消費支出",
+
+    # 米国 - 金融政策
+    "FOMC Meeting":                     "FOMC会合",
+    "FOMC Statement":                   "FOMC声明",
+    "FOMC Minutes":                     "FOMC議事録",
+    "Fed Funds Rate":                   "FF金利",
+    "Federal Funds Rate":               "FF金利（政策金利）",
+    "Interest Rate Decision":           "政策金利決定",
+    "Fed Interest Rate Decision":       "FRB政策金利決定",
+    "Fed Balance Sheet":                "FRBバランスシート",
+    "Fed Chair Powell Speech":          "パウエルFRB議長 講演",
+    "Treasury Budget":                  "財務省財政収支",
+
+    # 米国 - 消費・小売
+    "Retail Sales MoM":                 "小売売上高 前月比",
+    "Retail Sales YoY":                 "小売売上高 前年比",
+    "Core Retail Sales MoM":            "コア小売売上高 前月比",
+    "Retail Sales Ex Autos":            "小売売上高（自動車除く）",
+    "Consumer Confidence":              "消費者信頼感指数（CB）",
+    "Consumer Confidence Index":        "消費者信頼感指数",
+    "Michigan Consumer Sentiment":      "ミシガン大消費者信頼感",
+    "Michigan Inflation Expectations":  "ミシガン大インフレ期待",
+    "Consumer Sentiment":               "消費者信頼感",
+
+    # 米国 - 製造業・生産
+    "Industrial Production MoM":        "鉱工業生産 前月比",
+    "Industrial Production YoY":        "鉱工業生産 前年比",
+    "Capacity Utilization":             "設備稼働率",
+    "Durable Goods Orders":             "耐久財受注",
+    "Durable Goods Orders MoM":         "耐久財受注 前月比",
+    "Core Durable Goods Orders MoM":    "コア耐久財受注 前月比",
+    "Factory Orders":                   "製造業受注",
+    "ISM Manufacturing PMI":            "ISM製造業景況指数",
+    "ISM Manufacturing":                "ISM製造業景況指数",
+    "ISM Services PMI":                 "ISMサービス業景況指数",
+    "ISM Non-Manufacturing PMI":        "ISM非製造業景況指数",
+    "S&P Global Manufacturing PMI":     "S&Pグローバル製造業PMI",
+    "S&P Global Services PMI":          "S&Pグローバルサービス業PMI",
+    "S&P Global Composite PMI":         "S&Pグローバル総合PMI",
+    "Philadelphia Fed Manufacturing":   "フィラデルフィア連銀製造業指数",
+    "Empire State Manufacturing":       "NY連銀製造業指数",
+    "Richmond Fed Manufacturing":       "リッチモンド連銀製造業指数",
+    "Chicago PMI":                      "シカゴ購買担当者景気指数",
+    "Dallas Fed Manufacturing":         "ダラス連銀製造業活動指数",
+
+    # 米国 - 国際収支・貿易
+    "Trade Balance":                    "貿易収支",
+    "Current Account":                  "経常収支",
+    "Current Account Balance":          "経常収支",
+    "Goods Trade Balance":              "財貿易収支",
+
+    # 米国 - その他指標
+    "Business Inventories":             "企業在庫",
+    "Construction Spending":            "建設支出",
+    "Crude Oil Inventories":            "原油在庫",
+    "EIA Crude Oil Stocks Change":      "EIA原油在庫変化",
+    "Natural Gas Storage":              "天然ガス在庫",
+    "Baker Hughes Oil Rig Count":       "採掘リグ稼働数",
+    "Leading Economic Indicators":      "景気先行指数",
+    "Leading Indicators":               "景気先行指数",
+    "Beige Book":                       "地区連銀経済報告（ベージュブック）",
+    "Quarterly Services Survey":        "四半期サービス業調査",
+
+    # 日本 - 金融政策
+    "Bank of Japan Rate Decision":      "日銀政策金利決定",
+    "BOJ Rate Decision":                "日銀政策金利決定",
+    "BOJ Interest Rate Decision":       "日銀政策金利決定",
+    "BOJ Monetary Policy Statement":    "日銀金融政策声明",
+    "BOJ Policy Rate":                  "日銀政策金利",
+    "BOJ Meeting Minutes":              "日銀会合議事録",
+    "BOJ Outlook Report":               "日銀展望レポート",
+    "BOJ Governor Speech":              "日銀総裁 発言",
+
+    # 日本 - 物価・消費
+    "Japan CPI":                        "日本 消費者物価指数",
+    "Japan CPI YoY":                    "日本 CPI 前年比",
+    "Japan CPI MoM":                    "日本 CPI 前月比",
+    "Japan Core CPI YoY":               "日本 コアCPI 前年比",
+    "Tokyo CPI":                        "東京都 消費者物価指数",
+    "Tokyo CPI YoY":                    "東京都 CPI 前年比",
+    "All Household Spending MM":        "家計支出（月次）",
+    "All Household Spending YY":        "家計支出（年次）",
+    "Household Spending MoM":           "家計支出 前月比",
+    "Household Spending YoY":           "家計支出 前年比",
+    "Retail Sales MoM":                 "小売売上高 前月比",
+    "Retail Sales YoY":                 "小売売上高 前年比",
+
+    # 日本 - GDP・生産
+    "Japan GDP":                        "日本 GDP",
+    "Japan GDP QoQ":                    "日本 GDP 前期比",
+    "Japan GDP YoY":                    "日本 GDP 前年比",
+    "Industrial Production MoM":        "鉱工業生産 前月比",
+    "Industrial Production YoY":        "鉱工業生産 前年比",
+    "Manufacturing PMI":                "製造業PMI",
+    "Services PMI":                     "サービス業PMI",
+    "Composite PMI":                    "総合PMI",
+    "Jibun Bank Manufacturing PMI":     "じぶん銀行製造業PMI",
+    "Jibun Bank Services PMI":          "じぶん銀行サービス業PMI",
+    "Jibun Bank Composite PMI":         "じぶん銀行総合PMI",
+
+    # 日本 - 雇用・貿易
+    "Japan Unemployment Rate":          "日本 失業率",
+    "Jobs/Applicants Ratio":            "有効求人倍率",
+    "Foreign Reserves":                 "外貨準備高",
+    "Japan Trade Balance":              "日本 貿易収支",
+    "Trade Balance":                    "貿易収支",
+    "Current Account":                  "経常収支",
+    "Tankan Large Manufacturers Index": "日銀短観 大企業製造業",
+    "Tankan Survey":                    "日銀短観",
+    "Machinery Orders":                 "機械受注",
+    "Machine Tool Orders":              "工作機械受注",
+    "Housing Starts":                   "新設住宅着工件数",
+    "Consumer Confidence":              "消費者信頼感指数",
+    "Leading Index":                    "景気先行指数（CI）",
+    "Coincident Index":                 "景気一致指数",
+}
+
+
+def translate_event_name(name: str) -> str:
+    """経済指標名を日本語に変換。マッピングにない場合は元の名前を返す。"""
+    cleaned = name.rstrip("*").strip()
+    return EVENT_NAME_JP.get(cleaned, EVENT_NAME_JP.get(name.strip(), name))
 
 
 # 経済指標の重要度判定キーワード
@@ -286,9 +488,11 @@ def fetch_economic_calendar(dates: list[datetime.date]) -> list[dict]:
                 time_jst = utc_str_to_jst(time_utc, day)
                 importance = classify_importance(event_name, country_code)
                 country_label = COUNTRY_MAP.get(country_code, country_code)
+                event_name_ja = translate_event_name(event_name)
 
                 day_results.append({
                     "event": event_name,
+                    "event_ja": event_name_ja,
                     "country": country_code,
                     "country_label": country_label,
                     "time_utc": time_utc,

@@ -701,7 +701,7 @@ function renderEvents() {
             <div class="evt-item ${impCls}">
               <div class="evt-time">${esc(e.time_jst||'-')}</div>
               <div>
-                <div class="evt-name">${impMark} ${esc(e.event)}${forecastTxt}</div>
+                <div class="evt-name">${impMark} ${esc(e.event_ja||e.event)}${forecastTxt}</div>
                 <div class="evt-country">${esc(e.country_label||e.country)}</div>
                 ${actualBadge}
               </div>
@@ -727,7 +727,9 @@ function renderEvents() {
           const timeBadge = e.call_time === 'AMC'
             ? `<span class="evt-badge b-amc">引け後</span>`
             : e.call_time === 'BMO'
-            ? `<span class="evt-badge b-bmo">寄り前</span>` : '';
+            ? `<span class="evt-badge b-bmo">寄り前</span>`
+            : e.call_time === 'TAS' || e.call_time === 'TNS'
+            ? `<span class="evt-badge" style="background:rgba(100,116,139,.2);color:#94a3b8">時刻未定</span>` : '';
           const epsTxt = e.eps_estimate && e.eps_estimate !== '-'
             ? ` <span style="color:var(--muted)">予EPS:${esc(e.eps_estimate)}</span>` : '';
           const reportedBadge = e.reported_eps
@@ -758,10 +760,11 @@ function renderEvents() {
           const priceStr = e.price ? e.price.toLocaleString()+'円' : '';
           html += `
             <div class="evt-item">
-              <div class="evt-time" style="color:var(--accent2);font-weight:700">${esc(e.code)}</div>
+              <div class="evt-time" style="color:var(--muted);font-size:10px">時刻未定</div>
               <div>
-                <div class="evt-name">${esc(e.name)}
-                  <span style="color:var(--muted);font-size:11px">${priceStr}</span>
+                <div class="evt-name">
+                  <span style="color:var(--accent2);font-weight:700;margin-right:5px">${esc(e.code)}</span>${esc(e.name)}
+                  <span style="color:var(--muted);font-size:11px;margin-left:4px">${priceStr}</span>
                 </div>
                 <div style="display:flex;gap:4px;margin-top:2px">${mktBadge}${qBadge}</div>
               </div>
