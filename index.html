@@ -114,6 +114,43 @@
     .code-link{color:var(--accent2);font-weight:700;font-family:monospace;text-decoration:none}
     .code-link:hover{text-decoration:underline}
 
+    /* ── Events Panel ── */
+    .evt-panel{background:var(--surface);border-bottom:1px solid var(--border);
+               padding:0 20px}
+    .evt-toggle{display:flex;align-items:center;gap:8px;padding:9px 0;
+                cursor:pointer;border:none;background:none;color:var(--text);
+                font-size:13px;font-weight:600;width:100%;text-align:left}
+    .evt-toggle:hover{color:var(--accent2)}
+    .evt-toggle-icon{font-size:10px;color:var(--muted);transition:transform .2s}
+    .evt-toggle-icon.open{transform:rotate(90deg)}
+    .evt-body{display:none;padding:0 0 14px}
+    .evt-body.open{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    @media(max-width:900px){.evt-body.open{grid-template-columns:1fr}}
+    .evt-col-hdr{font-size:11px;font-weight:700;color:var(--muted);
+                 text-transform:uppercase;letter-spacing:.07em;
+                 padding:8px 0 6px;border-bottom:1px solid var(--border);margin-bottom:8px}
+    .evt-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;
+              border-bottom:1px solid rgba(46,50,80,.5);font-size:12px}
+    .evt-item:last-child{border-bottom:none}
+    .evt-time{color:var(--accent2);font-family:monospace;font-size:11px;
+              min-width:46px;padding-top:1px}
+    .evt-name{flex:1;line-height:1.4}
+    .evt-country{font-size:10px;color:var(--muted)}
+    .imp-high{color:#f87171;font-weight:700}
+    .imp-high .evt-name{color:#fca5a5}
+    .imp-medium{color:var(--text)}
+    .imp-medium .evt-name{color:#fbbf24}
+    .imp-low{color:var(--muted)}
+    .evt-badge{font-size:10px;padding:1px 5px;border-radius:8px;
+               white-space:nowrap;margin-top:1px}
+    .b-amc{background:rgba(99,102,241,.2);color:#818cf8}
+    .b-bmo{background:rgba(34,197,94,.15);color:#4ade80}
+    .b-actual{background:rgba(34,197,94,.15);color:#4ade80}
+    .evt-cnt{background:var(--accent);color:#fff;font-size:10px;padding:1px 6px;
+             border-radius:10px;font-weight:700}
+    .evt-date-sep{font-size:10px;color:var(--muted);padding:6px 0 3px;
+                  font-weight:700;text-transform:uppercase}
+
     /* ── Grid 2 ── */
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:860px){.grid2{grid-template-columns:1fr}}
@@ -223,6 +260,33 @@
   <button class="tab" onclick="switchTab('sector',this)">
     📈 セクター分析
   </button>
+</div>
+
+<!-- ── Events Panel ── -->
+<div class="evt-panel" id="evt-panel">
+  <button class="evt-toggle" onclick="toggleEvents(this)">
+    <span>📅 本日のイベントカレンダー</span>
+    <span class="evt-cnt" id="evt-high-cnt" style="display:none">0</span>
+    <span id="evt-loading-txt" style="font-size:11px;color:var(--muted);font-weight:400">読み込み中...</span>
+    <span class="evt-toggle-icon" id="evt-icon">▶</span>
+  </button>
+  <div class="evt-body" id="evt-body">
+    <!-- 経済指標 -->
+    <div>
+      <div class="evt-col-hdr">📊 経済指標スケジュール</div>
+      <div id="evt-eco-list"><div style="color:var(--muted);font-size:12px">読み込み中...</div></div>
+    </div>
+    <!-- 米国株決算 -->
+    <div>
+      <div class="evt-col-hdr">🇺🇸 米国株 決算予定</div>
+      <div id="evt-us-list"><div style="color:var(--muted);font-size:12px">読み込み中...</div></div>
+    </div>
+    <!-- 日本株決算 -->
+    <div>
+      <div class="evt-col-hdr">🇯🇵 日本株 決算予定（翌日）</div>
+      <div id="evt-jp-list"><div style="color:var(--muted);font-size:12px">読み込み中...</div></div>
+    </div>
+  </div>
 </div>
 
 <!-- ── Main ── -->
@@ -519,7 +583,7 @@
 /* ════════════════════════════════════════════
    状態
 ════════════════════════════════════════════ */
-let jpData = null, usData = null, volData = null;
+let jpData = null, usData = null, volData = null, evData = null;
 let modalPriceChart = null, modalVolChart = null;
 
 const COLORS = [
@@ -582,6 +646,134 @@ function showNoData(errId, ctx, time) {
 /* ════════════════════════════════════════════
    タブ切り替え
 ════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   イベントカレンダー
+════════════════════════════════════════════ */
+function toggleEvents(btn) {
+  const body = document.getElementById('evt-body');
+  const icon = document.getElementById('evt-icon');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+  if (!isOpen && evData) renderEvents();  // 初回展開時にレンダリング
+}
+
+function renderEvents() {
+  if (!evData) return;
+  document.getElementById('evt-loading-txt').textContent = '';
+
+  const todayStr    = evData.target_today;
+  const tomorrowStr = evData.target_tomorrow;
+
+  // 高重要度イベント数をバッジ表示
+  const highCount = (evData.economic||[]).filter(e => e.importance === 'high').length;
+  const cntEl = document.getElementById('evt-high-cnt');
+  if (highCount > 0) {
+    cntEl.textContent = `重要 ${highCount}件`;
+    cntEl.style.display = '';
+    // 高重要度があれば自動展開
+    const body = document.getElementById('evt-body');
+    if (!body.classList.contains('open')) {
+      body.classList.add('open');
+      document.getElementById('evt-icon').classList.add('open');
+    }
+  }
+
+  // ── 経済指標 ──
+  const eco = evData.economic || [];
+  const ecoHTML = eco.length === 0
+    ? '<div class="imp-low">本日・翌日の予定なし</div>'
+    : (() => {
+        let html = '';
+        let lastDate = '';
+        for (const e of eco) {
+          if (e.date !== lastDate) {
+            const label = e.date === todayStr ? '📅 今日' : '📅 翌営業日';
+            html += `<div class="evt-date-sep">${label} (${e.date})</div>`;
+            lastDate = e.date;
+          }
+          const impCls = `imp-${e.importance}`;
+          const impMark = e.importance === 'high' ? '🔴' : e.importance === 'medium' ? '🟡' : '⚪';
+          const actualBadge = e.actual
+            ? `<span class="evt-badge b-actual">実績 ${esc(e.actual)}</span>` : '';
+          const forecastTxt = e.forecast ? ` 予想:${esc(e.forecast)}` : '';
+          html += `
+            <div class="evt-item ${impCls}">
+              <div class="evt-time">${esc(e.time_jst||'-')}</div>
+              <div>
+                <div class="evt-name">${impMark} ${esc(e.event)}${forecastTxt}</div>
+                <div class="evt-country">${esc(e.country_label||e.country)}</div>
+                ${actualBadge}
+              </div>
+            </div>`;
+        }
+        return html;
+      })();
+  document.getElementById('evt-eco-list').innerHTML = ecoHTML;
+
+  // ── 米国株決算 ──
+  const usEarnings = evData.us_earnings || [];
+  const usHTML = usEarnings.length === 0
+    ? '<div class="imp-low">本日・翌日の予定なし</div>'
+    : (() => {
+        let html = '';
+        let lastDate = '';
+        for (const e of usEarnings.slice(0, 30)) {
+          if (e.date !== lastDate) {
+            const label = e.date === todayStr ? '📅 今日' : '📅 翌営業日';
+            html += `<div class="evt-date-sep">${label} (${e.date})</div>`;
+            lastDate = e.date;
+          }
+          const timeBadge = e.call_time === 'AMC'
+            ? `<span class="evt-badge b-amc">引け後</span>`
+            : e.call_time === 'BMO'
+            ? `<span class="evt-badge b-bmo">寄り前</span>` : '';
+          const epsTxt = e.eps_estimate && e.eps_estimate !== '-'
+            ? ` <span style="color:var(--muted)">予EPS:${esc(e.eps_estimate)}</span>` : '';
+          const reportedBadge = e.reported_eps
+            ? `<span class="evt-badge b-actual">EPS ${esc(e.reported_eps)}</span>` : '';
+          html += `
+            <div class="evt-item">
+              <div class="evt-time" style="color:var(--accent2);font-weight:700">${esc(e.symbol)}</div>
+              <div>
+                <div class="evt-name">${esc(e.name||e.symbol)}${epsTxt}</div>
+                <div style="display:flex;gap:4px;margin-top:2px">${timeBadge}${reportedBadge}</div>
+              </div>
+            </div>`;
+        }
+        return html;
+      })();
+  document.getElementById('evt-us-list').innerHTML = usHTML;
+
+  // ── 日本株決算（翌日） ──
+  const jpEarnings = evData.jp_earnings || [];
+  const jpHTML = jpEarnings.length === 0
+    ? '<div class="imp-low">翌日の決算予定なし</div>'
+    : (() => {
+        let html = `<div class="evt-date-sep">📅 翌営業日 (${tomorrowStr}) ${jpEarnings.length}社</div>`;
+        for (const e of jpEarnings.slice(0, 30)) {
+          const mktBadge = `<span class="evt-badge" style="background:#2e3250;color:var(--muted)">${esc(e.market||'')}</span>`;
+          const qBadge = e.quarter
+            ? `<span class="evt-badge" style="background:rgba(99,102,241,.15);color:#818cf8">${esc(e.quarter)}</span>` : '';
+          const priceStr = e.price ? e.price.toLocaleString()+'円' : '';
+          html += `
+            <div class="evt-item">
+              <div class="evt-time" style="color:var(--accent2);font-weight:700">${esc(e.code)}</div>
+              <div>
+                <div class="evt-name">${esc(e.name)}
+                  <span style="color:var(--muted);font-size:11px">${priceStr}</span>
+                </div>
+                <div style="display:flex;gap:4px;margin-top:2px">${mktBadge}${qBadge}</div>
+              </div>
+            </div>`;
+        }
+        if (jpEarnings.length > 30)
+          html += `<div style="color:var(--muted);font-size:11px;padding:5px 0">他 ${jpEarnings.length-30}社...</div>`;
+        return html;
+      })();
+  document.getElementById('evt-jp-list').innerHTML = jpHTML;
+}
+
 function switchTab(name, btn) {
   document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
@@ -621,6 +813,13 @@ async function loadData() {
       .catch(() => {
         document.getElementById('vol-loading').style.display = 'none';
         showErr('vol-err', '出来高データ未取得（初回 Actions 実行後に表示）');
+      }),
+
+    fetch(`data/events.json?t=${ts}`)
+      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(d => { evData = d; renderEvents(); })
+      .catch(() => {
+        document.getElementById('evt-loading-txt').textContent = '（データ未取得）';
       }),
   ]);
 
