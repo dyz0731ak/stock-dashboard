@@ -403,35 +403,57 @@
 
       <div class="stats-row" id="japan-stats"></div>
 
-      <div class="grid-2">
-        <!-- ストップ高テーブル -->
-        <div class="card" style="grid-column: 1 / -1;">
-          <div class="card-header">
-            <div class="card-title">
-              <div class="card-icon icon-jp">🛑</div>
-              ストップ高銘柄一覧
-            </div>
-            <div class="search-box" style="width:240px; margin:0;">
-              <input type="text" id="jp-search" placeholder="銘柄名・コードで検索..." oninput="filterTable('jp-table', this.value)" />
-            </div>
+      <!-- ストップ高テーブル -->
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon icon-jp">🛑</div>
+            ストップ高銘柄一覧（S高確定）
           </div>
-          <div class="table-wrap">
-            <table id="jp-table">
-              <thead>
-                <tr>
-                  <th>コード</th>
-                  <th>銘柄名</th>
-                  <th>業種</th>
-                  <th>市場</th>
-                  <th style="text-align:right">現在値</th>
-                  <th style="text-align:right">前日比</th>
-                  <th style="text-align:right">変化率</th>
-                  <th>状態</th>
-                </tr>
-              </thead>
-              <tbody id="jp-tbody"></tbody>
-            </table>
+          <div class="search-box" style="width:240px; margin:0;">
+            <input type="text" id="jp-search" placeholder="銘柄名・コードで検索..." oninput="filterTable('jp-table', this.value)" />
           </div>
+        </div>
+        <div class="table-wrap">
+          <table id="jp-table">
+            <thead>
+              <tr>
+                <th>コード</th>
+                <th>銘柄名</th>
+                <th>業種</th>
+                <th>市場</th>
+                <th style="text-align:right">現在値（S高値）</th>
+                <th style="text-align:right">前日比</th>
+                <th style="text-align:right">変化率</th>
+              </tr>
+            </thead>
+            <tbody id="jp-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 上昇率上位テーブル -->
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon icon-jp">📈</div>
+            上昇率上位銘柄（当日 上位30件）
+          </div>
+        </div>
+        <div class="table-wrap" style="max-height:400px;">
+          <table id="jp-near-table">
+            <thead>
+              <tr>
+                <th>コード</th>
+                <th>銘柄名</th>
+                <th>市場</th>
+                <th style="text-align:right">現在値</th>
+                <th style="text-align:right">前日比</th>
+                <th style="text-align:right">変化率</th>
+              </tr>
+            </thead>
+            <tbody id="jp-near-tbody"></tbody>
+          </table>
         </div>
       </div>
 
@@ -607,6 +629,17 @@ function switchTab(name) {
 /* ══════════════════════════════════════════
    データ読み込み
 ══════════════════════════════════════════ */
+function fmtJST(isoStr) {
+  if (!isoStr) return '不明';
+  try {
+    return new Date(isoStr).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo', hour12: false,
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit'
+    });
+  } catch { return isoStr; }
+}
+
 async function loadData() {
   const ts = Date.now();
 
@@ -616,7 +649,7 @@ async function loadData() {
       .then(data => { jpData = data; renderJapan(); })
       .catch(err => {
         console.error('Japan data error:', err);
-        showError('japan', 'データ取得失敗。GitHub Actionsの初回実行をお待ちください。');
+        showError('japan', 'データ取得失敗: ' + err.message + '（GitHub Actions の初回実行後に表示されます）');
         document.getElementById('japan-loading').style.display = 'none';
       }),
 
@@ -625,23 +658,32 @@ async function loadData() {
       .then(data => { usData = data; renderUS(); })
       .catch(err => {
         console.error('US data error:', err);
-        showError('us', 'データ取得失敗。GitHub Actionsの初回実行をお待ちください。');
+        showError('us', 'データ取得失敗: ' + err.message + '（GitHub Actions の初回実行後に表示されます）');
         document.getElementById('us-loading').style.display = 'none';
       }),
   ]);
 
-  // 最終更新時刻
+  // ヘッダー最終更新時刻
   const updated = jpData?.updated_at || usData?.updated_at;
   if (updated) {
-    const d = new Date(updated);
     document.getElementById('last-updated').textContent =
-      '最終更新: ' + d.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', hour12: false });
+      'データ取得: ' + fmtJST(updated);
   }
 }
 
 function showError(prefix, msg) {
   const el = document.getElementById(prefix + '-error');
   if (el) { el.textContent = '⚠️ ' + msg; el.style.display = 'block'; }
+}
+
+function showNoDataWarning(prefix, context) {
+  const el = document.getElementById(prefix + '-error');
+  if (el) {
+    el.innerHTML = `⚠️ <strong>データが0件です。</strong> ${context}<br>
+      <small>市場休場中（土日・祝日・時間外）またはデータ取得に失敗した可能性があります。
+      GitHub Actions が次回実行されると自動更新されます。</small>`;
+    el.style.display = 'block';
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -652,52 +694,80 @@ function renderJapan() {
   document.getElementById('japan-loading').style.display = 'none';
   document.getElementById('japan-content').style.display = 'block';
 
-  const stopHigh = jpData.stop_high || [];
-  const topGainers = jpData.top_gainers || [];
-  const allStocks = [...stopHigh, ...topGainers];
+  const stopHigh  = jpData.stop_high  || [];
+  const nearStop  = jpData.near_stop  || jpData.top_gainers || [];  // 旧フィールド互換
 
   // バッジ更新
   document.getElementById('badge-jp').textContent = stopHigh.length;
+
+  // 0件警告
+  if (stopHigh.length === 0) {
+    showNoDataWarning('japan',
+      `データ取得時刻: <strong>${fmtJST(jpData.updated_at)}</strong>`);
+  }
 
   // Stats
   document.getElementById('japan-stats').innerHTML = `
     <div class="stat-card">
       <div class="stat-label">ストップ高銘柄数</div>
-      <div class="stat-value stat-up">${stopHigh.length}<span style="font-size:16px;margin-left:4px">件</span></div>
-      <div class="stat-sub">本日のストップ高</div>
+      <div class="stat-value ${stopHigh.length > 0 ? 'stat-up' : ''}">${stopHigh.length}<span style="font-size:16px;margin-left:4px">件</span></div>
+      <div class="stat-sub">本日のS高確定銘柄</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">活発な業種数</div>
       <div class="stat-value">${Object.keys(jpData.sector_analysis || {}).length}<span style="font-size:16px;margin-left:4px">業種</span></div>
-      <div class="stat-sub">ストップ高出現</div>
+      <div class="stat-sub">S高出現業種</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">最多業種</div>
       <div class="stat-value" style="font-size:18px">${getTopSector(jpData.sector_analysis)}</div>
-      <div class="stat-sub">最も多い業種</div>
+      <div class="stat-sub">最もS高が多い業種</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">更新タイミング</div>
-      <div class="stat-value" style="font-size:18px">15分</div>
-      <div class="stat-sub">GitHub Actions 自動更新</div>
+      <div class="stat-label">データ取得日時</div>
+      <div class="stat-value" style="font-size:14px;color:var(--accent2)">${fmtJST(jpData.updated_at)}</div>
+      <div class="stat-sub">GitHub Actions 15分ごと更新</div>
     </div>
   `;
 
-  // テーブル
+  // ─── ストップ高テーブル ───
   const tbody = document.getElementById('jp-tbody');
   if (stopHigh.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">現在ストップ高銘柄はありません</td></tr>';
+    tbody.innerHTML = `
+      <tr><td colspan="7" style="text-align:center;padding:48px 20px;">
+        <div style="color:var(--text-muted);font-size:14px;">
+          <div style="font-size:32px;margin-bottom:12px">📭</div>
+          <div>現在ストップ高銘柄はありません</div>
+          <div style="font-size:12px;margin-top:6px">取引時間外・市場休場・または本日はS高なし</div>
+        </div>
+      </td></tr>`;
   } else {
     tbody.innerHTML = stopHigh.map(s => `
       <tr>
-        <td><span class="stock-code">${esc(s.code)}</span></td>
+        <td><a href="https://kabutan.jp/stock/?code=${esc(s.code)}" target="_blank"
+               style="color:var(--accent2);font-weight:600;font-family:monospace;text-decoration:none">${esc(s.code)}</a></td>
         <td><span class="stock-name" title="${esc(s.name)}">${esc(s.name)}</span></td>
         <td><span class="sector-tag">${esc(s.sector || '不明')}</span></td>
         <td>${esc(s.market || '')}</td>
-        <td class="price" style="text-align:right">${s.price ? s.price.toLocaleString() + ' 円' : '-'}</td>
-        <td style="text-align:right">${s.change ? `<span class="badge badge-up">▲ ${esc(s.change)}</span>` : '-'}</td>
-        <td style="text-align:right">${s.change_pct ? formatPct(s.change_pct) : '-'}</td>
-        <td><span class="badge badge-stop">ストップ高</span></td>
+        <td class="price" style="text-align:right">${s.price != null ? Number(s.price).toLocaleString() + ' 円' : '-'}</td>
+        <td style="text-align:right"><span class="badge badge-up">▲ ${esc(s.change_amount || '-')}</span></td>
+        <td style="text-align:right">${formatPct(s.change_pct)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // ─── 上昇率上位テーブル（nearStop） ───
+  const nearTbody = document.getElementById('jp-near-tbody');
+  if (nearTbody) {
+    nearTbody.innerHTML = nearStop.slice(0, 30).map(s => `
+      <tr>
+        <td><a href="https://kabutan.jp/stock/?code=${esc(s.code)}" target="_blank"
+               style="color:var(--accent2);font-weight:600;font-family:monospace;text-decoration:none">${esc(s.code)}</a></td>
+        <td><span class="stock-name">${esc(s.name)}</span></td>
+        <td>${esc(s.market || '')}</td>
+        <td class="price" style="text-align:right">${s.price != null ? Number(s.price).toLocaleString() + ' 円' : '-'}</td>
+        <td style="text-align:right"><span class="badge badge-up">▲ ${esc(s.change_amount || '-')}</span></td>
+        <td style="text-align:right">${formatPct(s.change_pct)}</td>
       </tr>
     `).join('');
   }
@@ -719,6 +789,12 @@ function renderUS() {
   // バッジ
   document.getElementById('badge-us').textContent = gainers.length;
 
+  // 0件警告
+  if (gainers.length === 0) {
+    showNoDataWarning('us',
+      `データ取得時刻(UTC): <strong>${fmtJST(usData.updated_at)}</strong>`);
+  }
+
   // Stats
   const top = gainers[0] || {};
   const avgPct = gainers.length
@@ -727,40 +803,48 @@ function renderUS() {
   document.getElementById('us-stats').innerHTML = `
     <div class="stat-card">
       <div class="stat-label">上昇銘柄数</div>
-      <div class="stat-value stat-up">${gainers.length}<span style="font-size:16px;margin-left:4px">件</span></div>
-      <div class="stat-sub">当日上昇率上位</div>
+      <div class="stat-value ${gainers.length > 0 ? 'stat-up' : ''}">${gainers.length}<span style="font-size:16px;margin-left:4px">件</span></div>
+      <div class="stat-sub">S&amp;P500 当日上昇率上位20</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">最高騰落率</div>
-      <div class="stat-value stat-up">${top.change_pct ? '+' + top.change_pct.toFixed(1) + '%' : '-'}</div>
-      <div class="stat-sub">${esc(top.symbol || '')}</div>
+      <div class="stat-value stat-up">${top.change_pct != null ? '+' + top.change_pct.toFixed(1) + '%' : '-'}</div>
+      <div class="stat-sub">${esc(top.symbol || '')} ${esc(top.name ? top.name.slice(0,20) : '')}</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">平均騰落率</div>
-      <div class="stat-value stat-up">+${avgPct}%</div>
-      <div class="stat-sub">上昇銘柄平均</div>
+      <div class="stat-value stat-up">${gainers.length > 0 ? '+' + avgPct + '%' : '-'}</div>
+      <div class="stat-sub">上位20銘柄平均</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">最多セクター</div>
-      <div class="stat-value" style="font-size:18px">${getTopSector(usData.sector_analysis)}</div>
-      <div class="stat-sub">最も多いセクター</div>
+      <div class="stat-label">データ取得日時</div>
+      <div class="stat-value" style="font-size:14px;color:var(--accent2)">${fmtJST(usData.updated_at)}</div>
+      <div class="stat-sub">GitHub Actions 15分ごと更新</div>
     </div>
   `;
 
   // テーブル
   const tbody = document.getElementById('us-tbody');
   if (gainers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">データがありません</td></tr>';
+    tbody.innerHTML = `
+      <tr><td colspan="7" style="text-align:center;padding:48px 20px;">
+        <div style="color:var(--text-muted);font-size:14px;">
+          <div style="font-size:32px;margin-bottom:12px">📭</div>
+          <div>データがありません（市場休場中または取得失敗）</div>
+          <div style="font-size:12px;margin-top:6px">米国市場: 日本時間 22:30〜翌5:00（夏時間 21:30〜翌4:00）</div>
+        </div>
+      </td></tr>`;
   } else {
-    tbody.innerHTML = gainers.map((s, i) => `
+    tbody.innerHTML = gainers.map((s) => `
       <tr>
-        <td><span class="stock-code">${esc(s.symbol)}</span></td>
+        <td><a href="https://finance.yahoo.com/quote/${esc(s.symbol)}" target="_blank"
+               style="color:var(--accent2);font-weight:600;font-family:monospace;text-decoration:none">${esc(s.symbol)}</a></td>
         <td><span class="stock-name" title="${esc(s.name)}">${esc(s.name)}</span></td>
         <td><span class="sector-tag">${esc(s.sector || '不明')}</span></td>
-        <td class="price" style="text-align:right">$${s.price ? s.price.toFixed(2) : '-'}</td>
+        <td class="price" style="text-align:right">$${s.price != null ? s.price.toFixed(2) : '-'}</td>
         <td style="text-align:right">
-          <span class="badge ${s.change >= 0 ? 'badge-up' : 'badge-down'}">
-            ${s.change >= 0 ? '▲' : '▼'} $${Math.abs(s.change || 0).toFixed(2)}
+          <span class="badge ${(s.change || 0) >= 0 ? 'badge-up' : 'badge-down'}">
+            ${(s.change || 0) >= 0 ? '▲' : '▼'} $${Math.abs(s.change || 0).toFixed(2)}
           </span>
         </td>
         <td style="text-align:right">${formatPct(s.change_pct)}</td>

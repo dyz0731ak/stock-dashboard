@@ -1,44 +1,42 @@
 #!/usr/bin/env python3
 """
-kabutan.jp からストップ高銘柄をスクレイピングして JSON に保存するスクリプト
+kabutan.jp ストップ高ページ (mode=2_1) から銘柄をスクレイピング
+
+確認済みページ構造（2026-05-11）:
+  URL: https://kabutan.jp/warning/?mode=2_1&market=0&capitalization=-1&dispmode=normal&stc=&stm=0&page=N
+  テーブル: <table class="stock_table st_market">
+  列: [0]コード [1]銘柄名 [2]市場 [3]概要icon [4]チャートicon
+      [5]株価 [6]S高フラグ(<span class="up">S</span>) [7]前日比 [8]変化率% [9]出来高
+  業種: /stock/?code=XXXX の <th>業種</th> 次の <td>
+
+最適化方針:
+  - 銘柄は変化率降順 → S高株は必ず上位ページに出現
+  - STOP_AFTER_NO_S_PAGES 連続ページでS高株が出なくなったら打ち切り
+  - 業種取得はS高株のみ（並列リクエスト）
+  - 上昇率上位表示用に上位 TOP_NEAR_STOP 件も保持
 """
 
 import requests
 from bs4 import BeautifulSoup
 import json
 import datetime
-import time
 import re
 import sys
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# TSE 業種コード → 業種名マッピング
-SECTOR_MAP = {
-    "1": "水産・農林業", "2": "鉱業", "3": "建設業", "4": "食料品",
-    "5": "繊維製品", "6": "パルプ・紙", "7": "化学", "8": "医薬品",
-    "9": "石油・石炭製品", "10": "ゴム製品", "11": "ガラス・土石製品",
-    "12": "鉄鋼", "13": "非鉄金属", "14": "金属製品", "15": "機械",
-    "16": "電気機器", "17": "輸送用機器", "18": "精密機器",
-    "19": "その他製品", "20": "電気・ガス業", "21": "陸運業",
-    "22": "海運業", "23": "空運業", "24": "倉庫・運輸関連業",
-    "25": "情報・通信業", "26": "卸売業", "27": "小売業",
-    "28": "銀行業", "29": "証券・商品先物取引業", "30": "保険業",
-    "31": "その他金融業", "32": "不動産業", "33": "サービス業",
-}
+BASE_URL = "https://kabutan.jp"
+LIST_URL = (
+    BASE_URL
+    + "/warning/?mode=2_1&market=0&capitalization=-1"
+    + "&dispmode=normal&stc=&stm=0&page={page}"
+)
+DETAIL_URL = BASE_URL + "/stock/?code={code}"
 
-# 業種コード（数字）→ 略称マッピング（表示用）
-SECTOR_CODE_TO_NAME = {
-    "050": "水産・農林", "100": "鉱業", "150": "建設",
-    "200": "食料品", "250": "繊維", "300": "パルプ・紙",
-    "350": "化学", "400": "医薬品", "450": "石油・石炭",
-    "500": "ゴム", "550": "ガラス・土石", "600": "鉄鋼",
-    "650": "非鉄金属", "700": "金属製品", "750": "機械",
-    "800": "電気機器", "850": "輸送用機器", "900": "精密機器",
-    "950": "その他製品", "1000": "電気・ガス", "1050": "陸運",
-    "1100": "海運", "1150": "空運", "1200": "倉庫・運輸",
-    "1250": "情報・通信", "1300": "卸売", "1350": "小売",
-    "1400": "銀行", "1450": "証券・先物", "1500": "保険",
-    "1550": "その他金融", "1600": "不動産", "1650": "サービス",
-}
+# ページ走査の上限・打ち切り設定
+MAX_PAGES          = 20   # 最大何ページまで見るか（S高株は通常すべて上位5ページ内）
+STOP_AFTER_NO_S    = 3    # S高株が連続でこの回数出なかったら打ち切り
+TOP_NEAR_STOP      = 50   # S高以外の上昇率上位を何件保持するか
 
 HEADERS = {
     "User-Agent": (
@@ -50,234 +48,242 @@ HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
 
-def fetch_stop_high():
-    """kabutan.jp からストップ高銘柄一覧を取得"""
-    url = "https://kabutan.jp/warning/?mode=39&market=0"
+
+def get_total_pages(soup):
+    """ページネーションから最終ページ番号を取得"""
+    pager = soup.find("div", class_="pagination")
+    if not pager:
+        return 1
+    nums = [
+        int(m.group(1))
+        for a in pager.find_all("a")
+        for m in [re.search(r"page=(\d+)", a.get("href", ""))]
+        if m
+    ]
+    return max(nums) if nums else 1
+
+
+def parse_table_rows(soup):
+    """
+    stock_table の各行をパースして銘柄データのリストを返す
+
+    確認済み列マッピング:
+      cols[0] = コード  (td.tac > a)
+      cols[1] = 銘柄名  (th.tal)
+      cols[2] = 市場    (td.tac)
+      cols[3] = 概要icon
+      cols[4] = チャートicon
+      cols[5] = 現在値（株価）
+      cols[6] = S高フラグ  span.up が "S" ならストップ高
+      cols[7] = 前日比（金額）
+      cols[8] = 変化率%
+      cols[9] = 出来高
+    """
+    table = soup.find("table", class_="stock_table")
+    if not table:
+        return []
+
     stocks = []
+    for row in table.find_all("tr")[1:]:   # ヘッダー行スキップ
+        cols = row.find_all(["td", "th"])
+        if len(cols) < 9:
+            continue
+        try:
+            # ── コード ──
+            code_a = cols[0].find("a")
+            code   = code_a.get_text(strip=True) if code_a else cols[0].get_text(strip=True)
+            if not re.match(r"^\d{4}$", code):
+                continue
 
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=20)
-        resp.encoding = "utf-8"
-        soup = BeautifulSoup(resp.text, "html.parser")
+            # ── 銘柄名 ──
+            name = cols[1].get_text(strip=True)
 
-        # ストップ高テーブルを探す
-        tables = soup.find_all("table")
-        for table in tables:
-            rows = table.find_all("tr")
-            for row in rows[1:]:  # ヘッダーをスキップ
-                cols = row.find_all("td")
-                if len(cols) < 5:
-                    continue
-                try:
-                    # コード
-                    code_td = cols[0]
-                    code_link = code_td.find("a")
-                    code = code_link.text.strip() if code_link else code_td.text.strip()
+            # ── 市場 ──
+            market = cols[2].get_text(strip=True)
 
-                    # 銘柄名
-                    name_td = cols[1]
-                    name_link = name_td.find("a")
-                    name = name_link.text.strip() if name_link else name_td.text.strip()
+            # ── 現在値（株価） ──
+            price_raw = cols[5].get_text(strip=True).replace(",", "")
+            price     = float(price_raw) if price_raw and price_raw not in ("-", "") else None
 
-                    # 市場・業種
-                    market = cols[2].text.strip() if len(cols) > 2 else ""
-                    sector = cols[3].text.strip() if len(cols) > 3 else "不明"
+            # ── S高フラグ ──
+            flag_span  = cols[6].find("span", class_="up")
+            is_stop_high = bool(flag_span and flag_span.get_text(strip=True) == "S")
 
-                    # 現在値
-                    price_text = cols[4].text.strip().replace(",", "").replace("円", "")
-                    price = float(price_text) if price_text and price_text != "-" else 0
+            # ── 前日比（金額） ──
+            chg_span       = cols[7].find("span") or cols[7]
+            change_amount  = chg_span.get_text(strip=True).replace(",", "")
 
-                    # 前日比 / 変化率
-                    change = cols[5].text.strip() if len(cols) > 5 else ""
-                    change_pct = cols[6].text.strip() if len(cols) > 6 else ""
+            # ── 変化率% ──
+            change_pct_raw = cols[8].get_text(strip=True)
+            change_pct     = change_pct_raw.replace("%", "").strip()
 
-                    if code and name and price > 0:
-                        stocks.append({
-                            "code": code,
-                            "name": name,
-                            "market": market,
-                            "sector": sector,
-                            "price": price,
-                            "change": change,
-                            "change_pct": change_pct,
-                            "stop_high": True,
-                        })
-                except (IndexError, ValueError, AttributeError):
-                    continue
+            # ── 出来高 ──
+            vol_raw = cols[9].get_text(strip=True).replace(",", "") if len(cols) > 9 else ""
+            volume  = int(vol_raw) if vol_raw.isdigit() else None
 
-        if not stocks:
-            stocks = fetch_stop_high_fallback()
-
-    except Exception as e:
-        print(f"[警告] メイン取得失敗: {e}", file=sys.stderr)
-        stocks = fetch_stop_high_fallback()
+            stocks.append({
+                "code":           code,
+                "name":           name,
+                "market":         market,
+                "price":          price,
+                "stop_high_price": price,   # S高時は現在値＝ストップ高値
+                "is_stop_high":   is_stop_high,
+                "change_amount":  change_amount,
+                "change_pct":     change_pct,
+                "volume":         volume,
+                "sector":         None,     # 後で補完（S高株のみ）
+            })
+        except Exception as e:
+            print(f"    行パースエラー: {e}", file=sys.stderr)
+            continue
 
     return stocks
 
 
-def fetch_stop_high_fallback():
-    """代替URL でストップ高を取得"""
-    stocks = []
-    # 代替ページ
-    urls = [
-        "https://kabutan.jp/warning/?mode=39&market=1",  # 東証
-        "https://kabutan.jp/warning/?mode=39&market=3",  # 名証
-    ]
+def fetch_sector(code):
+    """個別銘柄ページ /stock/?code=XXXX から業種を取得"""
+    try:
+        resp = SESSION.get(DETAIL_URL.format(code=code), timeout=10)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for th in soup.find_all("th"):
+            if th.get_text(strip=True) == "業種":
+                td = th.find_next_sibling("td")
+                if td:
+                    return code, td.get_text(strip=True)
+        return code, "不明"
+    except Exception as e:
+        print(f"    業種取得失敗 {code}: {e}", file=sys.stderr)
+        return code, "不明"
 
-    for url in urls:
+
+def fetch_stop_high_stocks():
+    """
+    変化率上位ページを走査してS高株を収集する。
+    S高株が連続 STOP_AFTER_NO_S ページ出なくなったら打ち切り。
+    """
+    all_stop_high = []
+    all_near_stop = []   # S高以外の上昇率上位銘柄（上位 TOP_NEAR_STOP 件分）
+    no_s_streak   = 0
+    total_pages   = None
+
+    print(f"  ストップ高ページ走査（最大{MAX_PAGES}ページ）...", file=sys.stderr)
+
+    for page in range(1, MAX_PAGES + 1):
+        if page > 1:
+            time.sleep(0.4)   # サーバー負荷軽減
+
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=20)
+            resp = SESSION.get(LIST_URL.format(page=page), timeout=20)
             resp.encoding = "utf-8"
             soup = BeautifulSoup(resp.text, "html.parser")
-
-            # stock_table クラスのテーブル
-            table = soup.find("table", class_=lambda c: c and "stock" in c.lower())
-            if not table:
-                # テーブルを全検索
-                for t in soup.find_all("table"):
-                    rows = t.find_all("tr")
-                    if len(rows) > 3:
-                        table = t
-                        break
-
-            if not table:
-                continue
-
-            rows = table.find_all("tr")
-            for row in rows[1:]:
-                cols = row.find_all("td")
-                if len(cols) < 4:
-                    continue
-                try:
-                    code_text = cols[0].text.strip()
-                    name_text = cols[1].text.strip()
-                    if not re.match(r"^\d{4}$", code_text):
-                        continue
-                    price_text = re.sub(r"[^\d.]", "", cols[4].text.strip()) if len(cols) > 4 else "0"
-                    price = float(price_text) if price_text else 0
-                    sector = cols[3].text.strip() if len(cols) > 3 else "不明"
-                    market = cols[2].text.strip() if len(cols) > 2 else ""
-                    change = cols[5].text.strip() if len(cols) > 5 else ""
-                    change_pct = cols[6].text.strip() if len(cols) > 6 else ""
-
-                    stocks.append({
-                        "code": code_text,
-                        "name": name_text,
-                        "market": market,
-                        "sector": sector,
-                        "price": price,
-                        "change": change,
-                        "change_pct": change_pct,
-                        "stop_high": True,
-                    })
-                except (IndexError, ValueError):
-                    continue
-
-            time.sleep(1)
-
         except Exception as e:
-            print(f"[警告] 代替取得失敗 ({url}): {e}", file=sys.stderr)
+            print(f"  page {page} 取得失敗: {e}", file=sys.stderr)
+            continue
 
-    return stocks
+        if total_pages is None:
+            total_pages = get_total_pages(soup)
+            print(f"  総ページ数: {total_pages}（上位{MAX_PAGES}ページを走査）", file=sys.stderr)
+
+        rows = parse_table_rows(soup)
+        s_in_page = [r for r in rows if r["is_stop_high"]]
+        n_in_page = [r for r in rows if not r["is_stop_high"]]
+
+        all_stop_high.extend(s_in_page)
+        # 上昇率上位は上限まで収集
+        if len(all_near_stop) < TOP_NEAR_STOP:
+            all_near_stop.extend(n_in_page[: TOP_NEAR_STOP - len(all_near_stop)])
+
+        print(
+            f"  page {page}/{min(MAX_PAGES, total_pages or MAX_PAGES)}: "
+            f"全{len(rows)}件 うちS高={len(s_in_page)}件"
+            f"（累計S高={len(all_stop_high)}件）",
+            file=sys.stderr,
+        )
+
+        # S高株がなくなったらカウント
+        if s_in_page:
+            no_s_streak = 0
+        else:
+            no_s_streak += 1
+            if no_s_streak >= STOP_AFTER_NO_S:
+                print(
+                    f"  → {STOP_AFTER_NO_S}ページ連続でS高なし → 走査打ち切り",
+                    file=sys.stderr,
+                )
+                break
+
+    return all_stop_high, all_near_stop
 
 
-def fetch_top_gainers_japan():
-    """kabutan.jp から上昇率上位銘柄を取得（補完用）"""
-    url = "https://kabutan.jp/stock_kabuka/?mode=3&base=1&market=0"
-    stocks = []
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=20)
-        resp.encoding = "utf-8"
-        soup = BeautifulSoup(resp.text, "html.parser")
+def enrich_sectors(stocks, max_workers=10):
+    """並列リクエストで業種情報を補完（S高株のみ対象）"""
+    if not stocks:
+        return stocks
 
-        table = soup.find("table", id="stock_table")
-        if not table:
-            tables = soup.find_all("table")
-            for t in tables:
-                if t.find("td") and len(t.find_all("tr")) > 5:
-                    table = t
-                    break
+    print(f"  業種情報取得中（{len(stocks)}件, {max_workers}並列）...", file=sys.stderr)
+    sector_map = {}
 
-        if not table:
-            return stocks
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(fetch_sector, s["code"]): s["code"] for s in stocks}
+        for future in as_completed(futures):
+            code, sector = future.result()
+            sector_map[code] = sector
 
-        rows = table.find_all("tr")
-        for row in rows[1:51]:  # 上位50件
-            cols = row.find_all("td")
-            if len(cols) < 5:
-                continue
-            try:
-                code_text = cols[0].text.strip()
-                name_text = cols[1].text.strip()
-                price_text = re.sub(r"[^\d.]", "", cols[3].text.strip())
-                change_pct_text = re.sub(r"[^\d.+-]", "", cols[5].text.strip() if len(cols) > 5 else "")
-                sector = cols[2].text.strip() if len(cols) > 2 else "不明"
-
-                price = float(price_text) if price_text else 0
-                stocks.append({
-                    "code": code_text,
-                    "name": name_text,
-                    "market": "東証",
-                    "sector": sector,
-                    "price": price,
-                    "change": "",
-                    "change_pct": change_pct_text,
-                    "stop_high": False,
-                })
-            except (IndexError, ValueError):
-                continue
-    except Exception as e:
-        print(f"[警告] 上昇率取得失敗: {e}", file=sys.stderr)
+    for s in stocks:
+        s["sector"] = sector_map.get(s["code"], "不明")
 
     return stocks
 
 
 def aggregate_by_sector(stocks):
-    """業種別に集計"""
+    """業種別集計（件数降順）"""
     sector_count = {}
     for s in stocks:
-        sector = s.get("sector", "不明") or "不明"
-        sector = sector.strip() or "不明"
+        sector = s.get("sector") or "不明"
         if sector not in sector_count:
-            sector_count[sector] = {"count": 0, "stocks": []}
+            sector_count[sector] = {"count": 0, "codes": []}
         sector_count[sector]["count"] += 1
-        sector_count[sector]["stocks"].append(s["code"])
-    # 件数降順ソート
-    return dict(sorted(sector_count.items(), key=lambda x: x[1]["count"], reverse=True))
+        sector_count[sector]["codes"].append(s["code"])
+
+    return dict(
+        sorted(sector_count.items(), key=lambda x: x[1]["count"], reverse=True)
+    )
 
 
 def main():
-    print("日本株データ取得中...", file=sys.stderr)
+    print("[日本株] 取得開始...", file=sys.stderr)
 
-    stop_high = fetch_stop_high()
-    print(f"ストップ高: {len(stop_high)} 銘柄", file=sys.stderr)
+    # S高株 + 上昇率上位取得
+    stop_high, near_stop = fetch_stop_high_stocks()
 
-    # ストップ高が少ない場合は上昇率上位も追加
-    top_gainers = []
-    if len(stop_high) < 5:
-        print("上昇率上位銘柄を補完取得...", file=sys.stderr)
-        top_gainers = fetch_top_gainers_japan()
-        print(f"上昇率上位: {len(top_gainers)} 銘柄", file=sys.stderr)
+    print(f"[日本株] ストップ高: {len(stop_high)}件 / 上昇率上位: {len(near_stop)}件", file=sys.stderr)
 
-    # 業種別集計
-    sector_analysis = aggregate_by_sector(stop_high + top_gainers)
+    # S高株のみ業種を補完
+    if stop_high:
+        stop_high = enrich_sectors(stop_high)
 
+    # セクター別集計
+    sector_analysis = aggregate_by_sector(stop_high)
+
+    jst = datetime.timezone(datetime.timedelta(hours=9))
     output = {
-        "updated_at": datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),
-        "stop_high": stop_high,
-        "top_gainers": top_gainers,
+        "updated_at":      datetime.datetime.now(jst).isoformat(),
+        "stop_high_count": len(stop_high),
+        "near_stop_count": len(near_stop),
+        "stop_high":       stop_high,
+        "near_stop":       near_stop,
         "sector_analysis": sector_analysis,
-        "total_stop_high": len(stop_high),
-        "total_top_gainers": len(top_gainers),
     }
 
     out_path = "data/japan_stocks.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"保存完了: {out_path}", file=sys.stderr)
-    print(json.dumps({"status": "ok", "stop_high": len(stop_high)}))
+    print(f"[日本株] 保存: {out_path}", file=sys.stderr)
+    print(json.dumps({"status": "ok", "stop_high": len(stop_high), "near_stop": len(near_stop)}))
 
 
 if __name__ == "__main__":
