@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Dashboard | 株式マーケット分析</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22253a;
+      --border: #2e3250;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent2: #818cf8;
+      --up: #22c55e;
+      --down: #ef4444;
+      --up-bg: rgba(34,197,94,0.1);
+      --down-bg: rgba(239,68,68,0.1);
+      --tag-bg: #2e3250;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Hiragino Sans', 'Yu Gothic UI', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: linear-gradient(135deg, #1a1d27 0%, #22253a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .header-title { font-size: 18px; font-weight: 700; letter-spacing: 0.02em; }
+    .header-title span { color: var(--accent2); }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .update-badge {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pulse {
+      width: 8px; height: 8px;
+      background: var(--up);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ─── Navigation Tabs ─── */
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 16px 24px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      position: relative;
+      bottom: -1px;
+      border-bottom: 2px solid transparent;
+    }
+    .tab-btn:hover { color: var(--text); background: var(--surface2); }
+    .tab-btn.active {
+      color: var(--accent2);
+      border-bottom-color: var(--accent2);
+      background: var(--bg);
+    }
+    .tab-badge {
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-left: 6px;
+      font-weight: 600;
+    }
+
+    /* ─── Main Layout ─── */
+    .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ─── Stats Row ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-2px); }
+    .stat-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .stat-value { font-size: 28px; font-weight: 700; margin: 6px 0 2px; }
+    .stat-sub { font-size: 12px; color: var(--text-muted); }
+    .stat-up { color: var(--up); }
+    .stat-down { color: var(--down); }
+
+    /* ─── Grid ─── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .icon-jp { background: rgba(239,68,68,0.15); }
+    .icon-us { background: rgba(99,102,241,0.15); }
+    .icon-sector { background: rgba(234,179,8,0.15); }
+
+    /* ─── Search ─── */
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px 8px 36px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* ─── Table ─── */
+    .table-wrap { overflow-x: auto; max-height: 500px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--surface2);
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+      cursor: default;
+    }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td { padding: 10px 12px; font-size: 13px; white-space: nowrap; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-up { background: var(--up-bg); color: var(--up); }
+    .badge-down { background: var(--down-bg); color: var(--down); }
+    .badge-stop {
+      background: rgba(239,68,68,0.2);
+      color: #fca5a5;
+      font-size: 11px;
+    }
+
+    .stock-code { color: var(--accent2); font-weight: 600; font-family: monospace; }
+    .stock-name { color: var(--text); max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+    .price { font-weight: 600; font-variant-numeric: tabular-nums; }
+    .sector-tag {
+      background: var(--tag-bg);
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    /* ─── Chart ─── */
+    .chart-wrap { position: relative; height: 300px; }
+    .chart-full { height: 400px; }
+
+    /* ─── Sector Analysis Full Page ─── */
+    .sector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .sector-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .sector-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .sector-name { font-weight: 600; font-size: 14px; }
+    .sector-count {
+      background: var(--accent);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .sector-bar-wrap {
+      background: var(--border);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .sector-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .sector-pct { font-size: 12px; color: var(--text-muted); }
+
+    /* ─── Empty State ─── */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .empty-icon { font-size: 40px; margin-bottom: 12px; }
+
+    /* ─── Loading ─── */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+    .spinner {
+      width: 24px; height: 24px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Error Banner ─── */
+    .error-banner {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #fca5a5;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-left">
+    <div class="logo">📊</div>
+    <div>
+      <div class="header-title">Stock <span>Dashboard</span></div>
+      <div style="font-size:11px;color:var(--text-muted);">日本株・米国株 リアルタイム分析</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="update-badge">
+      <div class="pulse"></div>
+      <span id="last-updated">読み込み中...</span>
+    </div>
+  </div>
+</header>
+
+<!-- Tabs -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('japan')">
+    🇯🇵 日本株
+    <span class="tab-badge" id="badge-jp">-</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('us')">
+    🇺🇸 米国株
+    <span class="tab-badge" id="badge-us">-</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('sector')">
+    📈 セクター分析
+  </button>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- ═══════════ JAPAN TAB ═══════════ -->
+  <div id="tab-japan" class="tab-content active">
+    <div id="japan-error" class="error-banner"></div>
+    <div id="japan-loading" class="loading">
+      <div class="spinner"></div> データ読み込み中...
+    </div>
+    <div id="japan-content" style="display:none">
+
+      <div class="stats-row" id="japan-stats"></div>
+
+      <div class="grid-2">
+        <!-- ストップ高テーブル -->
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon icon-jp">🛑</div>
+              ストップ高銘柄一覧
+            </div>
+            <div class="search-box" style="width:240px; margin:0;">
+              <input type="text" id="jp-search" placeholder="銘柄名・コードで検索..." oninput="filterTable('jp-table', this.value)" />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="jp-table">
+              <thead>
+                <tr>
+                  <th>コード</th>
+                  <th>銘柄名</th>
+                  <th>業種</th>
+                  <th>市場</th>
+                  <th style="text-align:right">現在値</th>
+                  <th style="text-align:right">前日比</th>
+                  <th style="text-align:right">変化率</th>
+                  <th>状態</th>
+                </tr>
+              </thead>
+              <tbody id="jp-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 業種別チャート -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon icon-sector">📊</div>
+            業種別ストップ高件数
+          </div>
+        </div>
+        <div class="chart-wrap chart-full">
+          <canvas id="jp-sector-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ US TAB ═══════════ -->
+  <div id="tab-us" class="tab-content">
+    <div id="us-error" class="error-banner"></div>
+    <div id="us-loading" class="loading">
+      <div class="spinner"></div> データ読み込み中...
+    </div>
+    <div id="us-content" style="display:none">
+
+      <div class="stats-row" id="us-stats"></div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon icon-us">🚀</div>
+            上昇率上位銘柄（当日）
+          </div>
+          <div class="search-box" style="width:240px; margin:0;">
+            <input type="text" id="us-search" placeholder="ティッカー・銘柄名で検索..." oninput="filterTable('us-table', this.value)" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="us-table">
+            <thead>
+              <tr>
+                <th>ティッカー</th>
+                <th>銘柄名</th>
+                <th>セクター</th>
+                <th style="text-align:right">株価($)</th>
+                <th style="text-align:right">前日比($)</th>
+                <th style="text-align:right">騰落率</th>
+                <th style="text-align:right">出来高</th>
+              </tr>
+            </thead>
+            <tbody id="us-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- セクター別チャート -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon icon-sector">🗂</div>
+              セクター別件数
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="us-sector-bar-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon icon-sector">🥧</div>
+              セクター構成比
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="us-sector-pie-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTOR TAB ═══════════ -->
+  <div id="tab-sector" class="tab-content">
+    <div id="sector-loading" class="loading">
+      <div class="spinner"></div> データ読み込み中...
+    </div>
+    <div id="sector-content" style="display:none">
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🇯🇵 日本株 — 業種別ストップ高</div>
+          </div>
+          <div class="chart-wrap chart-full">
+            <canvas id="sector-jp-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🇺🇸 米国株 — セクター別上昇率</div>
+          </div>
+          <div class="chart-wrap chart-full">
+            <canvas id="sector-us-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:0">
+        <div class="card-header">
+          <div class="card-title">📋 日本株 業種別詳細</div>
+        </div>
+        <div class="sector-grid" id="jp-sector-grid"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <div class="card-title">📋 米国株 セクター別詳細</div>
+        </div>
+        <div class="sector-grid" id="us-sector-grid"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  データソース:
+  <a href="https://kabutan.jp" target="_blank">株探(kabutan.jp)</a> /
+  <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a>
+  &nbsp;|&nbsp; GitHub Actions で15分おきに自動更新 &nbsp;|&nbsp;
+  <a href="https://github.com/dyz0731ak/stock-dashboard" target="_blank">GitHub</a>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   状態管理
+══════════════════════════════════════════ */
+let jpData = null;
+let usData = null;
+let jpSectorChart = null;
+let usSectorBarChart = null;
+let usSectorPieChart = null;
+let sectorJpChart = null;
+let sectorUsChart = null;
+
+const CHART_COLORS = [
+  '#6366f1','#818cf8','#a5b4fc','#c7d2fe',
+  '#22c55e','#4ade80','#86efac',
+  '#f59e0b','#fbbf24','#fcd34d',
+  '#ef4444','#f87171','#fca5a5',
+  '#06b6d4','#22d3ee','#67e8f9',
+  '#8b5cf6','#a78bfa','#c4b5fd',
+  '#ec4899','#f472b6','#f9a8d4',
+];
+
+/* ══════════════════════════════════════════
+   タブ切り替え
+══════════════════════════════════════════ */
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+
+  if (name === 'sector' && jpData && usData) {
+    renderSectorTab();
+  }
+}
+
+/* ══════════════════════════════════════════
+   データ読み込み
+══════════════════════════════════════════ */
+async function loadData() {
+  const ts = Date.now();
+
+  await Promise.allSettled([
+    fetch(`data/japan_stocks.json?t=${ts}`)
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => { jpData = data; renderJapan(); })
+      .catch(err => {
+        console.error('Japan data error:', err);
+        showError('japan', 'データ取得失敗。GitHub Actionsの初回実行をお待ちください。');
+        document.getElementById('japan-loading').style.display = 'none';
+      }),
+
+    fetch(`data/us_stocks.json?t=${ts}`)
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => { usData = data; renderUS(); })
+      .catch(err => {
+        console.error('US data error:', err);
+        showError('us', 'データ取得失敗。GitHub Actionsの初回実行をお待ちください。');
+        document.getElementById('us-loading').style.display = 'none';
+      }),
+  ]);
+
+  // 最終更新時刻
+  const updated = jpData?.updated_at || usData?.updated_at;
+  if (updated) {
+    const d = new Date(updated);
+    document.getElementById('last-updated').textContent =
+      '最終更新: ' + d.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', hour12: false });
+  }
+}
+
+function showError(prefix, msg) {
+  const el = document.getElementById(prefix + '-error');
+  if (el) { el.textContent = '⚠️ ' + msg; el.style.display = 'block'; }
+}
+
+/* ══════════════════════════════════════════
+   日本株 レンダリング
+══════════════════════════════════════════ */
+function renderJapan() {
+  if (!jpData) return;
+  document.getElementById('japan-loading').style.display = 'none';
+  document.getElementById('japan-content').style.display = 'block';
+
+  const stopHigh = jpData.stop_high || [];
+  const topGainers = jpData.top_gainers || [];
+  const allStocks = [...stopHigh, ...topGainers];
+
+  // バッジ更新
+  document.getElementById('badge-jp').textContent = stopHigh.length;
+
+  // Stats
+  document.getElementById('japan-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">ストップ高銘柄数</div>
+      <div class="stat-value stat-up">${stopHigh.length}<span style="font-size:16px;margin-left:4px">件</span></div>
+      <div class="stat-sub">本日のストップ高</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">活発な業種数</div>
+      <div class="stat-value">${Object.keys(jpData.sector_analysis || {}).length}<span style="font-size:16px;margin-left:4px">業種</span></div>
+      <div class="stat-sub">ストップ高出現</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最多業種</div>
+      <div class="stat-value" style="font-size:18px">${getTopSector(jpData.sector_analysis)}</div>
+      <div class="stat-sub">最も多い業種</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">更新タイミング</div>
+      <div class="stat-value" style="font-size:18px">15分</div>
+      <div class="stat-sub">GitHub Actions 自動更新</div>
+    </div>
+  `;
+
+  // テーブル
+  const tbody = document.getElementById('jp-tbody');
+  if (stopHigh.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">現在ストップ高銘柄はありません</td></tr>';
+  } else {
+    tbody.innerHTML = stopHigh.map(s => `
+      <tr>
+        <td><span class="stock-code">${esc(s.code)}</span></td>
+        <td><span class="stock-name" title="${esc(s.name)}">${esc(s.name)}</span></td>
+        <td><span class="sector-tag">${esc(s.sector || '不明')}</span></td>
+        <td>${esc(s.market || '')}</td>
+        <td class="price" style="text-align:right">${s.price ? s.price.toLocaleString() + ' 円' : '-'}</td>
+        <td style="text-align:right">${s.change ? `<span class="badge badge-up">▲ ${esc(s.change)}</span>` : '-'}</td>
+        <td style="text-align:right">${s.change_pct ? formatPct(s.change_pct) : '-'}</td>
+        <td><span class="badge badge-stop">ストップ高</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // チャート
+  renderJpSectorChart('jp-sector-chart', jpData.sector_analysis);
+}
+
+/* ══════════════════════════════════════════
+   米国株 レンダリング
+══════════════════════════════════════════ */
+function renderUS() {
+  if (!usData) return;
+  document.getElementById('us-loading').style.display = 'none';
+  document.getElementById('us-content').style.display = 'block';
+
+  const gainers = usData.gainers || [];
+
+  // バッジ
+  document.getElementById('badge-us').textContent = gainers.length;
+
+  // Stats
+  const top = gainers[0] || {};
+  const avgPct = gainers.length
+    ? (gainers.reduce((s, g) => s + (g.change_pct || 0), 0) / gainers.length).toFixed(2)
+    : 0;
+  document.getElementById('us-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">上昇銘柄数</div>
+      <div class="stat-value stat-up">${gainers.length}<span style="font-size:16px;margin-left:4px">件</span></div>
+      <div class="stat-sub">当日上昇率上位</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最高騰落率</div>
+      <div class="stat-value stat-up">${top.change_pct ? '+' + top.change_pct.toFixed(1) + '%' : '-'}</div>
+      <div class="stat-sub">${esc(top.symbol || '')}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">平均騰落率</div>
+      <div class="stat-value stat-up">+${avgPct}%</div>
+      <div class="stat-sub">上昇銘柄平均</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最多セクター</div>
+      <div class="stat-value" style="font-size:18px">${getTopSector(usData.sector_analysis)}</div>
+      <div class="stat-sub">最も多いセクター</div>
+    </div>
+  `;
+
+  // テーブル
+  const tbody = document.getElementById('us-tbody');
+  if (gainers.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">データがありません</td></tr>';
+  } else {
+    tbody.innerHTML = gainers.map((s, i) => `
+      <tr>
+        <td><span class="stock-code">${esc(s.symbol)}</span></td>
+        <td><span class="stock-name" title="${esc(s.name)}">${esc(s.name)}</span></td>
+        <td><span class="sector-tag">${esc(s.sector || '不明')}</span></td>
+        <td class="price" style="text-align:right">$${s.price ? s.price.toFixed(2) : '-'}</td>
+        <td style="text-align:right">
+          <span class="badge ${s.change >= 0 ? 'badge-up' : 'badge-down'}">
+            ${s.change >= 0 ? '▲' : '▼'} $${Math.abs(s.change || 0).toFixed(2)}
+          </span>
+        </td>
+        <td style="text-align:right">${formatPct(s.change_pct)}</td>
+        <td style="text-align:right;color:var(--text-muted)">${formatVolume(s.volume)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // チャート
+  renderUsSectorCharts(usData.sector_analysis);
+}
+
+/* ══════════════════════════════════════════
+   セクタータブ
+══════════════════════════════════════════ */
+function renderSectorTab() {
+  document.getElementById('sector-loading').style.display = 'none';
+  document.getElementById('sector-content').style.display = 'block';
+
+  // 日本株セクターチャート
+  if (jpData?.sector_analysis) {
+    renderJpSectorChart('sector-jp-chart', jpData.sector_analysis);
+    renderSectorGrid('jp-sector-grid', jpData.sector_analysis, 'count');
+  }
+
+  // 米国株セクターチャート
+  if (usData?.sector_analysis) {
+    renderUsAvgPctChart('sector-us-chart', usData.sector_analysis);
+    renderSectorGrid('us-sector-grid', usData.sector_analysis, 'count');
+  }
+}
+
+/* ══════════════════════════════════════════
+   Chart.js ヘルパー
+══════════════════════════════════════════ */
+function renderJpSectorChart(canvasId, sectorData) {
+  if (!sectorData) return;
+  const labels = Object.keys(sectorData).slice(0, 15);
+  const data = labels.map(k => sectorData[k].count);
+  const ctx = document.getElementById(canvasId)?.getContext('2d');
+  if (!ctx) return;
+
+  const existing = Chart.getChart(canvasId);
+  if (existing) existing.destroy();
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'ストップ高件数',
+        data,
+        backgroundColor: CHART_COLORS.slice(0, labels.length),
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#94a3b8', maxRotation: 45 }, grid: { color: '#2e3250' } },
+        y: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#2e3250' } }
+      }
+    }
+  });
+}
+
+function renderUsSectorCharts(sectorData) {
+  if (!sectorData) return;
+  const labels = Object.keys(sectorData).slice(0, 12);
+  const counts = labels.map(k => sectorData[k].count);
+
+  // Bar chart
+  const barCtx = document.getElementById('us-sector-bar-chart')?.getContext('2d');
+  if (barCtx) {
+    const existing = Chart.getChart('us-sector-bar-chart');
+    if (existing) existing.destroy();
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{ label: '銘柄数', data: counts, backgroundColor: CHART_COLORS.slice(0, labels.length), borderRadius: 6 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', maxRotation: 45 }, grid: { color: '#2e3250' } },
+          y: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#2e3250' } }
+        }
+      }
+    });
+  }
+
+  // Pie chart
+  const pieCtx = document.getElementById('us-sector-pie-chart')?.getContext('2d');
+  if (pieCtx) {
+    const existing = Chart.getChart('us-sector-pie-chart');
+    if (existing) existing.destroy();
+    new Chart(pieCtx, {
+      type: 'doughnut',
+      data: {
+        labels,
+        datasets: [{ data: counts, backgroundColor: CHART_COLORS.slice(0, labels.length), borderWidth: 2, borderColor: '#1a1d27' }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { color: '#94a3b8', boxWidth: 12, padding: 10, font: { size: 11 } } }
+        }
+      }
+    });
+  }
+}
+
+function renderUsAvgPctChart(canvasId, sectorData) {
+  if (!sectorData) return;
+  const entries = Object.entries(sectorData)
+    .sort((a, b) => b[1].avg_change_pct - a[1].avg_change_pct)
+    .slice(0, 12);
+  const labels = entries.map(e => e[0]);
+  const data = entries.map(e => e[1].avg_change_pct);
+
+  const ctx = document.getElementById(canvasId)?.getContext('2d');
+  if (!ctx) return;
+  const existing = Chart.getChart(canvasId);
+  if (existing) existing.destroy();
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '平均騰落率(%)',
+        data,
+        backgroundColor: data.map(v => v >= 0 ? 'rgba(34,197,94,0.7)' : 'rgba(239,68,68,0.7)'),
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#94a3b8', maxRotation: 45 }, grid: { color: '#2e3250' } },
+        y: { ticks: { color: '#94a3b8', callback: v => v + '%' }, grid: { color: '#2e3250' } }
+      }
+    }
+  });
+}
+
+function renderSectorGrid(containerId, sectorData, valueKey) {
+  const container = document.getElementById(containerId);
+  if (!container || !sectorData) return;
+  const total = Object.values(sectorData).reduce((s, v) => s + v[valueKey], 0);
+  const sorted = Object.entries(sectorData).sort((a, b) => b[1][valueKey] - a[1][valueKey]);
+  const maxVal = sorted[0]?.[1][valueKey] || 1;
+
+  container.innerHTML = sorted.map(([sector, info]) => {
+    const pct = total > 0 ? ((info[valueKey] / total) * 100).toFixed(1) : 0;
+    const barPct = ((info[valueKey] / maxVal) * 100).toFixed(1);
+    const avgPct = info.avg_change_pct !== undefined
+      ? `<span style="color:var(--up)">+${info.avg_change_pct}%</span>` : '';
+    return `
+      <div class="sector-item">
+        <div class="sector-item-header">
+          <span class="sector-name">${esc(sector)}</span>
+          <span class="sector-count">${info[valueKey]}件</span>
+        </div>
+        <div class="sector-bar-wrap">
+          <div class="sector-bar" style="width:${barPct}%"></div>
+        </div>
+        <div class="sector-pct">${pct}% of total ${avgPct}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   テーブル検索
+══════════════════════════════════════════ */
+function filterTable(tableId, query) {
+  const q = query.toLowerCase();
+  const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(q) ? '' : 'none';
+  });
+}
+
+/* ══════════════════════════════════════════
+   ユーティリティ
+══════════════════════════════════════════ */
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatPct(val) {
+  const n = parseFloat(val);
+  if (isNaN(n)) return String(val || '-');
+  const cls = n >= 0 ? 'badge-up' : 'badge-down';
+  const sign = n >= 0 ? '+' : '';
+  return `<span class="badge ${cls}">${sign}${n.toFixed(2)}%</span>`;
+}
+
+function formatVolume(vol) {
+  if (!vol || vol === 0) return '-';
+  if (vol >= 1e9) return (vol / 1e9).toFixed(1) + 'B';
+  if (vol >= 1e6) return (vol / 1e6).toFixed(1) + 'M';
+  if (vol >= 1e3) return (vol / 1e3).toFixed(1) + 'K';
+  return vol.toString();
+}
+
+function getTopSector(sectorData) {
+  if (!sectorData) return '-';
+  const top = Object.entries(sectorData).sort((a, b) => b[1].count - a[1].count)[0];
+  return top ? top[0] : '-';
+}
+
+/* ══════════════════════════════════════════
+   初期化
+══════════════════════════════════════════ */
+loadData();
+
+// 15分おきに自動リロード
+setInterval(() => {
+  loadData();
+}, 15 * 60 * 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+name: Update Stock Data
+
+on:
+  schedule:
+    # 15分おきに実行（UTC）
+    - cron: '0,15,30,45 * * * *'
+  workflow_dispatch:   # 手動実行も可能
+  push:
+    branches: [ main ]  # プッシュ時も1回実行
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+
+      - name: Fetch Japan stocks (kabutan.jp ストップ高)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_japan_stocks.py
+        continue-on-error: true
+
+      - name: Fetch US stocks (Yahoo Finance top gainers)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_us_stocks.py
+        continue-on-error: true
+
+      - name: Check if data changed
+        id: check-changes
+        run: |
+          git diff --quiet data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push updated data
+        if: steps.check-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/japan_stocks.json data/us_stocks.json
+          git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git push
+
+      - name: No changes detected
+        if: steps.check-changes.outputs.changed != 'true'
+        run: echo "Data unchanged, skipping commit."
+
+  # GitHub Pages へのデプロイ
+  deploy-pages:
+    needs: update-data
+    runs-on: ubuntu-latest
+    if: always()
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
