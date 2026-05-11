@@ -226,6 +226,37 @@
     .sec-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
     .sec-pct{font-size:11px;color:var(--muted)}
 
+    /* ── Sub-sector Panel ── */
+    .subsec-card{background:var(--surface);border:1px solid var(--border);
+                 border-radius:12px;padding:16px 18px;margin-top:16px}
+    .subsec-card-title{font-size:13px;font-weight:700;color:var(--text);
+                       margin-bottom:14px;display:flex;align-items:center;gap:6px}
+    .subsec-sector-block{margin-bottom:18px}
+    .subsec-sector-block:last-child{margin-bottom:0}
+    .subsec-sector-hdr{display:flex;justify-content:space-between;align-items:center;
+                       margin-bottom:8px;padding-bottom:6px;
+                       border-bottom:1px solid var(--border)}
+    .subsec-sector-name{font-size:12px;font-weight:700;color:var(--muted);
+                        text-transform:uppercase;letter-spacing:.05em}
+    .subsec-total{font-size:11px;color:var(--muted);background:var(--surface2);
+                  padding:1px 7px;border-radius:8px}
+    .subsec-tags{display:flex;flex-wrap:wrap;gap:7px}
+    .subsec-tag{background:var(--surface2);border:1px solid rgba(99,102,241,.2);
+                border-radius:10px;padding:7px 12px;display:flex;flex-direction:column;
+                gap:3px;min-width:110px;cursor:default;transition:border-color .15s}
+    .subsec-tag:hover{border-color:rgba(99,102,241,.5)}
+    .subsec-tag-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
+    .subsec-tag-stat{font-size:11px;font-weight:600}
+    .subsec-hot{border-color:rgba(239,68,68,.35) !important;
+                background:rgba(239,68,68,.06)}
+    .subsec-warm{border-color:rgba(251,146,60,.3) !important;
+                 background:rgba(251,146,60,.05)}
+    .subsec-cool{border-color:rgba(99,102,241,.25) !important}
+    .subsec-legend{font-size:10px;color:var(--muted);margin-top:12px;
+                   display:flex;gap:12px;flex-wrap:wrap}
+    .subsec-legend span{display:flex;align-items:center;gap:4px}
+    .subsec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
     footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;
            border-top:1px solid var(--border);margin-top:32px}
     footer a{color:var(--accent2);text-decoration:none}
@@ -480,7 +511,34 @@
           <div class="chart-wrap chart-tall"><canvas id="sec-us-chart"></canvas></div>
         </div>
       </div>
-      <div class="card">
+      <!-- 注目サブセクター -->
+      <div class="subsec-card">
+        <div class="subsec-card-title">🇯🇵 日本株 ─ 注目サブセクター
+          <span style="font-size:10px;color:var(--muted);font-weight:400">（平均騰落率順・上位表示）</span>
+        </div>
+        <div id="jp-subsec-panel"></div>
+        <div class="subsec-legend">
+          <span><span class="subsec-dot" style="background:#f87171"></span>急騰 +10%超</span>
+          <span><span class="subsec-dot" style="background:#fb923c"></span>上昇 +5%超</span>
+          <span><span class="subsec-dot" style="background:#4ade80"></span>堅調 +0〜5%</span>
+          <span><span class="subsec-dot" style="background:#94a3b8"></span>軟調</span>
+        </div>
+      </div>
+
+      <div class="subsec-card">
+        <div class="subsec-card-title">🇺🇸 米国株 ─ 注目サブセクター
+          <span style="font-size:10px;color:var(--muted);font-weight:400">（平均騰落率順・上位表示）</span>
+        </div>
+        <div id="us-subsec-panel"></div>
+        <div class="subsec-legend">
+          <span><span class="subsec-dot" style="background:#f87171"></span>急騰 +10%超</span>
+          <span><span class="subsec-dot" style="background:#fb923c"></span>上昇 +5%超</span>
+          <span><span class="subsec-dot" style="background:#4ade80"></span>堅調 +0〜5%</span>
+          <span><span class="subsec-dot" style="background:#94a3b8"></span>軟調</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
         <div class="card-hdr">
           <div class="card-title">🇯🇵 日本株 業種別詳細</div>
         </div>
@@ -1048,6 +1106,221 @@ function renderVolume() {
     </tr>`).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">データなし</td></tr>';
 }
 
+/* ════════════════════════════════════════════
+   Sub-sector Analysis
+════════════════════════════════════════════ */
+
+// US: industry (English) → sub-sector label (Japanese)
+const US_SUBSECTOR_GROUP = {
+  // Technology
+  'Semiconductors':                         'AI・半導体',
+  'Semiconductor Equipment & Materials':    'AI・半導体',
+  'Software - Application':                 'ソフトウェア・SaaS',
+  'Software - Infrastructure':              'クラウド・インフラ',
+  'Information Technology Services':        'ITサービス',
+  'Electronic Components':                  'ハードウェア・部品',
+  'Consumer Electronics':                   'ハードウェア・部品',
+  'Computer Hardware':                      'ハードウェア・部品',
+  'Communication Equipment':                '通信機器',
+  'Data Storage':                           'ストレージ',
+  'Electronic Gaming & Multimedia':         'ゲーム・メディア',
+  'Gaming':                                 'ゲーム・メディア',
+  'Solar':                                  '再生可能エネルギー',
+  'Scientific & Technical Instruments':     '計測・精密機器',
+  // Healthcare
+  'Biotechnology':                          'バイオテック',
+  'Drug Manufacturers - General':           '製薬（大手）',
+  'Drug Manufacturers - Specialty & Generic': '製薬（専門）',
+  'Medical Devices':                        '医療機器',
+  'Medical Care Facilities':                '医療サービス',
+  'Health Information Services':            'ヘルスIT',
+  'Diagnostics & Research':                 '診断・研究',
+  'Medical Distribution':                   '医療品流通',
+  'Pharmaceutical Retailers':               '調剤薬局',
+  // Financials
+  'Banks - Diversified':                    '総合銀行',
+  'Banks - Regional':                       '地方銀行',
+  'Insurance - Diversified':                '保険',
+  'Insurance - Life':                       '保険',
+  'Insurance - Property & Casualty':        '保険',
+  'Insurance Brokers':                      '保険',
+  'Asset Management':                       '資産運用',
+  'Capital Markets':                        '資本市場',
+  'Financial Data & Stock Exchanges':       '金融データ',
+  'Credit Services':                        'クレジット',
+  'Mortgage Finance':                       '住宅ローン',
+  // Energy / Utilities
+  'Oil & Gas E&P':                          '石油・ガス',
+  'Oil & Gas Integrated':                   '石油・ガス',
+  'Oil & Gas Refining & Marketing':         '石油・ガス',
+  'Oil & Gas Midstream':                    '石油・ガス',
+  'Oil & Gas Equipment & Services':         '石油・ガス設備',
+  'Utilities - Renewable':                  '再生可能エネルギー',
+  'Utilities - Regulated Electric':         '電力',
+  'Utilities - Regulated Gas':              'ガス',
+  // Industrials
+  'Aerospace & Defense':                    '航空宇宙・防衛',
+  'Specialty Industrial Machinery':         '産業機械',
+  'Industrial Machinery':                   '産業機械',
+  'Farm & Heavy Construction Machinery':    '重機・農機',
+  'Electrical Equipment & Parts':           '電気機器',
+  'Waste Management':                       '廃棄物処理',
+  'Trucking':                               '輸送・物流',
+  'Integrated Freight & Logistics':         '輸送・物流',
+  'Airlines':                               '航空',
+  'Engineering & Construction':             '建設',
+  'Staffing & Employment Services':         '人材サービス',
+  // Consumer
+  'Internet Retail':                        'Eコマース',
+  'Specialty Retail':                       '小売',
+  'Auto Manufacturers':                     '自動車',
+  'Auto Parts':                             '自動車部品',
+  'Restaurants':                            '飲食',
+  'Beverages - Non-Alcoholic':              '食品・飲料',
+  'Packaged Foods':                         '食品・飲料',
+  'Internet Content & Information':         'ネット・メディア',
+  'Entertainment':                          'エンターテイメント',
+  'Telecom Services':                       '通信サービス',
+  // Real Estate
+  'REIT - Office':                          'REIT',
+  'REIT - Retail':                          'REIT',
+  'REIT - Industrial':                      'REIT',
+  'REIT - Residential':                     'REIT',
+  'REIT - Diversified':                     'REIT',
+  'REIT - Healthcare Facilities':           'REIT（医療）',
+  'Real Estate Services':                   '不動産サービス',
+  // Materials
+  'Steel':                                  '鉄鋼・金属',
+  'Aluminum':                               '鉄鋼・金属',
+  'Copper':                                 '鉄鋼・金属',
+  'Gold':                                   '貴金属・鉱業',
+  'Other Precious Metals & Mining':         '貴金属・鉱業',
+  'Specialty Chemicals':                    '特殊化学品',
+  'Chemicals':                              '化学品',
+};
+
+// JP: keyword → sub-sector (for stocks without industry_ja)
+const JP_KW_SUBSECTOR = [
+  { kws: ['AI','人工知能','機械学習','ディープラーニング','大規模言語'],  label:'AI・機械学習' },
+  { kws: ['クラウド','SaaS','クラウドコンピュー','クラウド型'],           label:'クラウド・SaaS' },
+  { kws: ['ゲーム','ゲームソフト','オンラインゲーム','スマホゲーム'],      label:'ゲーム' },
+  { kws: ['半導体','チップ','ウェハ','シリコン','エッチング'],            label:'半導体' },
+  { kws: ['ロボット','産業用ロボット','自動化','オートメーション'],         label:'ロボット・自動化' },
+  { kws: ['ドローン','無人機','UAV'],                                    label:'ドローン' },
+  { kws: ['データセンター','データセンタ'],                               label:'データセンター' },
+  { kws: ['再生可能','太陽光','風力発電','蓄電','EV','電気自動車'],        label:'再エネ・EV' },
+  { kws: ['バイオ','創薬','医薬品','製薬','抗体'],                        label:'バイオ・製薬' },
+  { kws: ['医療機器','医療システム','医療IT','診断'],                      label:'医療機器・IT' },
+  { kws: ['フィンテック','FinTech','決済','ブロックチェーン','暗号'],       label:'フィンテック' },
+  { kws: ['物流','サプライチェーン','倉庫','配送'],                        label:'物流・SCM' },
+  { kws: ['セキュリティ','サイバー','情報セキュリ'],                       label:'サイバーセキュリティ' },
+  { kws: ['メタバース','VR','AR','XR','仮想空間'],                        label:'メタバース・XR' },
+  { kws: ['5G','通信インフラ','光ファイバー','基地局'],                    label:'通信インフラ' },
+];
+
+function classifyJPSubSector(stock) {
+  // 1st: use industry_ja if it's a real translation (not same as English)
+  const iJa = (stock.industry_ja || '').trim();
+  const iEn = (stock.industry || '').trim();
+  if (iJa && iJa !== iEn && iJa !== stock.sector) return iJa;
+  // 2nd: keyword match on description_ja / description
+  const desc = ((stock.description_ja || '') + ' ' + (stock.description || '')).toLowerCase();
+  for (const { kws, label } of JP_KW_SUBSECTOR) {
+    if (kws.some(kw => desc.includes(kw.toLowerCase()))) return label;
+  }
+  // 3rd: fallback
+  return iJa || iEn || 'その他';
+}
+
+function classifyUSSubSector(stock) {
+  const iEn = stock.industry || '';
+  return US_SUBSECTOR_GROUP[iEn]
+      || stock.industry_ja
+      || iEn
+      || 'その他';
+}
+
+function buildSubSectorMap(stocks, sectorKeyOrFn, classifyFn) {
+  // { sector → { subsector → { count, total_pct, avg_pct, stocks[] } } }
+  const getSector = typeof sectorKeyOrFn === 'function'
+    ? sectorKeyOrFn
+    : s => s[sectorKeyOrFn];
+  const map = {};
+  for (const s of stocks) {
+    const sector = (getSector(s) || '').trim() || '不明';
+    const sub    = classifyFn(s);
+    if (!map[sector]) map[sector] = {};
+    if (!map[sector][sub]) map[sector][sub] = { count:0, total_pct:0, avg_pct:0, stocks:[] };
+    map[sector][sub].count++;
+    // change_pct may be a string like "+32.00" — always parse to float
+    map[sector][sub].total_pct += parseFloat(s.change_pct) || 0;
+    map[sector][sub].stocks.push(s);
+  }
+  // compute avg_pct
+  for (const sec of Object.keys(map))
+    for (const sub of Object.keys(map[sec])) {
+      const e = map[sec][sub];
+      e.avg_pct = e.count ? +(e.total_pct / e.count).toFixed(2) : 0;
+    }
+  return map;
+}
+
+function renderSubSectorPanel(containerId, subMap) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+
+  // Sort sectors by total stock count desc
+  const sectors = Object.entries(subMap)
+    .sort((a,b) => {
+      const at = Object.values(a[1]).reduce((s,v) => s+v.count, 0);
+      const bt = Object.values(b[1]).reduce((s,v) => s+v.count, 0);
+      return bt - at;
+    });
+
+  let html = '';
+  for (const [sector, subsectors] of sectors) {
+    const totalCount = Object.values(subsectors).reduce((s,v)=>s+v.count,0);
+    // Sort subsectors by avg_pct desc (hot money first)
+    const sortedSubs = Object.entries(subsectors)
+      .sort((a,b) => b[1].avg_pct - a[1].avg_pct);
+
+    // Skip trivial single-sub or "その他" only groups
+    const nonOther = sortedSubs.filter(([k]) => k !== 'その他');
+    if (nonOther.length === 0) continue;
+
+    html += `<div class="subsec-sector-block">
+      <div class="subsec-sector-hdr">
+        <span class="subsec-sector-name">${esc(sector)}</span>
+        <span class="subsec-total">${totalCount}銘柄</span>
+      </div>
+      <div class="subsec-tags">`;
+
+    for (const [sub, info] of sortedSubs) {
+      if (sub === 'その他' && info.count === 1) continue; // skip lone "その他"
+      const sign = info.avg_pct >= 0 ? '+' : '';
+      let hotCls = 'subsec-cool', dotColor = '#94a3b8';
+      if      (info.avg_pct >= 10) { hotCls = 'subsec-hot';  dotColor = '#f87171'; }
+      else if (info.avg_pct >= 5)  { hotCls = 'subsec-warm'; dotColor = '#fb923c'; }
+      else if (info.avg_pct >= 2)  { hotCls = 'subsec-cool'; dotColor = '#4ade80'; }
+      const hotIcon = info.avg_pct >= 10 ? '🔥' : info.avg_pct >= 5 ? '📈' : '';
+      // Stock ticker list (max 4)
+      const tickers = info.stocks.slice(0,4)
+        .map(s => s.code || s.symbol).join(' / ');
+      const moreStr = info.count > 4 ? ` <span style="color:var(--muted)">他${info.count-4}</span>` : '';
+      html += `<div class="subsec-tag ${hotCls}" title="${esc(tickers)}">
+        <span class="subsec-tag-name">${hotIcon}${esc(sub)}</span>
+        <span class="subsec-tag-stat" style="color:${dotColor}">${info.count}銘柄 ${sign}${info.avg_pct}%</span>
+        <span style="font-size:10px;color:var(--muted);line-height:1.3">${esc(tickers)}${moreStr}</span>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+
+  if (!html)
+    html = '<div style="color:var(--muted);font-size:12px;padding:8px 0">サブセクターデータなし（業種情報を取得中）</div>';
+  el.innerHTML = html;
+}
+
 function renderSectorTab() {
   document.getElementById('sec-loading').style.display = 'none';
   document.getElementById('sec-content').style.display = 'block';
@@ -1059,6 +1332,24 @@ function renderSectorTab() {
   if (usData?.sector_analysis) {
     renderAvgPctChart('sec-us-chart', usData.sector_analysis);
     renderSecGrid('us-sec-grid', usData.sector_analysis, 'count');
+  }
+
+  // Sub-sector analysis
+  const jpStocks = jpData?.all_stocks || [];
+  const usStocks = usData?.gainers    || [];
+
+  if (jpStocks.length > 0) {
+    const jpSubMap = buildSubSectorMap(jpStocks, 'sector', classifyJPSubSector);
+    renderSubSectorPanel('jp-subsec-panel', jpSubMap);
+  }
+  if (usStocks.length > 0) {
+    // Use Japanese sector name for grouping; fall back to sector_en if absent
+    const usSubMap = buildSubSectorMap(
+      usStocks,
+      s => (s.sector || s.sector_en || '不明'),
+      classifyUSSubSector
+    );
+    renderSubSectorPanel('us-subsec-panel', usSubMap);
   }
 }
 

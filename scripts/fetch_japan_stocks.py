@@ -366,9 +366,11 @@ def main():
     stop_high, near_stop = fetch_stop_high_pages()
     print(f"[日本株] S高={len(stop_high)}件 / 上昇率上位={len(near_stop)}件", file=sys.stderr)
 
-    # 2. S高株の業種を kabutan から取得
+    # 2. 全銘柄の業種を kabutan から取得（S高 + 上昇率上位）
     if stop_high:
         stop_high = enrich_sector_kabutan(stop_high)
+    if near_stop:
+        near_stop = enrich_sector_kabutan(near_stop, max_workers=12)
 
     # 3. yfinance でチャート + 会社情報を取得
     sh_target   = stop_high[:CHART_INFO_MAX_STOP_HIGH]
