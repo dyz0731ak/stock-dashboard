@@ -108,3 +108,35 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # ConoHa WING へのFTPデプロイ
+  deploy-conoha:
+    needs: update-data
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main   # update-data がプッシュした最新データを取得
+
+      - name: Deploy to ConoHa WING via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: www292.conoha.ne.jp
+          username: dashboard@stock-overflow24.com
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: /home/c5963162/public_html/stock-overflow24.com/dashboard/
+          # Webサーバーに不要なファイルは除外
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .claude/**
+            scripts/**
+            requirements.txt
+            *.md
