@@ -941,29 +941,26 @@ async function loadData() {
 }
 
 function updateFreshnessUI(updatedAt) {
-  const el      = document.getElementById('last-updated');
-  const pulse   = document.getElementById('pulse-dot');
+  const el    = document.getElementById('last-updated');
+  const pulse = document.getElementById('pulse-dot');
   if (!el) return;
 
   const diffMin = Math.floor((Date.now() - new Date(updatedAt)) / 60000);
   const timeStr = fmtJST(updatedAt);
 
-  if (diffMin < 20) {
-    // 鮮度良好
-    el.innerHTML = `データ取得: <span style="color:var(--up)">${timeStr}</span>`;
-    pulse.style.background = 'var(--up)';
-  } else if (diffMin < 60) {
-    // やや古い
-    el.innerHTML = `データ取得: <span style="color:#f59e0b">${timeStr}</span>
-      <span style="color:#f59e0b;font-size:10px;margin-left:4px">${diffMin}分前</span>`;
-    pulse.style.background = '#f59e0b';
-  } else {
-    // 1時間以上古い ─ 警告
-    const hm = diffMin >= 60 ? `${Math.floor(diffMin/60)}時間${diffMin%60}分前` : `${diffMin}分前`;
-    el.innerHTML = `データ取得: <span style="color:var(--down)">${timeStr}</span>
-      <span style="color:var(--down);font-size:10px;margin-left:4px">⚠ ${hm} ─ 更新遅延中</span>`;
-    pulse.style.background = 'var(--down)';
-  }
+  // 経過時間テキスト（控えめ表示）
+  let agoTxt = '';
+  if (diffMin < 1)        agoTxt = 'たった今';
+  else if (diffMin < 60)  agoTxt = `${diffMin}分前`;
+  else                    agoTxt = `${Math.floor(diffMin/60)}時間${diffMin%60 ? diffMin%60+'分' : ''}前`;
+
+  el.innerHTML = `最終更新: ${timeStr}
+    <span style="color:var(--muted);font-size:10px;margin-left:5px">${agoTxt}</span>`;
+
+  // パルスドットは鮮度で色だけ変える（テキストは変えない）
+  pulse.style.background = diffMin < 20 ? 'var(--up)'
+                         : diffMin < 60 ? '#f59e0b'
+                         :                'var(--muted)';
 }
 
 async function manualRefresh() {
