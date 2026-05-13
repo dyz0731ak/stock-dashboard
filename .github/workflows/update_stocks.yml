@@ -14,7 +14,7 @@ permissions:
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -84,8 +84,10 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add data/japan_stocks.json data/us_stocks.json data/volume_stocks.json data/translation_cache.json data/events.json data/news_cache.json data/us_news_cache.json
           git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
-          git pull --rebase origin main
-          git push
+          # リモートの変更を取り込んでからプッシュ（競合時はリモートを優先）
+          git fetch origin main
+          git rebase origin/main || (git rebase --abort && echo "rebase skipped")
+          git push origin main
 
       - name: No changes detected
         if: steps.check-changes.outputs.changed != 'true'

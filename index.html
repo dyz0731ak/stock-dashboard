@@ -303,9 +303,17 @@
     <div class="h-title">Stock <span>Dashboard</span></div>
     <div class="h-sub">日本株・米国株 急騰レーダー</div>
   </div>
-  <div class="update-badge">
-    <div class="pulse"></div>
-    <span id="last-updated">読み込み中...</span>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="update-badge">
+      <div class="pulse" id="pulse-dot"></div>
+      <span id="last-updated">読み込み中...</span>
+    </div>
+    <button id="refresh-btn" onclick="manualRefresh()"
+      style="background:var(--surface2);border:1px solid var(--border);
+             color:var(--muted);padding:5px 11px;border-radius:20px;
+             cursor:pointer;font-size:11px;transition:all .2s;white-space:nowrap">
+      再読込
+    </button>
   </div>
 </header>
 
@@ -924,10 +932,45 @@ async function loadData() {
       }),
   ]);
 
+  // ニュースキャッシュをリセット（次回モーダル開時に再取得）
+  newsCache = null;
+  usNewsCache = null;
+
   const updated = jpData?.updated_at || usData?.updated_at;
-  if (updated)
-    document.getElementById('last-updated').textContent =
-      'データ取得: ' + fmtJST(updated);
+  if (updated) updateFreshnessUI(updated);
+}
+
+function updateFreshnessUI(updatedAt) {
+  const el      = document.getElementById('last-updated');
+  const pulse   = document.getElementById('pulse-dot');
+  if (!el) return;
+
+  const diffMin = Math.floor((Date.now() - new Date(updatedAt)) / 60000);
+  const timeStr = fmtJST(updatedAt);
+
+  if (diffMin < 20) {
+    // 鮮度良好
+    el.innerHTML = `データ取得: <span style="color:var(--up)">${timeStr}</span>`;
+    pulse.style.background = 'var(--up)';
+  } else if (diffMin < 60) {
+    // やや古い
+    el.innerHTML = `データ取得: <span style="color:#f59e0b">${timeStr}</span>
+      <span style="color:#f59e0b;font-size:10px;margin-left:4px">${diffMin}分前</span>`;
+    pulse.style.background = '#f59e0b';
+  } else {
+    // 1時間以上古い ─ 警告
+    const hm = diffMin >= 60 ? `${Math.floor(diffMin/60)}時間${diffMin%60}分前` : `${diffMin}分前`;
+    el.innerHTML = `データ取得: <span style="color:var(--down)">${timeStr}</span>
+      <span style="color:var(--down);font-size:10px;margin-left:4px">⚠ ${hm} ─ 更新遅延中</span>`;
+    pulse.style.background = 'var(--down)';
+  }
+}
+
+async function manualRefresh() {
+  const btn = document.getElementById('refresh-btn');
+  if (btn) { btn.textContent = '更新中...'; btn.disabled = true; }
+  await loadData();
+  if (btn) { btn.textContent = '再読込'; btn.disabled = false; }
 }
 
 /* ════════════════════════════════════════════
@@ -1705,7 +1748,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 async function loadNewsCache() {
   if (newsCache) return newsCache;
   try {
-    const r = await fetch('data/news_cache.json');
+    const r = await fetch('data/news_cache.json?t=' + Date.now());
     if (r.ok) newsCache = await r.json();
   } catch(e) {}
   return newsCache;
@@ -1714,7 +1757,7 @@ async function loadNewsCache() {
 async function loadUsNewsCache() {
   if (usNewsCache) return usNewsCache;
   try {
-    const r = await fetch('data/us_news_cache.json');
+    const r = await fetch('data/us_news_cache.json?t=' + Date.now());
     if (r.ok) usNewsCache = await r.json();
   } catch(e) {}
   return usNewsCache;
