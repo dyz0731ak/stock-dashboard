@@ -60,10 +60,16 @@ jobs:
           python scripts/fetch_events.py
         continue-on-error: true
 
-      - name: Fetch stock news (急騰理由・ニュース)
+      - name: Fetch JP stock news (急騰理由・ニュース)
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_news.py
+        continue-on-error: true
+
+      - name: Fetch US stock news (米国株ニュース)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_us_news.py
         continue-on-error: true
 
       - name: Check if data changed
@@ -76,7 +82,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/japan_stocks.json data/us_stocks.json data/volume_stocks.json data/translation_cache.json data/events.json data/news_cache.json
+          git add data/japan_stocks.json data/us_stocks.json data/volume_stocks.json data/translation_cache.json data/events.json data/news_cache.json data/us_news_cache.json
           git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
           git pull --rebase origin main
           git push

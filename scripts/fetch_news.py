@@ -276,14 +276,28 @@ def main():
     print("[ニュース] 取得開始...", file=sys.stderr)
 
     # 対象銘柄を japan_stocks.json から読み込む
-    codes: list[str] = []
+    codes_set = set()
     try:
         with open("data/japan_stocks.json", encoding="utf-8") as f:
             jp_data = json.load(f)
         stocks = jp_data.get("all_stocks", [])
-        codes = [s["code"] for s in stocks[:MAX_STOCKS] if s.get("code")]
+        for s in stocks[:MAX_STOCKS]:
+            if s.get("code"):
+                codes_set.add(s["code"])
     except Exception as e:
-        print(f"  データ読み込みエラー: {e}", file=sys.stderr)
+        print(f"  japan_stocks.json 読み込みエラー: {e}", file=sys.stderr)
+
+    # volume_stocks.json の JP銘柄も追加
+    try:
+        with open("data/volume_stocks.json", encoding="utf-8") as f:
+            vol_data = json.load(f)
+        for s in vol_data.get("jp_stocks", []):
+            if s.get("code"):
+                codes_set.add(s["code"])
+    except Exception as e:
+        print(f"  volume_stocks.json 読み込みエラー: {e}", file=sys.stderr)
+
+    codes = list(codes_set)
 
     print(f"  対象: {len(codes)}銘柄", file=sys.stderr)
 

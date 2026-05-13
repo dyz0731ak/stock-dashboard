@@ -271,6 +271,8 @@
     .ns-tdnet{background:rgba(239,68,68,.2);color:#f87171}
     .ns-minkabu{background:rgba(34,197,94,.15);color:#4ade80}
     .ns-kabutan{background:rgba(148,163,184,.15);color:#94a3b8}
+    .ns-investing{background:rgba(251,146,60,.2);color:#fb923c}
+    .ns-yahoo{background:rgba(99,102,241,.2);color:#818cf8}
     .news-date{color:var(--muted);font-size:10px;white-space:nowrap;
                flex-shrink:0;margin-top:3px;font-family:monospace}
     .news-title a{color:var(--text);text-decoration:none;line-height:1.5;
@@ -651,7 +653,7 @@
     </div>
     <!-- ニュース -->
     <div class="modal-news" id="m-news-section" style="display:none">
-      <div class="modal-news-hdr">急騰理由・ニュース</div>
+      <div class="modal-news-hdr" id="m-news-hdr">急騰理由・ニュース</div>
       <div id="m-news-list" class="news-list">
         <div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>
       </div>
@@ -673,7 +675,7 @@
 ════════════════════════════════════════════ */
 let jpData = null, usData = null, volData = null, evData = null;
 let modalPriceChart = null, modalVolChart = null;
-let newsCache = null;
+let newsCache = null, usNewsCache = null;
 
 const COLORS = [
   '#6366f1','#818cf8','#22c55e','#4ade80','#f59e0b','#fbbf24',
@@ -1588,13 +1590,9 @@ function openModal(market, idx) {
     chartEmpty.style.display = 'flex';
   }
 
-  // ニュース（JP株のみ）
-  if (isJP) {
-    renderModalNews(code);
-  } else {
-    const newsSection = document.getElementById('m-news-section');
-    if (newsSection) newsSection.style.display = 'none';
-  }
+  // ニュース（JP・US 全対応）
+  const newsTitle = market.startsWith('vol') ? '出来高急増理由・ニュース' : '急騰理由・ニュース';
+  renderModalNews(code, !isJP, newsTitle);
 }
 
 function renderModalCharts(chartData, isJP) {
@@ -1701,20 +1699,33 @@ async function loadNewsCache() {
   if (newsCache) return newsCache;
   try {
     const r = await fetch('data/news_cache.json');
-    if (r.ok) { newsCache = await r.json(); }
+    if (r.ok) newsCache = await r.json();
   } catch(e) {}
   return newsCache;
 }
 
-function renderModalNews(code) {
+async function loadUsNewsCache() {
+  if (usNewsCache) return usNewsCache;
+  try {
+    const r = await fetch('data/us_news_cache.json');
+    if (r.ok) usNewsCache = await r.json();
+  } catch(e) {}
+  return usNewsCache;
+}
+
+function renderModalNews(identifier, isUS, sectionTitle) {
   const section = document.getElementById('m-news-section');
+  const hdr     = document.getElementById('m-news-hdr');
   const el      = document.getElementById('m-news-list');
   if (!section || !el) return;
+
+  if (hdr) hdr.textContent = sectionTitle || '急騰理由・ニュース';
   section.style.display = 'block';
   el.innerHTML = '<div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>';
 
-  loadNewsCache().then(cache => {
-    const entry = cache?.stocks?.[code];
+  const loadFn = isUS ? loadUsNewsCache : loadNewsCache;
+  loadFn().then(cache => {
+    const entry = cache?.stocks?.[identifier];
     if (!entry) {
       el.innerHTML = '<div class="news-empty">ニュースデータなし（次回更新時に取得）</div>';
       return;
@@ -1725,9 +1736,11 @@ function renderModalNews(code) {
       return;
     }
     el.innerHTML = news.map(n => {
-      const srcCls = n.source === 'tdnet'    ? 'ns-tdnet'
-                   : n.source === 'minkabu'  ? 'ns-minkabu'
-                   :                           'ns-kabutan';
+      const srcCls = n.source === 'tdnet'        ? 'ns-tdnet'
+                   : n.source === 'minkabu'       ? 'ns-minkabu'
+                   : n.source === 'investing_jp'  ? 'ns-investing'
+                   : n.source === 'yahoo_finance' ? 'ns-yahoo'
+                   :                               'ns-kabutan';
       return `<div class="news-item">
         <span class="news-src ${srcCls}">${esc(n.source_label || n.source)}</span>
         <div class="news-title" style="flex:1;min-width:0">
