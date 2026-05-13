@@ -8,8 +8,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   update-data:
@@ -99,64 +97,5 @@ jobs:
         if: steps.check-changes.outputs.changed != 'true'
         run: echo "Data unchanged, skipping commit."
 
-  # GitHub Pages へのデプロイ
-  deploy-pages:
-    needs: update-data
-    runs-on: ubuntu-latest
-    if: always()
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-        with:
-          ref: main
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  # ConoHa WING へのFTPデプロイ
-  deploy-conoha:
-    needs: update-data
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: main   # update-data がプッシュした最新データを取得
-
-      - name: Deploy to ConoHa WING via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: www292.conoha.ne.jp
-          username: dashboard@stock-overflow24.com
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: ./
-          server-dir: /public_html/dashboard.stock-overflow24.com/
-          # Webサーバーに不要なファイルは除外
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            .claude/**
-            scripts/**
-            requirements.txt
-            *.md
+  # データ更新後のデプロイは deploy.yml (push トリガー) が担当
+  # update-data が git push すると自動的に deploy.yml が起動する
