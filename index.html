@@ -257,6 +257,29 @@
     .subsec-legend span{display:flex;align-items:center;gap:4px}
     .subsec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
+    /* ── Modal News ── */
+    .modal-news{border-top:1px solid var(--border);padding:12px 20px;
+                max-height:220px;overflow-y:auto;flex-shrink:0}
+    .modal-news-hdr{font-size:10px;color:var(--muted);text-transform:uppercase;
+                    letter-spacing:.07em;font-weight:700;margin-bottom:10px}
+    .news-list{display:flex;flex-direction:column;gap:7px}
+    .news-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;
+               padding:6px 0;border-bottom:1px solid rgba(46,50,80,.4)}
+    .news-item:last-child{border-bottom:none}
+    .news-src{display:inline-block;padding:1px 6px;border-radius:4px;
+              font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:2px}
+    .ns-tdnet{background:rgba(239,68,68,.2);color:#f87171}
+    .ns-minkabu{background:rgba(34,197,94,.15);color:#4ade80}
+    .ns-kabutan{background:rgba(148,163,184,.15);color:#94a3b8}
+    .news-date{color:var(--muted);font-size:10px;white-space:nowrap;
+               flex-shrink:0;margin-top:3px;font-family:monospace}
+    .news-title a{color:var(--text);text-decoration:none;line-height:1.5;
+                  display:block;font-size:12px}
+    .news-title a:hover{color:var(--accent2)}
+    .news-empty{color:var(--muted);font-size:12px;padding:4px 0}
+    .news-loading{color:var(--muted);font-size:12px;
+                  display:flex;align-items:center;gap:6px}
+
     footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;
            border-top:1px solid var(--border);margin-top:32px}
     footer a{color:var(--accent2);text-decoration:none}
@@ -626,6 +649,13 @@
         </div>
       </div>
     </div>
+    <!-- ニュース -->
+    <div class="modal-news" id="m-news-section" style="display:none">
+      <div class="modal-news-hdr">急騰理由・ニュース</div>
+      <div id="m-news-list" class="news-list">
+        <div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -643,6 +673,7 @@
 ════════════════════════════════════════════ */
 let jpData = null, usData = null, volData = null, evData = null;
 let modalPriceChart = null, modalVolChart = null;
+let newsCache = null;
 
 const COLORS = [
   '#6366f1','#818cf8','#22c55e','#4ade80','#f59e0b','#fbbf24',
@@ -1556,6 +1587,14 @@ function openModal(market, idx) {
     chartLoad.style.display  = 'none';
     chartEmpty.style.display = 'flex';
   }
+
+  // ニュース（JP株のみ）
+  if (isJP) {
+    renderModalNews(code);
+  } else {
+    const newsSection = document.getElementById('m-news-section');
+    if (newsSection) newsSection.style.display = 'none';
+  }
 }
 
 function renderModalCharts(chartData, isJP) {
@@ -1654,6 +1693,51 @@ function closeModalOnOverlay(e) {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ════════════════════════════════════════════
+   急騰理由・ニュース
+════════════════════════════════════════════ */
+async function loadNewsCache() {
+  if (newsCache) return newsCache;
+  try {
+    const r = await fetch('data/news_cache.json');
+    if (r.ok) { newsCache = await r.json(); }
+  } catch(e) {}
+  return newsCache;
+}
+
+function renderModalNews(code) {
+  const section = document.getElementById('m-news-section');
+  const el      = document.getElementById('m-news-list');
+  if (!section || !el) return;
+  section.style.display = 'block';
+  el.innerHTML = '<div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>';
+
+  loadNewsCache().then(cache => {
+    const entry = cache?.stocks?.[code];
+    if (!entry) {
+      el.innerHTML = '<div class="news-empty">ニュースデータなし（次回更新時に取得）</div>';
+      return;
+    }
+    const news = entry.news || [];
+    if (!news.length) {
+      el.innerHTML = '<div class="news-empty">ニュースなし</div>';
+      return;
+    }
+    el.innerHTML = news.map(n => {
+      const srcCls = n.source === 'tdnet'    ? 'ns-tdnet'
+                   : n.source === 'minkabu'  ? 'ns-minkabu'
+                   :                           'ns-kabutan';
+      return `<div class="news-item">
+        <span class="news-src ${srcCls}">${esc(n.source_label || n.source)}</span>
+        <div class="news-title" style="flex:1;min-width:0">
+          <a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+        </div>
+        <span class="news-date">${esc(n.date || '')}</span>
+      </div>`;
+    }).join('');
+  });
+}
 
 /* ════════════════════════════════════════════
    テーブル検索フィルター
