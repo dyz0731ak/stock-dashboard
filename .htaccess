@@ -1,6 +1,11 @@
 RewriteEngine On
 
-# ConoHa WING はロードバランサーでSSL終端するため %{HTTPS} は常に off
-# X-Forwarded-Proto ヘッダーで元のプロトコルを判定して HTTPS へリダイレクト
-RewriteCond %{HTTP:X-Forwarded-Proto} =http
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# ConoHa WING HTTPS強制リダイレクト
+# 方法1: X-Forwarded-Proto
+RewriteCond %{HTTP:X-Forwarded-Proto} ^http$ [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# 方法2: SERVER_PORT が80の場合（方法1が効かない場合のフォールバック）
+RewriteCond %{HTTP:X-Forwarded-Proto} ^$
+RewriteCond %{SERVER_PORT} ^80$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
