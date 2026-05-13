@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1200px; height: 630px; overflow: hidden;
+  background: linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #22253a 100%);
+  font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+  color: #e2e8f0;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 60px 80px;
+  position: relative;
+}
+.bg-glow {
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(99,102,241,.25) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.bg-glow2 {
+  position: absolute; bottom: -80px; left: 200px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(34,197,94,.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.badge {
+  display: inline-block;
+  background: rgba(99,102,241,.2);
+  border: 1px solid rgba(99,102,241,.5);
+  color: #818cf8;
+  font-size: 14px; font-weight: 700;
+  padding: 6px 18px; border-radius: 20px;
+  margin-bottom: 24px; letter-spacing: 1px;
+}
+h1 {
+  font-size: 58px; font-weight: 800;
+  line-height: 1.2; margin-bottom: 20px;
+  color: #f1f5f9;
+}
+h1 span { color: #818cf8; }
+p {
+  font-size: 22px; color: #94a3b8;
+  line-height: 1.6; margin-bottom: 40px;
+  max-width: 700px;
+}
+.tags {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.tag {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  color: #cbd5e1;
+  padding: 6px 16px; border-radius: 8px;
+  font-size: 15px; font-weight: 500;
+}
+.up { color: #22c55e; }
+.url {
+  position: absolute; bottom: 40px; right: 80px;
+  color: #475569; font-size: 16px;
+}
+</style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow2"></div>
+  <div class="badge">無料 · 15分リアルタイム更新</div>
+  <h1>株<span>ダッシュボード</span></h1>
+  <p>ストップ高・急騰銘柄・出来高急増・米国株を<br>まとめてひと目でチェック</p>
+  <div class="tags">
+    <span class="tag"><span class="up">↑</span> ストップ高</span>
+    <span class="tag"><span class="up">↑</span> 急騰銘柄</span>
+    <span class="tag">📊 出来高急増</span>
+    <span class="tag">🇺🇸 米国株</span>
+    <span class="tag">📰 市場ニュース</span>
+    <span class="tag">📅 決算カレンダー</span>
+  </div>
+  <div class="url">dashboard.stock-overflow24.com</div>
+</body>
+</html>
