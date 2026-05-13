@@ -281,6 +281,13 @@
     .news-empty{color:var(--muted);font-size:12px;padding:4px 0}
     .news-loading{color:var(--muted);font-size:12px;
                   display:flex;align-items:center;gap:6px}
+    .news-fallback{padding:6px 0}
+    .news-fallback-txt{color:var(--muted);font-size:11px;margin-bottom:8px}
+    .news-fallback-links{display:flex;gap:8px;flex-wrap:wrap}
+    .news-ext-link{background:var(--surface2);border:1px solid var(--border);
+                   color:var(--accent2);padding:5px 12px;border-radius:6px;
+                   font-size:12px;text-decoration:none;transition:border-color .15s}
+    .news-ext-link:hover{border-color:var(--accent);color:var(--text)}
 
     footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;
            border-top:1px solid var(--border);margin-top:32px}
@@ -1726,15 +1733,28 @@ function renderModalNews(identifier, isUS, sectionTitle) {
   const loadFn = isUS ? loadUsNewsCache : loadNewsCache;
   loadFn().then(cache => {
     const entry = cache?.stocks?.[identifier];
-    if (!entry) {
-      el.innerHTML = '<div class="news-empty">ニュースデータなし（次回更新時に取得）</div>';
+    if (!entry || !(entry.news || []).length) {
+      // キャッシュなし → 外部リンクで代替
+      if (isUS) {
+        el.innerHTML = `<div class="news-fallback">
+          <div class="news-fallback-txt">キャッシュなし — 外部サイトで確認できます</div>
+          <div class="news-fallback-links">
+            <a href="https://finance.yahoo.com/quote/${esc(identifier)}/news/" target="_blank" rel="noopener" class="news-ext-link">Yahoo Finance ニュース</a>
+            <a href="https://jp.investing.com/search/?q=${esc(identifier)}" target="_blank" rel="noopener" class="news-ext-link">investing.com</a>
+          </div>
+        </div>`;
+      } else {
+        el.innerHTML = `<div class="news-fallback">
+          <div class="news-fallback-txt">キャッシュなし — 外部サイトで確認できます</div>
+          <div class="news-fallback-links">
+            <a href="https://kabutan.jp/stock/news?code=${esc(identifier)}" target="_blank" rel="noopener" class="news-ext-link">株探 ニュース</a>
+            <a href="https://minkabu.jp/stock/${esc(identifier)}/news" target="_blank" rel="noopener" class="news-ext-link">みんかぶ ニュース</a>
+          </div>
+        </div>`;
+      }
       return;
     }
-    const news = entry.news || [];
-    if (!news.length) {
-      el.innerHTML = '<div class="news-empty">ニュースなし</div>';
-      return;
-    }
+    const news = entry.news;
     el.innerHTML = news.map(n => {
       const srcCls = n.source === 'tdnet'        ? 'ns-tdnet'
                    : n.source === 'minkabu'       ? 'ns-minkabu'
