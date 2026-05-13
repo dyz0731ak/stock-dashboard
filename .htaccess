@@ -1,5 +1,2 @@
-RewriteEngine On
-
-# HTTP → HTTPS 強制リダイレクト
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# ConoHa WING ではSSLはロードバランサー側で処理されるため
+# .htaccess でのHTTPS強制リダイレクトは不要（リダイレクトループになる）
