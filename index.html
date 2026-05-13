@@ -257,6 +257,32 @@
     .subsec-legend span{display:flex;align-items:center;gap:4px}
     .subsec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
+    /* ── Market News Section ── */
+    .mkt-news-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
+    @media(max-width:700px){.mkt-news-grid{grid-template-columns:1fr}}
+    .mkt-news-item{display:flex;align-items:baseline;gap:8px;
+                   padding:7px 0;border-bottom:1px solid rgba(46,50,80,.4);
+                   font-size:12px}
+    .mkt-news-item:last-child{border-bottom:none}
+    .mkt-news-src{display:inline-block;padding:1px 7px;border-radius:4px;
+                  font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
+    .ns-mkt-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
+    .ns-mkt-minkabu{background:rgba(34,197,94,.15);color:#4ade80}
+    .ns-mkt-yahoo{background:rgba(99,102,241,.2);color:#818cf8}
+    .mkt-news-title{flex:1;min-width:0;color:var(--text);text-decoration:none;
+                    line-height:1.45;display:block;
+                    overflow:hidden;display:-webkit-box;
+                    -webkit-line-clamp:2;-webkit-box-orient:vertical}
+    .mkt-news-title:hover{color:var(--accent2)}
+    .mkt-news-date{color:var(--muted);font-size:10px;white-space:nowrap;
+                   flex-shrink:0;font-family:monospace}
+    .mkt-news-hdr-right{display:flex;align-items:center;gap:10px}
+    .mkt-refresh-btn{background:none;border:1px solid var(--border);
+                     color:var(--muted);padding:3px 9px;border-radius:6px;
+                     cursor:pointer;font-size:11px;transition:all .15s}
+    .mkt-refresh-btn:hover{border-color:var(--accent);color:var(--text)}
+    .mkt-updated{font-size:11px;color:var(--muted)}
+
     /* ── Modal News ── */
     .modal-news{border-top:1px solid var(--border);padding:12px 20px;
                 max-height:220px;overflow-y:auto;flex-shrink:0}
@@ -362,6 +388,25 @@
 
 <!-- ── Main ── -->
 <div class="main">
+
+  <!-- ═══ 本日の市場ニュース（全タブ共通）═══ -->
+  <div class="card" id="mkt-news-card" style="margin-bottom:18px">
+    <div class="card-hdr">
+      <div class="card-title">
+        <div class="c-icon" style="background:rgba(99,102,241,.15);font-size:11px;font-weight:700;color:var(--accent2)">N</div>
+        本日の市場ニュース
+      </div>
+      <div class="mkt-news-hdr-right">
+        <span class="mkt-updated" id="mkt-news-updated"></span>
+        <button class="mkt-refresh-btn" onclick="refreshMarketNews()">更新</button>
+      </div>
+    </div>
+    <div id="mkt-news-body">
+      <div class="loading" style="padding:24px">
+        <div class="spinner"></div>読み込み中...
+      </div>
+    </div>
+  </div>
 
   <!-- ═══ JAPAN TAB ═══ -->
   <div id="tab-japan" class="tab-pane active">
@@ -1742,6 +1787,66 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 /* ════════════════════════════════════════════
    急騰理由・ニュース
 ════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   本日の市場ニュース
+════════════════════════════════════════════ */
+let marketNewsCache = null;
+
+async function loadMarketNews(forceRefresh) {
+  if (!forceRefresh && marketNewsCache) {
+    renderMarketNews(marketNewsCache);
+    return;
+  }
+  try {
+    const r = await fetch('data/market_news.json?t=' + Date.now());
+    if (r.ok) {
+      marketNewsCache = await r.json();
+      renderMarketNews(marketNewsCache);
+    }
+  } catch(e) {
+    document.getElementById('mkt-news-body').innerHTML =
+      '<div class="news-empty" style="padding:12px 0">ニュースデータを取得できませんでした</div>';
+  }
+}
+
+function renderMarketNews(data) {
+  const body = document.getElementById('mkt-news-body');
+  const upd  = document.getElementById('mkt-news-updated');
+  if (!body) return;
+
+  const items = data?.items || [];
+  if (upd && data?.updated_at) {
+    const diffMin = Math.floor((Date.now() - new Date(data.updated_at)) / 60000);
+    const agoTxt = diffMin < 1 ? 'たった今' : diffMin < 60 ? `${diffMin}分前` : `${Math.floor(diffMin/60)}時間前`;
+    upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
+  }
+
+  if (!items.length) {
+    body.innerHTML = '<div class="news-empty" style="padding:8px 0">ニュースなし（市場時間外または取得待ち）</div>';
+    return;
+  }
+
+  const rows = items.map(n => {
+    const srcCls = n.source === 'kabutan'  ? 'ns-mkt-kabutan'
+                 : n.source === 'minkabu'  ? 'ns-mkt-minkabu'
+                 :                           'ns-mkt-yahoo';
+    return `<div class="mkt-news-item">
+      <span class="mkt-news-src ${srcCls}">${esc(n.source_label || n.source)}</span>
+      <a class="mkt-news-title" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+      <span class="mkt-news-date">${esc(n.date || '')}</span>
+    </div>`;
+  }).join('');
+
+  body.innerHTML = `<div class="mkt-news-grid">${rows}</div>`;
+}
+
+async function refreshMarketNews() {
+  marketNewsCache = null;
+  document.getElementById('mkt-news-body').innerHTML =
+    '<div class="loading" style="padding:24px"><div class="spinner"></div>読み込み中...</div>';
+  await loadMarketNews(true);
+}
+
 async function loadNewsCache() {
   if (newsCache) return newsCache;
   try {
@@ -1835,7 +1940,9 @@ function topSector(data) {
    初期化
 ════════════════════════════════════════════ */
 loadData();
+loadMarketNews();
 setInterval(loadData, 15 * 60 * 1000);
+setInterval(loadMarketNews, 15 * 60 * 1000);
 </script>
 </body>
 </html>
