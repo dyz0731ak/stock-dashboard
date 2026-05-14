@@ -129,6 +129,27 @@
     .i-jp{background:rgba(239,68,68,.15)}.i-us{background:rgba(99,102,241,.15)}
     .i-sec{background:rgba(234,179,8,.15)}
 
+    /* ── Futures Mini Cards (TradingView) ── */
+    .futures-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+    @media(max-width:1100px){.futures-row{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.futures-row{grid-template-columns:1fr}}
+    .fut-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
+              border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+              display:flex;flex-direction:column;transition:border-left-color .3s}
+    .fut-card.up{border-left-color:var(--up)}
+    .fut-card.down{border-left-color:var(--down)}
+    .fut-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:10px 14px 4px;gap:8px}
+    .fut-name{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.3px}
+    .fut-price{font-size:16px;font-weight:700;color:var(--text);font-family:'SF Mono',Menlo,monospace}
+    .fut-sub{display:flex;justify-content:space-between;padding:0 14px 8px;font-size:11px;font-family:'SF Mono',Menlo,monospace}
+    .fut-chg{font-weight:600}
+    .fut-chg.up{color:var(--up)}.fut-chg.down{color:var(--down)}
+    .fut-chart{flex:1;min-height:90px;height:90px;position:relative}
+    .fut-chart .tradingview-widget-container{height:100%;width:100%}
+    .fut-chart iframe{border:0!important}
+    .fut-loading{display:flex;align-items:center;justify-content:center;height:100%;
+                 font-size:11px;color:var(--muted)}
+
     /* ── Search ── */
     .search-wrap{position:relative}
     .search-wrap input{background:var(--surface2);border:1px solid var(--border);
@@ -437,6 +458,57 @@
 
 <!-- ── Main ── -->
 <div class="main">
+
+  <!-- ═══ 先物・為替ミニチャート（全タブ共通）═══ -->
+  <div class="futures-row" id="futures-row">
+    <div class="fut-card" id="fut-nk225" data-symbol="OSE:NK225">
+      <div class="fut-hdr">
+        <span class="fut-name">日経225先物</span>
+        <span class="fut-price" id="fut-nk225-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-nk225-chg">—</span>
+        <span class="fut-chg" id="fut-nk225-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-nk225-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+
+    <div class="fut-card" id="fut-ym" data-symbol="CME_MINI:YM1!">
+      <div class="fut-hdr">
+        <span class="fut-name">NYダウ先物</span>
+        <span class="fut-price" id="fut-ym-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-ym-chg">—</span>
+        <span class="fut-chg" id="fut-ym-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-ym-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+
+    <div class="fut-card" id="fut-nq" data-symbol="CME_MINI:NQ1!">
+      <div class="fut-hdr">
+        <span class="fut-name">ナスダック先物</span>
+        <span class="fut-price" id="fut-nq-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-nq-chg">—</span>
+        <span class="fut-chg" id="fut-nq-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-nq-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+
+    <div class="fut-card" id="fut-usdjpy" data-symbol="OANDA:USDJPY">
+      <div class="fut-hdr">
+        <span class="fut-name">USD/JPY</span>
+        <span class="fut-price" id="fut-usdjpy-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-usdjpy-chg">—</span>
+        <span class="fut-chg" id="fut-usdjpy-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-usdjpy-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+  </div>
 
   <!-- ═══ 本日の市場ニュース（全タブ共通）═══ -->
   <div class="card" id="mkt-news-card" style="margin-bottom:18px">
@@ -1986,12 +2058,131 @@ function topSector(data) {
 }
 
 /* ════════════════════════════════════════════
+   先物・為替ミニチャート（TradingView）
+════════════════════════════════════════════ */
+function initFuturesWidgets() {
+  const symbols = [
+    { id: 'fut-nk225',  symbol: 'OSE:NK225',       priceFmt: { decimals: 0, sep: true } },
+    { id: 'fut-ym',     symbol: 'CME_MINI:YM1!',   priceFmt: { decimals: 0, sep: true } },
+    { id: 'fut-nq',     symbol: 'CME_MINI:NQ1!',   priceFmt: { decimals: 2, sep: true } },
+    { id: 'fut-usdjpy', symbol: 'OANDA:USDJPY',    priceFmt: { decimals: 3, sep: false } },
+  ];
+
+  symbols.forEach(({ id, symbol }) => {
+    const chartHost = document.getElementById(id + '-chart');
+    if (!chartHost) return;
+
+    // TradingView ミニチャートWidget埋め込み
+    chartHost.innerHTML = '<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+    const cfg = {
+      "symbol": symbol,
+      "width": "100%",
+      "height": "100%",
+      "locale": "ja",
+      "dateRange": "1D",
+      "colorTheme": "dark",
+      "isTransparent": true,
+      "autosize": true,
+      "largeChartUrl": "",
+      "trendLineColor": "rgba(129, 140, 248, 1)",
+      "underLineColor": "rgba(129, 140, 248, 0.15)",
+      "underLineBottomColor": "rgba(129, 140, 248, 0)"
+    };
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://s3.tradingview.com/external-embed/embed-widget-mini-symbol-overview.js';
+    s.text = JSON.stringify(cfg);
+    chartHost.querySelector('.tradingview-widget-container').appendChild(s);
+  });
+
+  // 価格・前日比はTradingView Lightweight scripting API がCORSで使えないため
+  // 簡易にYahoo Finance のクエリを使う（無料・APIキー不要）
+  fetchFuturesPrices();
+}
+
+async function fetchFuturesPrices() {
+  // Yahoo Finance のシンボルマッピング
+  const items = [
+    { id: 'fut-nk225',  yf: 'NIY=F',  decimals: 0, sep: true },   // 日経225先物
+    { id: 'fut-ym',     yf: 'YM=F',   decimals: 0, sep: true },   // YM mini
+    { id: 'fut-nq',     yf: 'NQ=F',   decimals: 2, sep: true },   // NQ mini
+    { id: 'fut-usdjpy', yf: 'JPY=X',  decimals: 3, sep: false },  // USD/JPY
+  ];
+
+  // Yahoo Finance v8/finance/chart は CORS OK（パブリック）。だが日本IPからは
+  // 時々ブロックされるので、フォールバックとして stooq も用意。
+  for (const it of items) {
+    let price = null, prev = null;
+    try {
+      const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${it.yf}?interval=1d&range=2d`);
+      if (r.ok) {
+        const j = await r.json();
+        const result = j?.chart?.result?.[0];
+        const meta = result?.meta;
+        price = meta?.regularMarketPrice ?? null;
+        prev  = meta?.chartPreviousClose ?? meta?.previousClose ?? null;
+      }
+    } catch (e) { /* fall through */ }
+
+    if (price == null || prev == null) {
+      // 取得失敗時はTradingView Widget側の表示に任せる
+      updateFuturesCard(it.id, null, null, it.decimals, it.sep);
+      continue;
+    }
+    updateFuturesCard(it.id, price, price - prev, it.decimals, it.sep);
+  }
+}
+
+function updateFuturesCard(id, price, change, decimals, sep) {
+  const priceEl = document.getElementById(id + '-price');
+  const chgEl   = document.getElementById(id + '-chg');
+  const pctEl   = document.getElementById(id + '-pct');
+  const card    = document.getElementById(id);
+  if (!card) return;
+
+  if (price == null) {
+    priceEl.textContent = '—';
+    chgEl.textContent   = '—';
+    pctEl.textContent   = '—';
+    return;
+  }
+
+  const fmt = (n) => {
+    const fixed = n.toFixed(decimals);
+    return sep ? Number(fixed).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : fixed;
+  };
+
+  priceEl.textContent = fmt(price);
+
+  const pct  = (change / (price - change)) * 100;
+  const sign = change >= 0 ? '+' : '';
+  chgEl.textContent = `${sign}${fmt(change)}`;
+  pctEl.textContent = `${sign}${pct.toFixed(2)}%`;
+
+  card.classList.remove('up','down');
+  chgEl.classList.remove('up','down');
+  pctEl.classList.remove('up','down');
+  if (change > 0) {
+    card.classList.add('up');
+    chgEl.classList.add('up');
+    pctEl.classList.add('up');
+  } else if (change < 0) {
+    card.classList.add('down');
+    chgEl.classList.add('down');
+    pctEl.classList.add('down');
+  }
+}
+
+/* ════════════════════════════════════════════
    初期化
 ════════════════════════════════════════════ */
 loadData();
 loadMarketNews();
+initFuturesWidgets();
 setInterval(loadData, 15 * 60 * 1000);
 setInterval(loadMarketNews, 15 * 60 * 1000);
+setInterval(fetchFuturesPrices, 60 * 1000);  // 価格は1分ごとに更新
 </script>
 </body>
 </html>
