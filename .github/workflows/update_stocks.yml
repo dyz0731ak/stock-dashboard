@@ -20,7 +20,8 @@ jobs:
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # PATを使うことでこのワークフローからのpushがdeploy.ymlを起動できる
+          token: ${{ secrets.CRON_TRIGGER_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
