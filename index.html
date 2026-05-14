@@ -2058,120 +2058,156 @@ function topSector(data) {
 }
 
 /* ════════════════════════════════════════════
-   先物・為替ミニチャート（TradingView）
+   先物・為替ミニチャート（Chart.js）
 ════════════════════════════════════════════ */
-function initFuturesWidgets() {
-  const symbols = [
-    { id: 'fut-nk225',  symbol: 'OSE:NK225',       priceFmt: { decimals: 0, sep: true } },
-    { id: 'fut-ym',     symbol: 'CME_MINI:YM1!',   priceFmt: { decimals: 0, sep: true } },
-    { id: 'fut-nq',     symbol: 'CME_MINI:NQ1!',   priceFmt: { decimals: 2, sep: true } },
-    { id: 'fut-usdjpy', symbol: 'OANDA:USDJPY',    priceFmt: { decimals: 3, sep: false } },
-  ];
+const FUT_CHART_INSTANCES = {};
 
-  symbols.forEach(({ id, symbol }) => {
-    const chartHost = document.getElementById(id + '-chart');
-    if (!chartHost) return;
+// id ↔ DOM 要素マッピング（fetch_futures.py の id と一致）
+const FUT_ID_MAP = {
+  'nk225':  'fut-nk225',
+  'ym':     'fut-ym',
+  'nq':     'fut-nq',
+  'usdjpy': 'fut-usdjpy',
+};
 
-    // TradingView ミニチャートWidget埋め込み
-    chartHost.innerHTML = '<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
-    const cfg = {
-      "symbol": symbol,
-      "width": "100%",
-      "height": "100%",
-      "locale": "ja",
-      "dateRange": "1D",
-      "colorTheme": "dark",
-      "isTransparent": true,
-      "autosize": true,
-      "largeChartUrl": "",
-      "trendLineColor": "rgba(129, 140, 248, 1)",
-      "underLineColor": "rgba(129, 140, 248, 0.15)",
-      "underLineBottomColor": "rgba(129, 140, 248, 0)"
-    };
-    const s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = 'https://s3.tradingview.com/external-embed/embed-widget-mini-symbol-overview.js';
-    s.text = JSON.stringify(cfg);
-    chartHost.querySelector('.tradingview-widget-container').appendChild(s);
-  });
-
-  // 価格・前日比はTradingView Lightweight scripting API がCORSで使えないため
-  // 簡易にYahoo Finance のクエリを使う（無料・APIキー不要）
-  fetchFuturesPrices();
-}
-
-async function fetchFuturesPrices() {
-  // Yahoo Finance のシンボルマッピング
-  const items = [
-    { id: 'fut-nk225',  yf: 'NIY=F',  decimals: 0, sep: true },   // 日経225先物
-    { id: 'fut-ym',     yf: 'YM=F',   decimals: 0, sep: true },   // YM mini
-    { id: 'fut-nq',     yf: 'NQ=F',   decimals: 2, sep: true },   // NQ mini
-    { id: 'fut-usdjpy', yf: 'JPY=X',  decimals: 3, sep: false },  // USD/JPY
-  ];
-
-  // Yahoo Finance v8/finance/chart は CORS OK（パブリック）。だが日本IPからは
-  // 時々ブロックされるので、フォールバックとして stooq も用意。
-  for (const it of items) {
-    let price = null, prev = null;
-    try {
-      const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${it.yf}?interval=1d&range=2d`);
-      if (r.ok) {
-        const j = await r.json();
-        const result = j?.chart?.result?.[0];
-        const meta = result?.meta;
-        price = meta?.regularMarketPrice ?? null;
-        prev  = meta?.chartPreviousClose ?? meta?.previousClose ?? null;
-      }
-    } catch (e) { /* fall through */ }
-
-    if (price == null || prev == null) {
-      // 取得失敗時はTradingView Widget側の表示に任せる
-      updateFuturesCard(it.id, null, null, it.decimals, it.sep);
-      continue;
-    }
-    updateFuturesCard(it.id, price, price - prev, it.decimals, it.sep);
+async function loadFutures() {
+  try {
+    const r = await fetch('data/futures.json?t=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    (data.items || []).forEach(renderFuturesCard);
+  } catch (e) {
+    console.warn('futures load failed', e);
   }
 }
 
-function updateFuturesCard(id, price, change, decimals, sep) {
-  const priceEl = document.getElementById(id + '-price');
-  const chgEl   = document.getElementById(id + '-chg');
-  const pctEl   = document.getElementById(id + '-pct');
-  const card    = document.getElementById(id);
-  if (!card) return;
+function renderFuturesCard(item) {
+  const domId = FUT_ID_MAP[item.id];
+  if (!domId) return;
 
-  if (price == null) {
-    priceEl.textContent = '—';
-    chgEl.textContent   = '—';
-    pctEl.textContent   = '—';
-    return;
-  }
+  const card    = document.getElementById(domId);
+  const priceEl = document.getElementById(domId + '-price');
+  const chgEl   = document.getElementById(domId + '-chg');
+  const pctEl   = document.getElementById(domId + '-pct');
+  const chartHost = document.getElementById(domId + '-chart');
+  if (!card || !chartHost) return;
 
   const fmt = (n) => {
-    const fixed = n.toFixed(decimals);
-    return sep ? Number(fixed).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : fixed;
+    const fixed = Number(n).toFixed(item.decimals);
+    return item.sep
+      ? Number(fixed).toLocaleString('en-US', {
+          minimumFractionDigits: item.decimals,
+          maximumFractionDigits: item.decimals,
+        })
+      : fixed;
   };
 
-  priceEl.textContent = fmt(price);
+  priceEl.textContent = fmt(item.price);
+  const sign = item.change >= 0 ? '+' : '';
+  chgEl.textContent = `${sign}${fmt(item.change)}`;
+  pctEl.textContent = `${sign}${item.pct.toFixed(2)}%`;
 
-  const pct  = (change / (price - change)) * 100;
-  const sign = change >= 0 ? '+' : '';
-  chgEl.textContent = `${sign}${fmt(change)}`;
-  pctEl.textContent = `${sign}${pct.toFixed(2)}%`;
-
+  // 色分け
   card.classList.remove('up','down');
   chgEl.classList.remove('up','down');
   pctEl.classList.remove('up','down');
-  if (change > 0) {
-    card.classList.add('up');
-    chgEl.classList.add('up');
-    pctEl.classList.add('up');
-  } else if (change < 0) {
-    card.classList.add('down');
-    chgEl.classList.add('down');
-    pctEl.classList.add('down');
+  const isUp   = item.change > 0;
+  const isDown = item.change < 0;
+  if (isUp)   { card.classList.add('up');   chgEl.classList.add('up');   pctEl.classList.add('up'); }
+  if (isDown) { card.classList.add('down'); chgEl.classList.add('down'); pctEl.classList.add('down'); }
+
+  // チャート描画（線形シーケンスで扱う：時間スケールはadapter不要のため）
+  const rawPoints = (item.chart || []);
+  if (rawPoints.length < 2) {
+    chartHost.innerHTML = '<div class="fut-loading">データ取得中…</div>';
+    return;
   }
+  const labels = rawPoints.map(p => {
+    try {
+      return new Date(p.t).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+    } catch (_) { return ''; }
+  });
+  const yValues = rawPoints.map(p => p.v);
+
+  // 既存のCanvasを再利用 or 作成
+  let canvas = chartHost.querySelector('canvas');
+  if (!canvas) {
+    chartHost.innerHTML = '';
+    canvas = document.createElement('canvas');
+    chartHost.appendChild(canvas);
+  }
+
+  // 既存のChartを破棄
+  if (FUT_CHART_INSTANCES[domId]) {
+    FUT_CHART_INSTANCES[domId].destroy();
+  }
+
+  const color = isUp ? '#22c55e' : isDown ? '#ef4444' : '#818cf8';
+  const ctx = canvas.getContext('2d');
+
+  // グラデーション塗りつぶし
+  const grad = ctx.createLinearGradient(0, 0, 0, 100);
+  grad.addColorStop(0, hexToRgba(color, 0.25));
+  grad.addColorStop(1, hexToRgba(color, 0.0));
+
+  // 基準線（前日終値）を引くためのデータセット
+  const prev = item.prev_close;
+
+  FUT_CHART_INSTANCES[domId] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          data: yValues,
+          borderColor: color,
+          backgroundColor: grad,
+          borderWidth: 1.6,
+          fill: true,
+          pointRadius: 0,
+          tension: 0.25,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          backgroundColor: 'rgba(17, 20, 31, .95)',
+          borderColor: 'rgba(99, 102, 241, .3)',
+          borderWidth: 1,
+          padding: 8,
+          displayColors: false,
+          callbacks: {
+            title: (ctx) => labels[ctx[0].dataIndex] || '',
+            label: (ctx) => fmt(ctx.parsed.y),
+          },
+        },
+      },
+      scales: {
+        x: { display: false },
+        y: {
+          display: false,
+          // 前日終値を含めて少し余裕を持たせる
+          suggestedMin: Math.min(prev, ...yValues) * 0.999,
+          suggestedMax: Math.max(prev, ...yValues) * 1.001,
+        },
+      },
+      interaction: { mode: 'index', intersect: false },
+    },
+  });
+}
+
+function hexToRgba(hex, alpha) {
+  const m = hex.replace('#','').match(/.{2}/g);
+  if (!m) return `rgba(0,0,0,${alpha})`;
+  const [r,g,b] = m.map(x => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
 }
 
 /* ════════════════════════════════════════════
@@ -2179,10 +2215,10 @@ function updateFuturesCard(id, price, change, decimals, sep) {
 ════════════════════════════════════════════ */
 loadData();
 loadMarketNews();
-initFuturesWidgets();
+loadFutures();
 setInterval(loadData, 15 * 60 * 1000);
 setInterval(loadMarketNews, 15 * 60 * 1000);
-setInterval(fetchFuturesPrices, 60 * 1000);  // 価格は1分ごとに更新
+setInterval(loadFutures, 60 * 1000);  // 先物・為替は1分ごとに更新
 </script>
 </body>
 </html>
