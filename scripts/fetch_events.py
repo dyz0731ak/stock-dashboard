@@ -16,8 +16,12 @@ import json
 import datetime
 import re
 import sys
+import os
 import time
 from bs4 import BeautifulSoup
+
+sys.path.insert(0, os.path.dirname(__file__))
+from safe_save import safe_save
 
 HEADERS = {
     "User-Agent": (
@@ -568,13 +572,18 @@ def main():
         },
     }
 
-    out_path = "data/events.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    # 3ソース全滅（合計0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        "data/events.json",
+        output,
+        lambda d: (len(d.get("jp_earnings", []))
+                   + len(d.get("us_earnings", []))
+                   + len(d.get("economic", []))),
+        label="イベント",
+    )
 
-    print(f"[イベント] 保存: {out_path}", file=sys.stderr)
     print(json.dumps({
-        "status": "ok",
+        "status": "ok" if saved else "kept_existing",
         "jp_earnings": len(jp_earnings),
         "us_earnings": len(us_earnings),
         "economic":    len(eco_filtered),

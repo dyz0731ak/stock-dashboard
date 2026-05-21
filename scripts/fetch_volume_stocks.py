@@ -21,6 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # translate モジュールは同じ scripts/ ディレクトリにある
 sys.path.insert(0, os.path.dirname(__file__))
 from translate import load_cache, save_cache, enrich_with_translations, translate_industry
+from safe_save import safe_save
 
 HEADERS = {
     "User-Agent": (
@@ -399,12 +400,19 @@ def main():
         "us_stocks":  us_stocks,
     }
 
-    out_path = "data/volume_stocks.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    # 取得失敗（0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        "data/volume_stocks.json",
+        output,
+        lambda d: len(d.get("jp_stocks", [])) + len(d.get("us_stocks", [])),
+        label="出来高急増",
+    )
 
-    print(f"[出来高急増] 保存: {out_path}", file=sys.stderr)
-    print(json.dumps({"status": "ok", "jp": len(jp_stocks), "us": len(us_stocks)}))
+    print(json.dumps({
+        "status": "ok" if saved else "kept_existing",
+        "jp": len(jp_stocks),
+        "us": len(us_stocks),
+    }))
 
 
 if __name__ == "__main__":

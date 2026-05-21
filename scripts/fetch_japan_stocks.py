@@ -29,6 +29,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
+from safe_save import safe_save
 try:
     from translate import load_cache, save_cache, enrich_with_translations
     HAS_TRANSLATE = True
@@ -414,13 +415,16 @@ def main():
         "theme_keywords":  theme_keywords,
     }
 
-    out_path = "data/japan_stocks.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    # 取得失敗（0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        "data/japan_stocks.json",
+        output,
+        lambda d: len(d.get("all_stocks", [])),
+        label="日本株",
+    )
 
-    print(f"[日本株] 保存: {out_path}", file=sys.stderr)
     print(json.dumps({
-        "status": "ok",
+        "status": "ok" if saved else "kept_existing",
         "stop_high": len(stop_high),
         "near_stop": len(near_stop),
         "all_stocks": len(all_stocks),

@@ -17,6 +17,9 @@ import datetime
 import sys
 import os
 
+sys.path.insert(0, os.path.dirname(__file__))
+from safe_save import safe_save
+
 JST = datetime.timezone(datetime.timedelta(hours=9))
 
 SYMBOLS = [
@@ -101,12 +104,18 @@ def main():
         "updated_at": datetime.datetime.now(JST).isoformat(),
     }
 
-    os.makedirs("data", exist_ok=True)
-    with open("data/futures.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+    # 取得失敗（0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        "data/futures.json",
+        out,
+        lambda d: len(d.get("items", [])),
+        label="先物・為替",
+    )
 
-    print(f"[先物・為替] 完了: {len(results)}件保存", file=sys.stderr)
-    print(json.dumps({"status": "ok", "count": len(results)}))
+    print(json.dumps({
+        "status": "ok" if saved else "kept_existing",
+        "count": len(results),
+    }))
 
 
 if __name__ == "__main__":

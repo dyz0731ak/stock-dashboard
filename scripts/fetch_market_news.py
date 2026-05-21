@@ -19,6 +19,9 @@ import os
 import re
 from bs4 import BeautifulSoup
 
+sys.path.insert(0, os.path.dirname(__file__))
+from safe_save import safe_save
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -66,6 +69,9 @@ def save_cache(data):
 
 def is_fresh(cache):
     if not cache or "updated_at" not in cache:
+        return False
+    # 0件キャッシュは「新しい」とみなさない（取得失敗の固定化を防ぐ）
+    if not cache.get("items"):
         return False
     try:
         updated = datetime.datetime.fromisoformat(cache["updated_at"])
@@ -380,10 +386,18 @@ def main():
         "items":      items,
         "updated_at": datetime.datetime.now(JST).isoformat(),
     }
-    save_cache(result)
+    # 取得失敗（0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        CACHE_FILE,
+        result,
+        lambda d: len(d.get("items", [])),
+        label="市場ニュース",
+    )
 
-    print(f"[市場ニュース] 完了: {len(items)}件保存", file=sys.stderr)
-    print(json.dumps({"status": "ok", "count": len(items)}))
+    print(json.dumps({
+        "status": "ok" if saved else "kept_existing",
+        "count": len(items),
+    }))
 
 
 if __name__ == "__main__":

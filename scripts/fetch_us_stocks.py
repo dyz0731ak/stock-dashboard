@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
+from safe_save import safe_save
 try:
     from translate import load_cache, save_cache, enrich_with_translations
     HAS_TRANSLATE = True
@@ -248,12 +249,18 @@ def main():
         "sector_analysis": sector_analysis,
     }
 
-    out_path = "data/us_stocks.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    # 取得失敗（0件）で既存の良いデータを破壊しないようガード
+    saved = safe_save(
+        "data/us_stocks.json",
+        output,
+        lambda d: len(d.get("gainers", [])),
+        label="米国株",
+    )
 
-    print(f"[米国株] 保存: {out_path}", file=sys.stderr)
-    print(json.dumps({"status": "ok", "gainers": len(gainers)}))
+    print(json.dumps({
+        "status": "ok" if saved else "kept_existing",
+        "gainers": len(gainers),
+    }))
 
 
 if __name__ == "__main__":
