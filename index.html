@@ -388,6 +388,29 @@
     footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;
            border-top:1px solid var(--border);margin-top:32px}
     footer a{color:var(--accent2);text-decoration:none}
+
+    /* ===== アフィリエイト（証券会社）ブロック ===== */
+    .aff-block{margin-top:24px;padding:18px 18px 14px;background:var(--surface);
+               border:1px solid var(--border);border-radius:12px}
+    .aff-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;
+               color:var(--text);margin-bottom:8px}
+    .aff-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
+             padding:2px 6px;background:var(--surface2);color:var(--muted);
+             border:1px solid var(--border);border-radius:3px;line-height:1}
+    .aff-lead{font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.7}
+    .aff-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+    .aff-card{display:flex;flex-direction:column;gap:10px;padding:12px 13px;
+              background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+              position:relative}
+    .aff-name{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:4px}
+    .aff-strength{font-size:11.5px;color:var(--muted);line-height:1.65}
+    .aff-cta{display:block;text-align:center;padding:9px 10px;
+             background:linear-gradient(135deg,var(--accent),var(--accent2));
+             color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;
+             border-radius:6px;transition:opacity .15s ease,transform .1s ease}
+    .aff-cta:hover{opacity:.9;transform:translateY(-1px)}
+    .aff-cta::after{content:" ↗";font-weight:400;opacity:.85}
+    .aff-note{margin-top:10px;font-size:10.5px;color:var(--muted);line-height:1.65}
   </style>
 </head>
 <body>
@@ -579,6 +602,30 @@
         </div>
         <div class="chart-wrap chart-tall"><canvas id="jp-sec-chart"></canvas></div>
       </div>
+
+      <!-- PR: 関連する証券会社 -->
+      <aside class="aff-block" aria-label="関連する証券会社（PR）">
+        <p class="aff-label"><span class="aff-tag">PR</span>ストップ高銘柄を実際に取引するなら</p>
+        <p class="aff-lead">ストップ高や急騰銘柄に乗るには、日本株の売買コストの低さと注文の出しやすさが大切です。下記の証券会社は急騰銘柄の取引と相性が良いです。</p>
+        <div class="aff-cards">
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">松井証券</h3>
+              <p class="aff-strength">1日の約定代金50万円までは日本株の売買手数料が無料。小ロットで複数の急騰銘柄を追うのに最適。</p>
+            </div>
+            <a href="https://h.accesstrade.net/sp/cc?rk=01000t2p00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">松井証券で無料口座開設</a>
+            <img src="https://h.accesstrade.net/sp/rr?rk=01000t2p00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
+          </div>
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">SBI証券</h3>
+              <p class="aff-strength">口座開設数No.1の総合力。ストップ高銘柄の指値・成行を最速で出せる注文画面が使いやすい。</p>
+            </div>
+            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
+          </div>
+        </div>
+        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
+      </aside>
     </div>
   </div>
 
@@ -631,6 +678,31 @@
           <div class="chart-wrap"><canvas id="us-pie-chart"></canvas></div>
         </div>
       </div>
+
+      <!-- PR: 関連する証券会社 -->
+      <aside class="aff-block" aria-label="関連する証券会社（PR）">
+        <p class="aff-label"><span class="aff-tag">PR</span>米国株を実際に取引するなら</p>
+        <p class="aff-lead">米国株の急騰銘柄に投資するには、取扱銘柄数の豊富さとリアルタイム情報が強い証券会社が必要です。下記2社が米国株に強い定番です。</p>
+        <div class="aff-cards">
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">マネックス証券</h3>
+              <p class="aff-strength">米国株の取扱銘柄数が業界最多級。注目の急騰銘柄もしっかり網羅し、銘柄分析ツールも充実。</p>
+            </div>
+            <a href="https://h.accesstrade.net/sp/cc?rk=010072vk00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">マネックス証券で無料口座開設</a>
+            <img src="https://h.accesstrade.net/sp/rr?rk=010072vk00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
+          </div>
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">moomoo証券</h3>
+              <p class="aff-strength">米国株の板情報・気配値がリアルタイムで無料。急変動の判断材料が揃う高機能アプリ。</p>
+            </div>
+            <a href="https://h.accesstrade.net/sp/cc?rk=0100pd0z00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">moomoo証券を無料でダウンロード</a>
+            <img src="https://h.accesstrade.net/sp/rr?rk=0100pd0z00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
+          </div>
+        </div>
+        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
+      </aside>
     </div>
   </div>
 
@@ -696,6 +768,29 @@
         </div>
       </div>
 
+      <!-- PR: 関連する証券会社 -->
+      <aside class="aff-block" aria-label="関連する証券会社（PR）">
+        <p class="aff-label"><span class="aff-tag">PR</span>出来高の動きを実際に追うなら</p>
+        <p class="aff-lead">出来高の急増は需給の転換点を示すサインです。板情報とリアルタイム監視が強い証券会社で、動きを逃さず捉えましょう。</p>
+        <div class="aff-cards">
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">moomoo証券</h3>
+              <p class="aff-strength">板情報・気配値がリアルタイムで無料。出来高と板を同時に監視できる高機能ツールが揃う。</p>
+            </div>
+            <a href="https://h.accesstrade.net/sp/cc?rk=0100pd0z00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">moomoo証券を無料でダウンロード</a>
+            <img src="https://h.accesstrade.net/sp/rr?rk=0100pd0z00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
+          </div>
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">SBI証券</h3>
+              <p class="aff-strength">スクリーニング機能で出来高フィルタが可能。日米株まとめて取引できる業界最大級の総合証券。</p>
+            </div>
+            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
+          </div>
+        </div>
+        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
+      </aside>
     </div>
   </div>
 
@@ -756,6 +851,29 @@
         </div>
         <div class="sec-grid" id="us-sec-grid"></div>
       </div>
+
+      <!-- PR: 関連する証券会社 -->
+      <aside class="aff-block" aria-label="関連する証券会社（PR）">
+        <p class="aff-label"><span class="aff-tag">PR</span>セクター戦略を実際に投資に活かすなら</p>
+        <p class="aff-lead">セクターの強弱を投資戦略に組み込むなら、セクターETFや関連銘柄を低コストで売買できる証券会社が便利です。</p>
+        <div class="aff-cards">
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">楽天証券</h3>
+              <p class="aff-strength">楽天ポイントでセクターETFやインデックスファンドを購入可能。長期積立と相性◎で、初心者にも扱いやすいUI。</p>
+            </div>
+            <a href="https://ad2.trafficgate.net/t/r/1231/738/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">楽天証券で無料口座開設</a>
+          </div>
+          <div class="aff-card">
+            <div>
+              <h3 class="aff-name">SBI証券</h3>
+              <p class="aff-strength">米国セクターETF・日本のセクター関連株まで業界最大級の取扱で網羅。テーマ投資の幅が広い。</p>
+            </div>
+            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
+          </div>
+        </div>
+        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
+      </aside>
     </div>
   </div>
 
