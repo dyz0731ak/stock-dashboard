@@ -129,8 +129,8 @@
     .i-jp{background:rgba(239,68,68,.15)}.i-us{background:rgba(99,102,241,.15)}
     .i-sec{background:rgba(234,179,8,.15)}
 
-    /* ── Futures Mini Cards (TradingView) ── */
-    .futures-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+    /* ── Futures Mini Cards (日足ローソク) ── */
+    .futures-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
     @media(max-width:1100px){.futures-row{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:560px){.futures-row{grid-template-columns:1fr}}
     .fut-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
@@ -141,12 +141,20 @@
     .fut-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:10px 14px 4px;gap:8px}
     .fut-name{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.3px}
     .fut-price{font-size:16px;font-weight:700;color:var(--text);font-family:'SF Mono',Menlo,monospace}
-    .fut-sub{display:flex;justify-content:space-between;padding:0 14px 8px;font-size:11px;font-family:'SF Mono',Menlo,monospace}
+    .fut-sub{display:flex;justify-content:space-between;padding:0 14px 6px;font-size:11px;font-family:'SF Mono',Menlo,monospace}
     .fut-chg{font-weight:600}
     .fut-chg.up{color:var(--up)}.fut-chg.down{color:var(--down)}
-    .fut-chart{flex:1;min-height:90px;height:90px;position:relative}
-    .fut-chart .tradingview-widget-container{height:100%;width:100%}
-    .fut-chart iframe{border:0!important}
+    .fut-meta{padding:0 14px 6px;font-size:10px;color:var(--muted);letter-spacing:.04em}
+    .fut-chart{flex:1;min-height:140px;height:140px;position:relative}
+    .fut-chart canvas{display:block;width:100%;height:100%}
+    .fut-tooltip{position:absolute;pointer-events:none;background:rgba(17,20,31,.95);
+                 border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:6px 8px;
+                 font-size:10.5px;font-family:'SF Mono',Menlo,monospace;color:var(--text);
+                 line-height:1.5;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+    .fut-tooltip.show{opacity:1}
+    .fut-tooltip .tt-date{color:var(--muted);font-size:10px;margin-bottom:2px}
+    .fut-tooltip .tt-row{display:flex;justify-content:space-between;gap:10px}
+    .fut-tooltip .tt-row span:first-child{color:var(--muted)}
     .fut-loading{display:flex;align-items:center;justify-content:center;height:100%;
                  font-size:11px;color:var(--muted)}
 
@@ -530,6 +538,30 @@
         <span class="fut-chg" id="fut-usdjpy-pct">—</span>
       </div>
       <div class="fut-chart" id="fut-usdjpy-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+
+    <div class="fut-card" id="fut-sox">
+      <div class="fut-hdr">
+        <span class="fut-name">SOX指数（半導体）</span>
+        <span class="fut-price" id="fut-sox-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-sox-chg">—</span>
+        <span class="fut-chg" id="fut-sox-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-sox-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+
+    <div class="fut-card" id="fut-gold">
+      <div class="fut-hdr">
+        <span class="fut-name">金先物</span>
+        <span class="fut-price" id="fut-gold-price">—</span>
+      </div>
+      <div class="fut-sub">
+        <span class="fut-chg" id="fut-gold-chg">—</span>
+        <span class="fut-chg" id="fut-gold-pct">—</span>
+      </div>
+      <div class="fut-chart" id="fut-gold-chart"><div class="fut-loading">Loading…</div></div>
     </div>
   </div>
 
@@ -2176,9 +2208,8 @@ function topSector(data) {
 }
 
 /* ════════════════════════════════════════════
-   先物・為替ミニチャート（Chart.js）
+   先物・為替・指数 ミニチャート（日足ローソク・直近6ヶ月）
 ════════════════════════════════════════════ */
-const FUT_CHART_INSTANCES = {};
 
 // id ↔ DOM 要素マッピング（fetch_futures.py の id と一致）
 const FUT_ID_MAP = {
@@ -2186,7 +2217,11 @@ const FUT_ID_MAP = {
   'ym':     'fut-ym',
   'nq':     'fut-nq',
   'usdjpy': 'fut-usdjpy',
+  'sox':    'fut-sox',
+  'gold':   'fut-gold',
 };
+
+const FUT_RENDER_STATE = {};
 
 async function loadFutures() {
   try {
@@ -2197,6 +2232,16 @@ async function loadFutures() {
   } catch (e) {
     console.warn('futures load failed', e);
   }
+}
+
+function fmtFut(n, item) {
+  const fixed = Number(n).toFixed(item.decimals);
+  return item.sep
+    ? Number(fixed).toLocaleString('en-US', {
+        minimumFractionDigits: item.decimals,
+        maximumFractionDigits: item.decimals,
+      })
+    : fixed;
 }
 
 function renderFuturesCard(item) {
@@ -2210,22 +2255,11 @@ function renderFuturesCard(item) {
   const chartHost = document.getElementById(domId + '-chart');
   if (!card || !chartHost) return;
 
-  const fmt = (n) => {
-    const fixed = Number(n).toFixed(item.decimals);
-    return item.sep
-      ? Number(fixed).toLocaleString('en-US', {
-          minimumFractionDigits: item.decimals,
-          maximumFractionDigits: item.decimals,
-        })
-      : fixed;
-  };
-
-  priceEl.textContent = fmt(item.price);
+  priceEl.textContent = fmtFut(item.price, item);
   const sign = item.change >= 0 ? '+' : '';
-  chgEl.textContent = `${sign}${fmt(item.change)}`;
+  chgEl.textContent = `${sign}${fmtFut(item.change, item)}`;
   pctEl.textContent = `${sign}${item.pct.toFixed(2)}%`;
 
-  // 色分け
   card.classList.remove('up','down');
   chgEl.classList.remove('up','down');
   pctEl.classList.remove('up','down');
@@ -2234,99 +2268,171 @@ function renderFuturesCard(item) {
   if (isUp)   { card.classList.add('up');   chgEl.classList.add('up');   pctEl.classList.add('up'); }
   if (isDown) { card.classList.add('down'); chgEl.classList.add('down'); pctEl.classList.add('down'); }
 
-  // チャート描画（線形シーケンスで扱う：時間スケールはadapter不要のため）
-  const rawPoints = (item.chart || []);
-  if (rawPoints.length < 2) {
+  const candles = (item.chart || []).filter(c =>
+    Number.isFinite(c.o) && Number.isFinite(c.h) && Number.isFinite(c.l) && Number.isFinite(c.c)
+  );
+  if (candles.length < 2) {
     chartHost.innerHTML = '<div class="fut-loading">データ取得中…</div>';
     return;
   }
-  const labels = rawPoints.map(p => {
-    try {
-      return new Date(p.t).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-    } catch (_) { return ''; }
-  });
-  const yValues = rawPoints.map(p => p.v);
 
-  // 既存のCanvasを再利用 or 作成
+  // Canvas + tooltip 要素を準備（既存があれば再利用）
   let canvas = chartHost.querySelector('canvas');
+  let tooltip = chartHost.querySelector('.fut-tooltip');
   if (!canvas) {
     chartHost.innerHTML = '';
     canvas = document.createElement('canvas');
     chartHost.appendChild(canvas);
+    tooltip = document.createElement('div');
+    tooltip.className = 'fut-tooltip';
+    chartHost.appendChild(tooltip);
   }
 
-  // 既存のChartを破棄
-  if (FUT_CHART_INSTANCES[domId]) {
-    FUT_CHART_INSTANCES[domId].destroy();
-  }
+  const state = { item, candles, geometry: null };
+  FUT_RENDER_STATE[domId] = state;
 
-  const color = isUp ? '#22c55e' : isDown ? '#ef4444' : '#818cf8';
+  drawCandlestickChart(canvas, state);
+
+  // tooltip ハンドラ（一度だけ）
+  if (!canvas.dataset.tipBound) {
+    canvas.dataset.tipBound = '1';
+    canvas.addEventListener('mousemove', (e) => {
+      const st = FUT_RENDER_STATE[domId];
+      if (!st || !st.geometry) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const idx = pickCandle(st.geometry, x);
+      if (idx < 0) { tooltip.classList.remove('show'); return; }
+      const cdl = st.candles[idx];
+      const it  = st.item;
+      const d = new Date(cdl.t);
+      const dateStr = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}`;
+      tooltip.innerHTML =
+        `<div class="tt-date">${dateStr}</div>` +
+        `<div class="tt-row"><span>O</span><span>${fmtFut(cdl.o, it)}</span></div>` +
+        `<div class="tt-row"><span>H</span><span>${fmtFut(cdl.h, it)}</span></div>` +
+        `<div class="tt-row"><span>L</span><span>${fmtFut(cdl.l, it)}</span></div>` +
+        `<div class="tt-row"><span>C</span><span>${fmtFut(cdl.c, it)}</span></div>`;
+      tooltip.classList.add('show');
+      // tooltipは右側を超えないように左右ふり分け
+      const ttW = tooltip.offsetWidth, ttH = tooltip.offsetHeight;
+      let tx = x + 10, ty = y + 10;
+      if (tx + ttW > rect.width) tx = x - ttW - 10;
+      if (ty + ttH > rect.height) ty = y - ttH - 10;
+      tooltip.style.left = Math.max(2, tx) + 'px';
+      tooltip.style.top  = Math.max(2, ty) + 'px';
+    });
+    canvas.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  }
+}
+
+function drawCandlestickChart(canvas, state) {
+  const { candles } = state;
+  const host = canvas.parentElement;
+  const dpr = window.devicePixelRatio || 1;
+  const cssW = host.clientWidth;
+  const cssH = host.clientHeight;
+  canvas.width  = Math.max(1, Math.floor(cssW * dpr));
+  canvas.height = Math.max(1, Math.floor(cssH * dpr));
+  canvas.style.width  = cssW + 'px';
+  canvas.style.height = cssH + 'px';
+
   const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, cssW, cssH);
 
-  // グラデーション塗りつぶし
-  const grad = ctx.createLinearGradient(0, 0, 0, 100);
-  grad.addColorStop(0, hexToRgba(color, 0.25));
-  grad.addColorStop(1, hexToRgba(color, 0.0));
+  const padL = 4, padR = 4, padT = 6, padB = 6;
+  const plotW = cssW - padL - padR;
+  const plotH = cssH - padT - padB;
 
-  // 基準線（前日終値）を引くためのデータセット
-  const prev = item.prev_close;
+  // 価格レンジ
+  let minP = Infinity, maxP = -Infinity;
+  for (const c of candles) {
+    if (c.l < minP) minP = c.l;
+    if (c.h > maxP) maxP = c.h;
+  }
+  if (!isFinite(minP) || !isFinite(maxP) || minP === maxP) return;
+  const pad = (maxP - minP) * 0.05;
+  minP -= pad; maxP += pad;
+  const range = maxP - minP;
 
-  FUT_CHART_INSTANCES[domId] = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          data: yValues,
-          borderColor: color,
-          backgroundColor: grad,
-          borderWidth: 1.6,
-          fill: true,
-          pointRadius: 0,
-          tension: 0.25,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          mode: 'index',
-          intersect: false,
-          backgroundColor: 'rgba(17, 20, 31, .95)',
-          borderColor: 'rgba(99, 102, 241, .3)',
-          borderWidth: 1,
-          padding: 8,
-          displayColors: false,
-          callbacks: {
-            title: (ctx) => labels[ctx[0].dataIndex] || '',
-            label: (ctx) => fmt(ctx.parsed.y),
-          },
-        },
-      },
-      scales: {
-        x: { display: false },
-        y: {
-          display: false,
-          // 前日終値を含めて少し余裕を持たせる
-          suggestedMin: Math.min(prev, ...yValues) * 0.999,
-          suggestedMax: Math.max(prev, ...yValues) * 1.001,
-        },
-      },
-      interaction: { mode: 'index', intersect: false },
-    },
-  });
+  const n = candles.length;
+  const slot = plotW / n;
+  const bodyW = Math.max(1, Math.min(slot * 0.7, 8));
+
+  const yOf = (price) => padT + (1 - (price - minP) / range) * plotH;
+
+  // 薄いグリッド（横3本）
+  ctx.strokeStyle = 'rgba(148,163,184,.08)';
+  ctx.lineWidth = 1;
+  for (let i = 1; i < 4; i++) {
+    const yy = padT + (plotH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(padL, yy);
+    ctx.lineTo(padL + plotW, yy);
+    ctx.stroke();
+  }
+
+  const upCol     = '#22c55e';
+  const downCol   = '#ef4444';
+  const upWick    = 'rgba(34,197,94,.85)';
+  const downWick  = 'rgba(239,68,68,.85)';
+
+  const slots = [];
+  for (let i = 0; i < n; i++) {
+    const c = candles[i];
+    const cx = padL + slot * (i + 0.5);
+    const isUp = c.c >= c.o;
+    const col  = isUp ? upCol : downCol;
+    const wick = isUp ? upWick : downWick;
+
+    // ヒゲ
+    ctx.strokeStyle = wick;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(Math.round(cx) + 0.5, yOf(c.h));
+    ctx.lineTo(Math.round(cx) + 0.5, yOf(c.l));
+    ctx.stroke();
+
+    // 実体
+    const yO = yOf(c.o);
+    const yC = yOf(c.c);
+    const top = Math.min(yO, yC);
+    const h = Math.max(1, Math.abs(yC - yO));
+    ctx.fillStyle = col;
+    ctx.fillRect(Math.round(cx - bodyW / 2), Math.round(top), Math.round(bodyW), Math.round(h));
+
+    slots.push({ cx, left: padL + slot * i, right: padL + slot * (i + 1) });
+  }
+
+  state.geometry = { slots, padL, padR, plotW };
 }
 
-function hexToRgba(hex, alpha) {
-  const m = hex.replace('#','').match(/.{2}/g);
-  if (!m) return `rgba(0,0,0,${alpha})`;
-  const [r,g,b] = m.map(x => parseInt(x, 16));
-  return `rgba(${r},${g},${b},${alpha})`;
+function pickCandle(geom, x) {
+  const slots = geom.slots;
+  if (!slots || !slots.length) return -1;
+  if (x < slots[0].left || x > slots[slots.length - 1].right) return -1;
+  // 二分探索ではなく線形で十分（n≒130）
+  for (let i = 0; i < slots.length; i++) {
+    if (x >= slots[i].left && x <= slots[i].right) return i;
+  }
+  return -1;
 }
+
+// リサイズ時に再描画
+let _futResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_futResizeTimer);
+  _futResizeTimer = setTimeout(() => {
+    Object.entries(FUT_RENDER_STATE).forEach(([domId, state]) => {
+      const chartHost = document.getElementById(domId + '-chart');
+      if (!chartHost) return;
+      const canvas = chartHost.querySelector('canvas');
+      if (canvas) drawCandlestickChart(canvas, state);
+    });
+  }, 120);
+});
 
 /* ════════════════════════════════════════════
    初期化
