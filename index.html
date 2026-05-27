@@ -235,6 +235,36 @@
     .chart-wrap{position:relative;height:280px}
     .chart-tall{height:380px}
 
+    /* ── Heatmap (treemap) ── */
+    .heatmap-wrap{position:relative;width:100%;height:560px;background:var(--surface2);
+                  border-radius:8px;overflow:hidden}
+    .hm-loading{display:flex;align-items:center;justify-content:center;height:100%;
+                font-size:13px;color:var(--muted)}
+    .hm-svg{display:block;width:100%;height:100%;background:#0b0d14}
+    .hm-svg .hm-sector-label{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',
+                              'Yu Gothic UI',sans-serif;font-size:11px;font-weight:700;
+                              fill:#ffffff;opacity:.95;letter-spacing:.04em;
+                              text-shadow:0 1px 2px rgba(0,0,0,.6);pointer-events:none}
+    .hm-svg .hm-sector-bg{fill:rgba(99,102,241,.18);stroke:rgba(99,102,241,.35);stroke-width:1}
+    .hm-svg .hm-stock{cursor:default;transition:filter .12s}
+    .hm-svg .hm-stock:hover{filter:brightness(1.15)}
+    .hm-svg .hm-stock-name{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;
+                            font-weight:700;fill:#fff;text-shadow:0 1px 2px rgba(0,0,0,.7);
+                            pointer-events:none}
+    .hm-svg .hm-stock-pct{font-family:'SF Mono',Menlo,monospace;fill:#fff;opacity:.95;
+                           text-shadow:0 1px 2px rgba(0,0,0,.7);pointer-events:none}
+    .hm-tooltip{position:absolute;pointer-events:none;background:rgba(15,17,23,.97);
+                border:1px solid rgba(99,102,241,.4);border-radius:8px;padding:8px 10px;
+                font-size:12px;line-height:1.55;color:var(--text);box-shadow:0 6px 18px rgba(0,0,0,.5);
+                opacity:0;transition:opacity .12s;z-index:8;min-width:160px}
+    .hm-tooltip.show{opacity:1}
+    .hm-tooltip .tt-code{color:var(--muted);font-family:'SF Mono',Menlo,monospace;font-size:11px}
+    .hm-tooltip .tt-name{font-weight:700;font-size:13px;margin:2px 0 6px}
+    .hm-tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;font-family:'SF Mono',Menlo,monospace}
+    .hm-tooltip .tt-row .lab{color:var(--muted)}
+    .hm-tooltip .up{color:var(--up)}
+    .hm-tooltip .down{color:var(--down)}
+
     /* ── Error / Empty ── */
     .err-banner{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
                 border-radius:8px;padding:11px 14px;color:#fca5a5;font-size:13px;
@@ -627,12 +657,13 @@
         </div>
       </div>
 
-      <!-- 業種別チャート -->
+      <!-- 日経225 ヒートマップ -->
       <div class="card">
         <div class="card-hdr">
-          <div class="card-title"><div class="c-icon i-sec">📊</div>業種別 S高件数</div>
+          <div class="card-title"><div class="c-icon i-sec">🗾</div>日経225 ヒートマップ <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">面積=時価総額 / 色=本日の前日比</span></div>
+          <div id="hm-jp-updated" style="font-size:11px;color:var(--muted)"></div>
         </div>
-        <div class="chart-wrap chart-tall"><canvas id="jp-sec-chart"></canvas></div>
+        <div id="hm-jp" class="heatmap-wrap"><div class="hm-loading">読み込み中...</div></div>
       </div>
 
       <!-- PR: 関連する証券会社 -->
@@ -1367,8 +1398,8 @@ function renderJapan() {
           : '<span class="badge b-near">📈 急騰</span>'}</td>
       </tr>`).join('');
 
-  // ── セクターチャート ──
-  renderBarChart('jp-sec-chart', jpData.sector_analysis, 'ストップ高件数', 'count');
+  // ── 日経225 ヒートマップ ──
+  loadNikkei225Heatmap();
 }
 
 /* ════════════════════════════════════════════
@@ -2206,6 +2237,292 @@ function topSector(data) {
   const top = Object.entries(data).sort((a,b) => b[1].count - a[1].count)[0];
   return top ? top[0] : '-';
 }
+
+/* ════════════════════════════════════════════
+   日経225 ヒートマップ（業種ごとのSquarified Treemap）
+════════════════════════════════════════════ */
+
+let _hmJpData = null;
+
+async function loadNikkei225Heatmap() {
+  const host = document.getElementById('hm-jp');
+  if (!host) return;
+  try {
+    const r = await fetch('data/nikkei225.json?t=' + Date.now());
+    if (!r.ok) throw new Error('fetch failed');
+    _hmJpData = await r.json();
+    const upd = document.getElementById('hm-jp-updated');
+    if (upd && _hmJpData.updated_at) {
+      const d = new Date(_hmJpData.updated_at);
+      upd.textContent = `更新: ${d.toLocaleString('ja-JP', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' })}`;
+    }
+    renderHeatmap(host, _hmJpData.items);
+  } catch (e) {
+    host.innerHTML = '<div class="hm-loading">データの読み込みに失敗しました</div>';
+    console.warn('heatmap load failed', e);
+  }
+}
+
+function renderHeatmap(host, items) {
+  const w = host.clientWidth;
+  const h = host.clientHeight;
+  if (!w || !h) return;
+
+  // 業種でグループ化、各業種は時価総額合計でソート
+  const sectorMap = new Map();
+  for (const it of items) {
+    if (!it.market_cap) continue;
+    if (!sectorMap.has(it.sector)) sectorMap.set(it.sector, []);
+    sectorMap.get(it.sector).push(it);
+  }
+  const sectors = [];
+  for (const [name, stocks] of sectorMap.entries()) {
+    stocks.sort((a, b) => b.market_cap - a.market_cap);
+    const sum = stocks.reduce((s, x) => s + x.market_cap, 0);
+    sectors.push({ name, stocks, value: sum });
+  }
+  sectors.sort((a, b) => b.value - a.value);
+
+  // 全体のSVG構築
+  host.innerHTML = '';
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('class', 'hm-svg');
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  svg.setAttribute('preserveAspectRatio', 'none');
+  host.appendChild(svg);
+
+  // tooltip
+  const tooltip = document.createElement('div');
+  tooltip.className = 'hm-tooltip';
+  host.appendChild(tooltip);
+
+  // セクター矩形のレイアウト
+  const sectorRects = squarify(sectors, { x: 0, y: 0, w, h });
+  const SECTOR_LABEL_H = 16;
+
+  for (const sr of sectorRects) {
+    // セクター背景帯
+    const labelBg = document.createElementNS(NS, 'rect');
+    labelBg.setAttribute('class', 'hm-sector-bg');
+    labelBg.setAttribute('x', sr.x);
+    labelBg.setAttribute('y', sr.y);
+    labelBg.setAttribute('width', sr.w);
+    labelBg.setAttribute('height', SECTOR_LABEL_H);
+    svg.appendChild(labelBg);
+
+    // セクター名
+    if (sr.w > 60) {
+      const txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('class', 'hm-sector-label');
+      txt.setAttribute('x', sr.x + 6);
+      txt.setAttribute('y', sr.y + 11);
+      txt.textContent = sr.node.name;
+      svg.appendChild(txt);
+    }
+
+    // セクター内の各銘柄
+    const innerRect = {
+      x: sr.x,
+      y: sr.y + SECTOR_LABEL_H,
+      w: sr.w,
+      h: Math.max(0, sr.h - SECTOR_LABEL_H),
+    };
+    if (innerRect.w < 4 || innerRect.h < 4) continue;
+
+    const stockNodes = sr.node.stocks.map(s => ({ ...s, value: s.market_cap }));
+    const stockRects = squarify(stockNodes, innerRect);
+
+    for (const st of stockRects) {
+      const stock = st.node;
+      const fill = colorForPct(stock.change_pct);
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'hm-stock');
+
+      const rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', st.x);
+      rect.setAttribute('y', st.y);
+      rect.setAttribute('width', Math.max(0, st.w - 1));
+      rect.setAttribute('height', Math.max(0, st.h - 1));
+      rect.setAttribute('fill', fill);
+      g.appendChild(rect);
+
+      // テキスト: 銘柄名と%
+      const area = st.w * st.h;
+      if (st.w > 38 && st.h > 26 && area > 1400) {
+        const fontSize = Math.max(9, Math.min(14, Math.sqrt(area) / 9));
+        const nameTxt = document.createElementNS(NS, 'text');
+        nameTxt.setAttribute('class', 'hm-stock-name');
+        nameTxt.setAttribute('x', st.x + st.w / 2);
+        nameTxt.setAttribute('y', st.y + st.h / 2 - 1);
+        nameTxt.setAttribute('text-anchor', 'middle');
+        nameTxt.setAttribute('font-size', fontSize);
+        nameTxt.textContent = truncate(stock.name, Math.floor(st.w / (fontSize * 0.6)));
+        g.appendChild(nameTxt);
+
+        const pctTxt = document.createElementNS(NS, 'text');
+        pctTxt.setAttribute('class', 'hm-stock-pct');
+        pctTxt.setAttribute('x', st.x + st.w / 2);
+        pctTxt.setAttribute('y', st.y + st.h / 2 + fontSize + 1);
+        pctTxt.setAttribute('text-anchor', 'middle');
+        pctTxt.setAttribute('font-size', Math.max(8, fontSize * 0.85));
+        const sign = stock.change_pct >= 0 ? '▲' : '▼';
+        pctTxt.textContent = `${sign}${Math.abs(stock.change_pct).toFixed(2)}%`;
+        g.appendChild(pctTxt);
+      }
+
+      // ホバーで詳細
+      g.addEventListener('mouseenter', () => showTooltip(tooltip, host, stock));
+      g.addEventListener('mousemove',  (e) => moveTooltip(tooltip, host, e));
+      g.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+      svg.appendChild(g);
+    }
+  }
+}
+
+function showTooltip(tooltip, host, stock) {
+  const up = stock.change_pct >= 0;
+  const mc = stock.market_cap ? (stock.market_cap / 1e12).toFixed(2) + '兆円' : '—';
+  const sign = up ? '+' : '';
+  tooltip.innerHTML =
+    `<div class="tt-code">${stock.code} · ${stock.sector}</div>` +
+    `<div class="tt-name">${escHm(stock.name)}</div>` +
+    `<div class="tt-row"><span class="lab">株価</span><span>${stock.price.toLocaleString('en-US')}円</span></div>` +
+    `<div class="tt-row"><span class="lab">前日比</span><span class="${up?'up':'down'}">${sign}${stock.change_pct.toFixed(2)}%</span></div>` +
+    `<div class="tt-row"><span class="lab">時価総額</span><span>${mc}</span></div>`;
+  tooltip.classList.add('show');
+}
+
+function moveTooltip(tooltip, host, e) {
+  const rect = host.getBoundingClientRect();
+  let x = e.clientX - rect.left + 12;
+  let y = e.clientY - rect.top + 12;
+  const ttW = tooltip.offsetWidth, ttH = tooltip.offsetHeight;
+  if (x + ttW > rect.width)  x = e.clientX - rect.left - ttW - 12;
+  if (y + ttH > rect.height) y = e.clientY - rect.top  - ttH - 12;
+  tooltip.style.left = Math.max(4, x) + 'px';
+  tooltip.style.top  = Math.max(4, y) + 'px';
+}
+
+function escHm(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function truncate(s, max) {
+  if (max <= 1) return '';
+  if (s.length <= max) return s;
+  return s.slice(0, Math.max(1, max - 1)) + '…';
+}
+
+// 色: 緑(↑) ↔ 灰(0) ↔ 赤(↓)。±5% で飽和
+function colorForPct(pct) {
+  const p = Math.max(-5, Math.min(5, pct)) / 5; // -1..1
+  if (Math.abs(p) < 0.02) return '#3a3f57'; // ほぼ横ばい
+  if (p > 0) {
+    // 緑: 強さに応じて #1a4d2e → #16c060
+    const t = p; // 0..1
+    const r = Math.round(0x1a + (0x16 - 0x1a) * t);
+    const g = Math.round(0x4d + (0xc0 - 0x4d) * t);
+    const b = Math.round(0x2e + (0x60 - 0x2e) * t);
+    return `rgb(${r},${g},${b})`;
+  } else {
+    // 赤: #5a1e1e → #d63b3b
+    const t = -p;
+    const r = Math.round(0x5a + (0xd6 - 0x5a) * t);
+    const g = Math.round(0x1e + (0x3b - 0x1e) * t);
+    const b = Math.round(0x1e + (0x3b - 0x1e) * t);
+    return `rgb(${r},${g},${b})`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// Squarified Treemap (Bruls, Huijsen, Wijk 2000)
+// 各 node は { value, ... } を持つ。container は {x,y,w,h}。
+// 戻り値: [{x,y,w,h,node}, ...]
+// ─────────────────────────────────────────────
+function squarify(nodes, container) {
+  const items = nodes.filter(n => n.value > 0).slice().sort((a,b) => b.value - a.value);
+  if (!items.length) return [];
+
+  const totalValue = items.reduce((s,n) => s + n.value, 0);
+  const totalArea = container.w * container.h;
+  // 値を面積にスケール
+  const scaled = items.map(n => ({ node: n, area: (n.value / totalValue) * totalArea }));
+
+  const rects = [];
+  let rect = { ...container };
+  let row = [];
+  let rowSum = 0;
+
+  function shortestSide() { return Math.min(rect.w, rect.h); }
+  function worstRatio(row, w) {
+    const sum = row.reduce((s,x) => s + x.area, 0);
+    const sMax = Math.max(...row.map(x => x.area));
+    const sMin = Math.min(...row.map(x => x.area));
+    const w2 = w * w;
+    const sum2 = sum * sum;
+    return Math.max((w2 * sMax) / sum2, sum2 / (w2 * sMin));
+  }
+
+  function placeRow(row) {
+    const sum = row.reduce((s,x) => s + x.area, 0);
+    if (rect.w >= rect.h) {
+      // 縦方向に詰める（列）
+      const colW = sum / rect.h;
+      let y = rect.y;
+      for (const r of row) {
+        const rh = r.area / colW;
+        rects.push({ x: rect.x, y, w: colW, h: rh, node: r.node });
+        y += rh;
+      }
+      rect = { x: rect.x + colW, y: rect.y, w: rect.w - colW, h: rect.h };
+    } else {
+      // 横方向に詰める（行）
+      const rowH = sum / rect.w;
+      let x = rect.x;
+      for (const r of row) {
+        const rw = r.area / rowH;
+        rects.push({ x, y: rect.y, w: rw, h: rowH, node: r.node });
+        x += rw;
+      }
+      rect = { x: rect.x, y: rect.y + rowH, w: rect.w, h: rect.h - rowH };
+    }
+  }
+
+  for (const it of scaled) {
+    const w = shortestSide();
+    if (w <= 0) break;
+    if (row.length === 0) {
+      row.push(it);
+      rowSum += it.area;
+      continue;
+    }
+    const trial = [...row, it];
+    if (worstRatio(trial, w) <= worstRatio(row, w)) {
+      row.push(it);
+      rowSum += it.area;
+    } else {
+      placeRow(row);
+      row = [it];
+      rowSum = it.area;
+    }
+  }
+  if (row.length) placeRow(row);
+
+  return rects;
+}
+
+// リサイズで再描画
+let _hmResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_hmResizeTimer);
+  _hmResizeTimer = setTimeout(() => {
+    if (_hmJpData) {
+      const host = document.getElementById('hm-jp');
+      if (host) renderHeatmap(host, _hmJpData.items);
+    }
+  }, 150);
+});
 
 /* ════════════════════════════════════════════
    先物・為替・指数 ミニチャート（日足ローソク・直近6ヶ月）
