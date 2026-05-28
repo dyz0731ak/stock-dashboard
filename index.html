@@ -727,19 +727,13 @@
         </div>
       </div>
 
-      <div class="grid2">
-        <div class="card">
-          <div class="card-hdr">
-            <div class="card-title"><div class="c-icon i-sec">🗂</div>セクター別件数</div>
-          </div>
-          <div class="chart-wrap"><canvas id="us-bar-chart"></canvas></div>
+      <!-- S&P500 ヒートマップ -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title"><div class="c-icon i-sec">🇺🇸</div>S&amp;P 500 ヒートマップ <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">面積=時価総額 / 色=本日の前日比</span></div>
+          <div id="hm-us-updated" style="font-size:11px;color:var(--muted)"></div>
         </div>
-        <div class="card">
-          <div class="card-hdr">
-            <div class="card-title"><div class="c-icon i-sec">🥧</div>セクター構成比</div>
-          </div>
-          <div class="chart-wrap"><canvas id="us-pie-chart"></canvas></div>
-        </div>
+        <div id="hm-us" class="heatmap-wrap"><div class="hm-loading">読み込み中...</div></div>
       </div>
 
       <!-- PR: 関連する証券会社 -->
@@ -1237,6 +1231,15 @@ function switchTab(name, btn) {
   btn.classList.add('active');
   if (name === 'sector' && jpData && usData) renderSectorTab();
   if (name === 'volume' && volData) renderVolume();
+  // ヒートマップは非表示時にclientWidth=0で描画スキップされるため、表示直後に再描画
+  if (name === 'japan' && _hmJpData) {
+    const host = document.getElementById('hm-jp');
+    if (host) renderHeatmap(host, _hmJpData.items, host._hmOpts || {});
+  }
+  if (name === 'us' && _hmUsData) {
+    const host = document.getElementById('hm-us');
+    if (host) renderHeatmap(host, _hmUsData.items, host._hmOpts || { currency: 'USD' });
+  }
 }
 
 /* ════════════════════════════════════════════
@@ -1472,9 +1475,8 @@ function renderUS() {
         <td style="text-align:right;color:var(--muted)">${fmtVol(s.volume)}</td>
       </tr>`).join('');
 
-  // セクターチャート
-  renderBarChart('us-bar-chart', usData.sector_analysis, '銘柄数', 'count');
-  renderPieChart('us-pie-chart', usData.sector_analysis);
+  // S&P 500 ヒートマップ
+  loadSP500Heatmap();
 }
 
 /* ════════════════════════════════════════════
@@ -2243,27 +2245,40 @@ function topSector(data) {
 ════════════════════════════════════════════ */
 
 let _hmJpData = null;
+let _hmUsData = null;
 
 async function loadNikkei225Heatmap() {
-  const host = document.getElementById('hm-jp');
+  await _loadHeatmap('hm-jp', 'hm-jp-updated', 'data/nikkei225.json', (d) => { _hmJpData = d; });
+}
+
+async function loadSP500Heatmap() {
+  await _loadHeatmap('hm-us', 'hm-us-updated', 'data/sp500.json', (d) => { _hmUsData = d; }, { currency: 'USD' });
+}
+
+async function _loadHeatmap(hostId, updId, jsonPath, cache, opts) {
+  const host = document.getElementById(hostId);
   if (!host) return;
   try {
-    const r = await fetch('data/nikkei225.json?t=' + Date.now());
+    const r = await fetch(jsonPath + '?t=' + Date.now());
     if (!r.ok) throw new Error('fetch failed');
-    _hmJpData = await r.json();
-    const upd = document.getElementById('hm-jp-updated');
-    if (upd && _hmJpData.updated_at) {
-      const d = new Date(_hmJpData.updated_at);
+    const data = await r.json();
+    cache(data);
+    const upd = document.getElementById(updId);
+    if (upd && data.updated_at) {
+      const d = new Date(data.updated_at);
       upd.textContent = `更新: ${d.toLocaleString('ja-JP', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' })}`;
     }
-    renderHeatmap(host, _hmJpData.items);
+    renderHeatmap(host, data.items, opts || {});
   } catch (e) {
     host.innerHTML = '<div class="hm-loading">データの読み込みに失敗しました</div>';
     console.warn('heatmap load failed', e);
   }
 }
 
-function renderHeatmap(host, items) {
+function renderHeatmap(host, items, opts) {
+  opts = opts || {};
+  const currency = opts.currency || 'JPY';
+  host._hmOpts = opts; // リサイズ時に再利用
   const w = host.clientWidth;
   const h = host.clientHeight;
   if (!w || !h) return;
@@ -2372,7 +2387,7 @@ function renderHeatmap(host, items) {
       }
 
       // ホバーで詳細
-      g.addEventListener('mouseenter', () => showTooltip(tooltip, host, stock));
+      g.addEventListener('mouseenter', () => showTooltip(tooltip, host, stock, currency));
       g.addEventListener('mousemove',  (e) => moveTooltip(tooltip, host, e));
       g.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
       svg.appendChild(g);
@@ -2380,14 +2395,23 @@ function renderHeatmap(host, items) {
   }
 }
 
-function showTooltip(tooltip, host, stock) {
+function showTooltip(tooltip, host, stock, currency) {
   const up = stock.change_pct >= 0;
-  const mc = stock.market_cap ? (stock.market_cap / 1e12).toFixed(2) + '兆円' : '—';
   const sign = up ? '+' : '';
+  let mc;
+  let priceStr;
+  if (currency === 'USD') {
+    mc = stock.market_cap ? '$' + (stock.market_cap / 1e9).toFixed(2) + 'B' : '—';
+    priceStr = '$' + stock.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  } else {
+    mc = stock.market_cap ? (stock.market_cap / 1e12).toFixed(2) + '兆円' : '—';
+    priceStr = stock.price.toLocaleString('en-US') + '円';
+  }
+  const codeLabel = stock.code || stock.symbol || '';
   tooltip.innerHTML =
-    `<div class="tt-code">${stock.code} · ${stock.sector}</div>` +
+    `<div class="tt-code">${codeLabel} · ${stock.sector || ''}</div>` +
     `<div class="tt-name">${escHm(stock.name)}</div>` +
-    `<div class="tt-row"><span class="lab">株価</span><span>${stock.price.toLocaleString('en-US')}円</span></div>` +
+    `<div class="tt-row"><span class="lab">株価</span><span>${priceStr}</span></div>` +
     `<div class="tt-row"><span class="lab">前日比</span><span class="${up?'up':'down'}">${sign}${stock.change_pct.toFixed(2)}%</span></div>` +
     `<div class="tt-row"><span class="lab">時価総額</span><span>${mc}</span></div>`;
   tooltip.classList.add('show');
@@ -2519,7 +2543,11 @@ window.addEventListener('resize', () => {
   _hmResizeTimer = setTimeout(() => {
     if (_hmJpData) {
       const host = document.getElementById('hm-jp');
-      if (host) renderHeatmap(host, _hmJpData.items);
+      if (host) renderHeatmap(host, _hmJpData.items, host._hmOpts || {});
+    }
+    if (_hmUsData) {
+      const host = document.getElementById('hm-us');
+      if (host) renderHeatmap(host, _hmUsData.items, host._hmOpts || { currency: 'USD' });
     }
   }, 150);
 });
