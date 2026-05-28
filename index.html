@@ -426,6 +426,44 @@
     .mkt-refresh-btn:hover{border-color:var(--accent);color:var(--text)}
     .mkt-updated{font-size:11px;color:var(--muted)}
 
+    /* ── Earnings Flash (決算速報) ── */
+    .kessan-empty{padding:14px 4px;color:var(--muted);font-size:12px;line-height:1.6}
+    .kessan-group{margin-bottom:14px}
+    .kessan-group:last-child{margin-bottom:0}
+    .kessan-grp-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;
+                    padding-bottom:6px;border-bottom:1px solid rgba(46,50,80,.6)}
+    .kessan-cat-badge{display:inline-block;padding:2px 8px;border-radius:4px;
+                      font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+    .kessan-grp-sub{font-size:11px;color:var(--muted);font-weight:400}
+    .kessan-grp-count{margin-left:auto;font-size:10px;color:var(--muted);
+                      font-family:monospace}
+    /* category colors — top tier (最高益・一転増益系) = 強い赤系 */
+    .kc-top{background:rgba(239,68,68,.18);color:#fca5a5}
+    /* 中位 = 上方修正・大幅増益 = オレンジ */
+    .kc-mid{background:rgba(251,146,60,.18);color:#fdba74}
+    /* 一般 = 増収増益・業績修正 = 緑 */
+    .kc-base{background:rgba(34,197,94,.16);color:#86efac}
+    /* その他 = グレー */
+    .kc-other{background:rgba(148,163,184,.16);color:#cbd5e1}
+    .kessan-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+    @media(max-width:700px){.kessan-grid{grid-template-columns:1fr}}
+    .kessan-item{display:flex;align-items:baseline;gap:8px;
+                 padding:6px 0;border-bottom:1px solid rgba(46,50,80,.35);
+                 font-size:12px;line-height:1.45}
+    .kessan-item:last-child{border-bottom:none}
+    .kessan-code{font-family:monospace;font-size:11px;color:var(--accent2);
+                 font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px}
+    .kessan-name{color:var(--text);font-weight:600;white-space:nowrap;
+                 flex-shrink:0;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+    .kessan-market{font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+    .kessan-desc{flex:1;min-width:0;color:var(--muted);font-size:11px;
+                 overflow:hidden;display:-webkit-box;
+                 -webkit-line-clamp:1;-webkit-box-orient:vertical}
+    .kessan-src-link{margin-top:8px;font-size:11px;color:var(--muted);
+                     text-align:right}
+    .kessan-src-link a{color:var(--accent2);text-decoration:none}
+    .kessan-src-link a:hover{text-decoration:underline}
+
     /* ── Modal News ── */
     .modal-news{border-top:1px solid var(--border);padding:12px 20px;
                 max-height:220px;overflow-y:auto;flex-shrink:0}
@@ -629,6 +667,26 @@
         <span class="fut-chg" id="fut-gold-pct">—</span>
       </div>
       <div class="fut-chart" id="fut-gold-chart"><div class="fut-loading">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- ═══ 決算速報（全タブ共通）═══ -->
+  <div class="card" id="kessan-flash-card" style="margin-bottom:18px">
+    <div class="card-hdr">
+      <div class="card-title">
+        <div class="c-icon" style="background:rgba(239,68,68,.15);font-size:11px;font-weight:700;color:#fca5a5">K</div>
+        決算速報
+        <span style="font-size:11px;color:var(--muted);font-weight:400" id="kessan-flash-date"></span>
+      </div>
+      <div class="mkt-news-hdr-right">
+        <span class="mkt-updated" id="kessan-flash-updated"></span>
+        <button class="mkt-refresh-btn" onclick="refreshEarningsFlash()">更新</button>
+      </div>
+    </div>
+    <div id="kessan-flash-body">
+      <div class="loading" style="padding:24px">
+        <div class="spinner"></div>読み込み中...
+      </div>
     </div>
   </div>
 
@@ -2192,6 +2250,101 @@ async function refreshMarketNews() {
   await loadMarketNews(true);
 }
 
+/* ════════════════════════════════════════════
+   決算速報（サプライズ決算）
+════════════════════════════════════════════ */
+let earningsFlashCache = null;
+
+const KESSAN_CAT_CLASS = {
+  '一転最高益':'kc-top','上振れ最高益':'kc-top','連続最高益':'kc-top','一転増益':'kc-top','一転黒字':'kc-top',
+  '大幅上方修正':'kc-mid','上振れ着地':'kc-mid','上方修正':'kc-mid','大幅増益':'kc-mid',
+  '増収増益':'kc-base','増配':'kc-base','配当増額':'kc-base','復配':'kc-base','黒字浮上':'kc-base',
+  '業績修正':'kc-other',
+};
+
+function kessanCatClass(cat) {
+  return KESSAN_CAT_CLASS[cat] || 'kc-other';
+}
+
+async function loadEarningsFlash(forceRefresh) {
+  if (!forceRefresh && earningsFlashCache) {
+    renderEarningsFlash(earningsFlashCache);
+    return;
+  }
+  try {
+    const r = await fetch('data/earnings_flash.json?t=' + Date.now());
+    if (r.ok) {
+      earningsFlashCache = await r.json();
+      renderEarningsFlash(earningsFlashCache);
+    }
+  } catch(e) {
+    document.getElementById('kessan-flash-body').innerHTML =
+      '<div class="kessan-empty">決算速報を取得できませんでした</div>';
+  }
+}
+
+function renderEarningsFlash(data) {
+  const body = document.getElementById('kessan-flash-body');
+  const upd  = document.getElementById('kessan-flash-updated');
+  const dt   = document.getElementById('kessan-flash-date');
+  if (!body) return;
+
+  if (upd && data?.updated_at) {
+    const diffMin = Math.floor((Date.now() - new Date(data.updated_at)) / 60000);
+    const agoTxt = diffMin < 1 ? 'たった今' : diffMin < 60 ? `${diffMin}分前` : `${Math.floor(diffMin/60)}時間前`;
+    upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
+  }
+  if (dt) {
+    dt.textContent = data?.article_date ? `（${data.article_date.replace(/-/g,'/')} 大引け後発表分）` : '';
+  }
+
+  const groups = data?.groups || [];
+  if (!groups.length) {
+    const note = data?.error ? '取得エラー' :
+                 data?.note  ? data.note     :
+                 '本日のサプライズ決算はまだ発表されていません（速報記事は通常 大引け後 17時前後に公開）';
+    body.innerHTML = `<div class="kessan-empty">${esc(note)}</div>`;
+    return;
+  }
+
+  const sections = groups.map(g => {
+    const items = (g.items || []).map(it => {
+      const codeUrl = `https://kabutan.jp/stock/?code=${esc(it.code)}`;
+      return `<div class="kessan-item">
+        <a class="kessan-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(it.code)}</a>
+        <span class="kessan-name" title="${esc(it.name)}">${esc(it.name)}</span>
+        <span class="kessan-market">[${esc(it.market)}]</span>
+        <span class="kessan-desc" title="${esc(it.description)}">${esc(it.description)}</span>
+      </div>`;
+    }).join('');
+    const cls = kessanCatClass(g.category);
+    const subLabel = (g.items && g.items[0]?.category_label) || '';
+    const subDisplay = subLabel && !subLabel.includes(`【${g.category}】`)
+      ? '' : (subLabel ? subLabel.replace(`【${g.category}】`, '').replace(/^した銘柄.*$/, '').trim() : '');
+    return `<div class="kessan-group">
+      <div class="kessan-grp-hdr">
+        <span class="kessan-cat-badge ${cls}">${esc(g.category)}</span>
+        ${subDisplay ? `<span class="kessan-grp-sub">${esc(subDisplay)}</span>` : ''}
+        <span class="kessan-grp-count">${g.items.length}件</span>
+      </div>
+      <div class="kessan-grid">${items}</div>
+    </div>`;
+  }).join('');
+
+  const srcLink = data?.source_url
+    ? `<div class="kessan-src-link">出典: <a href="${esc(data.source_url)}" target="_blank" rel="noopener noreferrer">株探 サプライズ決算速報</a></div>`
+    : '';
+
+  body.innerHTML = sections + srcLink;
+}
+
+async function refreshEarningsFlash() {
+  earningsFlashCache = null;
+  document.getElementById('kessan-flash-body').innerHTML =
+    '<div class="loading" style="padding:24px"><div class="spinner"></div>読み込み中...</div>';
+  await loadEarningsFlash(true);
+}
+
 async function loadNewsCache() {
   if (newsCache) return newsCache;
   try {
@@ -2824,9 +2977,11 @@ window.addEventListener('resize', () => {
    初期化
 ════════════════════════════════════════════ */
 loadData();
+loadEarningsFlash();
 loadMarketNews();
 loadFutures();
 setInterval(loadData, 15 * 60 * 1000);
+setInterval(loadEarningsFlash, 15 * 60 * 1000);
 setInterval(loadMarketNews, 15 * 60 * 1000);
 setInterval(loadFutures, 60 * 1000);  // 先物・為替は1分ごとに更新
 </script>
