@@ -445,6 +445,8 @@
     .kc-base{background:rgba(34,197,94,.16);color:#86efac}
     /* その他 = グレー */
     .kc-other{background:rgba(148,163,184,.16);color:#cbd5e1}
+    /* ネガティブ = 暗赤 */
+    .kc-down{background:rgba(220,38,38,.16);color:#f87171}
     .kessan-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
     @media(max-width:700px){.kessan-grid{grid-template-columns:1fr}}
     .kessan-item{display:flex;align-items:baseline;gap:8px;
@@ -455,12 +457,26 @@
                  font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px}
     .kessan-name{color:var(--text);font-weight:600;white-space:nowrap;
                  flex-shrink:0;max-width:120px;overflow:hidden;text-overflow:ellipsis}
-    .kessan-market{font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+    .kessan-time{font-family:monospace;font-size:10px;color:var(--muted);
+                 white-space:nowrap;flex-shrink:0;min-width:36px}
+    .kessan-srcbadge{display:inline-block;padding:1px 5px;border-radius:3px;
+                     font-size:9px;font-weight:700;white-space:nowrap;flex-shrink:0;
+                     letter-spacing:.02em;text-transform:uppercase}
+    .ks-irbank{background:rgba(59,130,246,.18);color:#93c5fd}
+    .ks-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
+    .ks-kabupro{background:rgba(168,85,247,.18);color:#c4b5fd}
     .kessan-desc{flex:1;min-width:0;color:var(--muted);font-size:11px;
                  overflow:hidden;display:-webkit-box;
                  -webkit-line-clamp:1;-webkit-box-orient:vertical}
+    .kessan-desc a{color:inherit;text-decoration:none}
+    .kessan-desc a:hover{color:var(--accent2);text-decoration:underline}
+    .kessan-summary{display:flex;gap:12px;align-items:center;
+                    font-size:11px;color:var(--muted);padding:0 2px 12px}
+    .kessan-summary-stat{display:flex;align-items:center;gap:4px}
+    .kessan-summary-stat strong{color:var(--text);font-family:monospace;
+                                font-size:12px;font-weight:700}
     .kessan-src-link{margin-top:8px;font-size:11px;color:var(--muted);
-                     text-align:right}
+                     text-align:right;line-height:1.5}
     .kessan-src-link a{color:var(--accent2);text-decoration:none}
     .kessan-src-link a:hover{text-decoration:underline}
 
@@ -2256,10 +2272,17 @@ async function refreshMarketNews() {
 let earningsFlashCache = null;
 
 const KESSAN_CAT_CLASS = {
-  '一転最高益':'kc-top','上振れ最高益':'kc-top','連続最高益':'kc-top','一転増益':'kc-top','一転黒字':'kc-top',
-  '大幅上方修正':'kc-mid','上振れ着地':'kc-mid','上方修正':'kc-mid','大幅増益':'kc-mid',
-  '増収増益':'kc-base','増配':'kc-base','配当増額':'kc-base','復配':'kc-base','黒字浮上':'kc-base',
-  '業績修正':'kc-other',
+  '一転最高益':'kc-top','上振れ最高益':'kc-top','連続最高益':'kc-top','一転増益':'kc-top',
+  '大幅上方修正':'kc-mid','上方修正':'kc-mid',
+  '増配・配当修正':'kc-base','黒字浮上':'kc-base',
+  '本決算・四半期決算':'kc-other',
+  '下方修正':'kc-down','減配':'kc-down','赤字・減益':'kc-down',
+  'その他開示':'kc-other',
+};
+const KESSAN_SRC_LABEL = {
+  irbank: 'IR',
+  kabutan: '株探',
+  kabupro: '決算PRO',
 };
 
 function kessanCatClass(cat) {
@@ -2295,47 +2318,70 @@ function renderEarningsFlash(data) {
     upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
   }
   if (dt) {
-    dt.textContent = data?.article_date ? `（${data.article_date.replace(/-/g,'/')} 大引け後発表分）` : '';
+    dt.textContent = data?.article_date ? `（${data.article_date.replace(/-/g,'/')} 発表分）` : '';
   }
 
   const groups = data?.groups || [];
   if (!groups.length) {
     const note = data?.error ? '取得エラー' :
                  data?.note  ? data.note     :
-                 '本日のサプライズ決算はまだ発表されていません（速報記事は通常 大引け後 17時前後に公開）';
+                 '本日の決算発表はまだ確認されていません（決算は通常 大引け後の15時〜18時頃に発表されます）';
     body.innerHTML = `<div class="kessan-empty">${esc(note)}</div>`;
     return;
   }
 
+  // サマリーバー: 主要カテゴリの件数
+  const counts = {};
+  groups.forEach(g => counts[g.category] = g.items.length);
+  const summaryItems = [
+    {label: '上方修正', cats: ['一転最高益','上振れ最高益','連続最高益','一転増益','大幅上方修正','上方修正'], cls: 'kc-mid'},
+    {label: '増配・配当', cats: ['増配・配当修正','黒字浮上'], cls: 'kc-base'},
+    {label: '決算発表', cats: ['本決算・四半期決算'], cls: 'kc-other'},
+    {label: '下方修正', cats: ['下方修正','減配','赤字・減益'], cls: 'kc-down'},
+  ];
+  const summaryHtml = `<div class="kessan-summary">
+    ${summaryItems.map(s => {
+      const n = s.cats.reduce((sum,c)=>sum+(counts[c]||0),0);
+      if (!n) return '';
+      return `<span class="kessan-summary-stat"><span class="kessan-cat-badge ${s.cls}">${s.label}</span> <strong>${n}</strong></span>`;
+    }).filter(Boolean).join('')}
+    <span class="kessan-summary-stat" style="margin-left:auto">合計 <strong>${data.total||0}</strong>件</span>
+  </div>`;
+
   const sections = groups.map(g => {
     const items = (g.items || []).map(it => {
       const codeUrl = `https://kabutan.jp/stock/?code=${esc(it.code)}`;
+      const srcCls = `ks-${it.source}`;
+      const srcLabel = KESSAN_SRC_LABEL[it.source] || it.source;
+      const desc = it.url
+        ? `<a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.description)}</a>`
+        : esc(it.description);
       return `<div class="kessan-item">
+        <span class="kessan-time">${esc(it.time || '')}</span>
         <a class="kessan-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(it.code)}</a>
         <span class="kessan-name" title="${esc(it.name)}">${esc(it.name)}</span>
-        <span class="kessan-market">[${esc(it.market)}]</span>
-        <span class="kessan-desc" title="${esc(it.description)}">${esc(it.description)}</span>
+        <span class="kessan-srcbadge ${srcCls}">${esc(srcLabel)}</span>
+        <span class="kessan-desc" title="${esc(it.description)}">${desc}</span>
       </div>`;
     }).join('');
     const cls = kessanCatClass(g.category);
-    const subLabel = (g.items && g.items[0]?.category_label) || '';
-    const subDisplay = subLabel && !subLabel.includes(`【${g.category}】`)
-      ? '' : (subLabel ? subLabel.replace(`【${g.category}】`, '').replace(/^した銘柄.*$/, '').trim() : '');
+    const display = g.display || g.category;
     return `<div class="kessan-group">
       <div class="kessan-grp-hdr">
-        <span class="kessan-cat-badge ${cls}">${esc(g.category)}</span>
-        ${subDisplay ? `<span class="kessan-grp-sub">${esc(subDisplay)}</span>` : ''}
+        <span class="kessan-cat-badge ${cls}">${esc(display)}</span>
         <span class="kessan-grp-count">${g.items.length}件</span>
       </div>
       <div class="kessan-grid">${items}</div>
     </div>`;
   }).join('');
 
-  const srcLink = data?.source_url
-    ? `<div class="kessan-src-link">出典: <a href="${esc(data.source_url)}" target="_blank" rel="noopener noreferrer">株探 サプライズ決算速報</a></div>`
-    : '';
+  const srcLink = `<div class="kessan-src-link">出典:
+    <a href="https://irbank.net/news" target="_blank" rel="noopener noreferrer">IRバンク</a> /
+    <a href="https://kabutan.jp/news/" target="_blank" rel="noopener noreferrer">株探</a> /
+    <a href="http://ke.kabupro.jp/hist/today.htm" target="_blank" rel="noopener noreferrer">決算プロ</a>
+  </div>`;
 
-  body.innerHTML = sections + srcLink;
+  body.innerHTML = summaryHtml + sections + srcLink;
 }
 
 async function refreshEarningsFlash() {
