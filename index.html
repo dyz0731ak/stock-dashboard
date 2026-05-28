@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
   <!-- ── Primary SEO ── -->
-  <title>投資の砦 | ストップ高・急騰銘柄・米国株を15分ごとにリアルタイム更新</title>
-  <meta name="description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーを15分ごとにリアルタイム更新。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できる無料の株式ダッシュボード。"/>
+  <title>ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦</title>
+  <meta name="description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家のための無料株式ダッシュボード「投資の砦」。"/>
   <meta name="keywords" content="ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価,株探,急騰理由,決算カレンダー,トップゲイナー,日本株,株式投資"/>
   <meta name="author" content="投資の砦"/>
   <meta name="robots" content="index, follow"/>
@@ -16,8 +16,8 @@
   <!-- ── Open Graph (SNS シェア) ── -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://dashboard.stock-overflow24.com/"/>
-  <meta property="og:title" content="投資の砦 | ストップ高・急騰銘柄を15分リアルタイム更新"/>
-  <meta property="og:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーを15分ごとにリアルタイム更新。急騰理由・適時開示・決算カレンダー・市場ニュースを一画面で。"/>
+  <meta property="og:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
+  <meta property="og:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示・決算カレンダー・市場ニュースを一画面で。個人投資家の砦。"/>
   <meta property="og:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
@@ -26,27 +26,62 @@
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="投資の砦 | ストップ高・急騰銘柄を15分リアルタイム更新"/>
-  <meta name="twitter:description" content="ストップ高・急騰銘柄・出来高急増・米国株を15分ごと更新。急騰理由・決算カレンダー・市場ニュースを一画面で確認できる無料ツール。"/>
+  <meta name="twitter:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
+  <meta name="twitter:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家の砦。"/>
   <meta name="twitter:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
 
   <!-- ── 構造化データ (JSON-LD) ── -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "投資の砦",
-    "url": "https://dashboard.stock-overflow24.com/",
-    "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーを15分ごとにリアルタイム更新する無料の株式ダッシュボード。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できます。",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "JPY"
-    },
-    "inLanguage": "ja",
-    "keywords": "ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://dashboard.stock-overflow24.com/#organization",
+        "name": "投資の砦",
+        "alternateName": ["Toushi no Toride", "投資の砦ダッシュボード"],
+        "url": "https://dashboard.stock-overflow24.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dashboard.stock-overflow24.com/ogp.png",
+          "width": 1200,
+          "height": 630
+        },
+        "description": "個人投資家のチャンスと資産を守る、無料の株式リアルタイムダッシュボード「投資の砦」を運営。",
+        "sameAs": [
+          "https://yougo.stock-overflow24.com/",
+          "https://stock-overflow24.com/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://dashboard.stock-overflow24.com/#website",
+        "name": "投資の砦",
+        "alternateName": "Toushi no Toride",
+        "url": "https://dashboard.stock-overflow24.com/",
+        "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する無料ダッシュボード。",
+        "inLanguage": "ja",
+        "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://dashboard.stock-overflow24.com/#webapp",
+        "name": "投資の砦",
+        "url": "https://dashboard.stock-overflow24.com/",
+        "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する、個人投資家のための無料株式ダッシュボード「投資の砦」。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できます。",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        },
+        "inLanguage": "ja",
+        "keywords": "ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価,株探,急騰理由,決算カレンダー,トップゲイナー",
+        "isPartOf": { "@id": "https://dashboard.stock-overflow24.com/#website" },
+        "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
+      }
+    ]
   }
   </script>
 
@@ -458,7 +493,9 @@
   <div style="display:flex;align-items:center">
     <div class="logo">📊</div>
     <div class="h-title">投資の<span>砦</span></div>
-    <div class="h-sub">日本株・米国株 急騰レーダー</div>
+    <div class="h-sub">日本株・米国株 急騰レーダー
+      <a href="/about/" style="color:var(--accent2);margin-left:6px;text-decoration:none;font-size:10px;border:1px solid var(--border);padding:1px 6px;border-radius:8px">砦とは →</a>
+    </div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <div class="update-badge">
@@ -1018,11 +1055,15 @@
 </div>
 
 <footer>
+  <div style="margin-bottom:8px">
+    <a href="/about/">投資の砦とは</a> &nbsp;|&nbsp;
+    <a href="https://yougo.stock-overflow24.com/" target="_blank">投資用語辞典</a> &nbsp;|&nbsp;
+    <a href="https://github.com/dyz0731ak/stock-dashboard" target="_blank">GitHub</a>
+  </div>
   データソース:
   <a href="https://kabutan.jp" target="_blank">株探(kabutan.jp)</a> /
   <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a>
-  &nbsp;|&nbsp; GitHub Actions で15分ごとに自動更新 &nbsp;|&nbsp;
-  <a href="https://github.com/dyz0731ak/stock-dashboard" target="_blank">GitHub</a>
+  &nbsp;|&nbsp; GitHub Actions で自動更新
 </footer>
 
 <script>
@@ -1372,7 +1413,7 @@ function renderJapan() {
     <div class="stat">
       <div class="stat-label">データ取得日時</div>
       <div class="stat-val val-accent">${fmtJST(jpData.updated_at)}</div>
-      <div class="stat-sub">15分ごと自動更新</div>
+      <div class="stat-sub">自動更新</div>
     </div>
   `;
 
@@ -1448,7 +1489,7 @@ function renderUS() {
     <div class="stat">
       <div class="stat-label">データ取得日時</div>
       <div class="stat-val val-accent">${fmtJST(usData.updated_at)}</div>
-      <div class="stat-sub">15分ごと自動更新</div>
+      <div class="stat-sub">自動更新</div>
     </div>
   `;
 

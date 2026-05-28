@@ -2,8 +2,8 @@ name: Update Stock Data
 
 on:
   schedule:
-    # 15分おきに実行（UTC）
-    - cron: '0,15,30,45 * * * *'
+    # 5分おきに実行（UTC）※GitHub Actions cron は仕様上ベストエフォートで遅延あり
+    - cron: '*/5 * * * *'
   workflow_dispatch:   # 手動実行も可能
 
 permissions:
