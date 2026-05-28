@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-29T08:02:06.749476+09:00",
+  "updated_at": "2026-05-29T08:17:20.574372+09:00",
   "article_date": "2026-05-28",
   "sources": [
     "irbank",
@@ -7,16 +7,76 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 3,
+    "kabutan": 4,
     "kabupro": 23
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-05-28",
+    "kabutan": "05/28",
     "kabupro": "2026-05-28"
   },
   "groups": [
+    {
+      "category": "一転増益",
+      "display": "一転増益",
+      "priority": 20,
+      "items": [
+        {
+          "code": "2593",
+          "name": "伊藤園",
+          "time": "17:00",
+          "source": "kabutan",
+          "category": "一転増益",
+          "description": "伊藤園、前期経常を一転1％増益に上方修正",
+          "metrics": null,
+          "url": "https://kabutan.jp/news/?&b=k202605280003",
+          "kabutan_kind": "修正"
+        }
+      ]
+    },
+    {
+      "category": "大幅上方修正",
+      "display": "大幅上方修正",
+      "priority": 22,
+      "items": [
+        {
+          "code": "6047",
+          "name": "Gunosy",
+          "time": "15:30",
+          "source": "irbank",
+          "category": "大幅上方修正",
+          "description": "2026/05 12ヶ月・修正 / 経常 23.8億 +140.7% / 純益 24.3億 +139.5%",
+          "metrics": {
+            "period": "2026/05 12ヶ月",
+            "type": "修正",
+            "sales": "30億",
+            "op": "-",
+            "ord": "23.8億 +140.7%",
+            "net": "24.3億 +139.5%"
+          },
+          "url": "https://irbank.net/6047"
+        }
+      ]
+    },
+    {
+      "category": "増配・配当修正",
+      "display": "増配・配当修正",
+      "priority": 40,
+      "items": [
+        {
+          "code": "3063",
+          "name": "Ｊグループ",
+          "time": "16:30",
+          "source": "kabutan",
+          "category": "増配・配当修正",
+          "description": "Ｊグループ、今期配当を1円増額修正",
+          "metrics": null,
+          "url": "https://kabutan.jp/news/?&b=k202605280002",
+          "kabutan_kind": "修正"
+        }
+      ]
+    },
     {
       "category": "本決算・四半期決算",
       "display": "決算発表",
@@ -198,40 +258,55 @@
       ]
     },
     {
-      "category": "その他開示",
-      "display": "その他開示",
-      "priority": 99,
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "items": [
+        {
+          "code": "4069",
+          "name": "BlueMeme",
+          "time": "17:00",
+          "source": "irbank",
+          "category": "下方修正",
+          "description": "2026/03 12ヶ月・修正 / 経常 1.3億 -13.3% / 純益 0.83億 -17%",
+          "metrics": {
+            "period": "2026/03 12ヶ月",
+            "type": "修正",
+            "sales": "33億",
+            "op": "1.25億 -16.7%",
+            "ord": "1.3億 -13.3%",
+            "net": "0.83億 -17%"
+          },
+          "url": "https://irbank.net/4069",
+          "also_seen_in": [
+            "kabutan"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "減配",
+      "display": "減配",
+      "priority": 85,
       "items": [
         {
           "code": "4800",
           "name": "オリコン",
           "time": "17:30",
-          "source": "kabupro",
-          "category": "その他開示",
-          "description": "2027年３月期配当予想の修正（無 …",
+          "source": "kabutan",
+          "category": "減配",
+          "description": "オリコン、今期配当を見送り",
           "metrics": null,
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260520542077.pdf"
-        },
-        {
-          "code": "4069",
-          "name": "ＢｌｕｅＭｅｍｅ",
-          "time": "17:00",
-          "source": "kabupro",
-          "category": "その他開示",
-          "description": "通期業績予想の修正に関するお知らせ",
-          "metrics": null,
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552696.pdf"
-        },
-        {
-          "code": "2593",
-          "name": "伊藤園",
-          "time": "17:00",
-          "source": "kabupro",
-          "category": "その他開示",
-          "description": "業績予想（連結・個別）の修正に関す …",
-          "metrics": null,
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527549703.pdf"
-        },
+          "url": "https://kabutan.jp/news/?&b=k202605280005",
+          "kabutan_kind": "修正"
+        }
+      ]
+    },
+    {
+      "category": "その他開示",
+      "display": "その他開示",
+      "priority": 99,
+      "items": [
         {
           "code": "8143",
           "name": "ラピーヌ",
@@ -241,19 +316,9 @@
           "description": "投資有価証券売却益（特別利益）の計 …",
           "metrics": null,
           "url": "http://ke.kabupro.jp/tsp/20260528/140120260528553056.pdf"
-        },
-        {
-          "code": "3063",
-          "name": "ジェイグループホールディングス",
-          "time": "16:30",
-          "source": "kabupro",
-          "category": "その他開示",
-          "description": "配当予想の修正(30周年記念配当  …",
-          "metrics": null,
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552858.pdf"
         }
       ]
     }
   ],
-  "total": 22
+  "total": 23
 }
