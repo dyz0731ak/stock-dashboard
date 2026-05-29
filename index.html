@@ -500,6 +500,7 @@
     .ks-irbank{background:rgba(59,130,246,.18);color:#93c5fd}
     .ks-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
     .ks-kabupro{background:rgba(168,85,247,.18);color:#c4b5fd}
+    .ks-nasdaq{background:rgba(16,185,129,.18);color:#6ee7b7}
 
     /* 決算発表ゾーン (コンパクト2段組) */
     .kessan-decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
@@ -1389,6 +1390,8 @@ function switchTab(name, btn) {
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
+  // 決算速報を選択タブの市場（米国株タブ→米国決算、それ以外→日本決算）に切り替え
+  loadEarningsFlash(false, marketForTab(name));
   if (name === 'sector' && jpData && usData) renderSectorTab();
   if (name === 'volume' && volData) renderVolume();
   // ヒートマップは非表示時にclientWidth=0で描画スキップされるため、表示直後に再描画
@@ -2314,39 +2317,89 @@ async function refreshMarketNews() {
 /* ════════════════════════════════════════════
    決算速報（サプライズ決算）
 ════════════════════════════════════════════ */
-let earningsFlashCache = null;
+// 市場別（日本株 / 米国株）の決算速報キャッシュと現在の表示市場
+const earningsFlashCache = { jp: null, us: null };
+let earningsMarket = 'jp';
 
 const KESSAN_CAT_CLASS = {
+  // 日本株
   '一転最高益':'kc-top','上振れ最高益':'kc-top','連続最高益':'kc-top','一転増益':'kc-top',
   '大幅上方修正':'kc-mid','上方修正':'kc-mid',
   '増配・配当修正':'kc-base','黒字浮上':'kc-base',
   '本決算・四半期決算':'kc-other',
   '下方修正':'kc-down','減配':'kc-down','赤字・減益':'kc-down',
   'その他開示':'kc-other',
+  // 米国株（EPSサプライズ）
+  '大幅上振れ':'kc-top','上振れ':'kc-mid','ほぼ予想通り':'kc-other',
+  '下振れ':'kc-down','大幅下振れ':'kc-down',
 };
 const KESSAN_SRC_LABEL = {
   irbank: 'IR',
   kabutan: '株探',
   kabupro: '決算PRO',
+  nasdaq: 'Nasdaq',
+};
+
+// 市場ごとの表示設定（日本株はこれまでの文言を完全踏襲）
+const KESSAN_MARKET = {
+  jp: {
+    file: 'data/earnings_flash.json',
+    flag: '🇯🇵',
+    codeUrl: c => `https://kabutan.jp/stock/?code=${encodeURIComponent(c)}`,
+    zones: {
+      positive: ['🔥', '注目サプライズ', '上方修正・大幅増益・増配など'],
+      decision: ['📊', '本日の決算発表', '本決算・四半期決算・決算説明資料'],
+      negative: ['⚠️', '下方修正・減配', '業績悪化・減配・赤字転落'],
+    },
+    summary: { positive: '注目サプライズ', decision: '決算発表', negative: '下方修正・減配' },
+    srcLink: `出典:
+      <a href="https://irbank.net/news" target="_blank" rel="noopener noreferrer">IRバンク</a> /
+      <a href="https://kabutan.jp/news/" target="_blank" rel="noopener noreferrer">株探</a> /
+      <a href="http://ke.kabupro.jp/hist/today.htm" target="_blank" rel="noopener noreferrer">決算プロ</a>`,
+    emptyNote: '本日の決算発表はまだ確認されていません（決算は通常 大引け後の15時〜18時頃に発表されます）',
+  },
+  us: {
+    file: 'data/earnings_flash_us.json',
+    flag: '🇺🇸',
+    codeUrl: c => `https://finance.yahoo.com/quote/${encodeURIComponent(c)}`,
+    zones: {
+      positive: ['🔥', '上振れ決算', 'EPSが市場予想を上回った銘柄'],
+      decision: ['📊', 'ほぼ予想通り', 'EPSが市場予想とほぼ同水準'],
+      negative: ['⚠️', '下振れ決算', 'EPSが市場予想を下回った銘柄'],
+    },
+    summary: { positive: '上振れ', decision: '予想通り', negative: '下振れ' },
+    srcLink: `出典:
+      <a href="https://www.nasdaq.com/market-activity/earnings" target="_blank" rel="noopener noreferrer">Nasdaq</a>`,
+    emptyNote: '直近の米国決算サプライズはまだ取得できていません（サプライズ実績は発表翌営業日に確定します）',
+  },
 };
 
 function kessanCatClass(cat) {
   return KESSAN_CAT_CLASS[cat] || 'kc-other';
 }
 
-async function loadEarningsFlash(forceRefresh) {
-  if (!forceRefresh && earningsFlashCache) {
-    renderEarningsFlash(earningsFlashCache);
+// タブに対応する市場（米国株タブのみ 'us'、それ以外は 'jp'）
+function marketForTab(tabName) {
+  return tabName === 'us' ? 'us' : 'jp';
+}
+
+async function loadEarningsFlash(forceRefresh, market) {
+  market = market || earningsMarket;
+  earningsMarket = market;
+  const cfg = KESSAN_MARKET[market];
+  if (!forceRefresh && earningsFlashCache[market]) {
+    renderEarningsFlash(earningsFlashCache[market], market);
     return;
   }
   try {
-    const r = await fetch('data/earnings_flash.json?t=' + Date.now());
+    const r = await fetch(cfg.file + '?t=' + Date.now());
     if (r.ok) {
-      earningsFlashCache = await r.json();
-      renderEarningsFlash(earningsFlashCache);
+      earningsFlashCache[market] = await r.json();
+      // 取得中に別タブへ切り替わっていたら描画しない
+      if (earningsMarket === market) renderEarningsFlash(earningsFlashCache[market], market);
     }
   } catch(e) {
-    document.getElementById('kessan-flash-body').innerHTML =
+    if (earningsMarket === market) document.getElementById('kessan-flash-body').innerHTML =
       '<div class="kessan-empty">決算速報を取得できませんでした</div>';
   }
 }
@@ -2359,8 +2412,8 @@ function renderKessanChip(chip) {
   </span>`;
 }
 
-function renderKessanCard(item, zone) {
-  const codeUrl = `https://kabutan.jp/stock/?code=${esc(item.code)}`;
+function renderKessanCard(item, zone, mkt) {
+  const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
   const wrapCls = zone === 'negative' ? 'is-negative' : 'is-positive';
   const catCls = kessanCatClass(item.category);
   const srcs = (item.sources || []).map(s =>
@@ -2387,8 +2440,8 @@ function renderKessanCard(item, zone) {
   </div>`;
 }
 
-function renderKessanDecisionItem(item) {
-  const codeUrl = `https://kabutan.jp/stock/?code=${esc(item.code)}`;
+function renderKessanDecisionItem(item, mkt) {
+  const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
   const narrative = item.narrative || '';
   const narrativeHtml = item.url
     ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
@@ -2401,7 +2454,9 @@ function renderKessanDecisionItem(item) {
   </div>`;
 }
 
-function renderEarningsFlash(data) {
+function renderEarningsFlash(data, market) {
+  market = market || 'jp';
+  const cfg = KESSAN_MARKET[market] || KESSAN_MARKET.jp;
   const body = document.getElementById('kessan-flash-body');
   const upd  = document.getElementById('kessan-flash-updated');
   const dt   = document.getElementById('kessan-flash-date');
@@ -2413,14 +2468,16 @@ function renderEarningsFlash(data) {
     upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
   }
   if (dt) {
-    dt.textContent = data?.article_date ? `（${data.article_date.replace(/-/g,'/')} 発表分）` : '';
+    dt.textContent = data?.article_date
+      ? `${cfg.flag}（${data.article_date.replace(/-/g,'/')} 発表分）`
+      : cfg.flag;
   }
 
   const groups = data?.groups || [];
   if (!groups.length) {
     const note = data?.error ? '取得エラー' :
                  data?.note  ? data.note     :
-                 '本日の決算発表はまだ確認されていません（決算は通常 大引け後の15時〜18時頃に発表されます）';
+                 cfg.emptyNote;
     body.innerHTML = `<div class="kessan-empty">${esc(note)}</div>`;
     return;
   }
@@ -2430,9 +2487,9 @@ function renderEarningsFlash(data) {
   groups.forEach(g => { zoneCounts[g.zone] = (zoneCounts[g.zone]||0) + g.items.length; });
 
   const summaryHtml = `<div class="kessan-summary">
-    ${zoneCounts.positive ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-base">注目サプライズ</span> <strong>${zoneCounts.positive}</strong></span>` : ''}
-    ${zoneCounts.decision ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-other">決算発表</span> <strong>${zoneCounts.decision}</strong></span>` : ''}
-    ${zoneCounts.negative ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-down">下方修正・減配</span> <strong>${zoneCounts.negative}</strong></span>` : ''}
+    ${zoneCounts.positive ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-base">${esc(cfg.summary.positive)}</span> <strong>${zoneCounts.positive}</strong></span>` : ''}
+    ${zoneCounts.decision ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-other">${esc(cfg.summary.decision)}</span> <strong>${zoneCounts.decision}</strong></span>` : ''}
+    ${zoneCounts.negative ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-down">${esc(cfg.summary.negative)}</span> <strong>${zoneCounts.negative}</strong></span>` : ''}
     <span class="kessan-summary-stat" style="margin-left:auto">合計 <strong>${data.total||0}</strong>件</span>
   </div>`;
 
@@ -2444,16 +2501,17 @@ function renderEarningsFlash(data) {
     });
   });
 
-  // 各ゾーンを時刻順（新しいものを上）でソート
+  // 並び順: sort_val（米国株は時価総額）の降順 → 無ければ時刻の新しい順
   Object.values(byZone).forEach(lst => {
-    lst.sort((a,b) => (b.time||'').localeCompare(a.time||''));
+    lst.sort((a,b) => ((b.sort_val||0) - (a.sort_val||0)) || (b.time||'').localeCompare(a.time||''));
   });
 
-  const renderZone = (zone, icon, title, sub, items, isDecision) => {
+  const renderZone = (zone, items, isDecision) => {
     if (!items.length) return '';
+    const [icon, title, sub] = cfg.zones[zone] || ['📝', 'その他開示', '特別損益など'];
     const rows = isDecision
-      ? `<div class="kessan-decision-grid">${items.map(renderKessanDecisionItem).join('')}</div>`
-      : items.map(it => renderKessanCard(it, zone)).join('');
+      ? `<div class="kessan-decision-grid">${items.map(it => renderKessanDecisionItem(it, cfg)).join('')}</div>`
+      : items.map(it => renderKessanCard(it, zone, cfg)).join('');
     return `<div class="kessan-zone">
       <div class="kessan-zone-hdr">
         <span class="kessan-zone-icon">${icon}</span>
@@ -2465,27 +2523,35 @@ function renderEarningsFlash(data) {
     </div>`;
   };
 
+  const otherZone = byZone.other.length
+    ? `<div class="kessan-zone">
+        <div class="kessan-zone-hdr">
+          <span class="kessan-zone-icon">📝</span>
+          <span class="kessan-zone-title">その他開示</span>
+          <span class="kessan-zone-sub">特別損益など</span>
+          <span class="kessan-zone-count">${byZone.other.length}件</span>
+        </div>
+        <div class="kessan-decision-grid">${byZone.other.map(it => renderKessanDecisionItem(it, cfg)).join('')}</div>
+      </div>`
+    : '';
+
   const zonesHtml = [
-    renderZone('positive', '🔥', '注目サプライズ', '上方修正・大幅増益・増配など', byZone.positive, false),
-    renderZone('decision', '📊', '本日の決算発表', '本決算・四半期決算・決算説明資料', byZone.decision, true),
-    renderZone('negative', '⚠️', '下方修正・減配', '業績悪化・減配・赤字転落', byZone.negative, false),
-    byZone.other.length ? renderZone('other', '📝', 'その他開示', '特別損益など', byZone.other, true) : '',
+    renderZone('positive', byZone.positive, false),
+    renderZone('decision', byZone.decision, true),
+    renderZone('negative', byZone.negative, false),
+    otherZone,
   ].join('');
 
-  const srcLink = `<div class="kessan-src-link">出典:
-    <a href="https://irbank.net/news" target="_blank" rel="noopener noreferrer">IRバンク</a> /
-    <a href="https://kabutan.jp/news/" target="_blank" rel="noopener noreferrer">株探</a> /
-    <a href="http://ke.kabupro.jp/hist/today.htm" target="_blank" rel="noopener noreferrer">決算プロ</a>
-  </div>`;
+  const srcLink = `<div class="kessan-src-link">${cfg.srcLink}</div>`;
 
   body.innerHTML = summaryHtml + zonesHtml + srcLink;
 }
 
 async function refreshEarningsFlash() {
-  earningsFlashCache = null;
+  earningsFlashCache[earningsMarket] = null;
   document.getElementById('kessan-flash-body').innerHTML =
     '<div class="loading" style="padding:24px"><div class="spinner"></div>読み込み中...</div>';
-  await loadEarningsFlash(true);
+  await loadEarningsFlash(true, earningsMarket);
 }
 
 async function loadNewsCache() {
@@ -3120,11 +3186,12 @@ window.addEventListener('resize', () => {
    初期化
 ════════════════════════════════════════════ */
 loadData();
-loadEarningsFlash();
+loadEarningsFlash(false, 'jp');
 loadMarketNews();
 loadFutures();
 setInterval(loadData, 15 * 60 * 1000);
-setInterval(loadEarningsFlash, 15 * 60 * 1000);
+// 表示中の市場の決算速報を定期更新（強制再取得）
+setInterval(() => loadEarningsFlash(true, earningsMarket), 15 * 60 * 1000);
 setInterval(loadMarketNews, 15 * 60 * 1000);
 setInterval(loadFutures, 60 * 1000);  // 先物・為替は1分ごとに更新
 </script>
