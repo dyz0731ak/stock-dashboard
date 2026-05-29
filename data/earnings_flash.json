@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-29T18:00:37.482012+09:00",
+  "updated_at": "2026-05-29T18:16:40.076806+09:00",
   "article_date": "2026-05-29",
   "sources": [
     "irbank",
@@ -7,8 +7,8 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 6,
-    "kabutan": 7,
+    "irbank": 7,
+    "kabutan": 8,
     "kabupro": 23
   },
   "source_dates": {
@@ -105,6 +105,37 @@
       "priority": 60,
       "zone": "decision",
       "items": [
+        {
+          "code": "9238",
+          "name": "バリュークリエーション",
+          "time": "18:00",
+          "category": "本決算・四半期決算",
+          "narrative": "今期最終は赤字縮小へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/02 12ヶ月",
+            "type": "実績",
+            "sales": "31.3億 +1.8%",
+            "op": "-4.23億",
+            "ord": "-0.74億",
+            "net": "-2.6億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+1.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.8
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9238"
+        },
         {
           "code": "2332",
           "name": "クエスト",
@@ -729,5 +760,5 @@
       ]
     }
   ],
-  "total": 30
+  "total": 31
 }
