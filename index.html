@@ -428,54 +428,99 @@
 
     /* ── Earnings Flash (決算速報) ── */
     .kessan-empty{padding:14px 4px;color:var(--muted);font-size:12px;line-height:1.6}
-    .kessan-group{margin-bottom:14px}
-    .kessan-group:last-child{margin-bottom:0}
-    .kessan-grp-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;
-                    padding-bottom:6px;border-bottom:1px solid rgba(46,50,80,.6)}
+
+    /* サマリーバー */
+    .kessan-summary{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+                    padding:8px 12px;margin-bottom:14px;
+                    background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);
+                    border-radius:8px;font-size:11px;color:var(--muted)}
+    .kessan-summary-stat{display:flex;align-items:center;gap:5px}
+    .kessan-summary-stat strong{color:var(--text);font-family:monospace;
+                                font-size:13px;font-weight:700}
+
+    /* ゾーンヘッダー (注目サプライズ / 決算発表 / 下方修正) */
+    .kessan-zone{margin-bottom:18px}
+    .kessan-zone:last-child{margin-bottom:0}
+    .kessan-zone-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;
+                     padding-bottom:6px;border-bottom:1px solid var(--border)}
+    .kessan-zone-icon{font-size:14px}
+    .kessan-zone-title{font-size:13px;font-weight:700;color:var(--text)}
+    .kessan-zone-sub{font-size:11px;color:var(--muted);font-weight:400}
+    .kessan-zone-count{margin-left:auto;font-size:11px;color:var(--muted);
+                       font-family:monospace}
+
+    /* カテゴリバッジ */
     .kessan-cat-badge{display:inline-block;padding:2px 8px;border-radius:4px;
                       font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
-    .kessan-grp-sub{font-size:11px;color:var(--muted);font-weight:400}
-    .kessan-grp-count{margin-left:auto;font-size:10px;color:var(--muted);
-                      font-family:monospace}
-    /* category colors — top tier (最高益・一転増益系) = 強い赤系 */
     .kc-top{background:rgba(239,68,68,.18);color:#fca5a5}
-    /* 中位 = 上方修正・大幅増益 = オレンジ */
     .kc-mid{background:rgba(251,146,60,.18);color:#fdba74}
-    /* 一般 = 増収増益・業績修正 = 緑 */
     .kc-base{background:rgba(34,197,94,.16);color:#86efac}
-    /* その他 = グレー */
     .kc-other{background:rgba(148,163,184,.16);color:#cbd5e1}
-    /* ネガティブ = 暗赤 */
     .kc-down{background:rgba(220,38,38,.16);color:#f87171}
-    .kessan-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
-    @media(max-width:700px){.kessan-grid{grid-template-columns:1fr}}
-    .kessan-item{display:flex;align-items:baseline;gap:8px;
-                 padding:6px 0;border-bottom:1px solid rgba(46,50,80,.35);
-                 font-size:12px;line-height:1.45}
-    .kessan-item:last-child{border-bottom:none}
-    .kessan-code{font-family:monospace;font-size:11px;color:var(--accent2);
-                 font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px}
-    .kessan-name{color:var(--text);font-weight:600;white-space:nowrap;
-                 flex-shrink:0;max-width:120px;overflow:hidden;text-overflow:ellipsis}
-    .kessan-time{font-family:monospace;font-size:10px;color:var(--muted);
-                 white-space:nowrap;flex-shrink:0;min-width:36px}
+
+    /* ハイライトカード (positive/negative ゾーンの個別エントリ) */
+    .kessan-card{display:grid;grid-template-columns:46px 1fr;gap:8px 12px;
+                 padding:10px 12px;margin-bottom:6px;
+                 background:rgba(26,29,39,.5);border:1px solid var(--border);
+                 border-radius:8px;align-items:start}
+    .kessan-card:last-child{margin-bottom:0}
+    .kessan-card.is-positive{border-left:3px solid rgba(34,197,94,.6)}
+    .kessan-card.is-negative{border-left:3px solid rgba(239,68,68,.5);opacity:.92}
+    .kessan-card-time{font-family:monospace;font-size:10px;color:var(--muted);
+                      text-align:right;padding-top:3px;white-space:nowrap}
+    .kessan-card-body{min-width:0}
+    .kessan-card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+                     margin-bottom:5px}
+    .kessan-card-code{font-family:monospace;font-size:12px;color:var(--accent2);
+                      font-weight:700;text-decoration:none}
+    .kessan-card-code:hover{text-decoration:underline}
+    .kessan-card-name{color:var(--text);font-weight:700;font-size:13px;
+                      max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .kessan-card-narrative{font-size:12px;color:var(--text);line-height:1.5;
+                           margin-bottom:6px}
+    .kessan-card-narrative a{color:inherit;text-decoration:none}
+    .kessan-card-narrative a:hover{color:var(--accent2);text-decoration:underline}
+    .kessan-card-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .kessan-card-srcs{display:flex;gap:4px;flex-wrap:wrap}
+
+    /* メトリクスチップ */
+    .kessan-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;
+                 border-radius:10px;font-size:11px;font-weight:600;line-height:1.2;
+                 font-family:-apple-system,Segoe UI,sans-serif;white-space:nowrap}
+    .kessan-chip-label{font-size:10px;font-weight:400;opacity:.75}
+    .chip-up{background:rgba(34,197,94,.12);color:#86efac}
+    .chip-up-strong{background:rgba(34,197,94,.22);color:#bbf7d0;font-weight:700}
+    .chip-down{background:rgba(239,68,68,.12);color:#fca5a5}
+    .chip-down-strong{background:rgba(239,68,68,.22);color:#fecaca;font-weight:700}
+
+    /* ソースバッジ */
     .kessan-srcbadge{display:inline-block;padding:1px 5px;border-radius:3px;
-                     font-size:9px;font-weight:700;white-space:nowrap;flex-shrink:0;
+                     font-size:9px;font-weight:700;white-space:nowrap;
                      letter-spacing:.02em;text-transform:uppercase}
     .ks-irbank{background:rgba(59,130,246,.18);color:#93c5fd}
     .ks-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
     .ks-kabupro{background:rgba(168,85,247,.18);color:#c4b5fd}
-    .kessan-desc{flex:1;min-width:0;color:var(--muted);font-size:11px;
-                 overflow:hidden;display:-webkit-box;
-                 -webkit-line-clamp:1;-webkit-box-orient:vertical}
-    .kessan-desc a{color:inherit;text-decoration:none}
-    .kessan-desc a:hover{color:var(--accent2);text-decoration:underline}
-    .kessan-summary{display:flex;gap:12px;align-items:center;
-                    font-size:11px;color:var(--muted);padding:0 2px 12px}
-    .kessan-summary-stat{display:flex;align-items:center;gap:4px}
-    .kessan-summary-stat strong{color:var(--text);font-family:monospace;
-                                font-size:12px;font-weight:700}
-    .kessan-src-link{margin-top:8px;font-size:11px;color:var(--muted);
+
+    /* 決算発表ゾーン (コンパクト2段組) */
+    .kessan-decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+    @media(max-width:700px){.kessan-decision-grid{grid-template-columns:1fr}}
+    .kessan-decision-item{display:flex;align-items:baseline;gap:8px;
+                          padding:6px 0;border-bottom:1px solid rgba(46,50,80,.35);
+                          font-size:12px;line-height:1.45}
+    .kessan-decision-item:last-child{border-bottom:none}
+    .kessan-decision-time{font-family:monospace;font-size:10px;color:var(--muted);
+                          white-space:nowrap;flex-shrink:0;min-width:36px}
+    .kessan-decision-code{font-family:monospace;font-size:11px;color:var(--accent2);
+                          font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px;
+                          text-decoration:none}
+    .kessan-decision-name{color:var(--text);font-weight:600;white-space:nowrap;
+                          flex-shrink:0;max-width:110px;overflow:hidden;text-overflow:ellipsis}
+    .kessan-decision-desc{flex:1;min-width:0;color:var(--muted);font-size:11px;
+                          overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+    .kessan-decision-desc a{color:inherit;text-decoration:none}
+    .kessan-decision-desc a:hover{color:var(--accent2);text-decoration:underline}
+
+    .kessan-src-link{margin-top:12px;font-size:11px;color:var(--muted);
                      text-align:right;line-height:1.5}
     .kessan-src-link a{color:var(--accent2);text-decoration:none}
     .kessan-src-link a:hover{text-decoration:underline}
@@ -2306,6 +2351,56 @@ async function loadEarningsFlash(forceRefresh) {
   }
 }
 
+function renderKessanChip(chip) {
+  // chip = {label, value, direction:'up'|'down', strength:'strong'|'normal'}
+  const cls = `chip-${chip.direction}${chip.strength === 'strong' ? '-strong' : ''}`;
+  return `<span class="kessan-chip ${cls}">
+    <span class="kessan-chip-label">${esc(chip.label)}</span>${esc(chip.value)}
+  </span>`;
+}
+
+function renderKessanCard(item, zone) {
+  const codeUrl = `https://kabutan.jp/stock/?code=${esc(item.code)}`;
+  const wrapCls = zone === 'negative' ? 'is-negative' : 'is-positive';
+  const catCls = kessanCatClass(item.category);
+  const srcs = (item.sources || []).map(s =>
+    `<span class="kessan-srcbadge ks-${s}">${esc(KESSAN_SRC_LABEL[s] || s)}</span>`
+  ).join('');
+  const chips = (item.chips || []).map(renderKessanChip).join('');
+  const narrative = item.narrative || '';
+  const narrativeHtml = item.url
+    ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
+    : esc(narrative);
+
+  return `<div class="kessan-card ${wrapCls}">
+    <div class="kessan-card-time">${esc(item.time || '')}</div>
+    <div class="kessan-card-body">
+      <div class="kessan-card-top">
+        <span class="kessan-cat-badge ${catCls}">${esc(item.category)}</span>
+        <a class="kessan-card-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(item.code)}</a>
+        <span class="kessan-card-name" title="${esc(item.name)}">${esc(item.name)}</span>
+        <div class="kessan-card-srcs" style="margin-left:auto">${srcs}</div>
+      </div>
+      ${narrative ? `<div class="kessan-card-narrative">${narrativeHtml}</div>` : ''}
+      ${chips ? `<div class="kessan-card-chips">${chips}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderKessanDecisionItem(item) {
+  const codeUrl = `https://kabutan.jp/stock/?code=${esc(item.code)}`;
+  const narrative = item.narrative || '';
+  const narrativeHtml = item.url
+    ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
+    : esc(narrative);
+  return `<div class="kessan-decision-item">
+    <span class="kessan-decision-time">${esc(item.time || '')}</span>
+    <a class="kessan-decision-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(item.code)}</a>
+    <span class="kessan-decision-name" title="${esc(item.name)}">${esc(item.name)}</span>
+    <span class="kessan-decision-desc" title="${esc(narrative)}">${narrativeHtml}</span>
+  </div>`;
+}
+
 function renderEarningsFlash(data) {
   const body = document.getElementById('kessan-flash-body');
   const upd  = document.getElementById('kessan-flash-updated');
@@ -2330,50 +2425,52 @@ function renderEarningsFlash(data) {
     return;
   }
 
-  // サマリーバー: 主要カテゴリの件数
-  const counts = {};
-  groups.forEach(g => counts[g.category] = g.items.length);
-  const summaryItems = [
-    {label: '上方修正', cats: ['一転最高益','上振れ最高益','連続最高益','一転増益','大幅上方修正','上方修正'], cls: 'kc-mid'},
-    {label: '増配・配当', cats: ['増配・配当修正','黒字浮上'], cls: 'kc-base'},
-    {label: '決算発表', cats: ['本決算・四半期決算'], cls: 'kc-other'},
-    {label: '下方修正', cats: ['下方修正','減配','赤字・減益'], cls: 'kc-down'},
-  ];
+  // 件数サマリー
+  const zoneCounts = {positive:0, decision:0, negative:0, other:0};
+  groups.forEach(g => { zoneCounts[g.zone] = (zoneCounts[g.zone]||0) + g.items.length; });
+
   const summaryHtml = `<div class="kessan-summary">
-    ${summaryItems.map(s => {
-      const n = s.cats.reduce((sum,c)=>sum+(counts[c]||0),0);
-      if (!n) return '';
-      return `<span class="kessan-summary-stat"><span class="kessan-cat-badge ${s.cls}">${s.label}</span> <strong>${n}</strong></span>`;
-    }).filter(Boolean).join('')}
+    ${zoneCounts.positive ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-base">注目サプライズ</span> <strong>${zoneCounts.positive}</strong></span>` : ''}
+    ${zoneCounts.decision ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-other">決算発表</span> <strong>${zoneCounts.decision}</strong></span>` : ''}
+    ${zoneCounts.negative ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-down">下方修正・減配</span> <strong>${zoneCounts.negative}</strong></span>` : ''}
     <span class="kessan-summary-stat" style="margin-left:auto">合計 <strong>${data.total||0}</strong>件</span>
   </div>`;
 
-  const sections = groups.map(g => {
-    const items = (g.items || []).map(it => {
-      const codeUrl = `https://kabutan.jp/stock/?code=${esc(it.code)}`;
-      const srcCls = `ks-${it.source}`;
-      const srcLabel = KESSAN_SRC_LABEL[it.source] || it.source;
-      const desc = it.url
-        ? `<a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.description)}</a>`
-        : esc(it.description);
-      return `<div class="kessan-item">
-        <span class="kessan-time">${esc(it.time || '')}</span>
-        <a class="kessan-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(it.code)}</a>
-        <span class="kessan-name" title="${esc(it.name)}">${esc(it.name)}</span>
-        <span class="kessan-srcbadge ${srcCls}">${esc(srcLabel)}</span>
-        <span class="kessan-desc" title="${esc(it.description)}">${desc}</span>
-      </div>`;
-    }).join('');
-    const cls = kessanCatClass(g.category);
-    const display = g.display || g.category;
-    return `<div class="kessan-group">
-      <div class="kessan-grp-hdr">
-        <span class="kessan-cat-badge ${cls}">${esc(display)}</span>
-        <span class="kessan-grp-count">${g.items.length}件</span>
+  // ゾーン別にエントリ集約
+  const byZone = {positive:[], decision:[], negative:[], other:[]};
+  groups.forEach(g => {
+    g.items.forEach(it => {
+      byZone[g.zone || 'other'].push(it);
+    });
+  });
+
+  // 各ゾーンを時刻順（新しいものを上）でソート
+  Object.values(byZone).forEach(lst => {
+    lst.sort((a,b) => (b.time||'').localeCompare(a.time||''));
+  });
+
+  const renderZone = (zone, icon, title, sub, items, isDecision) => {
+    if (!items.length) return '';
+    const rows = isDecision
+      ? `<div class="kessan-decision-grid">${items.map(renderKessanDecisionItem).join('')}</div>`
+      : items.map(it => renderKessanCard(it, zone)).join('');
+    return `<div class="kessan-zone">
+      <div class="kessan-zone-hdr">
+        <span class="kessan-zone-icon">${icon}</span>
+        <span class="kessan-zone-title">${esc(title)}</span>
+        <span class="kessan-zone-sub">${esc(sub)}</span>
+        <span class="kessan-zone-count">${items.length}件</span>
       </div>
-      <div class="kessan-grid">${items}</div>
+      ${rows}
     </div>`;
-  }).join('');
+  };
+
+  const zonesHtml = [
+    renderZone('positive', '🔥', '注目サプライズ', '上方修正・大幅増益・増配など', byZone.positive, false),
+    renderZone('decision', '📊', '本日の決算発表', '本決算・四半期決算・決算説明資料', byZone.decision, true),
+    renderZone('negative', '⚠️', '下方修正・減配', '業績悪化・減配・赤字転落', byZone.negative, false),
+    byZone.other.length ? renderZone('other', '📝', 'その他開示', '特別損益など', byZone.other, true) : '',
+  ].join('');
 
   const srcLink = `<div class="kessan-src-link">出典:
     <a href="https://irbank.net/news" target="_blank" rel="noopener noreferrer">IRバンク</a> /
@@ -2381,7 +2478,7 @@ function renderEarningsFlash(data) {
     <a href="http://ke.kabupro.jp/hist/today.htm" target="_blank" rel="noopener noreferrer">決算プロ</a>
   </div>`;
 
-  body.innerHTML = summaryHtml + sections + srcLink;
+  body.innerHTML = summaryHtml + zonesHtml + srcLink;
 }
 
 async function refreshEarningsFlash() {

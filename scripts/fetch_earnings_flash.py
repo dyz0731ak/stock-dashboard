@@ -501,52 +501,177 @@ def _fetch_kabupro_one(url: str) -> tuple[list[dict], str]:
 # 統合・重複排除
 # ─────────────────────────────────────────────────
 
-# ソースの優先順位（同じ銘柄が複数ソースにあったらこの順で残す）
 SOURCE_PRIORITY = {"irbank": 1, "kabutan": 2, "kabupro": 3}
+
+# チップ表示用ラベル
+METRIC_LABELS = {"sales": "売上", "op": "営業益", "ord": "経常", "net": "純益"}
+
+
+def extract_chips(metrics: dict | None) -> list[dict]:
+    """irbankの数値dictから ±% チップ用の構造化データを抽出"""
+    if not metrics:
+        return []
+    chips: list[dict] = []
+    for key in ("sales", "op", "ord", "net"):
+        v = metrics.get(key, "") or ""
+        m = re.search(r"([+\-])(\d+(?:\.\d+)?)[％%]", v)
+        if not m:
+            continue
+        sign = m.group(1)
+        pct = float(m.group(2))
+        direction = "up" if sign == "+" else "down"
+        # 強度: ±30%以上をstrong, それ以外をnormal
+        strength = "strong" if pct >= 30 else "normal"
+        chips.append(
+            {
+                "label": METRIC_LABELS[key],
+                "value": f"{sign}{m.group(2)}%",
+                "direction": direction,
+                "strength": strength,
+                "pct": pct,
+            }
+        )
+    return chips
+
+
+def clean_narrative(text: str, company_name: str = "") -> str:
+    """株探タイトルの冒頭「会社名、」プレフィックスを除去"""
+    if not text:
+        return ""
+    # "オリコン、今期配当を見送り" -> "今期配当を見送り"
+    if "、" in text[:24]:
+        head, rest = text.split("、", 1)
+        # 名前のような短いプレフィックスのときだけ削る
+        if len(head) <= 16:
+            return rest.strip()
+    return text
+
+
+def auto_summary_from_metrics(category: str, metrics: dict | None, chips: list[dict]) -> str:
+    """ナラティブが無いときに、数値テンプレートから1行サマリーを生成"""
+    if not metrics and not chips:
+        return ""
+    # 例: 大幅上方修正 → "経常+140.7% / 純益+139.5% の大幅増益修正"
+    body = " / ".join(f"{c['label']}{c['value']}" for c in chips[:2]) if chips else ""
+    period = metrics.get("period", "") if metrics else ""
+    kind = metrics.get("type", "") if metrics else ""
+    suffix = {
+        "大幅上方修正": "の大幅増益修正",
+        "上方修正": "の上方修正",
+        "一転増益": "に一転増益",
+        "一転最高益": "で最高益更新",
+        "下方修正": "に下方修正",
+        "本決算・四半期決算": "の業績着地",
+    }.get(category, "")
+    if body and suffix:
+        return f"{body} {suffix}"
+    if body:
+        return body
+    if period and kind:
+        return f"{period} {kind}"
+    return ""
 
 
 def merge_items(*lists: list[dict]) -> list[dict]:
     """
-    銘柄コードで重複排除。同じ銘柄に複数カテゴリ判定があれば
-    優先度の高い（priority値が小さい）カテゴリのみ残す。
-    同じカテゴリ内では irbank（数値完備）> kabutan > kabupro の順で残す。
+    銘柄コード単位で全ソースをマージし、リッチエントリを生成。
+    - カテゴリ: 全ソース中で最も優先度の高い（priority最小）ものを採用
+    - ナラティブ: 株探（短く要約済み） > IRバンク > 決算プロの順
+    - メトリクス: IRバンクのものを採用
+    - チップ: メトリクスから抽出した ±% リスト
+    - sources: 言及した全ソースのリスト
     """
-    # まず (code, category) で初回統合
-    seen: dict[tuple[str, str], dict] = {}
+    by_code: dict[str, list[dict]] = {}
     for lst in lists:
         for it in lst:
-            key = (it["code"], it["category"])
-            existing = seen.get(key)
-            if existing is None:
-                seen[key] = it
-                continue
-            if SOURCE_PRIORITY.get(it["source"], 99) < SOURCE_PRIORITY.get(
-                existing["source"], 99
-            ):
-                merged = dict(it)
-                merged.setdefault("also_seen_in", []).append(existing["source"])
-                if existing.get("also_seen_in"):
-                    merged["also_seen_in"].extend(existing["also_seen_in"])
-                seen[key] = merged
-            else:
-                existing.setdefault("also_seen_in", []).append(it["source"])
+            by_code.setdefault(it["code"], []).append(it)
 
-    # 銘柄ごとに、最も優先度の高いカテゴリのものだけ残す
-    by_code: dict[str, list[dict]] = {}
-    for it in seen.values():
-        by_code.setdefault(it["code"], []).append(it)
     final: list[dict] = []
-    for code, lst in by_code.items():
-        # priorityが最小のカテゴリだけを採用
-        min_prio = min(CATEGORY_PRIORITY.get(x["category"], 999) for x in lst)
-        kept = [x for x in lst if CATEGORY_PRIORITY.get(x["category"], 999) == min_prio]
-        final.extend(kept)
+    for code, items in by_code.items():
+        # 採用カテゴリ
+        best = min(items, key=lambda x: CATEGORY_PRIORITY.get(x["category"], 999))
+        category = best["category"]
+
+        # メトリクス（IRバンク由来）とチップ
+        metrics = None
+        for it in items:
+            if it.get("metrics"):
+                metrics = it["metrics"]
+                break
+        chips = extract_chips(metrics)
+
+        # ナラティブ: 株探(短い要約) > 決算プロ(タイトル) > IRのテンプレ生成
+        # IRはそのまま使うと冗長（数値の重複）なのでテンプレに任せる
+        narrative_src = None
+        narrative = ""
+        for pref in ("kabutan", "kabupro"):
+            for it in items:
+                if it["source"] == pref and it.get("description"):
+                    narrative = clean_narrative(it["description"], best.get("name", ""))
+                    narrative_src = pref
+                    break
+            if narrative:
+                break
+        if not narrative:
+            # IRしか無い場合は数値テンプレからサマリーを生成
+            narrative = auto_summary_from_metrics(category, metrics, chips)
+            narrative_src = "template"
+
+        # ソース一覧
+        sources = []
+        for it in items:
+            if it["source"] not in sources:
+                sources.append(it["source"])
+
+        # 代表URLは IR > 株探 > 決算プロの順
+        url = ""
+        for pref in ("irbank", "kabutan", "kabupro"):
+            for it in items:
+                if it["source"] == pref and it.get("url"):
+                    url = it["url"]
+                    break
+            if url:
+                break
+
+        final.append(
+            {
+                "code": code,
+                "name": best["name"],
+                "time": best.get("time", ""),
+                "category": category,
+                "narrative": narrative,
+                "narrative_source": narrative_src,
+                "metrics": metrics,
+                "chips": chips,
+                "sources": sources,
+                "primary_source": best["source"],
+                "url": url,
+            }
+        )
 
     return final
 
 
+# UIゾーン分類: positive / decision / negative / other
+CATEGORY_ZONE: dict[str, str] = {
+    "一転最高益": "positive",
+    "上振れ最高益": "positive",
+    "連続最高益": "positive",
+    "一転増益": "positive",
+    "大幅上方修正": "positive",
+    "上方修正": "positive",
+    "増配・配当修正": "positive",
+    "黒字浮上": "positive",
+    "本決算・四半期決算": "decision",
+    "下方修正": "negative",
+    "減配": "negative",
+    "赤字・減益": "negative",
+    "その他開示": "other",
+}
+
+
 def group_items(items: list[dict]) -> list[dict]:
-    """カテゴリごとにグループ化。優先度順でソート"""
+    """カテゴリごとにグループ化。優先度順でソート＋ゾーン情報を付与"""
     groups: dict[str, list[dict]] = {}
     for it in items:
         groups.setdefault(it["category"], []).append(it)
@@ -562,6 +687,7 @@ def group_items(items: list[dict]) -> list[dict]:
                 "category": cat,
                 "display": CATEGORY_DISPLAY.get(cat, cat),
                 "priority": prio,
+                "zone": CATEGORY_ZONE.get(cat, "other"),
                 "items": lst,
             }
         )
