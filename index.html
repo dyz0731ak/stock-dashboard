@@ -489,8 +489,9 @@
     .kessan-card:last-child{margin-bottom:0}
     .kessan-card.is-positive{border-left:3px solid rgba(34,197,94,.6)}
     .kessan-card.is-negative{border-left:3px solid rgba(239,68,68,.5);opacity:.92}
-    .kessan-card-time{font-family:monospace;font-size:10px;color:var(--muted);
+    .kessan-card-time{font-family:monospace;font-size:11px;color:var(--text);
                       text-align:right;padding-top:3px;white-space:nowrap}
+    .kessan-date{display:block;font-size:10px;color:var(--muted);font-weight:600}
     .kessan-card-body{min-width:0}
     .kessan-card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
                      margin-bottom:5px}
@@ -533,7 +534,7 @@
                           font-size:12px;line-height:1.45}
     .kessan-decision-item:last-child{border-bottom:none}
     .kessan-decision-time{font-family:monospace;font-size:10px;color:var(--muted);
-                          white-space:nowrap;flex-shrink:0;min-width:36px}
+                          white-space:nowrap;flex-shrink:0;min-width:64px}
     .kessan-decision-code{font-family:monospace;font-size:11px;color:var(--accent2);
                           font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px;
                           text-decoration:none}
@@ -2476,6 +2477,12 @@ function kessanCatClass(cat) {
   return KESSAN_CAT_CLASS[cat] || 'kc-other';
 }
 
+// "2026-05-29" → "5/29"（決算速報の各行に日付を併記するため）
+function fmtMD(d) {
+  const m = String(d || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${parseInt(m[2],10)}/${parseInt(m[3],10)}` : '';
+}
+
 // タブに対応する市場（米国株タブのみ 'us'、それ以外は 'jp'）
 function marketForTab(tabName) {
   return tabName === 'us' ? 'us' : 'jp';
@@ -2510,7 +2517,7 @@ function renderKessanChip(chip) {
   </span>`;
 }
 
-function renderKessanCard(item, zone, mkt) {
+function renderKessanCard(item, zone, mkt, dateMD) {
   const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
   const wrapCls = zone === 'negative' ? 'is-negative' : 'is-positive';
   const catCls = kessanCatClass(item.category);
@@ -2523,8 +2530,9 @@ function renderKessanCard(item, zone, mkt) {
     ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
     : esc(narrative);
 
+  const dateHtml = dateMD ? `<span class="kessan-date">${esc(dateMD)}</span>` : '';
   return `<div class="kessan-card ${wrapCls}">
-    <div class="kessan-card-time">${esc(item.time || '')}</div>
+    <div class="kessan-card-time">${dateHtml}${esc(item.time || '')}</div>
     <div class="kessan-card-body">
       <div class="kessan-card-top">
         <span class="kessan-cat-badge ${catCls}">${esc(item.category)}</span>
@@ -2538,14 +2546,15 @@ function renderKessanCard(item, zone, mkt) {
   </div>`;
 }
 
-function renderKessanDecisionItem(item, mkt) {
+function renderKessanDecisionItem(item, mkt, dateMD) {
   const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
   const narrative = item.narrative || '';
   const narrativeHtml = item.url
     ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
     : esc(narrative);
+  const timeLabel = [dateMD, item.time].filter(Boolean).join(' ');
   return `<div class="kessan-decision-item">
-    <span class="kessan-decision-time">${esc(item.time || '')}</span>
+    <span class="kessan-decision-time">${esc(timeLabel)}</span>
     <a class="kessan-decision-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(item.code)}</a>
     <span class="kessan-decision-name" title="${esc(item.name)}">${esc(item.name)}</span>
     <span class="kessan-decision-desc" title="${esc(narrative)}">${narrativeHtml}</span>
@@ -2604,12 +2613,16 @@ function renderEarningsFlash(data, market) {
     lst.sort((a,b) => ((b.sort_val||0) - (a.sort_val||0)) || (b.time||'').localeCompare(a.time||''));
   });
 
+  // 各エントリに付ける日付（個別日付があれば優先、無ければ発表日）。
+  // 土日など休場日に見ても「いつの発表か」が分かるように時刻と併記する。
+  const dateMD = fmtMD(data.article_date);
+
   const renderZone = (zone, items, isDecision) => {
     if (!items.length) return '';
     const [icon, title, sub] = cfg.zones[zone] || ['📝', 'その他開示', '特別損益など'];
     const rows = isDecision
-      ? `<div class="kessan-decision-grid">${items.map(it => renderKessanDecisionItem(it, cfg)).join('')}</div>`
-      : items.map(it => renderKessanCard(it, zone, cfg)).join('');
+      ? `<div class="kessan-decision-grid">${items.map(it => renderKessanDecisionItem(it, cfg, fmtMD(it.date)||dateMD)).join('')}</div>`
+      : items.map(it => renderKessanCard(it, zone, cfg, fmtMD(it.date)||dateMD)).join('');
     return `<div class="kessan-zone">
       <div class="kessan-zone-hdr">
         <span class="kessan-zone-icon">${icon}</span>
@@ -2629,7 +2642,7 @@ function renderEarningsFlash(data, market) {
           <span class="kessan-zone-sub">特別損益など</span>
           <span class="kessan-zone-count">${byZone.other.length}件</span>
         </div>
-        <div class="kessan-decision-grid">${byZone.other.map(it => renderKessanDecisionItem(it, cfg)).join('')}</div>
+        <div class="kessan-decision-grid">${byZone.other.map(it => renderKessanDecisionItem(it, cfg, fmtMD(it.date)||dateMD)).join('')}</div>
       </div>`
     : '';
 
