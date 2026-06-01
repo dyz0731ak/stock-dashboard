@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-01T16:02:14.983719+09:00",
+  "updated_at": "2026-06-01T16:16:44.459068+09:00",
   "article_date": "2026-06-01",
   "sources": [
     "irbank",
@@ -7,7 +7,7 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 3,
+    "irbank": 5,
     "kabutan": 4,
     "kabupro": 23
   },
@@ -23,6 +23,58 @@
       "priority": 22,
       "zone": "positive",
       "items": [
+        {
+          "code": "9627",
+          "name": "アイン HD",
+          "time": "15:30",
+          "category": "大幅上方修正",
+          "narrative": "前期経常を6％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "修正",
+            "sales": "6475億 +0.2%",
+            "op": "295億 +4.2%",
+            "ord": "280億 +5.7%",
+            "net": "170億 +25.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+0.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 0.2
+            },
+            {
+              "label": "営業益",
+              "value": "+4.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.2
+            },
+            {
+              "label": "経常",
+              "value": "+5.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.7
+            },
+            {
+              "label": "純益",
+              "value": "+25.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 25.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9627"
+        },
         {
           "code": "9678",
           "name": "カナモト",
@@ -129,29 +181,6 @@
       ]
     },
     {
-      "category": "上方修正",
-      "display": "上方修正",
-      "priority": 30,
-      "zone": "positive",
-      "items": [
-        {
-          "code": "9627",
-          "name": "アインＨＤ",
-          "time": "15:30",
-          "category": "上方修正",
-          "narrative": "前期経常を6％上方修正・最高益予想を上乗せ",
-          "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabutan"
-          ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202606010003"
-        }
-      ]
-    },
-    {
       "category": "増配・配当修正",
       "display": "増配・配当修正",
       "priority": 40,
@@ -232,6 +261,37 @@
           ],
           "primary_source": "kabupro",
           "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552183.pdf"
+        },
+        {
+          "code": "7865",
+          "name": "ピープル",
+          "time": "16:00",
+          "category": "本決算・四半期決算",
+          "narrative": "非開示だった上期経常は赤字縮小、未定だった上期配当は無配継続",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 4ヶ月",
+            "type": "実績",
+            "sales": "267百万 -7.8%",
+            "op": "-57百万",
+            "ord": "-57百万",
+            "net": "-65百万"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-7.8%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 7.8
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7865"
         },
         {
           "code": "9828",
@@ -472,29 +532,6 @@
           ],
           "primary_source": "kabupro",
           "url": "http://ke.kabupro.jp/tsp/20260528/140120260527550311.pdf"
-        }
-      ]
-    },
-    {
-      "category": "減配",
-      "display": "減配",
-      "priority": 85,
-      "zone": "negative",
-      "items": [
-        {
-          "code": "7865",
-          "name": "ピープル",
-          "time": "16:00",
-          "category": "減配",
-          "narrative": "非開示だった上期経常は赤字縮小、未定だった上期配当は無配継続",
-          "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabutan"
-          ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202606010004"
         }
       ]
     },
