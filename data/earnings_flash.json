@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-03T00:32:24.191977+09:00",
+  "updated_at": "2026-06-03T01:02:22.276606+09:00",
   "article_date": "2026-06-02",
   "sources": [
     "irbank",
@@ -7,14 +7,14 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
-    "kabupro": 8
+    "irbank": 1,
+    "kabutan": 1,
+    "kabupro": 0
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
-    "kabupro": "2026-06-02"
+    "irbank": "2026-06-02",
+    "kabutan": "06/02",
+    "kabupro": ""
   },
   "groups": [
     {
@@ -24,105 +24,59 @@
       "zone": "decision",
       "items": [
         {
-          "code": "1871",
-          "name": "ピーエス三菱",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260602558909.pdf"
-        },
-        {
           "code": "4750",
           "name": "ダイサン",
           "time": "15:30",
           "category": "本決算・四半期決算",
-          "narrative": "2026年４月期 決算短信[日本基 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "前期経常が一転減益で下振れ着地・今期は24％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 13ヶ月",
+            "type": "実績",
+            "sales": "111億 +2.8%",
+            "op": "2.68億 -27.5%",
+            "ord": "2.9億 -15.9%",
+            "net": "2.62億 -21.8%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+2.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.8
+            },
+            {
+              "label": "営業益",
+              "value": "-27.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 27.5
+            },
+            {
+              "label": "経常",
+              "value": "-15.9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 15.9
+            },
+            {
+              "label": "純益",
+              "value": "-21.8%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 21.8
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260602559173.pdf"
-        },
-        {
-          "code": "6050",
-          "name": "イー・ガーディアン",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年９月期第２四半期決算及び …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
           "sources": [
-            "kabupro"
+            "irbank",
+            "kabutan"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260602559487.pdf"
-        },
-        {
-          "code": "6104",
-          "name": "東芝機械",
-          "time": "14:00",
-          "category": "本決算・四半期決算",
-          "narrative": "決算説明会資料（2026年3月期決 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260601558654.pdf"
-        }
-      ]
-    },
-    {
-      "category": "その他開示",
-      "display": "その他開示",
-      "priority": 99,
-      "zone": "other",
-      "items": [
-        {
-          "code": "7091",
-          "name": "リビングプラットフォーム",
-          "time": "17:00",
-          "category": "その他開示",
-          "narrative": "剰余金配当に関するお知らせ",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260602559862.pdf"
-        },
-        {
-          "code": "6464",
-          "name": "ツバキ・ナカシマ",
-          "time": "16:00",
-          "category": "その他開示",
-          "narrative": "組織変更に伴う人員削減等の合理化に …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260602/140120260602559995.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/4750"
         }
       ]
     }
   ],
-  "total": 6
+  "total": 1
 }
