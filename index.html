@@ -1,3310 +1,408 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ── Primary SEO ── -->
-  <title>ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦</title>
-  <meta name="description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家のための無料株式ダッシュボード「投資の砦」。"/>
-  <meta name="keywords" content="ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価,株探,急騰理由,決算カレンダー,トップゲイナー,日本株,株式投資"/>
-  <meta name="author" content="投資の砦"/>
-  <meta name="robots" content="index, follow"/>
-  <meta name="google-site-verification" content="2lz7uCWIvf35c3KplsG0EgFgGOry0o3MfbD-lMHtYIg"/>
-  <link rel="canonical" href="https://dashboard.stock-overflow24.com/"/>
+<!-- ── Primary SEO ── -->
+<title>ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦</title>
+<meta name="description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家のための無料株式ダッシュボード「投資の砦」。"/>
+<meta name="keywords" content="ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価,株探,急騰理由,決算カレンダー,トップゲイナー,日本株,株式投資"/>
+<meta name="author" content="投資の砦"/>
+<meta name="robots" content="index, follow"/>
+<meta name="google-site-verification" content="2lz7uCWIvf35c3KplsG0EgFgGOry0o3MfbD-lMHtYIg"/>
+<link rel="canonical" href="https://dashboard.stock-overflow24.com/"/>
 
-  <!-- ── Open Graph (SNS シェア) ── -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://dashboard.stock-overflow24.com/"/>
-  <meta property="og:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
-  <meta property="og:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示・決算カレンダー・市場ニュースを一画面で。個人投資家の砦。"/>
-  <meta property="og:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-  <meta property="og:site_name" content="投資の砦"/>
-  <meta property="og:locale" content="ja_JP"/>
+<!-- ── Open Graph (SNS シェア) ── -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://dashboard.stock-overflow24.com/"/>
+<meta property="og:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
+<meta property="og:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・適時開示・決算カレンダー・市場ニュースを一画面で。個人投資家の砦。"/>
+<meta property="og:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:site_name" content="投資の砦"/>
+<meta property="og:locale" content="ja_JP"/>
 
-  <!-- ── Twitter Card ── -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
-  <meta name="twitter:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家の砦。"/>
-  <meta name="twitter:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
+<!-- ── Twitter Card ── -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="ストップ高・急騰銘柄・米国株トップゲイナーをリアルタイム更新 | 投資の砦"/>
+<meta name="twitter:description" content="ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新。急騰理由・決算カレンダー・市場ニュースを一画面で確認できる、個人投資家の砦。"/>
+<meta name="twitter:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
 
-  <!-- ── 構造化データ (JSON-LD) ── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://dashboard.stock-overflow24.com/#organization",
-        "name": "投資の砦",
-        "alternateName": ["Toushi no Toride", "投資の砦ダッシュボード"],
-        "url": "https://dashboard.stock-overflow24.com/",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://dashboard.stock-overflow24.com/ogp.png",
-          "width": 1200,
-          "height": 630
-        },
-        "description": "個人投資家のチャンスと資産を守る、無料の株式リアルタイムダッシュボード「投資の砦」を運営。",
-        "sameAs": [
-          "https://yougo.stock-overflow24.com/",
-          "https://stock-overflow24.com/"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://dashboard.stock-overflow24.com/#website",
-        "name": "投資の砦",
-        "alternateName": "Toushi no Toride",
-        "url": "https://dashboard.stock-overflow24.com/",
-        "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する無料ダッシュボード。",
-        "inLanguage": "ja",
-        "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
-      },
-      {
-        "@type": "WebApplication",
-        "@id": "https://dashboard.stock-overflow24.com/#webapp",
-        "name": "投資の砦",
-        "url": "https://dashboard.stock-overflow24.com/",
-        "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する、個人投資家のための無料株式ダッシュボード「投資の砦」。急騰理由・適時開示ニュース・決算カレンダー・市場ニュースを一画面で確認できます。",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Any",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "JPY"
-        },
-        "inLanguage": "ja",
-        "keywords": "ストップ高,急騰銘柄,出来高急増,米国株,投資の砦,リアルタイム株価,株探,急騰理由,決算カレンダー,トップゲイナー",
-        "isPartOf": { "@id": "https://dashboard.stock-overflow24.com/#website" },
-        "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8504127793204920" crossorigin="anonymous"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
-    :root {
-      --bg:#0f1117; --surface:#1a1d27; --surface2:#22253a; --border:#2e3250;
-      --text:#e2e8f0; --muted:#94a3b8; --accent:#6366f1; --accent2:#818cf8;
-      --up:#22c55e; --down:#ef4444; --up-bg:rgba(34,197,94,.1); --down-bg:rgba(239,68,68,.1);
-      --radius:12px; --shadow:0 4px 24px rgba(0,0,0,.5);
+<!-- ── 構造化データ (JSON-LD) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://dashboard.stock-overflow24.com/#organization",
+      "name": "投資の砦",
+      "alternateName": ["Toushi no Toride", "投資の砦ダッシュボード"],
+      "url": "https://dashboard.stock-overflow24.com/",
+      "logo": { "@type": "ImageObject", "url": "https://dashboard.stock-overflow24.com/ogp.png", "width": 1200, "height": 630 },
+      "description": "個人投資家のチャンスと資産を守る、無料の株式リアルタイムダッシュボード「投資の砦」を運営。",
+      "sameAs": ["https://yougo.stock-overflow24.com/", "https://stock-overflow24.com/"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://dashboard.stock-overflow24.com/#website",
+      "name": "投資の砦",
+      "alternateName": "Toushi no Toride",
+      "url": "https://dashboard.stock-overflow24.com/",
+      "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する無料ダッシュボード。",
+      "inLanguage": "ja",
+      "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://dashboard.stock-overflow24.com/#webapp",
+      "name": "投資の砦",
+      "url": "https://dashboard.stock-overflow24.com/",
+      "description": "ストップ高・急騰銘柄・出来高急増・米国株トップゲイナーをリアルタイム自動更新する、個人投資家のための無料株式ダッシュボード「投資の砦」。",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+      "inLanguage": "ja",
+      "isPartOf": { "@id": "https://dashboard.stock-overflow24.com/#website" },
+      "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);
-         font-family:'Hiragino Sans','Yu Gothic UI','Segoe UI',sans-serif;
-         min-height:100vh;font-size:14px}
+  ]
+}
+</script>
 
-    /* ── Header ── */
-    header{background:linear-gradient(135deg,#1a1d27,#22253a);
-           border-bottom:1px solid var(--border);padding:14px 20px;
-           display:flex;align-items:center;justify-content:space-between;
-           position:sticky;top:0;z-index:200;backdrop-filter:blur(10px)}
-    .logo{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-          border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
-    .h-title{font-size:17px;font-weight:700;margin-left:10px}
-    .h-title span{color:var(--accent2)}
-    .h-sub{font-size:11px;color:var(--muted);margin-left:10px}
-    .update-badge{background:var(--surface2);border:1px solid var(--border);
-                  padding:5px 12px;border-radius:20px;font-size:11px;color:var(--muted);
-                  display:flex;align-items:center;gap:6px;white-space:nowrap}
-    .pulse{width:7px;height:7px;background:var(--up);border-radius:50%;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8504127793204920" crossorigin="anonymous"></script>
 
-    /* ── Tabs ── */
-    .tabs{display:flex;gap:4px;padding:12px 20px 0;border-bottom:1px solid var(--border);background:var(--surface)}
-    .tab{background:none;border:none;color:var(--muted);padding:9px 18px;
-         border-radius:8px 8px 0 0;cursor:pointer;font-size:13px;font-weight:500;
-         transition:all .2s;position:relative;bottom:-1px;border-bottom:2px solid transparent}
-    .tab:hover{color:var(--text);background:var(--surface2)}
-    .tab.active{color:var(--accent2);border-bottom-color:var(--accent2);background:var(--bg)}
-    .tab-cnt{background:var(--accent);color:#fff;font-size:10px;padding:1px 6px;
-             border-radius:10px;margin-left:5px;font-weight:700}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ===== 森スタイル 白基調デザイントークン ===== */
+  --bg:#f4f6f9;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --border:#e3e8ef;
+  --border-strong:#cdd5df;
+  --ink:#1c2531;
+  --ink-2:#48566a;
+  --ink-3:#7b8794;
+  --brand:#0b7a4b;        /* 森＝深いグリーン */
+  --brand-ink:#0a6a42;
+  --brand-soft:#e6f4ed;
+  --up:#d92d20;           /* 日本式：上げ＝赤 */
+  --up-soft:#fdeceb;
+  --down:#0e8a5f;         /* 下げ＝緑 */
+  --down-soft:#e7f5ef;
+  --accent:#1f6feb;
+  --warn:#e8961b;
+  --radius:10px;
+  --radius-sm:7px;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+  --shadow-md:0 4px 12px rgba(16,24,40,.08);
+  --maxw:1180px;
+  --mono:"Inter",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Noto Sans JP","Inter",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.up{color:var(--up)}
+.down{color:var(--down)}
+.flat{color:var(--ink-3)}
 
-    /* ── Main ── */
-    .main{padding:20px;max-width:1400px;margin:0 auto}
-    .tab-pane{display:none}.tab-pane.active{display:block}
+/* ===== Header ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 18px;
+  height:54px;display:flex;align-items:center;gap:16px;
+}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;color:var(--ink)}
+.brand .logo{
+  width:28px;height:28px;border-radius:7px;
+  background:linear-gradient(135deg,var(--brand),#13a866);
+  display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700;
+}
+.brand small{font-weight:500;font-size:11px;color:var(--ink-3);margin-left:2px}
+.topbar-meta{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ink-3)}
+.live-dot{display:inline-flex;align-items:center;gap:6px}
+.live-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--down);box-shadow:0 0 0 3px var(--down-soft);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-    /* ── Keywords bar ── */
-    .kw-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;
-            padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
-    .kw-label{font-size:11px;color:var(--muted);font-weight:600;
-              text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
-    .kw-tag{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(129,140,248,.15));
-            border:1px solid rgba(99,102,241,.35);color:var(--accent2);
-            padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;
-            cursor:default;transition:all .2s}
-    .kw-tag:hover{background:rgba(99,102,241,.3);transform:translateY(-1px)}
+/* ===== Nav tabs ===== */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:54px;z-index:40}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 18px;display:flex;gap:2px;overflow-x:auto}
+.nav a{
+  padding:11px 14px;font-size:13px;font-weight:500;color:var(--ink-2);
+  border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px;
+}
+.nav a:hover{color:var(--brand-ink)}
+.nav a.active{color:var(--brand-ink);border-bottom-color:var(--brand);font-weight:700}
+.nav .badge{font-size:10px;background:var(--up-soft);color:var(--up);padding:1px 6px;border-radius:20px;font-weight:700}
 
-    /* ── Stats ── */
-    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-               gap:14px;margin-bottom:18px}
-    .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-          padding:16px 18px;transition:transform .2s}
-    .stat:hover{transform:translateY(-2px)}
-    .stat-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
-    .stat-val{font-size:26px;font-weight:700;margin:4px 0 2px}
-    .stat-sub{font-size:11px;color:var(--muted)}
-    .val-up{color:var(--up)}.val-muted{color:var(--muted)}
-    .val-accent{color:var(--accent2);font-size:13px!important}
+/* ===== Layout ===== */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:18px}
+.section{margin-bottom:22px}
+.section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:11px;padding-bottom:0}
+.section-head h2{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
+.section-head h2 .ic{color:var(--brand)}
+.section-head .sub{font-size:11.5px;color:var(--ink-3)}
+.section-head .upd{margin-left:auto;font-size:11px;color:var(--ink-3)}
 
-    /* ── Card ── */
-    .card{background:var(--surface);border:1px solid var(--border);
-          border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
-    .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-    .card-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
-    .c-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;
-            justify-content:center;font-size:13px}
-    .i-jp{background:rgba(239,68,68,.15)}.i-us{background:rgba(99,102,241,.15)}
-    .i-sec{background:rgba(234,179,8,.15)}
+/* ===== Index cards ===== */
+.idx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.idx-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:13px 15px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.idx-card .head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px}
+.idx-card .label{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.idx-card .pct-badge{font-size:11.5px;font-weight:700;padding:2px 7px;border-radius:6px}
+.idx-card .price{font-size:25px;font-weight:700;letter-spacing:-.5px;line-height:1.1}
+.idx-card .change{font-size:12px;font-weight:600;margin-top:1px}
+.idx-card .spark{position:absolute;right:0;bottom:0;width:55%;height:46px;opacity:.9;pointer-events:none}
 
-    /* ── Futures Mini Cards (日足ローソク) ── */
-    .futures-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
-    @media(max-width:1100px){.futures-row{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:560px){.futures-row{grid-template-columns:1fr}}
-    .fut-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
-              border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
-              display:flex;flex-direction:column;transition:border-left-color .3s}
-    .fut-card.up{border-left-color:var(--up)}
-    .fut-card.down{border-left-color:var(--down)}
-    .fut-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:10px 14px 4px;gap:8px}
-    .fut-name{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.3px}
-    .fut-price{font-size:16px;font-weight:700;color:var(--text);font-family:'SF Mono',Menlo,monospace}
-    .fut-sub{display:flex;justify-content:space-between;padding:0 14px 6px;font-size:11px;font-family:'SF Mono',Menlo,monospace}
-    .fut-chg{font-weight:600}
-    .fut-chg.up{color:var(--up)}.fut-chg.down{color:var(--down)}
-    .fut-meta{padding:0 14px 6px;font-size:10px;color:var(--muted);letter-spacing:.04em}
-    .fut-chart{flex:1;min-height:140px;height:140px;position:relative}
-    .fut-chart canvas{display:block;width:100%;height:100%}
-    .fut-tooltip{position:absolute;pointer-events:none;background:rgba(17,20,31,.95);
-                 border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:6px 8px;
-                 font-size:10.5px;font-family:'SF Mono',Menlo,monospace;color:var(--text);
-                 line-height:1.5;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
-    .fut-tooltip.show{opacity:1}
-    .fut-tooltip .tt-date{color:var(--muted);font-size:10px;margin-bottom:2px}
-    .fut-tooltip .tt-row{display:flex;justify-content:space-between;gap:10px}
-    .fut-tooltip .tt-row span:first-child{color:var(--muted)}
-    .fut-loading{display:flex;align-items:center;justify-content:center;height:100%;
-                 font-size:11px;color:var(--muted)}
+/* ===== Generic card / panel ===== */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.panel-pad{padding:14px 16px}
 
-    /* ── Search ── */
-    .search-wrap{position:relative}
-    .search-wrap input{background:var(--surface2);border:1px solid var(--border);
-                       border-radius:8px;padding:7px 10px 7px 32px;color:var(--text);
-                       font-size:12px;outline:none;transition:border-color .2s;width:200px}
-    .search-wrap input:focus{border-color:var(--accent)}
-    .search-wrap::before{content:"🔍";position:absolute;left:9px;top:50%;
-                         transform:translateY(-50%);font-size:13px;pointer-events:none}
+/* ===== Sub tabs (pills) ===== */
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.pill{
+  font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--border-strong);background:var(--surface);color:var(--ink-2);cursor:pointer;
+}
+.pill .n{margin-left:5px;color:var(--ink-3);font-weight:700}
+.pill.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.pill.active .n{color:rgba(255,255,255,.8)}
 
-    /* ── Table ── */
-    .tbl-wrap{overflow-x:auto;max-height:520px;overflow-y:auto}
-    table{width:100%;border-collapse:collapse}
-    thead th{background:var(--surface2);padding:9px 11px;text-align:left;
-             font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-             color:var(--muted);position:sticky;top:0;z-index:1;white-space:nowrap}
-    tbody tr{border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer}
-    tbody tr:hover{background:rgba(99,102,241,.07)}
-    tbody td{padding:9px 11px;font-size:13px;white-space:nowrap}
+/* ===== Earnings flash ===== */
+.flash-zone{margin-bottom:14px}
+.flash-zone .zone-label{font-size:12px;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.zone-tag{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:5px}
+.zone-positive .zone-tag{background:var(--up-soft);color:var(--up)}
+.zone-negative .zone-tag{background:var(--down-soft);color:var(--down)}
+.zone-neutral .zone-tag{background:#eef1f5;color:var(--ink-2)}
+.flash-item{
+  display:flex;gap:11px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;
+  background:var(--surface-2);margin-bottom:7px;align-items:flex-start;
+}
+.flash-item .time{font-size:11px;color:var(--ink-3);min-width:38px;padding-top:1px}
+.flash-item .code{font-size:11px;font-weight:700;color:var(--accent);min-width:42px;padding-top:1px}
+.flash-item .body{flex:1;min-width:0}
+.flash-item .nm{font-size:13px;font-weight:700;margin-bottom:3px}
+.flash-item .nar{font-size:12px;color:var(--ink-2);margin-bottom:5px}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:5px;background:#eef2f7;color:var(--ink-2)}
+.chip.pos{background:var(--up-soft);color:var(--up)}
+.chip.neg{background:var(--down-soft);color:var(--down)}
 
-    /* ── Badges ── */
-    .badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;
-           border-radius:12px;font-size:11px;font-weight:600}
-    .b-up{background:var(--up-bg);color:var(--up)}
-    .b-down{background:var(--down-bg);color:var(--down)}
-    .b-stop{background:rgba(239,68,68,.25);color:#fca5a5;font-size:10px}
-    .b-near{background:rgba(234,179,8,.15);color:#fbbf24;font-size:10px}
-    .b-vol-high{background:rgba(6,182,212,.2);color:#22d3ee;font-size:10px}
-    .b-vol-mid{background:rgba(99,102,241,.2);color:#818cf8;font-size:10px}
-    .b-vol-low{background:rgba(148,163,184,.15);color:#94a3b8;font-size:10px}
-    .sec-tag{background:#2e3250;color:var(--muted);padding:2px 7px;
-             border-radius:5px;font-size:11px}
-    .code-link{color:var(--accent2);font-weight:700;font-family:monospace;text-decoration:none}
-    .code-link:hover{text-decoration:underline}
+/* ===== Two col ===== */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-    /* ── Events Panel ── */
-    .evt-panel{background:var(--surface);border-bottom:1px solid var(--border);
-               padding:0 20px}
-    .evt-toggle{display:flex;align-items:center;gap:8px;padding:9px 0;
-                cursor:pointer;border:none;background:none;color:var(--text);
-                font-size:13px;font-weight:600;width:100%;text-align:left}
-    .evt-toggle:hover{color:var(--accent2)}
-    .evt-toggle-icon{font-size:10px;color:var(--muted);transition:transform .2s}
-    .evt-toggle-icon.open{transform:rotate(90deg)}
-    .evt-body{display:none;padding:0 0 14px}
-    .evt-body.open{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-    @media(max-width:900px){.evt-body.open{grid-template-columns:1fr}}
-    .evt-col-hdr{font-size:11px;font-weight:700;color:var(--muted);
-                 text-transform:uppercase;letter-spacing:.07em;
-                 padding:8px 0 6px;border-bottom:1px solid var(--border);margin-bottom:8px}
-    .evt-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;
-              border-bottom:1px solid rgba(46,50,80,.5);font-size:12px}
-    .evt-item:last-child{border-bottom:none}
-    .evt-time{color:var(--accent2);font-family:monospace;font-size:11px;
-              min-width:46px;padding-top:1px}
-    .evt-name{flex:1;line-height:1.4}
-    .evt-country{font-size:10px;color:var(--muted)}
-    .imp-high{color:#f87171;font-weight:700}
-    .imp-high .evt-name{color:#fca5a5}
-    .imp-medium{color:var(--text)}
-    .imp-medium .evt-name{color:#fbbf24}
-    .imp-low{color:var(--muted)}
-    .evt-badge{font-size:10px;padding:1px 5px;border-radius:8px;
-               white-space:nowrap;margin-top:1px}
-    .b-amc{background:rgba(99,102,241,.2);color:#818cf8}
-    .b-bmo{background:rgba(34,197,94,.15);color:#4ade80}
-    .b-actual{background:rgba(34,197,94,.15);color:#4ade80}
-    .evt-cnt{background:var(--accent);color:#fff;font-size:10px;padding:1px 6px;
-             border-radius:10px;font-weight:700}
-    .evt-date-sep{font-size:10px;color:var(--muted);padding:6px 0 3px;
-                  font-weight:700;text-transform:uppercase}
-    /* イベントタブ */
-    .evt-tab-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    @media(max-width:760px){.evt-tab-grid2{grid-template-columns:1fr}}
-    .evt-empty{color:var(--muted);font-size:12px;padding:6px 0}
-    .b-beat{background:rgba(34,197,94,.15);color:#4ade80}
-    .b-miss{background:rgba(239,68,68,.15);color:#fca5a5}
-    .b-prev{background:rgba(100,116,139,.2);color:#94a3b8}
-    .b-plan{background:rgba(99,102,241,.15);color:#a5b4fc}
-    .evt-cmp{font-size:11px;color:var(--muted);margin-left:2px}
-    /* 決算結果サマリー行 */
-    .evt-res{display:flex;align-items:baseline;gap:6px;padding:5px 0;
-             border-bottom:1px solid var(--border);font-size:12px}
-    .evt-res:last-child{border-bottom:none}
-    .evt-res-code{color:var(--accent2);font-weight:700;font-family:monospace;
-                  font-size:11px;flex-shrink:0}
-    .evt-res-name{font-weight:600;flex-shrink:0;max-width:42%;overflow:hidden;
-                  text-overflow:ellipsis;white-space:nowrap}
-    .evt-res-desc{color:var(--muted);overflow:hidden;text-overflow:ellipsis;
-                  white-space:nowrap}
-    .evt-res a{color:inherit;text-decoration:none}
-    .evt-res a:hover{color:var(--accent2)}
-    .evt-res-more{font-size:11px;padding:6px 0 0}
-    .evt-res-more a{color:var(--accent2);text-decoration:none}
+/* ===== Earnings/news list ===== */
+.row-list{display:flex;flex-direction:column}
+.row-item{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px dashed var(--border);font-size:12.5px}
+.row-item:last-child{border-bottom:none}
+.row-item .r-date{font-size:11px;color:var(--ink-3);min-width:42px}
+.row-item .r-datetime{display:flex;align-items:baseline;gap:7px;min-width:96px}
+.row-item .r-datetime .r-d{font-size:11px;color:var(--ink-3);min-width:48px}
+.row-item .r-datetime .r-d.today{color:var(--up);font-weight:700}
+.row-item .r-datetime .r-t{font-size:12px;font-weight:600;color:var(--ink-2)}
+.ev-row{align-items:flex-start}
+.ev-body{flex:1;min-width:0}
+.ev-metrics{font-size:11px;color:var(--ink-3);margin-top:2px}
+.ev-metrics b{font-weight:700}
+.ev-metrics .num{color:var(--ink-2);font-weight:600}
+.ev-metrics .sep{margin:0 6px;color:var(--border-strong)}
+.ev-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap;align-self:center}
+.ev-status.done{background:var(--brand-soft);color:var(--brand-ink)}
+.ev-status.soon{background:#eaf1fb;color:var(--accent)}
+.ev-stars{color:var(--warn);font-size:11px;align-self:center;white-space:nowrap}
+.row-item .r-code{font-size:11px;font-weight:700;color:var(--accent);min-width:46px}
+.row-item .r-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-item .r-tag{font-size:10px;padding:1px 7px;border-radius:4px;background:#eef2f7;color:var(--ink-2);font-weight:600}
 
-    /* ── Grid 2 ── */
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:860px){.grid2{grid-template-columns:1fr}}
-    .chart-wrap{position:relative;height:280px}
-    .chart-tall{height:380px}
+/* ===== Stat strip ===== */
+.stat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow)}
+.stat .k{font-size:11.5px;color:var(--ink-3);margin-bottom:4px}
+.stat .v{font-size:23px;font-weight:700;letter-spacing:-.5px}
+.stat .v small{font-size:13px;font-weight:600;margin-left:2px;color:var(--ink-3)}
+.stat .meta{font-size:11px;color:var(--ink-3);margin-top:2px}
 
-    /* ── Heatmap (treemap) ── */
-    .heatmap-wrap{position:relative;width:100%;height:560px;background:var(--surface2);
-                  border-radius:8px;overflow:hidden}
-    .hm-loading{display:flex;align-items:center;justify-content:center;height:100%;
-                font-size:13px;color:var(--muted)}
-    .hm-svg{display:block;width:100%;height:100%;background:#0b0d14}
-    .hm-svg .hm-sector-label{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',
-                              'Yu Gothic UI',sans-serif;font-size:11px;font-weight:700;
-                              fill:#ffffff;opacity:.95;letter-spacing:.04em;
-                              text-shadow:0 1px 2px rgba(0,0,0,.6);pointer-events:none}
-    .hm-svg .hm-sector-bg{fill:rgba(99,102,241,.18);stroke:rgba(99,102,241,.35);stroke-width:1}
-    .hm-svg .hm-stock{cursor:default;transition:filter .12s}
-    .hm-svg .hm-stock:hover{filter:brightness(1.15)}
-    .hm-svg .hm-stock-name{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;
-                            font-weight:700;fill:#fff;text-shadow:0 1px 2px rgba(0,0,0,.7);
-                            pointer-events:none}
-    .hm-svg .hm-stock-pct{font-family:'SF Mono',Menlo,monospace;fill:#fff;opacity:.95;
-                           text-shadow:0 1px 2px rgba(0,0,0,.7);pointer-events:none}
-    .hm-tooltip{position:absolute;pointer-events:none;background:rgba(15,17,23,.97);
-                border:1px solid rgba(99,102,241,.4);border-radius:8px;padding:8px 10px;
-                font-size:12px;line-height:1.55;color:var(--text);box-shadow:0 6px 18px rgba(0,0,0,.5);
-                opacity:0;transition:opacity .12s;z-index:8;min-width:160px}
-    .hm-tooltip.show{opacity:1}
-    .hm-tooltip .tt-code{color:var(--muted);font-family:'SF Mono',Menlo,monospace;font-size:11px}
-    .hm-tooltip .tt-name{font-weight:700;font-size:13px;margin:2px 0 6px}
-    .hm-tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;font-family:'SF Mono',Menlo,monospace}
-    .hm-tooltip .tt-row .lab{color:var(--muted)}
-    .hm-tooltip .up{color:var(--up)}
-    .hm-tooltip .down{color:var(--down)}
+/* ===== Ranking table ===== */
+table.rank{width:100%;border-collapse:collapse;font-size:12.5px}
+table.rank th{
+  text-align:left;font-size:11px;font-weight:600;color:var(--ink-3);
+  padding:9px 12px;border-bottom:1px solid var(--border);background:var(--surface-2);position:sticky;top:0;
+}
+table.rank th.r{text-align:right}
+table.rank td{padding:9px 12px;border-bottom:1px solid var(--border)}
+table.rank td.r{text-align:right}
+table.rank tr:hover td{background:var(--surface-2)}
+table.rank .t-code{font-weight:700;color:var(--accent)}
+table.rank .t-name{font-weight:600}
+table.rank .t-sec{font-size:10.5px;color:var(--ink-3)}
+table.rank .pill-mkt{font-size:10px;padding:1px 6px;border-radius:4px;background:#eef2f7;color:var(--ink-2);font-weight:600;white-space:nowrap;display:inline-block}
+table.rank .t-code{white-space:nowrap}
+table.rank .st-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--up-soft);color:var(--up)}
+.rank-no{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#eef2f7;color:var(--ink-2);font-weight:700;font-size:12px}
+.rank-no.top{background:var(--brand);color:#fff}
+.theme-chips{display:flex;gap:6px;flex-wrap:wrap}
+.theme-chip{font-size:11px;padding:2px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--border);white-space:nowrap}
+.theme-chip b{font-weight:600;color:var(--ink)}
+.hot-badge{display:inline-block;font-size:9.5px;font-weight:700;color:#fff;background:var(--up);padding:1px 6px;border-radius:4px;margin-bottom:3px}
 
-    /* ── Error / Empty ── */
-    .err-banner{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
-                border-radius:8px;padding:11px 14px;color:#fca5a5;font-size:13px;
-                margin-bottom:14px;display:none}
-    .empty-state{text-align:center;padding:48px 20px;color:var(--muted)}
-    .empty-icon{font-size:36px;margin-bottom:10px}
-    .loading{display:flex;align-items:center;justify-content:center;padding:60px;
-             gap:12px;color:var(--muted)}
-    .spinner{width:22px;height:22px;border:3px solid var(--border);
-             border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
+/* ===== Heatmap (treemap) ===== */
+.heatmap{position:relative;width:100%;height:520px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.hm-tile{position:absolute;overflow:hidden;border:1px solid rgba(255,255,255,.7);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2px;cursor:default}
+.hm-tile .hm-nm{font-size:10px;font-weight:600;line-height:1.15;text-align:center;color:rgba(255,255,255,.97);text-shadow:0 1px 2px rgba(0,0,0,.35);overflow:hidden}
+.hm-tile .hm-pct{font-size:10px;font-weight:700;color:rgba(255,255,255,.95);text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.hm-legend{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--ink-3);margin-top:8px;justify-content:center}
+.hm-legend i{width:22px;height:11px;display:inline-block;border-radius:2px}
 
-    /* ═══════════════════════════════════
-       MODAL
-    ═══════════════════════════════════ */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);
-                   z-index:1000;display:none;align-items:center;justify-content:center;
-                   padding:20px;animation:fadeIn .2s}
-    .modal-overlay.open{display:flex}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;
-           width:100%;max-width:960px;max-height:90vh;overflow:hidden;
-           display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.7)}
-    .modal-head{padding:16px 20px;border-bottom:1px solid var(--border);
-                display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-    .modal-head-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .modal-code{font-size:20px;font-weight:800;color:var(--accent2);font-family:monospace}
-    .modal-name{font-size:16px;font-weight:600}
-    .modal-market{color:var(--muted);font-size:12px}
-    .modal-close{background:var(--surface2);border:1px solid var(--border);
-                 color:var(--muted);padding:6px 12px;border-radius:8px;
-                 cursor:pointer;font-size:13px;transition:all .15s}
-    .modal-close:hover{background:var(--border);color:var(--text)}
-    .modal-body{display:grid;grid-template-columns:280px 1fr;
-                overflow:auto;flex:1;min-height:0}
-    @media(max-width:700px){.modal-body{grid-template-columns:1fr}}
-    /* left panel */
-    .modal-info{padding:18px;border-right:1px solid var(--border);overflow-y:auto}
-    .info-row{margin-bottom:14px}
-    .info-label{font-size:10px;color:var(--muted);text-transform:uppercase;
-                letter-spacing:.07em;margin-bottom:4px}
-    .info-val{font-size:13px;font-weight:500}
-    .info-price{font-size:22px;font-weight:700;color:var(--up)}
-    .info-change{font-size:13px;font-weight:600}
-    .info-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-    .info-tag{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);
-              color:var(--accent2);padding:2px 8px;border-radius:12px;font-size:11px}
-    .info-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-top:4px;
-               max-height:120px;overflow-y:auto}
-    /* right panel */
-    .modal-chart{padding:16px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
-    .chart-label{font-size:11px;color:var(--muted);font-weight:600;
-                 text-transform:uppercase;letter-spacing:.06em}
-    .price-chart-wrap{position:relative;flex:1;min-height:0}
-    .vol-chart-wrap{position:relative;height:80px;flex-shrink:0}
-    .chart-loading{display:flex;align-items:center;justify-content:center;
-                   height:100%;color:var(--muted);gap:8px}
+/* ===== Footer ===== */
+footer{border-top:1px solid var(--border);background:var(--surface);margin-top:30px}
+.foot-inner{max-width:var(--maxw);margin:0 auto;padding:22px 18px;font-size:12px;color:var(--ink-3);text-align:center}
+.foot-inner a{color:var(--brand-ink);font-weight:600}
 
-    /* ── Sector Cards ── */
-    .sec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .sec-item{background:var(--surface2);border:1px solid var(--border);
-              border-radius:10px;padding:12px 14px}
-    .sec-item-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-    .sec-cnt{background:var(--accent);color:#fff;padding:2px 8px;
-             border-radius:10px;font-size:11px;font-weight:700}
-    .sec-bar-bg{background:var(--border);border-radius:3px;height:5px;overflow:hidden;margin-bottom:5px}
-    .sec-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-    .sec-pct{font-size:11px;color:var(--muted)}
+.skeleton{color:var(--ink-3);font-size:12.5px;padding:20px;text-align:center}
 
-    /* ── Sub-sector Panel ── */
-    .subsec-card{background:var(--surface);border:1px solid var(--border);
-                 border-radius:12px;padding:16px 18px;margin-top:16px}
-    .subsec-card-title{font-size:13px;font-weight:700;color:var(--text);
-                       margin-bottom:14px;display:flex;align-items:center;gap:6px}
-    .subsec-sector-block{margin-bottom:18px}
-    .subsec-sector-block:last-child{margin-bottom:0}
-    .subsec-sector-hdr{display:flex;justify-content:space-between;align-items:center;
-                       margin-bottom:8px;padding-bottom:6px;
-                       border-bottom:1px solid var(--border)}
-    .subsec-sector-name{font-size:12px;font-weight:700;color:var(--muted);
-                        text-transform:uppercase;letter-spacing:.05em}
-    .subsec-total{font-size:11px;color:var(--muted);background:var(--surface2);
-                  padding:1px 7px;border-radius:8px}
-    .subsec-tags{display:flex;flex-wrap:wrap;gap:7px}
-    .subsec-tag{background:var(--surface2);border:1px solid rgba(99,102,241,.2);
-                border-radius:10px;padding:7px 12px;display:flex;flex-direction:column;
-                gap:3px;min-width:110px;cursor:default;transition:border-color .15s}
-    .subsec-tag:hover{border-color:rgba(99,102,241,.5)}
-    .subsec-tag-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
-    .subsec-tag-stat{font-size:11px;font-weight:600}
-    .subsec-hot{border-color:rgba(239,68,68,.35) !important;
-                background:rgba(239,68,68,.06)}
-    .subsec-warm{border-color:rgba(251,146,60,.3) !important;
-                 background:rgba(251,146,60,.05)}
-    .subsec-cool{border-color:rgba(99,102,241,.25) !important}
-    .subsec-legend{font-size:10px;color:var(--muted);margin-top:12px;
-                   display:flex;gap:12px;flex-wrap:wrap}
-    .subsec-legend span{display:flex;align-items:center;gap:4px}
-    .subsec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-    /* ── Market News Section ── */
-    .mkt-news-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
-    @media(max-width:700px){.mkt-news-grid{grid-template-columns:1fr}}
-    .mkt-news-item{display:flex;align-items:baseline;gap:8px;
-                   padding:7px 0;border-bottom:1px solid rgba(46,50,80,.4);
-                   font-size:12px}
-    .mkt-news-item:last-child{border-bottom:none}
-    .mkt-news-src{display:inline-block;padding:1px 7px;border-radius:4px;
-                  font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
-    .ns-mkt-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
-    .ns-mkt-minkabu{background:rgba(34,197,94,.15);color:#4ade80}
-    .ns-mkt-yahoo{background:rgba(99,102,241,.2);color:#818cf8}
-    .mkt-news-title{flex:1;min-width:0;color:var(--text);text-decoration:none;
-                    line-height:1.45;display:block;
-                    overflow:hidden;display:-webkit-box;
-                    -webkit-line-clamp:2;-webkit-box-orient:vertical}
-    .mkt-news-title:hover{color:var(--accent2)}
-    .mkt-news-date{color:var(--muted);font-size:10px;white-space:nowrap;
-                   flex-shrink:0;font-family:monospace}
-    .mkt-news-hdr-right{display:flex;align-items:center;gap:10px}
-    .mkt-refresh-btn{background:none;border:1px solid var(--border);
-                     color:var(--muted);padding:3px 9px;border-radius:6px;
-                     cursor:pointer;font-size:11px;transition:all .15s}
-    .mkt-refresh-btn:hover{border-color:var(--accent);color:var(--text)}
-    .mkt-updated{font-size:11px;color:var(--muted)}
-
-    /* ── Earnings Flash (決算速報) ── */
-    .kessan-empty{padding:14px 4px;color:var(--muted);font-size:12px;line-height:1.6}
-
-    /* サマリーバー */
-    .kessan-summary{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-                    padding:8px 12px;margin-bottom:14px;
-                    background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);
-                    border-radius:8px;font-size:11px;color:var(--muted)}
-    .kessan-summary-stat{display:flex;align-items:center;gap:5px}
-    .kessan-summary-stat strong{color:var(--text);font-family:monospace;
-                                font-size:13px;font-weight:700}
-
-    /* ゾーンヘッダー (注目サプライズ / 決算発表 / 下方修正) */
-    .kessan-zone{margin-bottom:18px}
-    .kessan-zone:last-child{margin-bottom:0}
-    .kessan-zone-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;
-                     padding-bottom:6px;border-bottom:1px solid var(--border)}
-    .kessan-zone-icon{font-size:14px}
-    .kessan-zone-title{font-size:13px;font-weight:700;color:var(--text)}
-    .kessan-zone-sub{font-size:11px;color:var(--muted);font-weight:400}
-    .kessan-zone-count{margin-left:auto;font-size:11px;color:var(--muted);
-                       font-family:monospace}
-
-    /* カテゴリバッジ */
-    .kessan-cat-badge{display:inline-block;padding:2px 8px;border-radius:4px;
-                      font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap}
-    .kc-top{background:rgba(239,68,68,.18);color:#fca5a5}
-    .kc-mid{background:rgba(251,146,60,.18);color:#fdba74}
-    .kc-base{background:rgba(34,197,94,.16);color:#86efac}
-    .kc-other{background:rgba(148,163,184,.16);color:#cbd5e1}
-    .kc-down{background:rgba(220,38,38,.16);color:#f87171}
-
-    /* ハイライトカード (positive/negative ゾーンの個別エントリ) */
-    .kessan-card{display:grid;grid-template-columns:46px 1fr;gap:8px 12px;
-                 padding:10px 12px;margin-bottom:6px;
-                 background:rgba(26,29,39,.5);border:1px solid var(--border);
-                 border-radius:8px;align-items:start}
-    .kessan-card:last-child{margin-bottom:0}
-    .kessan-card.is-positive{border-left:3px solid rgba(34,197,94,.6)}
-    .kessan-card.is-negative{border-left:3px solid rgba(239,68,68,.5);opacity:.92}
-    .kessan-card-time{font-family:monospace;font-size:11px;color:var(--text);
-                      text-align:right;padding-top:3px;white-space:nowrap}
-    .kessan-date{display:block;font-size:10px;color:var(--muted);font-weight:600}
-    .kessan-card-body{min-width:0}
-    .kessan-card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-                     margin-bottom:5px}
-    .kessan-card-code{font-family:monospace;font-size:12px;color:var(--accent2);
-                      font-weight:700;text-decoration:none}
-    .kessan-card-code:hover{text-decoration:underline}
-    .kessan-card-name{color:var(--text);font-weight:700;font-size:13px;
-                      max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .kessan-card-narrative{font-size:12px;color:var(--text);line-height:1.5;
-                           margin-bottom:6px}
-    .kessan-card-narrative a{color:inherit;text-decoration:none}
-    .kessan-card-narrative a:hover{color:var(--accent2);text-decoration:underline}
-    .kessan-card-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-    .kessan-card-srcs{display:flex;gap:4px;flex-wrap:wrap}
-
-    /* メトリクスチップ */
-    .kessan-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;
-                 border-radius:10px;font-size:11px;font-weight:600;line-height:1.2;
-                 font-family:-apple-system,Segoe UI,sans-serif;white-space:nowrap}
-    .kessan-chip-label{font-size:10px;font-weight:400;opacity:.75}
-    .chip-up{background:rgba(34,197,94,.12);color:#86efac}
-    .chip-up-strong{background:rgba(34,197,94,.22);color:#bbf7d0;font-weight:700}
-    .chip-down{background:rgba(239,68,68,.12);color:#fca5a5}
-    .chip-down-strong{background:rgba(239,68,68,.22);color:#fecaca;font-weight:700}
-
-    /* ソースバッジ */
-    .kessan-srcbadge{display:inline-block;padding:1px 5px;border-radius:3px;
-                     font-size:9px;font-weight:700;white-space:nowrap;
-                     letter-spacing:.02em;text-transform:uppercase}
-    .ks-irbank{background:rgba(59,130,246,.18);color:#93c5fd}
-    .ks-kabutan{background:rgba(249,115,22,.18);color:#fb923c}
-    .ks-kabupro{background:rgba(168,85,247,.18);color:#c4b5fd}
-    .ks-nasdaq{background:rgba(16,185,129,.18);color:#6ee7b7}
-
-    /* 決算発表ゾーン (コンパクト2段組) */
-    .kessan-decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
-    @media(max-width:700px){.kessan-decision-grid{grid-template-columns:1fr}}
-    .kessan-decision-item{display:flex;align-items:baseline;gap:8px;
-                          padding:6px 0;border-bottom:1px solid rgba(46,50,80,.35);
-                          font-size:12px;line-height:1.45}
-    .kessan-decision-item:last-child{border-bottom:none}
-    .kessan-decision-time{font-family:monospace;font-size:10px;color:var(--muted);
-                          white-space:nowrap;flex-shrink:0;min-width:64px}
-    .kessan-decision-code{font-family:monospace;font-size:11px;color:var(--accent2);
-                          font-weight:700;white-space:nowrap;flex-shrink:0;min-width:42px;
-                          text-decoration:none}
-    .kessan-decision-name{color:var(--text);font-weight:600;white-space:nowrap;
-                          flex-shrink:0;max-width:110px;overflow:hidden;text-overflow:ellipsis}
-    .kessan-decision-desc{flex:1;min-width:0;color:var(--muted);font-size:11px;
-                          overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-    .kessan-decision-desc a{color:inherit;text-decoration:none}
-    .kessan-decision-desc a:hover{color:var(--accent2);text-decoration:underline}
-
-    .kessan-src-link{margin-top:12px;font-size:11px;color:var(--muted);
-                     text-align:right;line-height:1.5}
-    .kessan-src-link a{color:var(--accent2);text-decoration:none}
-    .kessan-src-link a:hover{text-decoration:underline}
-
-    /* ── Modal News ── */
-    .modal-news{border-top:1px solid var(--border);padding:12px 20px;
-                max-height:220px;overflow-y:auto;flex-shrink:0}
-    .modal-news-hdr{font-size:10px;color:var(--muted);text-transform:uppercase;
-                    letter-spacing:.07em;font-weight:700;margin-bottom:10px}
-    .news-list{display:flex;flex-direction:column;gap:7px}
-    .news-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;
-               padding:6px 0;border-bottom:1px solid rgba(46,50,80,.4)}
-    .news-item:last-child{border-bottom:none}
-    .news-src{display:inline-block;padding:1px 6px;border-radius:4px;
-              font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:2px}
-    .ns-tdnet{background:rgba(239,68,68,.2);color:#f87171}
-    .ns-minkabu{background:rgba(34,197,94,.15);color:#4ade80}
-    .ns-kabutan{background:rgba(148,163,184,.15);color:#94a3b8}
-    .ns-investing{background:rgba(251,146,60,.2);color:#fb923c}
-    .ns-yahoo{background:rgba(99,102,241,.2);color:#818cf8}
-    .news-date{color:var(--muted);font-size:10px;white-space:nowrap;
-               flex-shrink:0;margin-top:3px;font-family:monospace}
-    .news-title a{color:var(--text);text-decoration:none;line-height:1.5;
-                  display:block;font-size:12px}
-    .news-title a:hover{color:var(--accent2)}
-    .news-empty{color:var(--muted);font-size:12px;padding:4px 0}
-    .news-loading{color:var(--muted);font-size:12px;
-                  display:flex;align-items:center;gap:6px}
-    .news-fallback{padding:6px 0}
-    .news-fallback-txt{color:var(--muted);font-size:11px;margin-bottom:8px}
-    .news-fallback-links{display:flex;gap:8px;flex-wrap:wrap}
-    .news-ext-link{background:var(--surface2);border:1px solid var(--border);
-                   color:var(--accent2);padding:5px 12px;border-radius:6px;
-                   font-size:12px;text-decoration:none;transition:border-color .15s}
-    .news-ext-link:hover{border-color:var(--accent);color:var(--text)}
-
-    footer{text-align:center;padding:20px;color:var(--muted);font-size:11px;
-           border-top:1px solid var(--border);margin-top:32px}
-    footer a{color:var(--accent2);text-decoration:none}
-
-    /* ===== アフィリエイト（証券会社）ブロック ===== */
-    .aff-block{margin-top:24px;padding:18px 18px 14px;background:var(--surface);
-               border:1px solid var(--border);border-radius:12px}
-    .aff-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;
-               color:var(--text);margin-bottom:8px}
-    .aff-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
-             padding:2px 6px;background:var(--surface2);color:var(--muted);
-             border:1px solid var(--border);border-radius:3px;line-height:1}
-    .aff-lead{font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.7}
-    .aff-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
-    .aff-card{display:flex;flex-direction:column;gap:10px;padding:12px 13px;
-              background:var(--surface2);border:1px solid var(--border);border-radius:8px;
-              position:relative}
-    .aff-name{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:4px}
-    .aff-strength{font-size:11.5px;color:var(--muted);line-height:1.65}
-    .aff-cta{display:block;text-align:center;padding:9px 10px;
-             background:linear-gradient(135deg,var(--accent),var(--accent2));
-             color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;
-             border-radius:6px;transition:opacity .15s ease,transform .1s ease}
-    .aff-cta:hover{opacity:.9;transform:translateY(-1px)}
-    .aff-cta::after{content:" ↗";font-weight:400;opacity:.85}
-    .aff-note{margin-top:10px;font-size:10.5px;color:var(--muted);line-height:1.65}
-  </style>
+/* ===== Responsive ===== */
+@media(max-width:880px){
+  .idx-grid{grid-template-columns:repeat(2,1fr)}
+  .cols{grid-template-columns:1fr}
+  .stat-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .idx-grid{grid-template-columns:1fr}
+  .idx-card .price{font-size:22px}
+}
+</style>
 </head>
 <body>
 
-<!-- ── Header ── -->
-<header>
-  <div style="display:flex;align-items:center">
-    <div class="logo">📊</div>
-    <div class="h-title">投資の<span>砦</span></div>
-    <div class="h-sub">日本株・米国株 急騰レーダー
-      <a href="/about/" style="color:var(--accent2);margin-left:6px;text-decoration:none;font-size:10px;border:1px solid var(--border);padding:1px 6px;border-radius:8px">砦とは →</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="brand">
+      <span class="logo">砦</span>
+      <span>投資の砦<small>日本株・米国株マーケット</small></span>
+    </a>
+    <div class="topbar-meta">
+      <span class="live-dot">自動更新</span>
+      <span id="lastUpdated">最終更新 —</span>
     </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <div class="update-badge">
-      <div class="pulse" id="pulse-dot"></div>
-      <span id="last-updated">読み込み中...</span>
-    </div>
-    <button id="refresh-btn" onclick="manualRefresh()"
-      style="background:var(--surface2);border:1px solid var(--border);
-             color:var(--muted);padding:5px 11px;border-radius:20px;
-             cursor:pointer;font-size:11px;transition:all .2s;white-space:nowrap">
-      再読込
-    </button>
   </div>
 </header>
 
-<!-- ── Tabs ── -->
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('japan',this)">
-    🇯🇵 日本株<span class="tab-cnt" id="cnt-jp">-</span>
-  </button>
-  <button class="tab" onclick="switchTab('us',this)">
-    🇺🇸 米国株<span class="tab-cnt" id="cnt-us">-</span>
-  </button>
-  <button class="tab" onclick="switchTab('volume',this)">
-    📊 出来高急増<span class="tab-cnt" id="cnt-vol">-</span>
-  </button>
-  <button class="tab" onclick="switchTab('sector',this)">
-    📈 セクター分析
-  </button>
-  <button class="tab" onclick="switchTab('events',this)">
-    📅 イベント・決算結果<span class="tab-cnt" id="cnt-evt" style="display:none">-</span>
-  </button>
-</div>
+<nav class="nav">
+  <div class="nav-inner" id="navTabs">
+    <a href="#idx" class="active">指数・先物</a>
+    <a href="#flash">決算速報 <span class="badge" id="navFlash">0</span></a>
+    <a href="#earn">本日の決算</a>
+    <a href="#news">市場ニュース</a>
+    <a href="#rank">急騰ランキング</a>
+    <a href="#themes">テーマ株</a>
+    <a href="#events">イベント・指標</a>
+    <a href="#heat">ヒートマップ</a>
+  </div>
+</nav>
 
-<!-- ── Main ── -->
-<div class="main">
+<main class="wrap">
 
-  <!-- ═══ 先物・為替ミニチャート（全タブ共通）═══ -->
-  <div class="futures-row" id="futures-row">
-    <div class="fut-card" id="fut-nk225" data-symbol="OSE:NK225">
-      <div class="fut-hdr">
-        <span class="fut-name">日経225先物</span>
-        <span class="fut-price" id="fut-nk225-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-nk225-chg">—</span>
-        <span class="fut-chg" id="fut-nk225-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-nk225-chart"><div class="fut-loading">Loading…</div></div>
+  <!-- ===== 指数・先物 ===== -->
+  <section class="section" id="idx">
+    <div class="section-head">
+      <h2><span class="ic">●</span>主要指数・先物</h2>
+      <span class="sub">日本・米国・為替・商品</span>
+      <span class="upd" id="updIdx"></span>
     </div>
+    <div class="idx-grid" id="idxGrid"><div class="skeleton">読み込み中…</div></div>
+  </section>
 
-    <div class="fut-card" id="fut-ym" data-symbol="CME_MINI:YM1!">
-      <div class="fut-hdr">
-        <span class="fut-name">NYダウ先物</span>
-        <span class="fut-price" id="fut-ym-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-ym-chg">—</span>
-        <span class="fut-chg" id="fut-ym-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-ym-chart"><div class="fut-loading">Loading…</div></div>
+  <!-- ===== 決算速報 ===== -->
+  <section class="section" id="flash">
+    <div class="section-head">
+      <h2><span class="ic">◆</span>決算速報</h2>
+      <span class="sub" id="flashSub"></span>
+      <span class="upd" id="updFlash"></span>
     </div>
+    <div class="panel panel-pad">
+      <div class="pills" id="flashPills"></div>
+      <div id="flashBody"><div class="skeleton">読み込み中…</div></div>
+    </div>
+  </section>
 
-    <div class="fut-card" id="fut-nq" data-symbol="CME_MINI:NQ1!">
-      <div class="fut-hdr">
-        <span class="fut-name">ナスダック先物</span>
-        <span class="fut-price" id="fut-nq-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-nq-chg">—</span>
-        <span class="fut-chg" id="fut-nq-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-nq-chart"><div class="fut-loading">Loading…</div></div>
-    </div>
-
-    <div class="fut-card" id="fut-usdjpy" data-symbol="OANDA:USDJPY">
-      <div class="fut-hdr">
-        <span class="fut-name">USD/JPY</span>
-        <span class="fut-price" id="fut-usdjpy-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-usdjpy-chg">—</span>
-        <span class="fut-chg" id="fut-usdjpy-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-usdjpy-chart"><div class="fut-loading">Loading…</div></div>
-    </div>
-
-    <div class="fut-card" id="fut-sox">
-      <div class="fut-hdr">
-        <span class="fut-name">SOX指数（半導体）</span>
-        <span class="fut-price" id="fut-sox-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-sox-chg">—</span>
-        <span class="fut-chg" id="fut-sox-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-sox-chart"><div class="fut-loading">Loading…</div></div>
-    </div>
-
-    <div class="fut-card" id="fut-gold">
-      <div class="fut-hdr">
-        <span class="fut-name">金先物</span>
-        <span class="fut-price" id="fut-gold-price">—</span>
-      </div>
-      <div class="fut-sub">
-        <span class="fut-chg" id="fut-gold-chg">—</span>
-        <span class="fut-chg" id="fut-gold-pct">—</span>
-      </div>
-      <div class="fut-chart" id="fut-gold-chart"><div class="fut-loading">Loading…</div></div>
-    </div>
+  <!-- ===== 本日の決算 + 市場ニュース ===== -->
+  <div class="cols">
+    <section class="section" id="earn">
+      <div class="section-head"><h2><span class="ic">▤</span>本日の決算発表</h2><span class="upd" id="updEarn"></span></div>
+      <div class="panel panel-pad"><div class="pills" id="earnPills"></div><div class="row-list" id="earnBody"><div class="skeleton">読み込み中…</div></div></div>
+    </section>
+    <section class="section" id="news">
+      <div class="section-head"><h2><span class="ic">📰</span>市場ニュース</h2><span class="upd" id="updNews"></span></div>
+      <div class="panel panel-pad"><div class="row-list" id="newsBody"><div class="skeleton">読み込み中…</div></div></div>
+    </section>
   </div>
 
-  <!-- ═══ 決算速報（全タブ共通）═══ -->
-  <div class="card" id="kessan-flash-card" style="margin-bottom:18px">
-    <div class="card-hdr">
-      <div class="card-title">
-        <div class="c-icon" style="background:rgba(239,68,68,.15);font-size:11px;font-weight:700;color:#fca5a5">K</div>
-        決算速報
-        <span style="font-size:11px;color:var(--muted);font-weight:400" id="kessan-flash-date"></span>
-      </div>
-      <div class="mkt-news-hdr-right">
-        <span class="mkt-updated" id="kessan-flash-updated"></span>
-        <button class="mkt-refresh-btn" onclick="refreshEarningsFlash()">更新</button>
-      </div>
+  <!-- ===== サマリー統計 ===== -->
+  <section class="section" id="stats">
+    <div class="stat-strip" id="statStrip"></div>
+  </section>
+
+  <!-- ===== 急騰ランキング ===== -->
+  <section class="section" id="rank">
+    <div class="section-head"><h2><span class="ic">🔥</span>本日の急騰銘柄ランキング</h2><span class="sub" id="rankSub">値上がり率上位</span><span class="upd" id="updRank"></span></div>
+    <div class="panel"><div class="panel-pad" style="padding-bottom:0"><div class="pills" id="rankPills"></div></div><div id="rankBody"><div class="skeleton">読み込み中…</div></div></div>
+  </section>
+
+  <!-- ===== テーマ株ランキング ===== -->
+  <section class="section" id="themes">
+    <div class="section-head"><h2><span class="ic">🔥</span>テーマ株ランキング</h2><span class="sub" id="themesSub">週間上昇率順 / 構成銘柄から算出</span><span class="upd" id="updThemes"></span></div>
+    <div class="panel"><div class="panel-pad" style="padding-bottom:0"><div class="pills" id="themePills"></div></div><div id="themesBody"><div class="skeleton">読み込み中…</div></div></div>
+  </section>
+
+  <!-- ===== イベント・指標 ===== -->
+  <section class="section" id="events">
+    <div class="section-head"><h2><span class="ic">📅</span>経済指標・イベント</h2><span class="sub">日本時間 / 重要度★付き</span><span class="upd" id="updEvents"></span></div>
+    <div class="panel panel-pad"><div class="pills" id="eventPills"></div><div class="row-list" id="eventsBody"><div class="skeleton">読み込み中…</div></div></div>
+  </section>
+
+  <!-- ===== ヒートマップ ===== -->
+  <section class="section" id="heat">
+    <div class="section-head"><h2><span class="ic">▦</span><span id="heatTitle">日経225 ヒートマップ</span></h2><span class="sub">面積＝時価総額 / 色＝前日比</span><span class="upd" id="updHeat"></span></div>
+    <div class="panel panel-pad">
+      <div class="pills" id="heatPills"></div>
+      <div class="heatmap" id="heatmap"></div>
+      <div class="hm-legend"><span>-3%</span><i style="background:#0e8a5f"></i><i style="background:#7bc4a4"></i><i style="background:#e9edf0"></i><i style="background:#e8a09a"></i><i style="background:#d92d20"></i><span>+3%</span></div>
     </div>
-    <div id="kessan-flash-body">
-      <div class="loading" style="padding:24px">
-        <div class="spinner"></div>読み込み中...
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <!-- ═══ 本日の市場ニュース（全タブ共通）═══ -->
-  <div class="card" id="mkt-news-card" style="margin-bottom:18px">
-    <div class="card-hdr">
-      <div class="card-title">
-        <div class="c-icon" style="background:rgba(99,102,241,.15);font-size:11px;font-weight:700;color:var(--accent2)">N</div>
-        本日の市場ニュース
-      </div>
-      <div class="mkt-news-hdr-right">
-        <span class="mkt-updated" id="mkt-news-updated"></span>
-        <button class="mkt-refresh-btn" onclick="refreshMarketNews()">更新</button>
-      </div>
-    </div>
-    <div id="mkt-news-body">
-      <div class="loading" style="padding:24px">
-        <div class="spinner"></div>読み込み中...
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ JAPAN TAB ═══ -->
-  <div id="tab-japan" class="tab-pane active">
-    <div id="jp-err" class="err-banner"></div>
-    <div id="jp-loading" class="loading"><div class="spinner"></div>データ読み込み中...</div>
-    <div id="jp-content" style="display:none">
-
-      <!-- テーマキーワード -->
-      <div class="kw-bar" id="jp-keywords" style="display:none">
-        <span class="kw-label">🔥 本日のテーマ</span>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-row" id="jp-stats"></div>
-
-      <!-- 統合テーブル -->
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title">
-            <div class="c-icon i-jp">🚀</div>
-            本日の急騰銘柄ランキング
-            <span style="font-size:11px;color:var(--muted);font-weight:400">
-              （クリックでチャート表示）
-            </span>
-          </div>
-          <div class="search-wrap">
-            <input type="text" id="jp-search" placeholder="コード・銘柄名で検索..."
-                   oninput="filterTable('jp-tbl',this.value)">
-          </div>
-        </div>
-        <div class="tbl-wrap">
-          <table id="jp-tbl">
-            <thead><tr>
-              <th>コード</th><th>銘柄名</th><th>業種</th><th>市場</th>
-              <th style="text-align:right">現在値</th>
-              <th style="text-align:right">前日比</th>
-              <th style="text-align:right">変化率</th>
-              <th>状態</th>
-            </tr></thead>
-            <tbody id="jp-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 日経225 ヒートマップ -->
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title"><div class="c-icon i-sec">🗾</div>日経225 ヒートマップ <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">面積=時価総額 / 色=本日の前日比</span></div>
-          <div id="hm-jp-updated" style="font-size:11px;color:var(--muted)"></div>
-        </div>
-        <div id="hm-jp" class="heatmap-wrap"><div class="hm-loading">読み込み中...</div></div>
-      </div>
-
-      <!-- PR: 関連する証券会社 -->
-      <aside class="aff-block" aria-label="関連する証券会社（PR）">
-        <p class="aff-label"><span class="aff-tag">PR</span>ストップ高銘柄を実際に取引するなら</p>
-        <p class="aff-lead">ストップ高や急騰銘柄に乗るには、日本株の売買コストの低さと注文の出しやすさが大切です。下記の証券会社は急騰銘柄の取引と相性が良いです。</p>
-        <div class="aff-cards">
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">松井証券</h3>
-              <p class="aff-strength">1日の約定代金50万円までは日本株の売買手数料が無料。小ロットで複数の急騰銘柄を追うのに最適。</p>
-            </div>
-            <a href="https://h.accesstrade.net/sp/cc?rk=01000t2p00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">松井証券で無料口座開設</a>
-            <img src="https://h.accesstrade.net/sp/rr?rk=01000t2p00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
-          </div>
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">SBI証券</h3>
-              <p class="aff-strength">口座開設数No.1の総合力。ストップ高銘柄の指値・成行を最速で出せる注文画面が使いやすい。</p>
-            </div>
-            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
-          </div>
-        </div>
-        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ═══ US TAB ═══ -->
-  <div id="tab-us" class="tab-pane">
-    <div id="us-err" class="err-banner"></div>
-    <div id="us-loading" class="loading"><div class="spinner"></div>データ読み込み中...</div>
-    <div id="us-content" style="display:none">
-      <div class="stats-row" id="us-stats"></div>
-
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title">
-            <div class="c-icon i-us">🚀</div>
-            S&amp;P500 当日上昇率上位20銘柄
-            <span style="font-size:11px;color:var(--muted);font-weight:400">
-              （クリックでチャート表示）
-            </span>
-          </div>
-          <div class="search-wrap">
-            <input type="text" id="us-search" placeholder="ティッカー・銘柄名..."
-                   oninput="filterTable('us-tbl',this.value)">
-          </div>
-        </div>
-        <div class="tbl-wrap">
-          <table id="us-tbl">
-            <thead><tr>
-              <th>ティッカー</th><th>銘柄名</th><th>セクター</th>
-              <th style="text-align:right">株価($)</th>
-              <th style="text-align:right">前日比</th>
-              <th style="text-align:right">騰落率</th>
-              <th style="text-align:right">出来高</th>
-            </tr></thead>
-            <tbody id="us-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- S&P500 ヒートマップ -->
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title"><div class="c-icon i-sec">🇺🇸</div>S&amp;P 500 ヒートマップ <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">面積=時価総額 / 色=本日の前日比</span></div>
-          <div id="hm-us-updated" style="font-size:11px;color:var(--muted)"></div>
-        </div>
-        <div id="hm-us" class="heatmap-wrap"><div class="hm-loading">読み込み中...</div></div>
-      </div>
-
-      <!-- PR: 関連する証券会社 -->
-      <aside class="aff-block" aria-label="関連する証券会社（PR）">
-        <p class="aff-label"><span class="aff-tag">PR</span>米国株を実際に取引するなら</p>
-        <p class="aff-lead">米国株の急騰銘柄に投資するには、取扱銘柄数の豊富さとリアルタイム情報が強い証券会社が必要です。下記2社が米国株に強い定番です。</p>
-        <div class="aff-cards">
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">マネックス証券</h3>
-              <p class="aff-strength">米国株の取扱銘柄数が業界最多級。注目の急騰銘柄もしっかり網羅し、銘柄分析ツールも充実。</p>
-            </div>
-            <a href="https://h.accesstrade.net/sp/cc?rk=010072vk00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">マネックス証券で無料口座開設</a>
-            <img src="https://h.accesstrade.net/sp/rr?rk=010072vk00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
-          </div>
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">moomoo証券</h3>
-              <p class="aff-strength">米国株の板情報・気配値がリアルタイムで無料。急変動の判断材料が揃う高機能アプリ。</p>
-            </div>
-            <a href="https://h.accesstrade.net/sp/cc?rk=0100pd0z00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">moomoo証券を無料でダウンロード</a>
-            <img src="https://h.accesstrade.net/sp/rr?rk=0100pd0z00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
-          </div>
-        </div>
-        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ═══ VOLUME TAB ═══ -->
-  <div id="tab-volume" class="tab-pane">
-    <div id="vol-err" class="err-banner"></div>
-    <div id="vol-loading" class="loading"><div class="spinner"></div>データ読み込み中...</div>
-    <div id="vol-content" style="display:none">
-
-      <!-- JP volume -->
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title">
-            <div class="c-icon i-jp">🇯🇵</div>
-            日本株 ─ 出来高急増ランキング
-            <span style="font-size:11px;color:var(--muted);font-weight:400">（クリックでチャート表示）</span>
-          </div>
-          <div class="search-wrap">
-            <input type="text" id="vol-jp-search" placeholder="コード・銘柄名で検索..."
-                   oninput="filterTable('vol-jp-tbl',this.value)">
-          </div>
-        </div>
-        <div class="tbl-wrap">
-          <table id="vol-jp-tbl">
-            <thead><tr>
-              <th>コード</th><th>銘柄名</th><th>業種</th><th>市場</th>
-              <th style="text-align:right">本日出来高</th>
-              <th style="text-align:right">前日出来高</th>
-              <th style="text-align:right">増加率</th>
-              <th style="text-align:right">株価</th>
-              <th style="text-align:right">前日比</th>
-            </tr></thead>
-            <tbody id="vol-jp-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- US volume -->
-      <div class="card">
-        <div class="card-hdr">
-          <div class="card-title">
-            <div class="c-icon i-us">🇺🇸</div>
-            米国株 ─ 出来高急増ランキング（S&P500）
-            <span style="font-size:11px;color:var(--muted);font-weight:400">（クリックでチャート表示）</span>
-          </div>
-          <div class="search-wrap">
-            <input type="text" id="vol-us-search" placeholder="ティッカー・銘柄名..."
-                   oninput="filterTable('vol-us-tbl',this.value)">
-          </div>
-        </div>
-        <div class="tbl-wrap">
-          <table id="vol-us-tbl">
-            <thead><tr>
-              <th>ティッカー</th><th>銘柄名</th><th>セクター</th>
-              <th style="text-align:right">本日出来高</th>
-              <th style="text-align:right">前日出来高</th>
-              <th style="text-align:right">増加率</th>
-              <th style="text-align:right">株価($)</th>
-              <th style="text-align:right">前日比</th>
-            </tr></thead>
-            <tbody id="vol-us-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- PR: 関連する証券会社 -->
-      <aside class="aff-block" aria-label="関連する証券会社（PR）">
-        <p class="aff-label"><span class="aff-tag">PR</span>出来高の動きを実際に追うなら</p>
-        <p class="aff-lead">出来高の急増は需給の転換点を示すサインです。板情報とリアルタイム監視が強い証券会社で、動きを逃さず捉えましょう。</p>
-        <div class="aff-cards">
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">moomoo証券</h3>
-              <p class="aff-strength">板情報・気配値がリアルタイムで無料。出来高と板を同時に監視できる高機能ツールが揃う。</p>
-            </div>
-            <a href="https://h.accesstrade.net/sp/cc?rk=0100pd0z00ntar" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">moomoo証券を無料でダウンロード</a>
-            <img src="https://h.accesstrade.net/sp/rr?rk=0100pd0z00ntar" width="1" height="1" alt="" style="border:0;position:absolute;left:-9999px" />
-          </div>
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">SBI証券</h3>
-              <p class="aff-strength">スクリーニング機能で出来高フィルタが可能。日米株まとめて取引できる業界最大級の総合証券。</p>
-            </div>
-            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
-          </div>
-        </div>
-        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ═══ SECTOR TAB ═══ -->
-  <div id="tab-sector" class="tab-pane">
-    <div id="sec-loading" class="loading"><div class="spinner"></div>データ読み込み中...</div>
-    <div id="sec-content" style="display:none">
-      <div class="grid2" style="margin-bottom:16px">
-        <div class="card">
-          <div class="card-hdr">
-            <div class="card-title">🇯🇵 日本株 ─ 業種別 S高件数</div>
-          </div>
-          <div class="chart-wrap chart-tall"><canvas id="sec-jp-chart"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-hdr">
-            <div class="card-title">🇺🇸 米国株 ─ セクター平均騰落率</div>
-          </div>
-          <div class="chart-wrap chart-tall"><canvas id="sec-us-chart"></canvas></div>
-        </div>
-      </div>
-      <!-- 注目サブセクター -->
-      <div class="subsec-card">
-        <div class="subsec-card-title">🇯🇵 日本株 ─ 注目サブセクター
-          <span style="font-size:10px;color:var(--muted);font-weight:400">（平均騰落率順・上位表示）</span>
-        </div>
-        <div id="jp-subsec-panel"></div>
-        <div class="subsec-legend">
-          <span><span class="subsec-dot" style="background:#f87171"></span>急騰 +10%超</span>
-          <span><span class="subsec-dot" style="background:#fb923c"></span>上昇 +5%超</span>
-          <span><span class="subsec-dot" style="background:#4ade80"></span>堅調 +0〜5%</span>
-          <span><span class="subsec-dot" style="background:#94a3b8"></span>軟調</span>
-        </div>
-      </div>
-
-      <div class="subsec-card">
-        <div class="subsec-card-title">🇺🇸 米国株 ─ 注目サブセクター
-          <span style="font-size:10px;color:var(--muted);font-weight:400">（平均騰落率順・上位表示）</span>
-        </div>
-        <div id="us-subsec-panel"></div>
-        <div class="subsec-legend">
-          <span><span class="subsec-dot" style="background:#f87171"></span>急騰 +10%超</span>
-          <span><span class="subsec-dot" style="background:#fb923c"></span>上昇 +5%超</span>
-          <span><span class="subsec-dot" style="background:#4ade80"></span>堅調 +0〜5%</span>
-          <span><span class="subsec-dot" style="background:#94a3b8"></span>軟調</span>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:16px">
-        <div class="card-hdr">
-          <div class="card-title">🇯🇵 日本株 業種別詳細</div>
-        </div>
-        <div class="sec-grid" id="jp-sec-grid"></div>
-      </div>
-      <div class="card" style="margin-top:16px">
-        <div class="card-hdr">
-          <div class="card-title">🇺🇸 米国株 セクター別詳細</div>
-        </div>
-        <div class="sec-grid" id="us-sec-grid"></div>
-      </div>
-
-      <!-- PR: 関連する証券会社 -->
-      <aside class="aff-block" aria-label="関連する証券会社（PR）">
-        <p class="aff-label"><span class="aff-tag">PR</span>セクター戦略を実際に投資に活かすなら</p>
-        <p class="aff-lead">セクターの強弱を投資戦略に組み込むなら、セクターETFや関連銘柄を低コストで売買できる証券会社が便利です。</p>
-        <div class="aff-cards">
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">楽天証券</h3>
-              <p class="aff-strength">楽天ポイントでセクターETFやインデックスファンドを購入可能。長期積立と相性◎で、初心者にも扱いやすいUI。</p>
-            </div>
-            <a href="https://ad2.trafficgate.net/t/r/1231/738/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">楽天証券で無料口座開設</a>
-          </div>
-          <div class="aff-card">
-            <div>
-              <h3 class="aff-name">SBI証券</h3>
-              <p class="aff-strength">米国セクターETF・日本のセクター関連株まで業界最大級の取扱で網羅。テーマ投資の幅が広い。</p>
-            </div>
-            <a href="https://ad2.trafficgate.net/t/r/10/1025/312248_389754" class="aff-cta" rel="sponsored nofollow noopener" target="_blank" referrerpolicy="no-referrer-when-downgrade">SBI証券で無料口座開設</a>
-          </div>
-        </div>
-        <p class="aff-note">※当サイトはアフィリエイトプログラムを利用しています。リンク経由でのお申し込みで運営者に紹介料が支払われる場合があります。</p>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ── イベント・決算結果タブ ── -->
-  <div id="tab-events" class="tab-pane">
-    <!-- 経済指標（結果・予定） -->
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-hdr">
-        <div class="card-title">📊 経済指標（結果・予定）
-          <span style="font-size:11px;color:var(--muted);font-weight:400">実績は予想・前回と比較</span>
-        </div>
-      </div>
-      <div id="evt-eco-list"><div class="evt-empty">読み込み中...</div></div>
-    </div>
-
-    <!-- 決算結果（直近の速報） -->
-    <div class="card" style="margin-bottom:16px">
-      <div class="card-hdr">
-        <div class="card-title">📈 決算結果（直近の速報）
-          <span style="font-size:11px;color:var(--muted);font-weight:400">発表済みのサプライズ決算</span>
-        </div>
-      </div>
-      <div class="evt-tab-grid2">
-        <div>
-          <div class="evt-col-hdr">🇯🇵 日本株</div>
-          <div id="evt-result-jp"><div class="evt-empty">読み込み中...</div></div>
-        </div>
-        <div>
-          <div class="evt-col-hdr">🇺🇸 米国株</div>
-          <div id="evt-result-us"><div class="evt-empty">読み込み中...</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 決算予定 -->
-    <div class="card">
-      <div class="card-hdr">
-        <div class="card-title">🗓 決算予定
-          <span style="font-size:11px;color:var(--muted);font-weight:400">これから発表される銘柄</span>
-        </div>
-      </div>
-      <div class="evt-tab-grid2">
-        <div>
-          <div class="evt-col-hdr">🇺🇸 米国株 決算予定</div>
-          <div id="evt-us-list"><div class="evt-empty">読み込み中...</div></div>
-        </div>
-        <div>
-          <div class="evt-col-hdr">🇯🇵 日本株 決算予定（翌営業日）</div>
-          <div id="evt-jp-list"><div class="evt-empty">読み込み中...</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /main -->
-
-<!-- ═══════════════════════════════════════
-     MODAL
-═══════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOverlay(event)">
-  <div class="modal" id="modal">
-    <!-- Head -->
-    <div class="modal-head">
-      <div class="modal-head-left">
-        <span class="modal-code" id="m-code">-</span>
-        <span class="modal-name" id="m-name">-</span>
-        <span class="modal-market" id="m-market"></span>
-        <span id="m-badge"></span>
-        <span id="m-pct-badge"></span>
-      </div>
-      <button class="modal-close" onclick="closeModal()">✕ 閉じる</button>
-    </div>
-    <!-- Body -->
-    <div class="modal-body">
-      <!-- 左: 会社情報 -->
-      <div class="modal-info">
-        <div class="info-row">
-          <div class="info-label">株価</div>
-          <div class="info-price" id="m-price">-</div>
-          <div class="info-change" id="m-change"></div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">業種 / セクター</div>
-          <div class="info-val" id="m-sector">-</div>
-        </div>
-        <div class="info-row" id="m-industry-row" style="display:none">
-          <div class="info-label">インダストリー</div>
-          <div class="info-val" id="m-industry">-</div>
-        </div>
-        <div class="info-row" id="m-website-row" style="display:none">
-          <div class="info-label">ウェブサイト</div>
-          <div class="info-val">
-            <a id="m-website" href="#" target="_blank"
-               style="color:var(--accent2);font-size:12px">-</a>
-          </div>
-        </div>
-        <div class="info-row" id="m-tags-row" style="display:none">
-          <div class="info-label">キーワード</div>
-          <div class="info-tags" id="m-tags"></div>
-        </div>
-        <div class="info-row" id="m-desc-row" style="display:none">
-          <div class="info-label">事業内容</div>
-          <div class="info-desc" id="m-desc"></div>
-        </div>
-      </div>
-
-      <!-- 右: チャート -->
-      <div class="modal-chart">
-        <div>
-          <div class="chart-label">株価チャート（直近6ヶ月・日足）</div>
-        </div>
-        <div class="price-chart-wrap">
-          <canvas id="m-price-chart"></canvas>
-          <div id="m-chart-loading" class="chart-loading">
-            <div class="spinner"></div> チャートデータ読み込み中...
-          </div>
-          <div id="m-chart-empty" style="display:none"
-               class="chart-loading">チャートデータなし</div>
-        </div>
-        <div>
-          <div class="chart-label">出来高</div>
-          <div class="vol-chart-wrap">
-            <canvas id="m-vol-chart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ニュース -->
-    <div class="modal-news" id="m-news-section" style="display:none">
-      <div class="modal-news-hdr" id="m-news-hdr">急騰理由・ニュース</div>
-      <div id="m-news-list" class="news-list">
-        <div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>
-      </div>
-    </div>
-  </div>
-</div>
+</main>
 
 <footer>
-  <div style="margin-bottom:8px">
-    <a href="/about/">投資の砦とは</a> &nbsp;|&nbsp;
-    <a href="https://yougo.stock-overflow24.com/" target="_blank">投資用語辞典</a> &nbsp;|&nbsp;
-    <a href="https://github.com/dyz0731ak/stock-dashboard" target="_blank">GitHub</a>
+  <div class="foot-inner">
+    © 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。
   </div>
-  データソース:
-  <a href="https://kabutan.jp" target="_blank">株探(kabutan.jp)</a> /
-  <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a>
-  &nbsp;|&nbsp; GitHub Actions で自動更新
 </footer>
 
-<script>
-/* ════════════════════════════════════════════
-   状態
-════════════════════════════════════════════ */
-let jpData = null, usData = null, volData = null, evData = null;
-let modalPriceChart = null, modalVolChart = null;
-let newsCache = null, usNewsCache = null;
-
-const COLORS = [
-  '#6366f1','#818cf8','#22c55e','#4ade80','#f59e0b','#fbbf24',
-  '#ef4444','#f87171','#06b6d4','#22d3ee','#8b5cf6','#a78bfa',
-  '#ec4899','#f472b6','#14b8a6','#2dd4bf','#fb923c','#a3e635',
-];
-
-/* ════════════════════════════════════════════
-   ユーティリティ
-════════════════════════════════════════════ */
-const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
-                               .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-
-function fmtJST(iso) {
-  if (!iso) return '不明';
-  try {
-    return new Date(iso).toLocaleString('ja-JP',{
-      timeZone:'Asia/Tokyo',hour12:false,
-      year:'numeric',month:'2-digit',day:'2-digit',
-      hour:'2-digit',minute:'2-digit'
-    });
-  } catch { return iso; }
-}
-
-function fmtVol(v) {
-  if (!v) return '-';
-  if (v >= 1e9) return (v/1e9).toFixed(1)+'B';
-  if (v >= 1e6) return (v/1e6).toFixed(1)+'M';
-  if (v >= 1e3) return (v/1e3).toFixed(1)+'K';
-  return v.toString();
-}
-
-function pctFloat(s) {
-  const v = parseFloat(String(s?.change_pct||'0').replace('+','').replace('%',''));
-  return isNaN(v) ? 0 : v;
-}
-
-function pctBadge(val) {
-  const n = parseFloat(String(val||'0').replace('+','').replace('%',''));
-  if (isNaN(n)) return `<span class="badge b-up">${esc(val)}</span>`;
-  const cls = n >= 0 ? 'b-up' : 'b-down';
-  const sign = n >= 0 ? '+' : '';
-  return `<span class="badge ${cls}">${sign}${n.toFixed(2)}%</span>`;
-}
-
-function showErr(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.innerHTML = `⚠️ ${msg}`; el.style.display = 'block'; }
-}
-
-function showNoData(errId, ctx, time) {
-  const el = document.getElementById(errId);
-  if (!el) return;
-  el.innerHTML = `⚠️ <strong>データが0件です。</strong> ${ctx}<br>
-    <small>取得日時: ${fmtJST(time)} ─ 市場休場中または取引時間外の可能性があります。</small>`;
-  el.style.display = 'block';
-}
-
-/* ════════════════════════════════════════════
-   タブ切り替え
-════════════════════════════════════════════ */
-/* ════════════════════════════════════════════
-   イベントカレンダー
-════════════════════════════════════════════ */
-function setHTML(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
-
-function renderEvents() {
-  if (!evData) return;
-
-  const todayStr    = evData.target_today;
-  const tomorrowStr = evData.target_tomorrow;
-
-  // タブのバッジ: 高重要度の経済イベント件数
-  const highCount = (evData.economic||[]).filter(e => e.importance === 'high').length;
-  const cntEl = document.getElementById('cnt-evt');
-  if (cntEl) {
-    if (highCount > 0) { cntEl.textContent = `重要${highCount}`; cntEl.style.display = ''; }
-    else { cntEl.style.display = 'none'; }
-  }
-
-  // ── 経済指標（実績 vs 予想/前回 の判定付き） ──
-  const eco = evData.economic || [];
-  setHTML('evt-eco-list', !eco.length
-    ? '<div class="evt-empty">本日・翌営業日の予定なし</div>'
-    : (() => {
-        let html = '', lastDate = '';
-        for (const e of eco) {
-          if (e.date !== lastDate) {
-            const label = e.date === todayStr ? '📅 今日' : '📅 翌営業日';
-            html += `<div class="evt-date-sep">${label} (${esc(e.date)})</div>`;
-            lastDate = e.date;
-          }
-          const impCls  = `imp-${e.importance}`;
-          const impMark = e.importance === 'high' ? '🔴' : e.importance === 'medium' ? '🟡' : '⚪';
-          const hasV = v => v != null && v !== '' && v !== '-';
-          const fTxt = hasV(e.forecast) ? ` 予想${esc(e.forecast)}` : '';
-          const pTxt = hasV(e.prior)    ? ` 前回${esc(e.prior)}`    : '';
-          let resultHtml;
-          if (hasV(e.actual)) {
-            // 比較対象は予想優先・無ければ前回
-            const useForecast = hasV(e.forecast);
-            const baseLabel = useForecast ? '予想' : '前回';
-            const a = parseFloat(String(e.actual).replace(/[%,]/g,''));
-            const b = parseFloat(String(useForecast ? e.forecast : e.prior).replace(/[%,]/g,''));
-            let cmp = '';
-            if (isFinite(a) && isFinite(b)) {
-              if (a > b)      cmp = `<span class="evt-badge b-beat">▲ ${baseLabel}比 上振れ</span>`;
-              else if (a < b) cmp = `<span class="evt-badge b-miss">▼ ${baseLabel}比 下振れ</span>`;
-              else            cmp = `<span class="evt-badge b-prev">＝ ${baseLabel}通り</span>`;
-            }
-            resultHtml = `<span class="evt-badge b-actual">実績 ${esc(e.actual)}</span> ${cmp}<span class="evt-cmp">${fTxt}${pTxt}</span>`;
-          } else {
-            resultHtml = `<span class="evt-badge b-plan">予定</span><span class="evt-cmp">${fTxt}${pTxt}</span>`;
-          }
-          const per = e.for_period ? ` <span class="evt-cmp">(${esc(e.for_period)})</span>` : '';
-          html += `
-            <div class="evt-item ${impCls}">
-              <div class="evt-time">${esc(e.time_jst||'-')}</div>
-              <div>
-                <div class="evt-name">${impMark} ${esc(e.event_ja||e.event)}${per}</div>
-                <div class="evt-country">${esc(e.country_label||e.country)}</div>
-                <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-top:3px">${resultHtml}</div>
-              </div>
-            </div>`;
-        }
-        return html;
-      })());
-
-  // ── 米国株 決算予定 ──
-  const usEarnings = evData.us_earnings || [];
-  setHTML('evt-us-list', !usEarnings.length
-    ? '<div class="evt-empty">本日・翌営業日の予定なし</div>'
-    : (() => {
-        let html = '', lastDate = '';
-        for (const e of usEarnings.slice(0, 30)) {
-          if (e.date !== lastDate) {
-            const label = e.date === todayStr ? '📅 今日' : '📅 翌営業日';
-            html += `<div class="evt-date-sep">${label} (${esc(e.date)})</div>`;
-            lastDate = e.date;
-          }
-          const timeBadge = e.call_time === 'AMC' ? `<span class="evt-badge b-amc">引け後</span>`
-            : e.call_time === 'BMO' ? `<span class="evt-badge b-bmo">寄り前</span>`
-            : `<span class="evt-badge b-prev">時刻未定</span>`;
-          const epsTxt = (e.eps_estimate && e.eps_estimate !== '-')
-            ? ` <span style="color:var(--muted)">予EPS:${esc(e.eps_estimate)}</span>` : '';
-          const repBadge = e.reported_eps ? `<span class="evt-badge b-actual">実績EPS ${esc(e.reported_eps)}</span>` : '';
-          html += `
-            <div class="evt-item">
-              <div class="evt-time" style="color:var(--accent2);font-weight:700">${esc(e.symbol)}</div>
-              <div>
-                <div class="evt-name">${esc(e.name||e.symbol)}${epsTxt}</div>
-                <div style="display:flex;gap:4px;margin-top:2px">${timeBadge}${repBadge}</div>
-              </div>
-            </div>`;
-        }
-        return html;
-      })());
-
-  // ── 日本株 決算予定（翌営業日） ──
-  const jpEarnings = evData.jp_earnings || [];
-  setHTML('evt-jp-list', !jpEarnings.length
-    ? '<div class="evt-empty">翌営業日の決算予定なし</div>'
-    : (() => {
-        let html = `<div class="evt-date-sep">📅 翌営業日 (${esc(tomorrowStr)}) ${jpEarnings.length}社</div>`;
-        for (const e of jpEarnings.slice(0, 30)) {
-          const mktBadge = `<span class="evt-badge b-prev">${esc(e.market||'')}</span>`;
-          const qBadge = e.quarter ? `<span class="evt-badge b-plan">${esc(e.quarter)}</span>` : '';
-          const priceStr = e.price ? e.price.toLocaleString()+'円' : '';
-          html += `
-            <div class="evt-item">
-              <div class="evt-time" style="color:var(--muted);font-size:10px">予定</div>
-              <div>
-                <div class="evt-name">
-                  <span style="color:var(--accent2);font-weight:700;margin-right:5px">${esc(e.code)}</span>${esc(e.name)}
-                  <span style="color:var(--muted);font-size:11px;margin-left:4px">${priceStr}</span>
-                </div>
-                <div style="display:flex;gap:4px;margin-top:2px">${mktBadge}${qBadge}</div>
-              </div>
-            </div>`;
-        }
-        if (jpEarnings.length > 30)
-          html += `<div class="evt-empty">他 ${jpEarnings.length-30}社...</div>`;
-        return html;
-      })());
-
-  // ── 決算結果（直近の速報・別データ） ──
-  renderEventResults();
-}
-
-// 日本・米国の決算速報データを（必要なら取得して）結果サマリーに描画
-async function renderEventResults() {
-  const jobs = [];
-  if (!earningsFlashCache.jp)
-    jobs.push(fetch('data/earnings_flash.json?t='+Date.now()).then(r=>r.ok?r.json():null).then(d=>{if(d)earningsFlashCache.jp=d;}).catch(()=>{}));
-  if (!earningsFlashCache.us)
-    jobs.push(fetch('data/earnings_flash_us.json?t='+Date.now()).then(r=>r.ok?r.json():null).then(d=>{if(d)earningsFlashCache.us=d;}).catch(()=>{}));
-  if (jobs.length) await Promise.allSettled(jobs);
-
-  setHTML('evt-result-jp', buildResultSummary(earningsFlashCache.jp, KESSAN_MARKET.jp, 'japan'));
-  setHTML('evt-result-us', buildResultSummary(earningsFlashCache.us, KESSAN_MARKET.us, 'us'));
-}
-
-// 決算速報データから「上振れ・下振れ」の上位だけを抜き出したコンパクトな結果サマリー
-function buildResultSummary(data, cfg, tabName) {
-  if (!data || !(data.groups||[]).length) return '<div class="evt-empty">直近の結果はまだありません</div>';
-  const byZone = { positive: [], negative: [] };
-  data.groups.forEach(g => { if (byZone[g.zone]) byZone[g.zone].push(...g.items); });
-  [byZone.positive, byZone.negative].forEach(l =>
-    l.sort((a,b) => ((b.sort_val||0)-(a.sort_val||0)) || (b.time||'').localeCompare(a.time||'')));
-
-  const row = (it, posNeg) => {
-    const badgeCls = posNeg === 'pos' ? 'b-beat' : 'b-miss';
-    const url = it.url ? `href="${esc(it.url)}" target="_blank" rel="noopener noreferrer"` : '';
-    return `<div class="evt-res">
-      <span class="evt-res-code">${esc(it.code)}</span>
-      <span class="evt-res-name" title="${esc(it.name)}">${esc(it.name)}</span>
-      <span class="evt-badge ${badgeCls}">${esc(it.category||'')}</span>
-      <span class="evt-res-desc"><a ${url}>${esc(it.narrative||'')}</a></span>
-    </div>`;
-  };
-
-  const pos = byZone.positive.slice(0, 5), neg = byZone.negative.slice(0, 4);
-  if (!pos.length && !neg.length) return '<div class="evt-empty">直近の上振れ・下振れはありません</div>';
-
-  const dateTxt = data.article_date ? `（${data.article_date.replace(/-/g,'/')} 発表分）` : '';
-  let html = dateTxt ? `<div class="evt-date-sep">直近 ${dateTxt}</div>` : '';
-  if (pos.length) html += `<div style="font-size:11px;color:#4ade80;font-weight:700;margin:4px 0 2px">🔥 ${esc(cfg.summary.positive)}</div>` + pos.map(it => row(it,'pos')).join('');
-  if (neg.length) html += `<div style="font-size:11px;color:#fca5a5;font-weight:700;margin:9px 0 2px">⚠️ ${esc(cfg.summary.negative)}</div>` + neg.map(it => row(it,'neg')).join('');
-  html += `<div class="evt-res-more"><a href="#" onclick="gotoEarnings('${tabName}');return false;">→ 決算速報で全${data.total||0}件を見る</a></div>`;
-  return html;
-}
-
-// 決算速報カードへジャンプ（該当タブに切り替えてスクロール）
-function gotoEarnings(tabName) {
-  const btn = [...document.querySelectorAll('.tab')].find(b => (b.getAttribute('onclick')||'').includes(`'${tabName}'`));
-  if (btn) btn.click();
-  setTimeout(() => document.getElementById('kessan-flash-card')?.scrollIntoView({behavior:'smooth', block:'start'}), 60);
-}
-
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-  // 決算速報を選択タブの市場（米国株タブ→米国決算、それ以外→日本決算）に切り替え
-  loadEarningsFlash(false, marketForTab(name));
-  if (name === 'sector' && jpData && usData) renderSectorTab();
-  if (name === 'volume' && volData) renderVolume();
-  if (name === 'events') renderEvents();
-  // ヒートマップは非表示時にclientWidth=0で描画スキップされるため、表示直後に再描画
-  if (name === 'japan' && _hmJpData) {
-    const host = document.getElementById('hm-jp');
-    if (host) renderHeatmap(host, _hmJpData.items, host._hmOpts || {});
-  }
-  if (name === 'us' && _hmUsData) {
-    const host = document.getElementById('hm-us');
-    if (host) renderHeatmap(host, _hmUsData.items, host._hmOpts || { currency: 'USD' });
-  }
-}
-
-/* ════════════════════════════════════════════
-   データ読み込み
-════════════════════════════════════════════ */
-async function loadData() {
-  const ts = Date.now();
-  await Promise.allSettled([
-    fetch(`data/japan_stocks.json?t=${ts}`)
-      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(d => { jpData = d; renderJapan(); })
-      .catch(e => {
-        showErr('jp-err', 'データ取得失敗: '+e.message+
-          '（GitHub Actions 初回実行後に表示されます）');
-        document.getElementById('jp-loading').style.display = 'none';
-      }),
-
-    fetch(`data/us_stocks.json?t=${ts}`)
-      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(d => { usData = d; renderUS(); })
-      .catch(e => {
-        showErr('us-err', 'データ取得失敗: '+e.message);
-        document.getElementById('us-loading').style.display = 'none';
-      }),
-
-    fetch(`data/volume_stocks.json?t=${ts}`)
-      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(d => { volData = d; document.getElementById('cnt-vol').textContent =
-        (d.jp_count||0)+(d.us_count||0); })
-      .catch(() => {
-        document.getElementById('vol-loading').style.display = 'none';
-        showErr('vol-err', '出来高データ未取得（初回 Actions 実行後に表示）');
-      }),
-
-    fetch(`data/events.json?t=${ts}`)
-      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(d => { evData = d; renderEvents(); })
-      .catch(() => {
-        setHTML('evt-eco-list', '<div class="evt-empty">（データ未取得）</div>');
-      }),
-  ]);
-
-  // ニュースキャッシュをリセット（次回モーダル開時に再取得）
-  newsCache = null;
-  usNewsCache = null;
-
-  const updated = jpData?.updated_at || usData?.updated_at;
-  if (updated) updateFreshnessUI(updated);
-}
-
-function updateFreshnessUI(updatedAt) {
-  const el    = document.getElementById('last-updated');
-  const pulse = document.getElementById('pulse-dot');
-  if (!el) return;
-
-  const diffMin = Math.floor((Date.now() - new Date(updatedAt)) / 60000);
-  const timeStr = fmtJST(updatedAt);
-
-  // 経過時間テキスト（控えめ表示）
-  let agoTxt = '';
-  if (diffMin < 1)        agoTxt = 'たった今';
-  else if (diffMin < 60)  agoTxt = `${diffMin}分前`;
-  else                    agoTxt = `${Math.floor(diffMin/60)}時間${diffMin%60 ? diffMin%60+'分' : ''}前`;
-
-  el.innerHTML = `最終更新: ${timeStr}
-    <span style="color:var(--muted);font-size:10px;margin-left:5px">${agoTxt}</span>`;
-
-  // パルスドットは鮮度で色だけ変える（テキストは変えない）
-  pulse.style.background = diffMin < 20 ? 'var(--up)'
-                         : diffMin < 60 ? '#f59e0b'
-                         :                'var(--muted)';
-}
-
-async function manualRefresh() {
-  const btn = document.getElementById('refresh-btn');
-  if (btn) { btn.textContent = '更新中...'; btn.disabled = true; }
-  await loadData();
-  if (btn) { btn.textContent = '再読込'; btn.disabled = false; }
-}
-
-/* ════════════════════════════════════════════
-   日本株 レンダリング
-════════════════════════════════════════════ */
-function renderJapan() {
-  if (!jpData) return;
-  document.getElementById('jp-loading').style.display = 'none';
-  document.getElementById('jp-content').style.display = 'block';
-
-  const all      = jpData.all_stocks || [];
-  const stopHigh = all.filter(s => s.is_stop_high);
-  const kws      = jpData.theme_keywords || [];
-
-  document.getElementById('cnt-jp').textContent = stopHigh.length;
-
-  // 0件警告
-  if (all.length === 0)
-    showNoData('jp-err', '日本株', jpData.updated_at);
-
-  // ── テーマキーワード ──
-  const kwBar = document.getElementById('jp-keywords');
-  if (kws.length > 0) {
-    kwBar.style.display = 'flex';
-    kwBar.innerHTML = `<span class="kw-label">🔥 本日のテーマ</span>` +
-      kws.map(k => `<span class="kw-tag"># ${esc(k)}</span>`).join('');
-  }
-
-  // ── Stats ──
-  const top = all[0] || {};
-  document.getElementById('jp-stats').innerHTML = `
-    <div class="stat">
-      <div class="stat-label">ストップ高</div>
-      <div class="stat-val ${stopHigh.length>0?'val-up':''}">${stopHigh.length}<span style="font-size:15px;margin-left:3px">件</span></div>
-      <div class="stat-sub">S高確定銘柄数</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">急騰銘柄合計</div>
-      <div class="stat-val">${all.length}<span style="font-size:15px;margin-left:3px">件</span></div>
-      <div class="stat-sub">S高 + 上昇率上位</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">最高騰落率</div>
-      <div class="stat-val val-up">${top.change_pct?'+'+top.change_pct+'%':'-'}</div>
-      <div class="stat-sub">${esc(top.name||'')}</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">最多業種</div>
-      <div class="stat-val" style="font-size:16px">${topSector(jpData.sector_analysis)}</div>
-      <div class="stat-sub">S高 最多業種</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">データ取得日時</div>
-      <div class="stat-val val-accent">${fmtJST(jpData.updated_at)}</div>
-      <div class="stat-sub">自動更新</div>
-    </div>
-  `;
-
-  // ── 統合テーブル ──
-  const tbody = document.getElementById('jp-tbody');
-  tbody.innerHTML = all.length === 0
-    ? `<tr><td colspan="8"><div class="empty-state">
-         <div class="empty-icon">📭</div>
-         <div>急騰銘柄なし（取引時間外・市場休場）</div>
-       </div></td></tr>`
-    : all.map((s, i) => `
-      <tr onclick="openModal('jp', ${i})">
-        <td><a class="code-link" href="https://kabutan.jp/stock/?code=${esc(s.code)}"
-               target="_blank" onclick="event.stopPropagation()">${esc(s.code)}</a></td>
-        <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis"
-            title="${esc(s.name)}">${esc(s.name)}</td>
-        <td><span class="sec-tag">${esc(s.sector||'不明')}</span></td>
-        <td style="color:var(--muted)">${esc(s.market||'')}</td>
-        <td class="price" style="text-align:right;font-weight:600">
-          ${s.price!=null ? Number(s.price).toLocaleString()+'円' : '-'}</td>
-        <td style="text-align:right">
-          <span class="badge b-up">▲ ${esc(s.change_amount||'-')}</span></td>
-        <td style="text-align:right">${pctBadge(s.change_pct)}</td>
-        <td>${s.is_stop_high
-          ? '<span class="badge b-stop">🔴 S高</span>'
-          : '<span class="badge b-near">📈 急騰</span>'}</td>
-      </tr>`).join('');
-
-  // ── 日経225 ヒートマップ ──
-  loadNikkei225Heatmap();
-}
-
-/* ════════════════════════════════════════════
-   米国株 レンダリング
-════════════════════════════════════════════ */
-function renderUS() {
-  if (!usData) return;
-  document.getElementById('us-loading').style.display = 'none';
-  document.getElementById('us-content').style.display = 'block';
-
-  const gainers = usData.gainers || [];
-  document.getElementById('cnt-us').textContent = gainers.length;
-
-  if (gainers.length === 0)
-    showNoData('us-err', '米国株 (S&P500)', usData.updated_at);
-
-  const top    = gainers[0] || {};
-  const avgPct = gainers.length
-    ? (gainers.reduce((s,g) => s+(g.change_pct||0), 0) / gainers.length).toFixed(2)
-    : 0;
-
-  document.getElementById('us-stats').innerHTML = `
-    <div class="stat">
-      <div class="stat-label">上昇銘柄数</div>
-      <div class="stat-val ${gainers.length>0?'val-up':''}">${gainers.length}<span style="font-size:15px;margin-left:3px">件</span></div>
-      <div class="stat-sub">S&amp;P500 当日上位</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">最高騰落率</div>
-      <div class="stat-val val-up">${top.change_pct!=null?'+'+top.change_pct.toFixed(1)+'%':'-'}</div>
-      <div class="stat-sub">${esc(top.symbol||'')} ${esc((top.name||'').slice(0,18))}</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">平均騰落率</div>
-      <div class="stat-val val-up">${gainers.length>0?'+'+avgPct+'%':'-'}</div>
-      <div class="stat-sub">上位20銘柄平均</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">最多セクター</div>
-      <div class="stat-val" style="font-size:14px">${topSector(usData.sector_analysis)}</div>
-      <div class="stat-sub">件数最多</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">データ取得日時</div>
-      <div class="stat-val val-accent">${fmtJST(usData.updated_at)}</div>
-      <div class="stat-sub">自動更新</div>
-    </div>
-  `;
-
-  const tbody = document.getElementById('us-tbody');
-  tbody.innerHTML = gainers.length === 0
-    ? `<tr><td colspan="7"><div class="empty-state">
-         <div class="empty-icon">📭</div>
-         <div>データなし（市場休場 / 取引時間外）</div>
-         <div style="font-size:11px;margin-top:4px">米国市場: 日本時間 22:30〜翌5:00（夏時間 21:30〜翌4:00）</div>
-       </div></td></tr>`
-    : gainers.map((s, i) => `
-      <tr onclick="openModal('us', ${i})">
-        <td><a class="code-link" href="https://finance.yahoo.com/quote/${esc(s.symbol)}"
-               target="_blank" onclick="event.stopPropagation()">${esc(s.symbol)}</a></td>
-        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis"
-            title="${esc(s.name)}">${esc(s.name)}</td>
-        <td><span class="sec-tag">${esc(s.sector||'不明')}</span></td>
-        <td style="text-align:right;font-weight:600">$${s.price!=null?s.price.toFixed(2):'-'}</td>
-        <td style="text-align:right">
-          <span class="badge ${(s.change||0)>=0?'b-up':'b-down'}">
-            ${(s.change||0)>=0?'▲':'▼'} $${Math.abs(s.change||0).toFixed(2)}
-          </span></td>
-        <td style="text-align:right">${pctBadge(s.change_pct)}</td>
-        <td style="text-align:right;color:var(--muted)">${fmtVol(s.volume)}</td>
-      </tr>`).join('');
-
-  // S&P 500 ヒートマップ
-  loadSP500Heatmap();
-}
-
-/* ════════════════════════════════════════════
-   セクタータブ
-════════════════════════════════════════════ */
-/* ════════════════════════════════════════════
-   出来高急増 レンダリング
-════════════════════════════════════════════ */
-function volRatioBadge(ratio) {
-  const n = parseFloat(ratio||0);
-  const cls = n >= 200 ? 'b-vol-high' : n >= 100 ? 'b-vol-mid' : 'b-vol-low';
-  return `<span class="badge ${cls}">+${n.toFixed(0)}%</span>`;
-}
-
-function renderVolume() {
-  if (!volData) return;
-  document.getElementById('vol-loading').style.display = 'none';
-  document.getElementById('vol-content').style.display = 'block';
-
-  const jpStocks = volData.jp_stocks || [];
-  const usStocks = volData.us_stocks || [];
-
-  // ── 日本株 出来高急増テーブル ──
-  document.getElementById('vol-jp-tbody').innerHTML = jpStocks.map((s, i) => `
-    <tr onclick="openModal('vol-jp', ${i})" style="cursor:pointer">
-      <td><a class="code-link">${esc(s.code)}</a></td>
-      <td style="font-weight:500">${esc(s.name)}</td>
-      <td>${s.sector ? `<span class="badge b-sec">${esc(s.sector)}</span>` : '-'}</td>
-      <td style="color:var(--muted)">${esc(s.market||'-')}</td>
-      <td style="text-align:right;font-family:monospace">${fmtVol(s.volume_today)}</td>
-      <td style="text-align:right;font-family:monospace;color:var(--muted)">${fmtVol(s.volume_yesterday)}</td>
-      <td style="text-align:right">${volRatioBadge(s.volume_ratio)}</td>
-      <td style="text-align:right;font-family:monospace">${s.price ? s.price.toLocaleString()+'円' : '-'}</td>
-      <td style="text-align:right">
-        <span style="color:${s.change_pct>=0?'var(--up)':'var(--down)'}">
-          ${s.change_pct>=0?'▲':'▼'} ${Math.abs(s.change_pct||0).toFixed(2)}%
-        </span>
-      </td>
-    </tr>`).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px">データなし</td></tr>';
-
-  // ── 米国株 出来高急増テーブル ──
-  document.getElementById('vol-us-tbody').innerHTML = usStocks.map((s, i) => `
-    <tr onclick="openModal('vol-us', ${i})" style="cursor:pointer">
-      <td><a class="code-link">${esc(s.symbol)}</a></td>
-      <td style="font-weight:500">${esc(s.name||s.symbol)}</td>
-      <td>${s.sector ? `<span class="badge b-sec">${esc(s.sector)}</span>` : '-'}</td>
-      <td style="text-align:right;font-family:monospace">${fmtVol(s.volume_today)}</td>
-      <td style="text-align:right;font-family:monospace;color:var(--muted)">${fmtVol(s.volume_yesterday)}</td>
-      <td style="text-align:right">${volRatioBadge(s.volume_ratio)}</td>
-      <td style="text-align:right;font-family:monospace">$${(s.price||0).toFixed(2)}</td>
-      <td style="text-align:right">
-        <span style="color:${(s.change_pct||0)>=0?'var(--up)':'var(--down)'}">
-          ${(s.change_pct||0)>=0?'▲':'▼'} ${Math.abs(s.change_pct||0).toFixed(2)}%
-        </span>
-      </td>
-    </tr>`).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">データなし</td></tr>';
-}
-
-/* ════════════════════════════════════════════
-   Sub-sector Analysis
-════════════════════════════════════════════ */
-
-// US: industry (English) → sub-sector label (Japanese)
-const US_SUBSECTOR_GROUP = {
-  // Technology
-  'Semiconductors':                         'AI・半導体',
-  'Semiconductor Equipment & Materials':    'AI・半導体',
-  'Software - Application':                 'ソフトウェア・SaaS',
-  'Software - Infrastructure':              'クラウド・インフラ',
-  'Information Technology Services':        'ITサービス',
-  'Electronic Components':                  'ハードウェア・部品',
-  'Consumer Electronics':                   'ハードウェア・部品',
-  'Computer Hardware':                      'ハードウェア・部品',
-  'Communication Equipment':                '通信機器',
-  'Data Storage':                           'ストレージ',
-  'Electronic Gaming & Multimedia':         'ゲーム・メディア',
-  'Gaming':                                 'ゲーム・メディア',
-  'Solar':                                  '再生可能エネルギー',
-  'Scientific & Technical Instruments':     '計測・精密機器',
-  // Healthcare
-  'Biotechnology':                          'バイオテック',
-  'Drug Manufacturers - General':           '製薬（大手）',
-  'Drug Manufacturers - Specialty & Generic': '製薬（専門）',
-  'Medical Devices':                        '医療機器',
-  'Medical Care Facilities':                '医療サービス',
-  'Health Information Services':            'ヘルスIT',
-  'Diagnostics & Research':                 '診断・研究',
-  'Medical Distribution':                   '医療品流通',
-  'Pharmaceutical Retailers':               '調剤薬局',
-  // Financials
-  'Banks - Diversified':                    '総合銀行',
-  'Banks - Regional':                       '地方銀行',
-  'Insurance - Diversified':                '保険',
-  'Insurance - Life':                       '保険',
-  'Insurance - Property & Casualty':        '保険',
-  'Insurance Brokers':                      '保険',
-  'Asset Management':                       '資産運用',
-  'Capital Markets':                        '資本市場',
-  'Financial Data & Stock Exchanges':       '金融データ',
-  'Credit Services':                        'クレジット',
-  'Mortgage Finance':                       '住宅ローン',
-  // Energy / Utilities
-  'Oil & Gas E&P':                          '石油・ガス',
-  'Oil & Gas Integrated':                   '石油・ガス',
-  'Oil & Gas Refining & Marketing':         '石油・ガス',
-  'Oil & Gas Midstream':                    '石油・ガス',
-  'Oil & Gas Equipment & Services':         '石油・ガス設備',
-  'Utilities - Renewable':                  '再生可能エネルギー',
-  'Utilities - Regulated Electric':         '電力',
-  'Utilities - Regulated Gas':              'ガス',
-  // Industrials
-  'Aerospace & Defense':                    '航空宇宙・防衛',
-  'Specialty Industrial Machinery':         '産業機械',
-  'Industrial Machinery':                   '産業機械',
-  'Farm & Heavy Construction Machinery':    '重機・農機',
-  'Electrical Equipment & Parts':           '電気機器',
-  'Waste Management':                       '廃棄物処理',
-  'Trucking':                               '輸送・物流',
-  'Integrated Freight & Logistics':         '輸送・物流',
-  'Airlines':                               '航空',
-  'Engineering & Construction':             '建設',
-  'Staffing & Employment Services':         '人材サービス',
-  // Consumer
-  'Internet Retail':                        'Eコマース',
-  'Specialty Retail':                       '小売',
-  'Auto Manufacturers':                     '自動車',
-  'Auto Parts':                             '自動車部品',
-  'Restaurants':                            '飲食',
-  'Beverages - Non-Alcoholic':              '食品・飲料',
-  'Packaged Foods':                         '食品・飲料',
-  'Internet Content & Information':         'ネット・メディア',
-  'Entertainment':                          'エンターテイメント',
-  'Telecom Services':                       '通信サービス',
-  // Real Estate
-  'REIT - Office':                          'REIT',
-  'REIT - Retail':                          'REIT',
-  'REIT - Industrial':                      'REIT',
-  'REIT - Residential':                     'REIT',
-  'REIT - Diversified':                     'REIT',
-  'REIT - Healthcare Facilities':           'REIT（医療）',
-  'Real Estate Services':                   '不動産サービス',
-  // Materials
-  'Steel':                                  '鉄鋼・金属',
-  'Aluminum':                               '鉄鋼・金属',
-  'Copper':                                 '鉄鋼・金属',
-  'Gold':                                   '貴金属・鉱業',
-  'Other Precious Metals & Mining':         '貴金属・鉱業',
-  'Specialty Chemicals':                    '特殊化学品',
-  'Chemicals':                              '化学品',
-};
-
-// JP: keyword → sub-sector (for stocks without industry_ja)
-const JP_KW_SUBSECTOR = [
-  { kws: ['AI','人工知能','機械学習','ディープラーニング','大規模言語'],  label:'AI・機械学習' },
-  { kws: ['クラウド','SaaS','クラウドコンピュー','クラウド型'],           label:'クラウド・SaaS' },
-  { kws: ['ゲーム','ゲームソフト','オンラインゲーム','スマホゲーム'],      label:'ゲーム' },
-  { kws: ['半導体','チップ','ウェハ','シリコン','エッチング'],            label:'半導体' },
-  { kws: ['ロボット','産業用ロボット','自動化','オートメーション'],         label:'ロボット・自動化' },
-  { kws: ['ドローン','無人機','UAV'],                                    label:'ドローン' },
-  { kws: ['データセンター','データセンタ'],                               label:'データセンター' },
-  { kws: ['再生可能','太陽光','風力発電','蓄電','EV','電気自動車'],        label:'再エネ・EV' },
-  { kws: ['バイオ','創薬','医薬品','製薬','抗体'],                        label:'バイオ・製薬' },
-  { kws: ['医療機器','医療システム','医療IT','診断'],                      label:'医療機器・IT' },
-  { kws: ['フィンテック','FinTech','決済','ブロックチェーン','暗号'],       label:'フィンテック' },
-  { kws: ['物流','サプライチェーン','倉庫','配送'],                        label:'物流・SCM' },
-  { kws: ['セキュリティ','サイバー','情報セキュリ'],                       label:'サイバーセキュリティ' },
-  { kws: ['メタバース','VR','AR','XR','仮想空間'],                        label:'メタバース・XR' },
-  { kws: ['5G','通信インフラ','光ファイバー','基地局'],                    label:'通信インフラ' },
-];
-
-function classifyJPSubSector(stock) {
-  // 1st: use industry_ja if it's a real translation (not same as English)
-  const iJa = (stock.industry_ja || '').trim();
-  const iEn = (stock.industry || '').trim();
-  if (iJa && iJa !== iEn && iJa !== stock.sector) return iJa;
-  // 2nd: keyword match on description_ja / description
-  const desc = ((stock.description_ja || '') + ' ' + (stock.description || '')).toLowerCase();
-  for (const { kws, label } of JP_KW_SUBSECTOR) {
-    if (kws.some(kw => desc.includes(kw.toLowerCase()))) return label;
-  }
-  // 3rd: fallback
-  return iJa || iEn || 'その他';
-}
-
-function classifyUSSubSector(stock) {
-  const iEn = stock.industry || '';
-  return US_SUBSECTOR_GROUP[iEn]
-      || stock.industry_ja
-      || iEn
-      || 'その他';
-}
-
-function buildSubSectorMap(stocks, sectorKeyOrFn, classifyFn) {
-  // { sector → { subsector → { count, total_pct, avg_pct, stocks[] } } }
-  const getSector = typeof sectorKeyOrFn === 'function'
-    ? sectorKeyOrFn
-    : s => s[sectorKeyOrFn];
-  const map = {};
-  for (const s of stocks) {
-    const sector = (getSector(s) || '').trim() || '不明';
-    const sub    = classifyFn(s);
-    if (!map[sector]) map[sector] = {};
-    if (!map[sector][sub]) map[sector][sub] = { count:0, total_pct:0, avg_pct:0, stocks:[] };
-    map[sector][sub].count++;
-    // change_pct may be a string like "+32.00" — always parse to float
-    map[sector][sub].total_pct += parseFloat(s.change_pct) || 0;
-    map[sector][sub].stocks.push(s);
-  }
-  // compute avg_pct
-  for (const sec of Object.keys(map))
-    for (const sub of Object.keys(map[sec])) {
-      const e = map[sec][sub];
-      e.avg_pct = e.count ? +(e.total_pct / e.count).toFixed(2) : 0;
-    }
-  return map;
-}
-
-function renderSubSectorPanel(containerId, subMap) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-
-  // Sort sectors by total stock count desc
-  const sectors = Object.entries(subMap)
-    .sort((a,b) => {
-      const at = Object.values(a[1]).reduce((s,v) => s+v.count, 0);
-      const bt = Object.values(b[1]).reduce((s,v) => s+v.count, 0);
-      return bt - at;
-    });
-
-  let html = '';
-  for (const [sector, subsectors] of sectors) {
-    const totalCount = Object.values(subsectors).reduce((s,v)=>s+v.count,0);
-    // Sort subsectors by avg_pct desc (hot money first)
-    const sortedSubs = Object.entries(subsectors)
-      .sort((a,b) => b[1].avg_pct - a[1].avg_pct);
-
-    // Skip trivial single-sub or "その他" only groups
-    const nonOther = sortedSubs.filter(([k]) => k !== 'その他');
-    if (nonOther.length === 0) continue;
-
-    html += `<div class="subsec-sector-block">
-      <div class="subsec-sector-hdr">
-        <span class="subsec-sector-name">${esc(sector)}</span>
-        <span class="subsec-total">${totalCount}銘柄</span>
-      </div>
-      <div class="subsec-tags">`;
-
-    for (const [sub, info] of sortedSubs) {
-      if (sub === 'その他' && info.count === 1) continue; // skip lone "その他"
-      const sign = info.avg_pct >= 0 ? '+' : '';
-      let hotCls = 'subsec-cool', dotColor = '#94a3b8';
-      if      (info.avg_pct >= 10) { hotCls = 'subsec-hot';  dotColor = '#f87171'; }
-      else if (info.avg_pct >= 5)  { hotCls = 'subsec-warm'; dotColor = '#fb923c'; }
-      else if (info.avg_pct >= 2)  { hotCls = 'subsec-cool'; dotColor = '#4ade80'; }
-      const hotIcon = info.avg_pct >= 10 ? '🔥' : info.avg_pct >= 5 ? '📈' : '';
-      // Stock ticker list (max 4)
-      const tickers = info.stocks.slice(0,4)
-        .map(s => s.code || s.symbol).join(' / ');
-      const moreStr = info.count > 4 ? ` <span style="color:var(--muted)">他${info.count-4}</span>` : '';
-      html += `<div class="subsec-tag ${hotCls}" title="${esc(tickers)}">
-        <span class="subsec-tag-name">${hotIcon}${esc(sub)}</span>
-        <span class="subsec-tag-stat" style="color:${dotColor}">${info.count}銘柄 ${sign}${info.avg_pct}%</span>
-        <span style="font-size:10px;color:var(--muted);line-height:1.3">${esc(tickers)}${moreStr}</span>
-      </div>`;
-    }
-    html += `</div></div>`;
-  }
-
-  if (!html)
-    html = '<div style="color:var(--muted);font-size:12px;padding:8px 0">サブセクターデータなし（業種情報を取得中）</div>';
-  el.innerHTML = html;
-}
-
-function renderSectorTab() {
-  document.getElementById('sec-loading').style.display = 'none';
-  document.getElementById('sec-content').style.display = 'block';
-
-  if (jpData?.sector_analysis) {
-    renderBarChart('sec-jp-chart', jpData.sector_analysis, 'S高件数', 'count');
-    renderSecGrid('jp-sec-grid', jpData.sector_analysis, 'count');
-  }
-  if (usData?.sector_analysis) {
-    renderAvgPctChart('sec-us-chart', usData.sector_analysis);
-    renderSecGrid('us-sec-grid', usData.sector_analysis, 'count');
-  }
-
-  // Sub-sector analysis
-  const jpStocks = jpData?.all_stocks || [];
-  const usStocks = usData?.gainers    || [];
-
-  if (jpStocks.length > 0) {
-    const jpSubMap = buildSubSectorMap(jpStocks, 'sector', classifyJPSubSector);
-    renderSubSectorPanel('jp-subsec-panel', jpSubMap);
-  }
-  if (usStocks.length > 0) {
-    // Use Japanese sector name for grouping; fall back to sector_en if absent
-    const usSubMap = buildSubSectorMap(
-      usStocks,
-      s => (s.sector || s.sector_en || '不明'),
-      classifyUSSubSector
-    );
-    renderSubSectorPanel('us-subsec-panel', usSubMap);
-  }
-}
-
-/* ════════════════════════════════════════════
-   Chart.js ヘルパー
-════════════════════════════════════════════ */
-function destroyChart(id) {
-  const c = Chart.getChart(id);
-  if (c) c.destroy();
-}
-
-function renderBarChart(id, data, label, key) {
-  if (!data) return;
-  destroyChart(id);
-  const labels = Object.keys(data).slice(0, 15);
-  const vals   = labels.map(k => data[k][key]);
-  const ctx    = document.getElementById(id)?.getContext('2d');
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'bar',
-    data: { labels, datasets: [{ label, data: vals,
-      backgroundColor: COLORS.slice(0, labels.length), borderRadius: 5 }] },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color:'#94a3b8', maxRotation:45, font:{size:11} },
-             grid: { color:'#2e3250' } },
-        y: { ticks: { color:'#94a3b8', stepSize:1 }, grid: { color:'#2e3250' } },
-      },
-    },
-  });
-}
-
-function renderPieChart(id, data) {
-  if (!data) return;
-  destroyChart(id);
-  const labels = Object.keys(data).slice(0, 10);
-  const vals   = labels.map(k => data[k].count);
-  const ctx    = document.getElementById(id)?.getContext('2d');
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels, datasets: [{ data: vals,
-      backgroundColor: COLORS.slice(0, labels.length), borderWidth: 2,
-      borderColor: '#1a1d27' }] },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: {
-        position: 'right',
-        labels: { color:'#94a3b8', boxWidth:12, padding:8, font:{size:11} },
-      }},
-    },
-  });
-}
-
-function renderAvgPctChart(id, data) {
-  if (!data) return;
-  destroyChart(id);
-  const entries = Object.entries(data)
-    .sort((a,b) => b[1].avg_change_pct - a[1].avg_change_pct).slice(0, 12);
-  const labels = entries.map(e => e[0]);
-  const vals   = entries.map(e => e[1].avg_change_pct);
-  const ctx    = document.getElementById(id)?.getContext('2d');
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'bar',
-    data: { labels, datasets: [{ label:'平均騰落率(%)', data: vals,
-      backgroundColor: vals.map(v => v>=0 ? 'rgba(34,197,94,.7)' : 'rgba(239,68,68,.7)'),
-      borderRadius: 5 }] },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color:'#94a3b8', maxRotation:45, font:{size:11} }, grid:{color:'#2e3250'} },
-        y: { ticks: { color:'#94a3b8', callback: v => v+'%' }, grid:{color:'#2e3250'} },
-      },
-    },
-  });
-}
-
-function renderSecGrid(id, data, key) {
-  const el = document.getElementById(id);
-  if (!el || !data) return;
-  const total  = Object.values(data).reduce((s,v) => s + v[key], 0);
-  const maxVal = Math.max(...Object.values(data).map(v => v[key]), 1);
-  const sorted = Object.entries(data).sort((a,b) => b[1][key] - a[1][key]);
-  el.innerHTML = sorted.map(([sec, info]) => {
-    const pct    = total > 0 ? ((info[key]/total)*100).toFixed(1) : 0;
-    const barPct = ((info[key]/maxVal)*100).toFixed(1);
-    const avg    = info.avg_change_pct != null
-      ? `<span style="color:var(--up)">+${info.avg_change_pct}%</span>` : '';
-    return `<div class="sec-item">
-      <div class="sec-item-hdr">
-        <span style="font-weight:600;font-size:13px">${esc(sec)}</span>
-        <span class="sec-cnt">${info[key]}件</span>
-      </div>
-      <div class="sec-bar-bg"><div class="sec-bar" style="width:${barPct}%"></div></div>
-      <div class="sec-pct">${pct}% ${avg}</div>
-    </div>`;
-  }).join('');
-}
-
-/* ════════════════════════════════════════════
-   MODAL: チャート + 会社情報
-════════════════════════════════════════════ */
-function openModal(market, idx) {
-  let stock;
-  if      (market === 'jp')     stock = (jpData?.all_stocks || [])[idx];
-  else if (market === 'us')     stock = (usData?.gainers    || [])[idx];
-  else if (market === 'vol-jp') stock = (volData?.jp_stocks || [])[idx];
-  else if (market === 'vol-us') stock = (volData?.us_stocks || [])[idx];
-  if (!stock) return;
-
-  // ── ヘッダー ──
-  const isJP  = market === 'jp' || market === 'vol-jp';
-  const code  = isJP ? stock.code   : stock.symbol;
-  const name  = stock.name  || code;
-  const mkt   = isJP ? (stock.market||'') : 'NYSE/NASDAQ';
-  const pct   = stock.change_pct;
-  const price = isJP
-    ? (stock.price != null ? Number(stock.price).toLocaleString()+'円' : '-')
-    : (stock.price != null ? '$'+stock.price.toFixed(2) : '-');
-  const chgSign = (stock.change_pct||0) >= 0 ? '▲' : '▼';
-  const chgTxt = isJP
-    ? `${chgSign} ${Math.abs(stock.change_amount||0)}  (${stock.change_pct||'-'}%)`
-    : `${chgSign} $${Math.abs(stock.change||0).toFixed(2)} (${(stock.change_pct||0)>=0?'+':''}${(stock.change_pct||0).toFixed(2)}%)`;
-
-  document.getElementById('m-code').textContent   = code;
-  document.getElementById('m-name').textContent   = name;
-  document.getElementById('m-market').textContent = mkt;
-  document.getElementById('m-price').textContent  = price;
-  document.getElementById('m-change').textContent = chgTxt;
-  document.getElementById('m-change').style.color =
-    (pct||0) >= 0 ? 'var(--up)' : 'var(--down)';
-
-  // S高バッジ / 出来高バッジ
-  let extraBadge = '';
-  if (stock.is_stop_high) extraBadge = '<span class="badge b-stop" style="font-size:11px">🔴 S高</span>';
-  else if (market.startsWith('vol')) extraBadge = `<span class="badge b-vol-high" style="font-size:11px">📊 +${(stock.volume_ratio||0).toFixed(0)}%</span>`;
-  document.getElementById('m-badge').innerHTML    = extraBadge;
-  document.getElementById('m-pct-badge').innerHTML = pctBadge(pct);
-
-  // ── 会社情報 ──
-  document.getElementById('m-sector').textContent = stock.sector || '-';
-
-  const indRow = document.getElementById('m-industry-row');
-  const indDisp = stock.industry_ja || stock.industry;
-  if (indDisp) {
-    indRow.style.display = 'block';
-    document.getElementById('m-industry').textContent = indDisp;
-  } else { indRow.style.display = 'none'; }
-
-  const webRow = document.getElementById('m-website-row');
-  if (stock.website) {
-    webRow.style.display = 'block';
-    const a = document.getElementById('m-website');
-    a.href = stock.website; a.textContent = stock.website.replace(/^https?:\/\//,'');
-  } else { webRow.style.display = 'none'; }
-
-  // キーワードタグ（業種 + インダストリー日本語 + テーマキーワードとの一致）
-  const tagsRow = document.getElementById('m-tags-row');
-  const tagsCon = document.getElementById('m-tags');
-  const tagSet  = new Set();
-  if (stock.sector) tagSet.add(stock.sector);
-  if (stock.industry_ja || stock.industry) tagSet.add(stock.industry_ja || stock.industry);
-  const themeKws = jpData?.theme_keywords || [];
-  const descLow  = (stock.description_ja||stock.description||'').toLowerCase();
-  themeKws.forEach(kw => {
-    if (descLow.includes(kw.toLowerCase()) || stock.sector?.includes(kw)) tagSet.add(kw);
-  });
-  if (tagSet.size > 0) {
-    tagsRow.style.display = 'block';
-    tagsCon.innerHTML = [...tagSet].slice(0,8).map(t =>
-      `<span class="info-tag">#${esc(t)}</span>`).join('');
-  } else { tagsRow.style.display = 'none'; }
-
-  // 事業内容（日本語優先）
-  const descRow  = document.getElementById('m-desc-row');
-  const descText = stock.description_ja || stock.description;
-  if (descText) {
-    descRow.style.display = 'block';
-    document.getElementById('m-desc').textContent = descText;
-  } else { descRow.style.display = 'none'; }
-
-  // ── チャート ──
-  destroyChart('m-price-chart');
-  destroyChart('m-vol-chart');
-
-  const chartLoad  = document.getElementById('m-chart-loading');
-  const chartEmpty = document.getElementById('m-chart-empty');
-  chartLoad.style.display  = 'flex';
-  chartEmpty.style.display = 'none';
-
-  // モーダル表示
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  // チャート描画
-  if (stock.chart?.dates?.length) {
-    chartLoad.style.display = 'none';
-    renderModalCharts(stock.chart, isJP);
-  } else {
-    chartLoad.style.display  = 'none';
-    chartEmpty.style.display = 'flex';
-  }
-
-  // ニュース（JP・US 全対応）
-  const newsTitle = market.startsWith('vol') ? '出来高急増理由・ニュース' : '急騰理由・ニュース';
-  renderModalNews(code, !isJP, newsTitle);
-}
-
-function renderModalCharts(chartData, isJP) {
-  const { dates, closes, volumes } = chartData;
-  const currency = isJP ? '円' : '$';
-
-  // ── 価格チャート ──
-  destroyChart('m-price-chart');
-  const priceCtx = document.getElementById('m-price-chart')?.getContext('2d');
-  if (priceCtx) {
-    new Chart(priceCtx, {
-      type: 'line',
-      data: {
-        labels: dates,
-        datasets: [{
-          label: `株価 (${currency})`,
-          data: closes,
-          borderColor: '#818cf8',
-          backgroundColor: 'rgba(129,140,248,.08)',
-          borderWidth: 1.8,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          fill: true,
-          tension: 0.3,
-        }],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        interaction: { mode:'index', intersect:false },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: ctx => ` ${ctx.dataset.label}: ${
-                isJP ? ctx.parsed.y.toLocaleString()+'円'
-                      : '$'+ctx.parsed.y.toFixed(2)
-              }`,
-            },
-          },
-        },
-        scales: {
-          x: { ticks: { color:'#94a3b8', maxTicksLimit:8, font:{size:10} },
-               grid: { color:'rgba(46,50,80,.5)' } },
-          y: {
-            ticks: {
-              color:'#94a3b8', font:{size:10},
-              callback: v => isJP ? v.toLocaleString()+'円' : '$'+v.toFixed(0),
-            },
-            grid: { color:'rgba(46,50,80,.5)' },
-          },
-        },
-      },
-    });
-  }
-
-  // ── 出来高チャート ──
-  destroyChart('m-vol-chart');
-  const volCtx = document.getElementById('m-vol-chart')?.getContext('2d');
-  if (volCtx && volumes) {
-    new Chart(volCtx, {
-      type: 'bar',
-      data: {
-        labels: dates,
-        datasets: [{
-          label: '出来高',
-          data: volumes,
-          backgroundColor: 'rgba(99,102,241,.5)',
-          borderWidth: 0,
-        }],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { display: false },
-          y: {
-            ticks: { color:'#94a3b8', font:{size:9},
-                     callback: v => fmtVol(v) },
-            grid: { color:'rgba(46,50,80,.5)' },
-          },
-        },
-      },
-    });
-  }
-}
-
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-  destroyChart('m-price-chart');
-  destroyChart('m-vol-chart');
-}
-
-function closeModalOnOverlay(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-/* ════════════════════════════════════════════
-   急騰理由・ニュース
-════════════════════════════════════════════ */
-/* ════════════════════════════════════════════
-   本日の市場ニュース
-════════════════════════════════════════════ */
-let marketNewsCache = null;
-
-async function loadMarketNews(forceRefresh) {
-  if (!forceRefresh && marketNewsCache) {
-    renderMarketNews(marketNewsCache);
-    return;
-  }
-  try {
-    const r = await fetch('data/market_news.json?t=' + Date.now());
-    if (r.ok) {
-      marketNewsCache = await r.json();
-      renderMarketNews(marketNewsCache);
-    }
-  } catch(e) {
-    document.getElementById('mkt-news-body').innerHTML =
-      '<div class="news-empty" style="padding:12px 0">ニュースデータを取得できませんでした</div>';
-  }
-}
-
-function renderMarketNews(data) {
-  const body = document.getElementById('mkt-news-body');
-  const upd  = document.getElementById('mkt-news-updated');
-  if (!body) return;
-
-  const items = data?.items || [];
-  if (upd && data?.updated_at) {
-    const diffMin = Math.floor((Date.now() - new Date(data.updated_at)) / 60000);
-    const agoTxt = diffMin < 1 ? 'たった今' : diffMin < 60 ? `${diffMin}分前` : `${Math.floor(diffMin/60)}時間前`;
-    upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
-  }
-
-  if (!items.length) {
-    body.innerHTML = '<div class="news-empty" style="padding:8px 0">ニュースなし（市場時間外または取得待ち）</div>';
-    return;
-  }
-
-  const rows = items.map(n => {
-    const srcCls = n.source === 'kabutan'  ? 'ns-mkt-kabutan'
-                 : n.source === 'minkabu'  ? 'ns-mkt-minkabu'
-                 :                           'ns-mkt-yahoo';
-    return `<div class="mkt-news-item">
-      <span class="mkt-news-src ${srcCls}">${esc(n.source_label || n.source)}</span>
-      <a class="mkt-news-title" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-      <span class="mkt-news-date">${esc(n.date || '')}</span>
-    </div>`;
-  }).join('');
-
-  body.innerHTML = `<div class="mkt-news-grid">${rows}</div>`;
-}
-
-async function refreshMarketNews() {
-  marketNewsCache = null;
-  document.getElementById('mkt-news-body').innerHTML =
-    '<div class="loading" style="padding:24px"><div class="spinner"></div>読み込み中...</div>';
-  await loadMarketNews(true);
-}
-
-/* ════════════════════════════════════════════
-   決算速報（サプライズ決算）
-════════════════════════════════════════════ */
-// 市場別（日本株 / 米国株）の決算速報キャッシュと現在の表示市場
-const earningsFlashCache = { jp: null, us: null };
-let earningsMarket = 'jp';
-
-const KESSAN_CAT_CLASS = {
-  // 日本株
-  '一転最高益':'kc-top','上振れ最高益':'kc-top','連続最高益':'kc-top','一転増益':'kc-top',
-  '大幅上方修正':'kc-mid','上方修正':'kc-mid',
-  '増配・配当修正':'kc-base','黒字浮上':'kc-base',
-  '本決算・四半期決算':'kc-other',
-  '下方修正':'kc-down','減配':'kc-down','赤字・減益':'kc-down',
-  'その他開示':'kc-other',
-  // 米国株（EPSサプライズ）
-  '大幅上振れ':'kc-top','上振れ':'kc-mid','ほぼ予想通り':'kc-other',
-  '下振れ':'kc-down','大幅下振れ':'kc-down',
-};
-const KESSAN_SRC_LABEL = {
-  irbank: 'IR',
-  kabutan: '株探',
-  kabupro: '決算PRO',
-  nasdaq: 'Nasdaq',
-};
-
-// 市場ごとの表示設定（日本株はこれまでの文言を完全踏襲）
-const KESSAN_MARKET = {
-  jp: {
-    file: 'data/earnings_flash.json',
-    flag: '🇯🇵',
-    codeUrl: c => `https://kabutan.jp/stock/?code=${encodeURIComponent(c)}`,
-    zones: {
-      positive: ['🔥', '注目サプライズ', '上方修正・大幅増益・増配など'],
-      decision: ['📊', '本日の決算発表', '本決算・四半期決算・決算説明資料'],
-      negative: ['⚠️', '下方修正・減配', '業績悪化・減配・赤字転落'],
-    },
-    summary: { positive: '注目サプライズ', decision: '決算発表', negative: '下方修正・減配' },
-    srcLink: `出典:
-      <a href="https://irbank.net/news" target="_blank" rel="noopener noreferrer">IRバンク</a> /
-      <a href="https://kabutan.jp/news/" target="_blank" rel="noopener noreferrer">株探</a> /
-      <a href="http://ke.kabupro.jp/hist/today.htm" target="_blank" rel="noopener noreferrer">決算プロ</a>`,
-    emptyNote: '本日の決算発表はまだ確認されていません（決算は通常 大引け後の15時〜18時頃に発表されます）',
-  },
-  us: {
-    file: 'data/earnings_flash_us.json',
-    flag: '🇺🇸',
-    codeUrl: c => `https://finance.yahoo.com/quote/${encodeURIComponent(c)}`,
-    zones: {
-      positive: ['🔥', '上振れ決算', 'EPSが市場予想を上回った銘柄'],
-      decision: ['📊', 'ほぼ予想通り', 'EPSが市場予想とほぼ同水準'],
-      negative: ['⚠️', '下振れ決算', 'EPSが市場予想を下回った銘柄'],
-    },
-    summary: { positive: '上振れ', decision: '予想通り', negative: '下振れ' },
-    srcLink: `出典:
-      <a href="https://www.nasdaq.com/market-activity/earnings" target="_blank" rel="noopener noreferrer">Nasdaq</a>`,
-    emptyNote: '直近の米国決算サプライズはまだ取得できていません（サプライズ実績は発表翌営業日に確定します）',
-  },
-};
-
-function kessanCatClass(cat) {
-  return KESSAN_CAT_CLASS[cat] || 'kc-other';
-}
-
-// "2026-05-29" → "5/29"（決算速報の各行に日付を併記するため）
-function fmtMD(d) {
-  const m = String(d || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
-  return m ? `${parseInt(m[2],10)}/${parseInt(m[3],10)}` : '';
-}
-
-// タブに対応する市場（米国株タブのみ 'us'、それ以外は 'jp'）
-function marketForTab(tabName) {
-  return tabName === 'us' ? 'us' : 'jp';
-}
-
-async function loadEarningsFlash(forceRefresh, market) {
-  market = market || earningsMarket;
-  earningsMarket = market;
-  const cfg = KESSAN_MARKET[market];
-  if (!forceRefresh && earningsFlashCache[market]) {
-    renderEarningsFlash(earningsFlashCache[market], market);
-    return;
-  }
-  try {
-    const r = await fetch(cfg.file + '?t=' + Date.now());
-    if (r.ok) {
-      earningsFlashCache[market] = await r.json();
-      // 取得中に別タブへ切り替わっていたら描画しない
-      if (earningsMarket === market) renderEarningsFlash(earningsFlashCache[market], market);
-    }
-  } catch(e) {
-    if (earningsMarket === market) document.getElementById('kessan-flash-body').innerHTML =
-      '<div class="kessan-empty">決算速報を取得できませんでした</div>';
-  }
-}
-
-function renderKessanChip(chip) {
-  // chip = {label, value, direction:'up'|'down', strength:'strong'|'normal'}
-  const cls = `chip-${chip.direction}${chip.strength === 'strong' ? '-strong' : ''}`;
-  return `<span class="kessan-chip ${cls}">
-    <span class="kessan-chip-label">${esc(chip.label)}</span>${esc(chip.value)}
-  </span>`;
-}
-
-function renderKessanCard(item, zone, mkt, dateMD) {
-  const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
-  const wrapCls = zone === 'negative' ? 'is-negative' : 'is-positive';
-  const catCls = kessanCatClass(item.category);
-  const srcs = (item.sources || []).map(s =>
-    `<span class="kessan-srcbadge ks-${s}">${esc(KESSAN_SRC_LABEL[s] || s)}</span>`
-  ).join('');
-  const chips = (item.chips || []).map(renderKessanChip).join('');
-  const narrative = item.narrative || '';
-  const narrativeHtml = item.url
-    ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
-    : esc(narrative);
-
-  const dateHtml = dateMD ? `<span class="kessan-date">${esc(dateMD)}</span>` : '';
-  return `<div class="kessan-card ${wrapCls}">
-    <div class="kessan-card-time">${dateHtml}${esc(item.time || '')}</div>
-    <div class="kessan-card-body">
-      <div class="kessan-card-top">
-        <span class="kessan-cat-badge ${catCls}">${esc(item.category)}</span>
-        <a class="kessan-card-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(item.code)}</a>
-        <span class="kessan-card-name" title="${esc(item.name)}">${esc(item.name)}</span>
-        <div class="kessan-card-srcs" style="margin-left:auto">${srcs}</div>
-      </div>
-      ${narrative ? `<div class="kessan-card-narrative">${narrativeHtml}</div>` : ''}
-      ${chips ? `<div class="kessan-card-chips">${chips}</div>` : ''}
-    </div>
-  </div>`;
-}
-
-function renderKessanDecisionItem(item, mkt, dateMD) {
-  const codeUrl = (mkt || KESSAN_MARKET.jp).codeUrl(item.code);
-  const narrative = item.narrative || '';
-  const narrativeHtml = item.url
-    ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(narrative)}</a>`
-    : esc(narrative);
-  const timeLabel = [dateMD, item.time].filter(Boolean).join(' ');
-  return `<div class="kessan-decision-item">
-    <span class="kessan-decision-time">${esc(timeLabel)}</span>
-    <a class="kessan-decision-code" href="${codeUrl}" target="_blank" rel="noopener noreferrer">${esc(item.code)}</a>
-    <span class="kessan-decision-name" title="${esc(item.name)}">${esc(item.name)}</span>
-    <span class="kessan-decision-desc" title="${esc(narrative)}">${narrativeHtml}</span>
-  </div>`;
-}
-
-function renderEarningsFlash(data, market) {
-  market = market || 'jp';
-  const cfg = KESSAN_MARKET[market] || KESSAN_MARKET.jp;
-  const body = document.getElementById('kessan-flash-body');
-  const upd  = document.getElementById('kessan-flash-updated');
-  const dt   = document.getElementById('kessan-flash-date');
-  if (!body) return;
-
-  if (upd && data?.updated_at) {
-    const diffMin = Math.floor((Date.now() - new Date(data.updated_at)) / 60000);
-    const agoTxt = diffMin < 1 ? 'たった今' : diffMin < 60 ? `${diffMin}分前` : `${Math.floor(diffMin/60)}時間前`;
-    upd.textContent = `最終更新: ${fmtJST(data.updated_at).slice(11,16)} (${agoTxt})`;
-  }
-  if (dt) {
-    dt.textContent = data?.article_date
-      ? `${cfg.flag}（${data.article_date.replace(/-/g,'/')} 発表分）`
-      : cfg.flag;
-  }
-
-  const groups = data?.groups || [];
-  if (!groups.length) {
-    const note = data?.error ? '取得エラー' :
-                 data?.note  ? data.note     :
-                 cfg.emptyNote;
-    body.innerHTML = `<div class="kessan-empty">${esc(note)}</div>`;
-    return;
-  }
-
-  // 件数サマリー
-  const zoneCounts = {positive:0, decision:0, negative:0, other:0};
-  groups.forEach(g => { zoneCounts[g.zone] = (zoneCounts[g.zone]||0) + g.items.length; });
-
-  const summaryHtml = `<div class="kessan-summary">
-    ${zoneCounts.positive ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-base">${esc(cfg.summary.positive)}</span> <strong>${zoneCounts.positive}</strong></span>` : ''}
-    ${zoneCounts.decision ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-other">${esc(cfg.summary.decision)}</span> <strong>${zoneCounts.decision}</strong></span>` : ''}
-    ${zoneCounts.negative ? `<span class="kessan-summary-stat"><span class="kessan-cat-badge kc-down">${esc(cfg.summary.negative)}</span> <strong>${zoneCounts.negative}</strong></span>` : ''}
-    <span class="kessan-summary-stat" style="margin-left:auto">合計 <strong>${data.total||0}</strong>件</span>
-  </div>`;
-
-  // ゾーン別にエントリ集約
-  const byZone = {positive:[], decision:[], negative:[], other:[]};
-  groups.forEach(g => {
-    g.items.forEach(it => {
-      byZone[g.zone || 'other'].push(it);
-    });
-  });
-
-  // 並び順: sort_val（米国株は時価総額）の降順 → 無ければ時刻の新しい順
-  Object.values(byZone).forEach(lst => {
-    lst.sort((a,b) => ((b.sort_val||0) - (a.sort_val||0)) || (b.time||'').localeCompare(a.time||''));
-  });
-
-  // 各エントリに付ける日付（個別日付があれば優先、無ければ発表日）。
-  // 土日など休場日に見ても「いつの発表か」が分かるように時刻と併記する。
-  const dateMD = fmtMD(data.article_date);
-
-  const renderZone = (zone, items, isDecision) => {
-    if (!items.length) return '';
-    const [icon, title, sub] = cfg.zones[zone] || ['📝', 'その他開示', '特別損益など'];
-    const rows = isDecision
-      ? `<div class="kessan-decision-grid">${items.map(it => renderKessanDecisionItem(it, cfg, fmtMD(it.date)||dateMD)).join('')}</div>`
-      : items.map(it => renderKessanCard(it, zone, cfg, fmtMD(it.date)||dateMD)).join('');
-    return `<div class="kessan-zone">
-      <div class="kessan-zone-hdr">
-        <span class="kessan-zone-icon">${icon}</span>
-        <span class="kessan-zone-title">${esc(title)}</span>
-        <span class="kessan-zone-sub">${esc(sub)}</span>
-        <span class="kessan-zone-count">${items.length}件</span>
-      </div>
-      ${rows}
-    </div>`;
-  };
-
-  const otherZone = byZone.other.length
-    ? `<div class="kessan-zone">
-        <div class="kessan-zone-hdr">
-          <span class="kessan-zone-icon">📝</span>
-          <span class="kessan-zone-title">その他開示</span>
-          <span class="kessan-zone-sub">特別損益など</span>
-          <span class="kessan-zone-count">${byZone.other.length}件</span>
-        </div>
-        <div class="kessan-decision-grid">${byZone.other.map(it => renderKessanDecisionItem(it, cfg, fmtMD(it.date)||dateMD)).join('')}</div>
-      </div>`
-    : '';
-
-  const zonesHtml = [
-    renderZone('positive', byZone.positive, false),
-    renderZone('decision', byZone.decision, true),
-    renderZone('negative', byZone.negative, false),
-    otherZone,
-  ].join('');
-
-  const srcLink = `<div class="kessan-src-link">${cfg.srcLink}</div>`;
-
-  body.innerHTML = summaryHtml + zonesHtml + srcLink;
-}
-
-async function refreshEarningsFlash() {
-  earningsFlashCache[earningsMarket] = null;
-  document.getElementById('kessan-flash-body').innerHTML =
-    '<div class="loading" style="padding:24px"><div class="spinner"></div>読み込み中...</div>';
-  await loadEarningsFlash(true, earningsMarket);
-}
-
-async function loadNewsCache() {
-  if (newsCache) return newsCache;
-  try {
-    const r = await fetch('data/news_cache.json?t=' + Date.now());
-    if (r.ok) newsCache = await r.json();
-  } catch(e) {}
-  return newsCache;
-}
-
-async function loadUsNewsCache() {
-  if (usNewsCache) return usNewsCache;
-  try {
-    const r = await fetch('data/us_news_cache.json?t=' + Date.now());
-    if (r.ok) usNewsCache = await r.json();
-  } catch(e) {}
-  return usNewsCache;
-}
-
-function renderModalNews(identifier, isUS, sectionTitle) {
-  const section = document.getElementById('m-news-section');
-  const hdr     = document.getElementById('m-news-hdr');
-  const el      = document.getElementById('m-news-list');
-  if (!section || !el) return;
-
-  if (hdr) hdr.textContent = sectionTitle || '急騰理由・ニュース';
-  section.style.display = 'block';
-  el.innerHTML = '<div class="news-loading"><div class="spinner" style="width:14px;height:14px;border-width:2px"></div>読み込み中...</div>';
-
-  const loadFn = isUS ? loadUsNewsCache : loadNewsCache;
-  loadFn().then(cache => {
-    const entry = cache?.stocks?.[identifier];
-    if (!entry || !(entry.news || []).length) {
-      // キャッシュなし → 外部リンクで代替
-      if (isUS) {
-        el.innerHTML = `<div class="news-fallback">
-          <div class="news-fallback-txt">キャッシュなし — 外部サイトで確認できます</div>
-          <div class="news-fallback-links">
-            <a href="https://finance.yahoo.com/quote/${esc(identifier)}/news/" target="_blank" rel="noopener" class="news-ext-link">Yahoo Finance ニュース</a>
-            <a href="https://jp.investing.com/search/?q=${esc(identifier)}" target="_blank" rel="noopener" class="news-ext-link">investing.com</a>
-          </div>
-        </div>`;
-      } else {
-        el.innerHTML = `<div class="news-fallback">
-          <div class="news-fallback-txt">キャッシュなし — 外部サイトで確認できます</div>
-          <div class="news-fallback-links">
-            <a href="https://kabutan.jp/stock/news?code=${esc(identifier)}" target="_blank" rel="noopener" class="news-ext-link">株探 ニュース</a>
-            <a href="https://minkabu.jp/stock/${esc(identifier)}/news" target="_blank" rel="noopener" class="news-ext-link">みんかぶ ニュース</a>
-          </div>
-        </div>`;
-      }
-      return;
-    }
-    const news = entry.news;
-    el.innerHTML = news.map(n => {
-      const srcCls = n.source === 'tdnet'        ? 'ns-tdnet'
-                   : n.source === 'minkabu'       ? 'ns-minkabu'
-                   : n.source === 'investing_jp'  ? 'ns-investing'
-                   : n.source === 'yahoo_finance' ? 'ns-yahoo'
-                   :                               'ns-kabutan';
-      return `<div class="news-item">
-        <span class="news-src ${srcCls}">${esc(n.source_label || n.source)}</span>
-        <div class="news-title" style="flex:1;min-width:0">
-          <a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-        </div>
-        <span class="news-date">${esc(n.date || '')}</span>
-      </div>`;
-    }).join('');
-  });
-}
-
-/* ════════════════════════════════════════════
-   テーブル検索フィルター
-════════════════════════════════════════════ */
-function filterTable(tableId, q) {
-  q = q.toLowerCase();
-  document.querySelectorAll(`#${tableId} tbody tr`).forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
-}
-
-/* ════════════════════════════════════════════
-   その他ユーティリティ
-════════════════════════════════════════════ */
-function topSector(data) {
-  if (!data) return '-';
-  const top = Object.entries(data).sort((a,b) => b[1].count - a[1].count)[0];
-  return top ? top[0] : '-';
-}
-
-/* ════════════════════════════════════════════
-   日経225 ヒートマップ（業種ごとのSquarified Treemap）
-════════════════════════════════════════════ */
-
-let _hmJpData = null;
-let _hmUsData = null;
-
-async function loadNikkei225Heatmap() {
-  await _loadHeatmap('hm-jp', 'hm-jp-updated', 'data/nikkei225.json', (d) => { _hmJpData = d; });
-}
-
-async function loadSP500Heatmap() {
-  await _loadHeatmap('hm-us', 'hm-us-updated', 'data/sp500.json', (d) => { _hmUsData = d; }, { currency: 'USD' });
-}
-
-async function _loadHeatmap(hostId, updId, jsonPath, cache, opts) {
-  const host = document.getElementById(hostId);
-  if (!host) return;
-  try {
-    const r = await fetch(jsonPath + '?t=' + Date.now());
-    if (!r.ok) throw new Error('fetch failed');
-    const data = await r.json();
-    cache(data);
-    const upd = document.getElementById(updId);
-    if (upd && data.updated_at) {
-      const d = new Date(data.updated_at);
-      upd.textContent = `更新: ${d.toLocaleString('ja-JP', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' })}`;
-    }
-    renderHeatmap(host, data.items, opts || {});
-  } catch (e) {
-    host.innerHTML = '<div class="hm-loading">データの読み込みに失敗しました</div>';
-    console.warn('heatmap load failed', e);
-  }
-}
-
-function renderHeatmap(host, items, opts) {
-  opts = opts || {};
-  const currency = opts.currency || 'JPY';
-  host._hmOpts = opts; // リサイズ時に再利用
-  const w = host.clientWidth;
-  const h = host.clientHeight;
-  if (!w || !h) return;
-
-  // 業種でグループ化、各業種は時価総額合計でソート
-  const sectorMap = new Map();
-  for (const it of items) {
-    if (!it.market_cap) continue;
-    if (!sectorMap.has(it.sector)) sectorMap.set(it.sector, []);
-    sectorMap.get(it.sector).push(it);
-  }
-  const sectors = [];
-  for (const [name, stocks] of sectorMap.entries()) {
-    stocks.sort((a, b) => b.market_cap - a.market_cap);
-    const sum = stocks.reduce((s, x) => s + x.market_cap, 0);
-    sectors.push({ name, stocks, value: sum });
-  }
-  sectors.sort((a, b) => b.value - a.value);
-
-  // 全体のSVG構築
-  host.innerHTML = '';
-  const NS = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(NS, 'svg');
-  svg.setAttribute('class', 'hm-svg');
-  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  svg.setAttribute('preserveAspectRatio', 'none');
-  host.appendChild(svg);
-
-  // tooltip
-  const tooltip = document.createElement('div');
-  tooltip.className = 'hm-tooltip';
-  host.appendChild(tooltip);
-
-  // セクター矩形のレイアウト
-  const sectorRects = squarify(sectors, { x: 0, y: 0, w, h });
-  const SECTOR_LABEL_H = 16;
-
-  for (const sr of sectorRects) {
-    // セクター背景帯
-    const labelBg = document.createElementNS(NS, 'rect');
-    labelBg.setAttribute('class', 'hm-sector-bg');
-    labelBg.setAttribute('x', sr.x);
-    labelBg.setAttribute('y', sr.y);
-    labelBg.setAttribute('width', sr.w);
-    labelBg.setAttribute('height', SECTOR_LABEL_H);
-    svg.appendChild(labelBg);
-
-    // セクター名
-    if (sr.w > 60) {
-      const txt = document.createElementNS(NS, 'text');
-      txt.setAttribute('class', 'hm-sector-label');
-      txt.setAttribute('x', sr.x + 6);
-      txt.setAttribute('y', sr.y + 11);
-      txt.textContent = sr.node.name;
-      svg.appendChild(txt);
-    }
-
-    // セクター内の各銘柄
-    const innerRect = {
-      x: sr.x,
-      y: sr.y + SECTOR_LABEL_H,
-      w: sr.w,
-      h: Math.max(0, sr.h - SECTOR_LABEL_H),
-    };
-    if (innerRect.w < 4 || innerRect.h < 4) continue;
-
-    const stockNodes = sr.node.stocks.map(s => ({ ...s, value: s.market_cap }));
-    const stockRects = squarify(stockNodes, innerRect);
-
-    for (const st of stockRects) {
-      const stock = st.node;
-      const fill = colorForPct(stock.change_pct);
-      const g = document.createElementNS(NS, 'g');
-      g.setAttribute('class', 'hm-stock');
-
-      const rect = document.createElementNS(NS, 'rect');
-      rect.setAttribute('x', st.x);
-      rect.setAttribute('y', st.y);
-      rect.setAttribute('width', Math.max(0, st.w - 1));
-      rect.setAttribute('height', Math.max(0, st.h - 1));
-      rect.setAttribute('fill', fill);
-      g.appendChild(rect);
-
-      // テキスト: 銘柄名と%
-      const area = st.w * st.h;
-      if (st.w > 38 && st.h > 26 && area > 1400) {
-        const fontSize = Math.max(9, Math.min(14, Math.sqrt(area) / 9));
-        const nameTxt = document.createElementNS(NS, 'text');
-        nameTxt.setAttribute('class', 'hm-stock-name');
-        nameTxt.setAttribute('x', st.x + st.w / 2);
-        nameTxt.setAttribute('y', st.y + st.h / 2 - 1);
-        nameTxt.setAttribute('text-anchor', 'middle');
-        nameTxt.setAttribute('font-size', fontSize);
-        nameTxt.textContent = truncate(stock.name, Math.floor(st.w / (fontSize * 0.6)));
-        g.appendChild(nameTxt);
-
-        const pctTxt = document.createElementNS(NS, 'text');
-        pctTxt.setAttribute('class', 'hm-stock-pct');
-        pctTxt.setAttribute('x', st.x + st.w / 2);
-        pctTxt.setAttribute('y', st.y + st.h / 2 + fontSize + 1);
-        pctTxt.setAttribute('text-anchor', 'middle');
-        pctTxt.setAttribute('font-size', Math.max(8, fontSize * 0.85));
-        const sign = stock.change_pct >= 0 ? '▲' : '▼';
-        pctTxt.textContent = `${sign}${Math.abs(stock.change_pct).toFixed(2)}%`;
-        g.appendChild(pctTxt);
-      }
-
-      // ホバーで詳細
-      g.addEventListener('mouseenter', () => showTooltip(tooltip, host, stock, currency));
-      g.addEventListener('mousemove',  (e) => moveTooltip(tooltip, host, e));
-      g.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
-      svg.appendChild(g);
-    }
-  }
-}
-
-function showTooltip(tooltip, host, stock, currency) {
-  const up = stock.change_pct >= 0;
-  const sign = up ? '+' : '';
-  let mc;
-  let priceStr;
-  if (currency === 'USD') {
-    mc = stock.market_cap ? '$' + (stock.market_cap / 1e9).toFixed(2) + 'B' : '—';
-    priceStr = '$' + stock.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  } else {
-    mc = stock.market_cap ? (stock.market_cap / 1e12).toFixed(2) + '兆円' : '—';
-    priceStr = stock.price.toLocaleString('en-US') + '円';
-  }
-  const codeLabel = stock.code || stock.symbol || '';
-  tooltip.innerHTML =
-    `<div class="tt-code">${codeLabel} · ${stock.sector || ''}</div>` +
-    `<div class="tt-name">${escHm(stock.name)}</div>` +
-    `<div class="tt-row"><span class="lab">株価</span><span>${priceStr}</span></div>` +
-    `<div class="tt-row"><span class="lab">前日比</span><span class="${up?'up':'down'}">${sign}${stock.change_pct.toFixed(2)}%</span></div>` +
-    `<div class="tt-row"><span class="lab">時価総額</span><span>${mc}</span></div>`;
-  tooltip.classList.add('show');
-}
-
-function moveTooltip(tooltip, host, e) {
-  const rect = host.getBoundingClientRect();
-  let x = e.clientX - rect.left + 12;
-  let y = e.clientY - rect.top + 12;
-  const ttW = tooltip.offsetWidth, ttH = tooltip.offsetHeight;
-  if (x + ttW > rect.width)  x = e.clientX - rect.left - ttW - 12;
-  if (y + ttH > rect.height) y = e.clientY - rect.top  - ttH - 12;
-  tooltip.style.left = Math.max(4, x) + 'px';
-  tooltip.style.top  = Math.max(4, y) + 'px';
-}
-
-function escHm(s) {
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function truncate(s, max) {
-  if (max <= 1) return '';
-  if (s.length <= max) return s;
-  return s.slice(0, Math.max(1, max - 1)) + '…';
-}
-
-// 色: 緑(↑) ↔ 灰(0) ↔ 赤(↓)。±5% で飽和
-function colorForPct(pct) {
-  const p = Math.max(-5, Math.min(5, pct)) / 5; // -1..1
-  if (Math.abs(p) < 0.02) return '#3a3f57'; // ほぼ横ばい
-  if (p > 0) {
-    // 緑: 強さに応じて #1a4d2e → #16c060
-    const t = p; // 0..1
-    const r = Math.round(0x1a + (0x16 - 0x1a) * t);
-    const g = Math.round(0x4d + (0xc0 - 0x4d) * t);
-    const b = Math.round(0x2e + (0x60 - 0x2e) * t);
-    return `rgb(${r},${g},${b})`;
-  } else {
-    // 赤: #5a1e1e → #d63b3b
-    const t = -p;
-    const r = Math.round(0x5a + (0xd6 - 0x5a) * t);
-    const g = Math.round(0x1e + (0x3b - 0x1e) * t);
-    const b = Math.round(0x1e + (0x3b - 0x1e) * t);
-    return `rgb(${r},${g},${b})`;
-  }
-}
-
-// ─────────────────────────────────────────────
-// Squarified Treemap (Bruls, Huijsen, Wijk 2000)
-// 各 node は { value, ... } を持つ。container は {x,y,w,h}。
-// 戻り値: [{x,y,w,h,node}, ...]
-// ─────────────────────────────────────────────
-function squarify(nodes, container) {
-  const items = nodes.filter(n => n.value > 0).slice().sort((a,b) => b.value - a.value);
-  if (!items.length) return [];
-
-  const totalValue = items.reduce((s,n) => s + n.value, 0);
-  const totalArea = container.w * container.h;
-  // 値を面積にスケール
-  const scaled = items.map(n => ({ node: n, area: (n.value / totalValue) * totalArea }));
-
-  const rects = [];
-  let rect = { ...container };
-  let row = [];
-  let rowSum = 0;
-
-  function shortestSide() { return Math.min(rect.w, rect.h); }
-  function worstRatio(row, w) {
-    const sum = row.reduce((s,x) => s + x.area, 0);
-    const sMax = Math.max(...row.map(x => x.area));
-    const sMin = Math.min(...row.map(x => x.area));
-    const w2 = w * w;
-    const sum2 = sum * sum;
-    return Math.max((w2 * sMax) / sum2, sum2 / (w2 * sMin));
-  }
-
-  function placeRow(row) {
-    const sum = row.reduce((s,x) => s + x.area, 0);
-    if (rect.w >= rect.h) {
-      // 縦方向に詰める（列）
-      const colW = sum / rect.h;
-      let y = rect.y;
-      for (const r of row) {
-        const rh = r.area / colW;
-        rects.push({ x: rect.x, y, w: colW, h: rh, node: r.node });
-        y += rh;
-      }
-      rect = { x: rect.x + colW, y: rect.y, w: rect.w - colW, h: rect.h };
-    } else {
-      // 横方向に詰める（行）
-      const rowH = sum / rect.w;
-      let x = rect.x;
-      for (const r of row) {
-        const rw = r.area / rowH;
-        rects.push({ x, y: rect.y, w: rw, h: rowH, node: r.node });
-        x += rw;
-      }
-      rect = { x: rect.x, y: rect.y + rowH, w: rect.w, h: rect.h - rowH };
-    }
-  }
-
-  for (const it of scaled) {
-    const w = shortestSide();
-    if (w <= 0) break;
-    if (row.length === 0) {
-      row.push(it);
-      rowSum += it.area;
-      continue;
-    }
-    const trial = [...row, it];
-    if (worstRatio(trial, w) <= worstRatio(row, w)) {
-      row.push(it);
-      rowSum += it.area;
-    } else {
-      placeRow(row);
-      row = [it];
-      rowSum = it.area;
-    }
-  }
-  if (row.length) placeRow(row);
-
-  return rects;
-}
-
-// リサイズで再描画
-let _hmResizeTimer = null;
-window.addEventListener('resize', () => {
-  clearTimeout(_hmResizeTimer);
-  _hmResizeTimer = setTimeout(() => {
-    if (_hmJpData) {
-      const host = document.getElementById('hm-jp');
-      if (host) renderHeatmap(host, _hmJpData.items, host._hmOpts || {});
-    }
-    if (_hmUsData) {
-      const host = document.getElementById('hm-us');
-      if (host) renderHeatmap(host, _hmUsData.items, host._hmOpts || { currency: 'USD' });
-    }
-  }, 150);
-});
-
-/* ════════════════════════════════════════════
-   先物・為替・指数 ミニチャート（日足ローソク・直近6ヶ月）
-════════════════════════════════════════════ */
-
-// id ↔ DOM 要素マッピング（fetch_futures.py の id と一致）
-const FUT_ID_MAP = {
-  'nk225':  'fut-nk225',
-  'ym':     'fut-ym',
-  'nq':     'fut-nq',
-  'usdjpy': 'fut-usdjpy',
-  'sox':    'fut-sox',
-  'gold':   'fut-gold',
-};
-
-const FUT_RENDER_STATE = {};
-
-async function loadFutures() {
-  try {
-    const r = await fetch('data/futures.json?t=' + Date.now());
-    if (!r.ok) return;
-    const data = await r.json();
-    (data.items || []).forEach(renderFuturesCard);
-  } catch (e) {
-    console.warn('futures load failed', e);
-  }
-}
-
-function fmtFut(n, item) {
-  const fixed = Number(n).toFixed(item.decimals);
-  return item.sep
-    ? Number(fixed).toLocaleString('en-US', {
-        minimumFractionDigits: item.decimals,
-        maximumFractionDigits: item.decimals,
-      })
-    : fixed;
-}
-
-function renderFuturesCard(item) {
-  const domId = FUT_ID_MAP[item.id];
-  if (!domId) return;
-
-  const card    = document.getElementById(domId);
-  const priceEl = document.getElementById(domId + '-price');
-  const chgEl   = document.getElementById(domId + '-chg');
-  const pctEl   = document.getElementById(domId + '-pct');
-  const chartHost = document.getElementById(domId + '-chart');
-  if (!card || !chartHost) return;
-
-  priceEl.textContent = fmtFut(item.price, item);
-  const sign = item.change >= 0 ? '+' : '';
-  chgEl.textContent = `${sign}${fmtFut(item.change, item)}`;
-  pctEl.textContent = `${sign}${item.pct.toFixed(2)}%`;
-
-  card.classList.remove('up','down');
-  chgEl.classList.remove('up','down');
-  pctEl.classList.remove('up','down');
-  const isUp   = item.change > 0;
-  const isDown = item.change < 0;
-  if (isUp)   { card.classList.add('up');   chgEl.classList.add('up');   pctEl.classList.add('up'); }
-  if (isDown) { card.classList.add('down'); chgEl.classList.add('down'); pctEl.classList.add('down'); }
-
-  const candles = (item.chart || []).filter(c =>
-    Number.isFinite(c.o) && Number.isFinite(c.h) && Number.isFinite(c.l) && Number.isFinite(c.c)
-  );
-  if (candles.length < 2) {
-    chartHost.innerHTML = '<div class="fut-loading">データ取得中…</div>';
-    return;
-  }
-
-  // Canvas + tooltip 要素を準備（既存があれば再利用）
-  let canvas = chartHost.querySelector('canvas');
-  let tooltip = chartHost.querySelector('.fut-tooltip');
-  if (!canvas) {
-    chartHost.innerHTML = '';
-    canvas = document.createElement('canvas');
-    chartHost.appendChild(canvas);
-    tooltip = document.createElement('div');
-    tooltip.className = 'fut-tooltip';
-    chartHost.appendChild(tooltip);
-  }
-
-  const state = { item, candles, geometry: null };
-  FUT_RENDER_STATE[domId] = state;
-
-  drawCandlestickChart(canvas, state);
-
-  // tooltip ハンドラ（一度だけ）
-  if (!canvas.dataset.tipBound) {
-    canvas.dataset.tipBound = '1';
-    canvas.addEventListener('mousemove', (e) => {
-      const st = FUT_RENDER_STATE[domId];
-      if (!st || !st.geometry) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const idx = pickCandle(st.geometry, x);
-      if (idx < 0) { tooltip.classList.remove('show'); return; }
-      const cdl = st.candles[idx];
-      const it  = st.item;
-      const d = new Date(cdl.t);
-      const dateStr = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}`;
-      tooltip.innerHTML =
-        `<div class="tt-date">${dateStr}</div>` +
-        `<div class="tt-row"><span>O</span><span>${fmtFut(cdl.o, it)}</span></div>` +
-        `<div class="tt-row"><span>H</span><span>${fmtFut(cdl.h, it)}</span></div>` +
-        `<div class="tt-row"><span>L</span><span>${fmtFut(cdl.l, it)}</span></div>` +
-        `<div class="tt-row"><span>C</span><span>${fmtFut(cdl.c, it)}</span></div>`;
-      tooltip.classList.add('show');
-      // tooltipは右側を超えないように左右ふり分け
-      const ttW = tooltip.offsetWidth, ttH = tooltip.offsetHeight;
-      let tx = x + 10, ty = y + 10;
-      if (tx + ttW > rect.width) tx = x - ttW - 10;
-      if (ty + ttH > rect.height) ty = y - ttH - 10;
-      tooltip.style.left = Math.max(2, tx) + 'px';
-      tooltip.style.top  = Math.max(2, ty) + 'px';
-    });
-    canvas.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
-  }
-}
-
-function drawCandlestickChart(canvas, state) {
-  const { candles } = state;
-  const host = canvas.parentElement;
-  const dpr = window.devicePixelRatio || 1;
-  const cssW = host.clientWidth;
-  const cssH = host.clientHeight;
-  canvas.width  = Math.max(1, Math.floor(cssW * dpr));
-  canvas.height = Math.max(1, Math.floor(cssH * dpr));
-  canvas.style.width  = cssW + 'px';
-  canvas.style.height = cssH + 'px';
-
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, cssW, cssH);
-
-  const padL = 4, padR = 4, padT = 6, padB = 6;
-  const plotW = cssW - padL - padR;
-  const plotH = cssH - padT - padB;
-
-  // 価格レンジ
-  let minP = Infinity, maxP = -Infinity;
-  for (const c of candles) {
-    if (c.l < minP) minP = c.l;
-    if (c.h > maxP) maxP = c.h;
-  }
-  if (!isFinite(minP) || !isFinite(maxP) || minP === maxP) return;
-  const pad = (maxP - minP) * 0.05;
-  minP -= pad; maxP += pad;
-  const range = maxP - minP;
-
-  const n = candles.length;
-  const slot = plotW / n;
-  const bodyW = Math.max(1, Math.min(slot * 0.7, 8));
-
-  const yOf = (price) => padT + (1 - (price - minP) / range) * plotH;
-
-  // 薄いグリッド（横3本）
-  ctx.strokeStyle = 'rgba(148,163,184,.08)';
-  ctx.lineWidth = 1;
-  for (let i = 1; i < 4; i++) {
-    const yy = padT + (plotH / 4) * i;
-    ctx.beginPath();
-    ctx.moveTo(padL, yy);
-    ctx.lineTo(padL + plotW, yy);
-    ctx.stroke();
-  }
-
-  const upCol     = '#22c55e';
-  const downCol   = '#ef4444';
-  const upWick    = 'rgba(34,197,94,.85)';
-  const downWick  = 'rgba(239,68,68,.85)';
-
-  const slots = [];
-  for (let i = 0; i < n; i++) {
-    const c = candles[i];
-    const cx = padL + slot * (i + 0.5);
-    const isUp = c.c >= c.o;
-    const col  = isUp ? upCol : downCol;
-    const wick = isUp ? upWick : downWick;
-
-    // ヒゲ
-    ctx.strokeStyle = wick;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(Math.round(cx) + 0.5, yOf(c.h));
-    ctx.lineTo(Math.round(cx) + 0.5, yOf(c.l));
-    ctx.stroke();
-
-    // 実体
-    const yO = yOf(c.o);
-    const yC = yOf(c.c);
-    const top = Math.min(yO, yC);
-    const h = Math.max(1, Math.abs(yC - yO));
-    ctx.fillStyle = col;
-    ctx.fillRect(Math.round(cx - bodyW / 2), Math.round(top), Math.round(bodyW), Math.round(h));
-
-    slots.push({ cx, left: padL + slot * i, right: padL + slot * (i + 1) });
-  }
-
-  state.geometry = { slots, padL, padR, plotW };
-}
-
-function pickCandle(geom, x) {
-  const slots = geom.slots;
-  if (!slots || !slots.length) return -1;
-  if (x < slots[0].left || x > slots[slots.length - 1].right) return -1;
-  // 二分探索ではなく線形で十分（n≒130）
-  for (let i = 0; i < slots.length; i++) {
-    if (x >= slots[i].left && x <= slots[i].right) return i;
-  }
-  return -1;
-}
-
-// リサイズ時に再描画
-let _futResizeTimer = null;
-window.addEventListener('resize', () => {
-  clearTimeout(_futResizeTimer);
-  _futResizeTimer = setTimeout(() => {
-    Object.entries(FUT_RENDER_STATE).forEach(([domId, state]) => {
-      const chartHost = document.getElementById(domId + '-chart');
-      if (!chartHost) return;
-      const canvas = chartHost.querySelector('canvas');
-      if (canvas) drawCandlestickChart(canvas, state);
-    });
-  }, 120);
-});
-
-/* ════════════════════════════════════════════
-   初期化
-════════════════════════════════════════════ */
-loadData();
-loadEarningsFlash(false, 'jp');
-loadMarketNews();
-loadFutures();
-setInterval(loadData, 15 * 60 * 1000);
-// 表示中の市場の決算速報を定期更新（強制再取得）
-setInterval(() => loadEarningsFlash(true, earningsMarket), 15 * 60 * 1000);
-setInterval(loadMarketNews, 15 * 60 * 1000);
-setInterval(loadFutures, 60 * 1000);  // 先物・為替は1分ごとに更新
-</script>
+<script src="app.js"></script>
 </body>
 </html>

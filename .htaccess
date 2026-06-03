@@ -11,11 +11,12 @@ RewriteCond %{SERVER_PORT} ^80$
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # ── キャッシュ制御 ──
-# HTML と データJSON は毎回再検証（ETag/Last-Modified で 304）。
+# HTML・JS・データJSON は毎回再検証（ETag/Last-Modified で 304）。
 # Cache-Control が無いとブラウザがヒューリスティックに旧版を握り続け、
-# デプロイ後も古いレイアウト・古いデータが表示されてしまうため。
+# デプロイ後も古いレイアウト・古いロジック・古いデータが表示されてしまうため。
+# （森レイアウトはロジックを app.js に分離したため js も対象に追加）
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html?|json)$">
+  <FilesMatch "\.(html?|js|json)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>

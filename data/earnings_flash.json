@@ -1,20 +1,20 @@
 {
-  "updated_at": "2026-05-30T17:02:40.555026+09:00",
-  "article_date": "2026-05-29",
+  "updated_at": "2026-06-04T00:56:46.606142+09:00",
+  "article_date": "2026-06-03",
   "sources": [
     "irbank",
     "kabutan",
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 7,
-    "kabutan": 8,
-    "kabupro": 23
+    "irbank": 6,
+    "kabutan": 5,
+    "kabupro": 12
   },
   "source_dates": {
-    "irbank": "2026-05-29",
-    "kabutan": "05/29",
-    "kabupro": "2026-05-28"
+    "irbank": "2026-06-03",
+    "kabutan": "06/03",
+    "kabupro": "2026-06-03"
   },
   "groups": [
     {
@@ -24,229 +24,119 @@
       "zone": "positive",
       "items": [
         {
-          "code": "3455",
-          "name": "ヘルスケア&メディカル投資法人",
-          "time": "15:30",
+          "code": "3083",
+          "name": "スターシーズ",
+          "time": "13:00",
           "category": "大幅上方修正",
-          "narrative": "売上+12.3% / 営業益+23.1% の大幅増益修正",
-          "narrative_source": "template",
+          "narrative": "上期経常を15％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
           "metrics": {
-            "period": "2027/01 6ヶ月",
-            "type": "予想",
-            "sales": "29.8億 +12.3%",
-            "op": "16.5億 +23.1%",
-            "ord": "13.1億 +31.5%",
-            "net": "13.1億 +31.5%"
+            "period": "2026/08 6ヶ月",
+            "type": "修正",
+            "sales": "86億 +43.3%",
+            "op": "2.8億 +12%",
+            "ord": "2.3億 +15%",
+            "net": "1.5億 +15.4%"
           },
           "chips": [
             {
               "label": "売上",
-              "value": "+12.3%",
+              "value": "+43.3%",
               "direction": "up",
-              "strength": "normal",
-              "pct": 12.3
+              "strength": "strong",
+              "pct": 43.3
             },
             {
               "label": "営業益",
-              "value": "+23.1%",
+              "value": "+12%",
               "direction": "up",
               "strength": "normal",
-              "pct": 23.1
+              "pct": 12.0
             },
             {
               "label": "経常",
-              "value": "+31.5%",
+              "value": "+15%",
               "direction": "up",
-              "strength": "strong",
-              "pct": 31.5
+              "strength": "normal",
+              "pct": 15.0
             },
             {
               "label": "純益",
-              "value": "+31.5%",
+              "value": "+15.4%",
               "direction": "up",
-              "strength": "strong",
-              "pct": 31.5
+              "strength": "normal",
+              "pct": 15.4
             }
           ],
           "sources": [
-            "irbank"
+            "irbank",
+            "kabutan",
+            "kabupro"
           ],
           "primary_source": "irbank",
-          "url": "https://irbank.net/3455"
+          "url": "https://irbank.net/3083"
         }
       ]
     },
     {
-      "category": "増配・配当修正",
-      "display": "増配・配当修正",
-      "priority": 40,
+      "category": "上方修正",
+      "display": "上方修正",
+      "priority": 30,
       "zone": "positive",
       "items": [
         {
-          "code": "7247",
-          "name": "ミクニ",
-          "time": "15:00",
-          "category": "増配・配当修正",
-          "narrative": "今期経常は5％増益、1円増配へ",
-          "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabutan"
-          ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202605290004"
-        }
-      ]
-    },
-    {
-      "category": "本決算・四半期決算",
-      "display": "決算発表",
-      "priority": 60,
-      "zone": "decision",
-      "items": [
-        {
-          "code": "9238",
-          "name": "バリュークリエーション",
-          "time": "18:00",
-          "category": "本決算・四半期決算",
-          "narrative": "今期最終は赤字縮小へ",
-          "narrative_source": "kabutan",
-          "metrics": {
-            "period": "2026/02 12ヶ月",
-            "type": "実績",
-            "sales": "31.3億 +1.8%",
-            "op": "-4.23億",
-            "ord": "-0.74億",
-            "net": "-2.6億"
-          },
-          "chips": [
-            {
-              "label": "売上",
-              "value": "+1.8%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 1.8
-            }
-          ],
-          "sources": [
-            "irbank",
-            "kabutan"
-          ],
-          "primary_source": "irbank",
-          "url": "https://irbank.net/9238"
-        },
-        {
-          "code": "2332",
-          "name": "クエスト",
-          "time": "17:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 決算説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552183.pdf"
-        },
-        {
-          "code": "9828",
-          "name": "元気寿司",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期　決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552047.pdf"
-        },
-        {
-          "code": "3495",
-          "name": "香陵住販",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年９月期第２四半期決算説明 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527550202.pdf"
-        },
-        {
-          "code": "4627",
-          "name": "ナトコ",
+          "code": "8057",
+          "name": "内田洋行",
           "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "上期経常は90％増益で上振れ着地",
+          "category": "上方修正",
+          "narrative": "今期最終を6％上方修正・最高益予想を上乗せ、配当も6円増額",
           "narrative_source": "kabutan",
           "metrics": {
-            "period": "2026/04 6ヶ月",
-            "type": "実績",
-            "sales": "115億 +4.5%",
-            "op": "8.64億 +33.5%",
-            "ord": "10.2億 +90.3%",
-            "net": "6.59億 +84.1%"
+            "period": "2026/07 13ヶ月",
+            "type": "修正",
+            "sales": "4210億 +0.7%",
+            "op": "154億",
+            "ord": "163億",
+            "net": "115億 +6.5%"
           },
           "chips": [
             {
               "label": "売上",
-              "value": "+4.5%",
+              "value": "+0.7%",
               "direction": "up",
               "strength": "normal",
-              "pct": 4.5
-            },
-            {
-              "label": "営業益",
-              "value": "+33.5%",
-              "direction": "up",
-              "strength": "strong",
-              "pct": 33.5
-            },
-            {
-              "label": "経常",
-              "value": "+90.3%",
-              "direction": "up",
-              "strength": "strong",
-              "pct": 90.3
+              "pct": 0.7
             },
             {
               "label": "純益",
-              "value": "+84.1%",
+              "value": "+6.5%",
               "direction": "up",
-              "strength": "strong",
-              "pct": 84.1
+              "strength": "normal",
+              "pct": 6.5
             }
           ],
           "sources": [
             "irbank",
-            "kabutan"
+            "kabutan",
+            "kabupro"
           ],
           "primary_source": "irbank",
-          "url": "https://irbank.net/4627"
+          "url": "https://irbank.net/8057"
         },
         {
-          "code": "4707",
-          "name": "キタック",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "上期経常が13％増益で着地・2-4月期も43％増益",
+          "code": "4026",
+          "name": "神島化学工業",
+          "time": "14:30",
+          "category": "上方修正",
+          "narrative": "前期経常を11％上方修正・最高益予想を上乗せ",
           "narrative_source": "kabutan",
           "metrics": {
-            "period": "2026/04 7ヶ月",
-            "type": "実績",
-            "sales": "17.8億 +1.1%",
-            "op": "2.32億 +19.7%",
-            "ord": "2.33億 +13.4%",
-            "net": "1.79億 -25.4%"
+            "period": "2026/04 12ヶ月",
+            "type": "修正",
+            "sales": "280億 +1.1%",
+            "op": "26.8億 +11.7%",
+            "ord": "25.6億 +11.3%",
+            "net": "18.5億 +15.6%"
           },
           "chips": [
             {
@@ -258,421 +148,209 @@
             },
             {
               "label": "営業益",
-              "value": "+19.7%",
+              "value": "+11.7%",
               "direction": "up",
               "strength": "normal",
-              "pct": 19.7
+              "pct": 11.7
             },
             {
               "label": "経常",
-              "value": "+13.4%",
+              "value": "+11.3%",
               "direction": "up",
               "strength": "normal",
-              "pct": 13.4
+              "pct": 11.3
             },
             {
               "label": "純益",
-              "value": "-25.4%",
-              "direction": "down",
+              "value": "+15.6%",
+              "direction": "up",
               "strength": "normal",
-              "pct": 25.4
+              "pct": 15.6
             }
           ],
           "sources": [
             "irbank",
-            "kabutan"
+            "kabutan",
+            "kabupro"
           ],
           "primary_source": "irbank",
-          "url": "https://irbank.net/4707"
+          "url": "https://irbank.net/4026"
         },
         {
-          "code": "4369",
-          "name": "トリケミカル研究所",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2-4月期(1Q)経常は52％増益で着地",
+          "code": "4826",
+          "name": "CIJ",
+          "time": "14:00",
+          "category": "上方修正",
+          "narrative": "今期経常を13％上方修正・最高益予想を上乗せ、配当も2円増額",
           "narrative_source": "kabutan",
           "metrics": {
-            "period": "2026/04 3ヶ月",
-            "type": "実績",
-            "sales": "74.9億 +14%",
-            "op": "20.7億 +20.8%",
-            "ord": "24.9億 +51.5%",
-            "net": "18.6億 +53.6%"
+            "period": "2026/06 12ヶ月",
+            "type": "修正",
+            "sales": "292億 +2.4%",
+            "op": "25.5億 +13.3%",
+            "ord": "25.8億 +13.1%",
+            "net": "16.8億 +12%"
           },
           "chips": [
             {
               "label": "売上",
-              "value": "+14%",
+              "value": "+2.4%",
               "direction": "up",
               "strength": "normal",
-              "pct": 14.0
+              "pct": 2.4
             },
             {
               "label": "営業益",
-              "value": "+20.8%",
+              "value": "+13.3%",
               "direction": "up",
               "strength": "normal",
-              "pct": 20.8
+              "pct": 13.3
             },
             {
               "label": "経常",
-              "value": "+51.5%",
+              "value": "+13.1%",
               "direction": "up",
-              "strength": "strong",
-              "pct": 51.5
+              "strength": "normal",
+              "pct": 13.1
             },
             {
               "label": "純益",
-              "value": "+53.6%",
+              "value": "+12%",
               "direction": "up",
-              "strength": "strong",
-              "pct": 53.6
+              "strength": "normal",
+              "pct": 12.0
             }
           ],
           "sources": [
             "irbank",
-            "kabutan"
+            "kabutan",
+            "kabupro"
           ],
           "primary_source": "irbank",
-          "url": "https://irbank.net/4369"
-        },
-        {
-          "code": "6584",
-          "name": "三桜工業",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528551892.pdf"
-        },
-        {
-          "code": "4570",
-          "name": "免疫生物研究所",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年３月期（第44期）決算説 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527550102.pdf"
-        },
-        {
-          "code": "4389",
-          "name": "プロパティデータバンク",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年３月期決算説明会資料（事 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260522544859.pdf"
-        },
-        {
-          "code": "3252",
-          "name": "日本商業開発",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年12月期 第1四半期決算 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552509.pdf"
-        },
-        {
-          "code": "7488",
-          "name": "ヤガミ",
-          "time": "15:00",
-          "category": "本決算・四半期決算",
-          "narrative": "今期経常は3％減益、前期配当増額も今期減配",
-          "narrative_source": "kabutan",
-          "metrics": {
-            "period": "2026/04 13ヶ月",
-            "type": "実績",
-            "sales": "115億 +5.8%",
-            "op": "22.4億 +14.8%",
-            "ord": "23億 +15.5%",
-            "net": "15.9億 +22.1%"
-          },
-          "chips": [
-            {
-              "label": "売上",
-              "value": "+5.8%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 5.8
-            },
-            {
-              "label": "営業益",
-              "value": "+14.8%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 14.8
-            },
-            {
-              "label": "経常",
-              "value": "+15.5%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 15.5
-            },
-            {
-              "label": "純益",
-              "value": "+22.1%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 22.1
-            }
-          ],
-          "sources": [
-            "irbank",
-            "kabutan"
-          ],
-          "primary_source": "irbank",
-          "url": "https://irbank.net/7488"
-        },
-        {
-          "code": "3477",
-          "name": "フォーライフ",
-          "time": "15:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 決算説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552507.pdf"
-        },
-        {
-          "code": "7287",
-          "name": "日本精機",
-          "time": "15:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552079.pdf"
-        },
-        {
-          "code": "3329",
-          "name": "東和フードサービス",
-          "time": "14:20",
-          "category": "本決算・四半期決算",
-          "narrative": "今期経常は21％減益、前期配当増額も今期減配",
-          "narrative_source": "kabutan",
-          "metrics": {
-            "period": "2026/04 12ヶ月",
-            "type": "実績",
-            "sales": "133億 +3.9%",
-            "op": "9.83億 -7.4%",
-            "ord": "11.3億 +3.1%",
-            "net": "7.51億 +4.2%"
-          },
-          "chips": [
-            {
-              "label": "売上",
-              "value": "+3.9%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 3.9
-            },
-            {
-              "label": "営業益",
-              "value": "-7.4%",
-              "direction": "down",
-              "strength": "normal",
-              "pct": 7.4
-            },
-            {
-              "label": "経常",
-              "value": "+3.1%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 3.1
-            },
-            {
-              "label": "純益",
-              "value": "+4.2%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 4.2
-            }
-          ],
-          "sources": [
-            "irbank",
-            "kabutan"
-          ],
-          "primary_source": "irbank",
-          "url": "https://irbank.net/3329"
-        },
-        {
-          "code": "7213",
-          "name": "レシップホールディングス",
-          "time": "13:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 通期決算説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528551900.pdf"
-        },
-        {
-          "code": "7590",
-          "name": "タカショー",
-          "time": "13:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年1月期 第1四半期 決算 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552433.pdf"
-        },
-        {
-          "code": "4735",
-          "name": "京進",
-          "time": "13:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年２月期 決算・経営方針説 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552217.pdf"
-        },
-        {
-          "code": "6167",
-          "name": "冨士ダイス",
-          "time": "11:20",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 決算補足説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552160.pdf"
-        },
-        {
-          "code": "7284",
-          "name": "盟和産業",
-          "time": "10:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528551662.pdf"
-        },
-        {
-          "code": "7414",
-          "name": "小野建",
-          "time": "10:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期 決算説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528551865.pdf"
-        },
-        {
-          "code": "6013",
-          "name": "タクマ",
-          "time": "10:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期決算説明会資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527549519.pdf"
-        },
-        {
-          "code": "7943",
-          "name": "ニチハ",
-          "time": "09:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年3月期　決算説明資料",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527550311.pdf"
+          "url": "https://irbank.net/4826"
         }
       ]
     },
     {
-      "category": "赤字・減益",
-      "display": "赤字・減益",
-      "priority": 90,
-      "zone": "negative",
+      "category": "本決算・四半期決算",
+      "display": "決算発表",
+      "priority": 60,
+      "zone": "decision",
       "items": [
         {
-          "code": "6228",
-          "name": "ＪＥＴ",
-          "time": "13:00",
-          "category": "赤字・減益",
-          "narrative": "前期経常は赤字転落も上振れ着地、今期業績は非開示",
-          "narrative_source": "kabutan",
+          "code": "5133",
+          "name": "テリロジーホールディングス",
+          "time": "17:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年３月期　決算説明会資料",
+          "narrative_source": "kabupro",
           "metrics": null,
           "chips": [],
           "sources": [
-            "kabutan"
+            "kabupro"
           ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202605290002"
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260602560553.pdf"
+        },
+        {
+          "code": "5915",
+          "name": "駒井ハルテック",
+          "time": "17:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年３月期　決算説明資料",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260601558699.pdf"
+        },
+        {
+          "code": "3908",
+          "name": "コラボス",
+          "time": "15:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年３月期 通期 決算補足説 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260603561159.pdf"
+        },
+        {
+          "code": "9220",
+          "name": "エフビー介護サービス",
+          "time": "14:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年３月期 決算説明資料",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260603561480.pdf"
+        },
+        {
+          "code": "4116",
+          "name": "大日精化工業",
+          "time": "12:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年３月期 決算説明会資料",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260602559996.pdf"
+        }
+      ]
+    },
+    {
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "3815",
+          "name": "メディア工房",
+          "time": "15:30",
+          "category": "下方修正",
+          "narrative": "今期最終を赤字拡大に下方修正、対純資産で83％の赤字",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/08 12ヶ月",
+            "type": "修正",
+            "sales": "16.5億 -23.7%",
+            "op": "-4.95億",
+            "ord": "-5億",
+            "net": "-5.87億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-23.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 23.7
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3815"
         }
       ]
     },
@@ -683,11 +361,11 @@
       "zone": "other",
       "items": [
         {
-          "code": "4800",
-          "name": "オリコン",
-          "time": "17:30",
+          "code": "7046",
+          "name": "テクノスデータサイエンス・エンジニ…",
+          "time": "16:45",
           "category": "その他開示",
-          "narrative": "2027年３月期配当予想の修正（無 …",
+          "narrative": "2026年3月期決算および 新中期 …",
           "narrative_source": "kabupro",
           "metrics": null,
           "chips": [],
@@ -695,70 +373,10 @@
             "kabupro"
           ],
           "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260520542077.pdf"
-        },
-        {
-          "code": "4069",
-          "name": "ＢｌｕｅＭｅｍｅ",
-          "time": "17:00",
-          "category": "その他開示",
-          "narrative": "通期業績予想の修正に関するお知らせ",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552696.pdf"
-        },
-        {
-          "code": "2593",
-          "name": "伊藤園",
-          "time": "17:00",
-          "category": "その他開示",
-          "narrative": "業績予想（連結・個別）の修正に関す …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260527549703.pdf"
-        },
-        {
-          "code": "8143",
-          "name": "ラピーヌ",
-          "time": "17:00",
-          "category": "その他開示",
-          "narrative": "投資有価証券売却益（特別利益）の計 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528553056.pdf"
-        },
-        {
-          "code": "3063",
-          "name": "ジェイグループホールディングス",
-          "time": "16:30",
-          "category": "その他開示",
-          "narrative": "配当予想の修正(30周年記念配当  …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260528/140120260528552858.pdf"
+          "url": "http://ke.kabupro.jp/tsp/20260603/140120260529555602.pdf"
         }
       ]
     }
   ],
-  "total": 31
+  "total": 11
 }

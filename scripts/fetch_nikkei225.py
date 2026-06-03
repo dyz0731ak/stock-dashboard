@@ -25,6 +25,7 @@ import json
 import datetime
 import sys
 import os
+import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -320,25 +321,37 @@ def fetch_one(code, name, sector):
     try:
         t = yf.Ticker(ticker)
         hist = t.history(period="5d", interval="1d", auto_adjust=False)
-        if hist.empty or len(hist) < 2:
+        # 市場クローズ直後などで最終足が NaN になることがあるため除去してから使う
+        closes = hist["Close"].dropna() if not hist.empty else hist.get("Close")
+        if closes is None or len(closes) < 2:
             return None
-        prev_close = float(hist["Close"].iloc[-2])
-        price      = float(hist["Close"].iloc[-1])
+        prev_close = float(closes.iloc[-2])
+        price      = float(closes.iloc[-1])
         change_pct = ((price - prev_close) / prev_close * 100) if prev_close else 0.0
 
-        # 時価総額: fast_info.market_cap が使える場合はそちら、なければ shares × price 概算
+        # 時価総額: fast_info.market_cap → shares×price → info.marketCap の順でフォールバック
+        def _valid(x):
+            try:
+                x = float(x)
+                return x if (x > 0 and not math.isnan(x)) else None
+            except Exception:
+                return None
+
         market_cap = None
         try:
-            mc = t.fast_info.get("market_cap") if hasattr(t, "fast_info") else None
-            if mc:
-                market_cap = float(mc)
+            market_cap = _valid(t.fast_info.get("market_cap") if hasattr(t, "fast_info") else None)
         except Exception:
             pass
         if not market_cap:
             try:
-                shares = t.fast_info.get("shares") if hasattr(t, "fast_info") else None
+                shares = _valid(t.fast_info.get("shares") if hasattr(t, "fast_info") else None)
                 if shares:
-                    market_cap = float(shares) * price
+                    market_cap = _valid(shares * price)
+            except Exception:
+                pass
+        if not market_cap:
+            try:
+                market_cap = _valid(t.get_info().get("marketCap"))
             except Exception:
                 pass
 
