@@ -125,18 +125,24 @@ jobs:
           python scripts/fetch_themes.py
         continue-on-error: true
 
+      - name: Prerender index.html (SSG・SEO用に本文を焼き込む)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/prerender.py
+        continue-on-error: true
+
       - name: Check if data changed
         id: check-changes
         run: |
-          git diff --quiet data/ || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet data/ index.html || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated data
         if: steps.check-changes.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/japan_stocks.json data/us_stocks.json data/volume_stocks.json data/translation_cache.json data/events.json data/earnings_flash.json data/earnings_flash_us.json data/news_cache.json data/us_news_cache.json data/market_news.json data/futures.json data/nikkei225.json data/sp500.json
-          git commit -m "chore: update stock data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git add -A
+          git commit -m "chore: update stock data + prerender [$(date -u '+%Y-%m-%d %H:%M UTC')]"
           # リモートの変更を取り込んでからプッシュ（競合時はリモートを優先）
           git fetch origin main
           git rebase origin/main || (git rebase --abort && echo "rebase skipped")
