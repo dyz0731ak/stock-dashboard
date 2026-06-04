@@ -1,19 +1,19 @@
 {
-  "updated_at": "2026-06-04T12:47:10.675902+09:00",
-  "article_date": "2026-06-03",
+  "updated_at": "2026-06-04T13:02:31.320535+09:00",
+  "article_date": "2026-06-04",
   "sources": [
     "irbank",
     "kabutan",
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 2,
+    "kabutan": 2,
     "kabupro": 12
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-04",
+    "kabutan": "06/04",
     "kabupro": "2026-06-03"
   },
   "groups": [
@@ -114,6 +114,81 @@
           "url": "http://ke.kabupro.jp/tsp/20260603/140120260602560880.pdf"
         },
         {
+          "code": "6696",
+          "name": "トラース・オン・プロダクト",
+          "time": "12:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)経常は赤字転落で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "74百万",
+            "op": "-39百万",
+            "ord": "-39百万",
+            "net": "-41百万"
+          },
+          "chips": [],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6696"
+        },
+        {
+          "code": "1928",
+          "name": "積水ハウス",
+          "time": "12:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)経常は55％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "0.91兆 +1.7%",
+            "op": "0.08兆 +26.2%",
+            "ord": "0.07兆 +54.9%",
+            "net": "0.06兆 +75.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+1.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.7
+            },
+            {
+              "label": "営業益",
+              "value": "+26.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 26.2
+            },
+            {
+              "label": "経常",
+              "value": "+54.9%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 54.9
+            },
+            {
+              "label": "純益",
+              "value": "+75.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 75.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/1928"
+        },
+        {
           "code": "4116",
           "name": "大日精化工業",
           "time": "12:00",
@@ -199,5 +274,5 @@
       ]
     }
   ],
-  "total": 11
+  "total": 13
 }
