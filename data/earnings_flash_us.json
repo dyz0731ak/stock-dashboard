@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-06-04T15:32:13.221842+09:00",
-  "article_date": "2026-06-02",
+  "updated_at": "2026-06-04T15:46:31.859977+09:00",
+  "article_date": "2026-06-03",
   "market": "us",
   "sources": [
     "nasdaq"
   ],
   "source_counts": {
-    "nasdaq": 24
+    "nasdaq": 40
   },
   "groups": [
     {
@@ -16,17 +16,53 @@
       "zone": "positive",
       "items": [
         {
-          "code": "GTLB",
-          "name": "GitLab Inc.",
+          "code": "M",
+          "name": "Macy's Inc",
           "time": "",
           "category": "大幅上振れ",
-          "narrative": "EPS実績 ($0.02) / 予想 ($0.06)（+66.7%）の大幅上振れ",
+          "narrative": "EPS実績 $0.13 / 予想 $0.02（+550.0%）の大幅上振れ",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "($0.02)",
-            "eps_forecast": "($0.06)",
+            "eps_actual": "$0.13",
+            "eps_forecast": "$0.02",
+            "surprise_pct": 550.0,
+            "market_cap": 5715711683.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+550.0%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 550.0
+            },
+            {
+              "label": "実績",
+              "value": "$0.13",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 550.0
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 5715711683.0,
+          "url": "https://finance.yahoo.com/quote/M"
+        },
+        {
+          "code": "CXM",
+          "name": "Sprinklr, Inc.",
+          "time": "",
+          "category": "大幅上振れ",
+          "narrative": "EPS実績 $0.05 / 予想 $0.03（+66.7%）の大幅上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$0.05",
+            "eps_forecast": "$0.03",
             "surprise_pct": 66.67,
-            "market_cap": 5405507332.0
+            "market_cap": 1314904875.0
           },
           "chips": [
             {
@@ -38,7 +74,7 @@
             },
             {
               "label": "実績",
-              "value": "($0.02)",
+              "value": "$0.05",
               "direction": "up",
               "strength": "normal",
               "pct": 66.67
@@ -48,44 +84,8 @@
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 5405507332.0,
-          "url": "https://finance.yahoo.com/quote/GTLB"
-        },
-        {
-          "code": "SIG",
-          "name": "Signet Jewelers Limited",
-          "time": "",
-          "category": "大幅上振れ",
-          "narrative": "EPS実績 $1.56 / 予想 $1.32（+18.2%）の大幅上振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "$1.56",
-            "eps_forecast": "$1.32",
-            "surprise_pct": 18.18,
-            "market_cap": 3525964112.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "+18.2%",
-              "direction": "up",
-              "strength": "strong",
-              "pct": 18.18
-            },
-            {
-              "label": "実績",
-              "value": "$1.56",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 18.18
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 3525964112.0,
-          "url": "https://finance.yahoo.com/quote/SIG"
+          "sort_val": 1314904875.0,
+          "url": "https://finance.yahoo.com/quote/CXM"
         }
       ]
     },
@@ -96,112 +96,40 @@
       "zone": "positive",
       "items": [
         {
-          "code": "DG",
-          "name": "Dollar General Corporation",
+          "code": "OLLI",
+          "name": "Ollie's Bargain Outlet Holdings, Inc.",
           "time": "",
           "category": "上振れ",
-          "narrative": "EPS実績 $2 / 予想 $1.89（+5.8%）で上振れ",
+          "narrative": "EPS実績 $0.91 / 予想 $0.87（+4.6%）で上振れ",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "$2",
-            "eps_forecast": "$1.89",
-            "surprise_pct": 5.82,
-            "market_cap": 23403451026.0
+            "eps_actual": "$0.91",
+            "eps_forecast": "$0.87",
+            "surprise_pct": 4.6,
+            "market_cap": 4807407550.0
           },
           "chips": [
             {
               "label": "サプライズ",
-              "value": "+5.8%",
+              "value": "+4.6%",
               "direction": "up",
               "strength": "normal",
-              "pct": 5.82
+              "pct": 4.6
             },
             {
               "label": "実績",
-              "value": "$2",
+              "value": "$0.91",
               "direction": "up",
               "strength": "normal",
-              "pct": 5.82
+              "pct": 4.6
             }
           ],
           "sources": [
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 23403451026.0,
-          "url": "https://finance.yahoo.com/quote/DG"
-        },
-        {
-          "code": "ULTA",
-          "name": "Ulta Beauty, Inc.",
-          "time": "",
-          "category": "上振れ",
-          "narrative": "EPS実績 $7.74 / 予想 $6.90（+12.2%）で上振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "$7.74",
-            "eps_forecast": "$6.90",
-            "surprise_pct": 12.17,
-            "market_cap": 21556743066.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "+12.2%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 12.17
-            },
-            {
-              "label": "実績",
-              "value": "$7.74",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 12.17
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 21556743066.0,
-          "url": "https://finance.yahoo.com/quote/ULTA"
-        },
-        {
-          "code": "YEXT",
-          "name": "Yext, Inc.",
-          "time": "",
-          "category": "上振れ",
-          "narrative": "EPS実績 $0.08 / 予想 $0.07（+14.3%）で上振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "$0.08",
-            "eps_forecast": "$0.07",
-            "surprise_pct": 14.29,
-            "market_cap": 421563845.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "+14.3%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 14.29
-            },
-            {
-              "label": "実績",
-              "value": "$0.08",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 14.29
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 421563845.0,
-          "url": "https://finance.yahoo.com/quote/YEXT"
+          "sort_val": 4807407550.0,
+          "url": "https://finance.yahoo.com/quote/OLLI"
         }
       ]
     },
@@ -212,40 +140,76 @@
       "zone": "decision",
       "items": [
         {
-          "code": "DCI",
-          "name": "Donaldson Company, Inc.",
+          "code": "MDT",
+          "name": "Medtronic plc",
           "time": "",
           "category": "ほぼ予想通り",
-          "narrative": "EPS実績 $1.06 / 予想 $1.05（+0.9%）でほぼ予想通り",
+          "narrative": "EPS実績 $1.55 / 予想 $1.54（+0.7%）でほぼ予想通り",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "$1.06",
-            "eps_forecast": "$1.05",
-            "surprise_pct": 0.95,
-            "market_cap": 9918331771.0
+            "eps_actual": "$1.55",
+            "eps_forecast": "$1.54",
+            "surprise_pct": 0.65,
+            "market_cap": 94686516095.0
           },
           "chips": [
             {
               "label": "サプライズ",
-              "value": "+0.9%",
+              "value": "+0.7%",
               "direction": "up",
               "strength": "normal",
-              "pct": 0.95
+              "pct": 0.65
             },
             {
               "label": "実績",
-              "value": "$1.06",
+              "value": "$1.55",
               "direction": "up",
               "strength": "normal",
-              "pct": 0.95
+              "pct": 0.65
             }
           ],
           "sources": [
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 9918331771.0,
-          "url": "https://finance.yahoo.com/quote/DCI"
+          "sort_val": 94686516095.0,
+          "url": "https://finance.yahoo.com/quote/MDT"
+        },
+        {
+          "code": "THO",
+          "name": "Thor Industries, Inc.",
+          "time": "",
+          "category": "ほぼ予想通り",
+          "narrative": "EPS実績 $1.86 / 予想 $1.88（-1.1%）でほぼ予想通り",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$1.86",
+            "eps_forecast": "$1.88",
+            "surprise_pct": -1.06,
+            "market_cap": 4078288645.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "-1.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.06
+            },
+            {
+              "label": "実績",
+              "value": "$1.86",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.06
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 4078288645.0,
+          "url": "https://finance.yahoo.com/quote/THO"
         }
       ]
     },
@@ -256,89 +220,53 @@
       "zone": "negative",
       "items": [
         {
-          "code": "PANW",
-          "name": "Palo Alto Networks, Inc.",
+          "code": "MMED",
+          "name": "MiniMed Group, Inc.",
           "time": "",
           "category": "大幅下振れ",
-          "narrative": "EPS実績 $0.32 / 予想 $0.43（-25.6%）の大幅下振れ",
+          "narrative": "EPS実績 ($0.68) / 予想 ($0.21)（-223.8%）の大幅下振れ",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "$0.32",
-            "eps_forecast": "$0.43",
-            "surprise_pct": -25.58,
-            "market_cap": 242498880000.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "-25.6%",
-              "direction": "down",
-              "strength": "strong",
-              "pct": 25.58
-            },
-            {
-              "label": "実績",
-              "value": "$0.32",
-              "direction": "down",
-              "strength": "normal",
-              "pct": 25.58
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 242498880000.0,
-          "url": "https://finance.yahoo.com/quote/PANW"
-        },
-        {
-          "code": "PICS",
-          "name": "PicS N.V.",
-          "time": "",
-          "category": "大幅下振れ",
-          "narrative": "EPS実績 $0.27 / 予想 $1.13（-76.1%）の大幅下振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "$0.27",
-            "eps_forecast": "$1.13",
-            "surprise_pct": -76.11,
-            "market_cap": 1447492855.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "-76.1%",
-              "direction": "down",
-              "strength": "strong",
-              "pct": 76.11
-            },
-            {
-              "label": "実績",
-              "value": "$0.27",
-              "direction": "down",
-              "strength": "normal",
-              "pct": 76.11
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 1447492855.0,
-          "url": "https://finance.yahoo.com/quote/PICS"
-        },
-        {
-          "code": "HIVE",
-          "name": "HIVE Digital Technologies Ltd",
-          "time": "",
-          "category": "大幅下振れ",
-          "narrative": "EPS実績 ($0.28) / 予想 ($0.21)（-33.3%）の大幅下振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "($0.28)",
+            "eps_actual": "($0.68)",
             "eps_forecast": "($0.21)",
-            "surprise_pct": -33.33,
-            "market_cap": 1199823557.0
+            "surprise_pct": -223.81,
+            "market_cap": 3454085852.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "-223.8%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 223.81
+            },
+            {
+              "label": "実績",
+              "value": "($0.68)",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 223.81
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 3454085852.0,
+          "url": "https://finance.yahoo.com/quote/MMED"
+        },
+        {
+          "code": "AVLN",
+          "name": "Avalyn Pharma Inc.",
+          "time": "",
+          "category": "大幅下振れ",
+          "narrative": "EPS実績 ($21.83) / 予想 ($16.38)（-33.3%）の大幅下振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "($21.83)",
+            "eps_forecast": "($16.38)",
+            "surprise_pct": -33.27,
+            "market_cap": 1075405849.0
           },
           "chips": [
             {
@@ -346,61 +274,61 @@
               "value": "-33.3%",
               "direction": "down",
               "strength": "strong",
-              "pct": 33.33
+              "pct": 33.27
             },
             {
               "label": "実績",
-              "value": "($0.28)",
+              "value": "($21.83)",
               "direction": "down",
               "strength": "normal",
-              "pct": 33.33
+              "pct": 33.27
             }
           ],
           "sources": [
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 1199823557.0,
-          "url": "https://finance.yahoo.com/quote/HIVE"
+          "sort_val": 1075405849.0,
+          "url": "https://finance.yahoo.com/quote/AVLN"
         },
         {
-          "code": "ODD",
-          "name": "ODDITY Tech Ltd.",
+          "code": "CGNT",
+          "name": "Cognyte Software Ltd.",
           "time": "",
           "category": "大幅下振れ",
-          "narrative": "EPS実績 ($0.29) / 予想 ($0.08)（-262.5%）の大幅下振れ",
+          "narrative": "EPS実績 ($0.04) / 予想 $0.03（-233.3%）の大幅下振れ",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "($0.29)",
-            "eps_forecast": "($0.08)",
-            "surprise_pct": -262.5,
-            "market_cap": 557501780.0
+            "eps_actual": "($0.04)",
+            "eps_forecast": "$0.03",
+            "surprise_pct": -233.33,
+            "market_cap": 844494597.0
           },
           "chips": [
             {
               "label": "サプライズ",
-              "value": "-262.5%",
+              "value": "-233.3%",
               "direction": "down",
               "strength": "strong",
-              "pct": 262.5
+              "pct": 233.33
             },
             {
               "label": "実績",
-              "value": "($0.29)",
+              "value": "($0.04)",
               "direction": "down",
               "strength": "normal",
-              "pct": 262.5
+              "pct": 233.33
             }
           ],
           "sources": [
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 557501780.0,
-          "url": "https://finance.yahoo.com/quote/ODD"
+          "sort_val": 844494597.0,
+          "url": "https://finance.yahoo.com/quote/CGNT"
         }
       ]
     }
   ],
-  "total": 10
+  "total": 8
 }
