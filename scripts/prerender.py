@@ -22,6 +22,8 @@ JST = datetime.timezone(datetime.timedelta(hours=9))
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 DATA = os.path.join(ROOT, "data")
 INDEX = os.path.join(ROOT, "index.html")
+SITEMAP = os.path.join(ROOT, "sitemap.xml")
+BASE_URL = "https://dashboard.stock-overflow24.com"
 
 
 def load(name):
@@ -293,6 +295,30 @@ def build_heat(nikkei):
     return f'<div class="hm-fallback">{spans}</div>'
 
 
+def write_sitemap():
+    """sitemap.xml を生成。トップは毎日データ更新されるので lastmod=当日(JST)・changefreq=daily。
+    /about/ は内容がほぼ不変なのでファイルの更新日を lastmod にする（毎日変わったと誤認させない）。"""
+    today = datetime.datetime.now(JST).strftime("%Y-%m-%d")
+    try:
+        mtime = os.path.getmtime(os.path.join(ROOT, "about", "index.html"))
+        about_lastmod = datetime.datetime.fromtimestamp(mtime, JST).strftime("%Y-%m-%d")
+    except Exception:
+        about_lastmod = today
+    urls = [
+        (f"{BASE_URL}/", today, "daily", "1.0"),
+        (f"{BASE_URL}/about/", about_lastmod, "monthly", "0.7"),
+    ]
+    out = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, lastmod, freq, pr in urls:
+        out.append(f'  <url>\n    <loc>{loc}</loc>\n    <lastmod>{lastmod}</lastmod>'
+                   f'\n    <changefreq>{freq}</changefreq>\n    <priority>{pr}</priority>\n  </url>')
+    out.append('</urlset>')
+    with open(SITEMAP, "w", encoding="utf-8") as f:
+        f.write("\n".join(out) + "\n")
+    print(f"  ✓ [サイトマップ] sitemap.xml を更新（トップ lastmod={today}）")
+
+
 def replace_marker(html_text, key, content):
     pat = re.compile(rf"(<!--PRERENDER:{key}-->).*?(<!--/PRERENDER:{key}-->)", re.S)
     if not pat.search(html_text):
@@ -334,6 +360,8 @@ def main():
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(doc)
     print(f"  ✓ [プリレンダリング] index.html に {filled} セクションを焼き込み")
+
+    write_sitemap()
 
 
 if __name__ == "__main__":
