@@ -282,6 +282,19 @@ def build_stats(japan, events, flash):
     return "".join(out)
 
 
+def build_themelinks(themes):
+    """フッターのテーマ株リンク（クロール導線）。週間騰落率順。"""
+    if not themes or not themes.get("themes"):
+        return ""
+    import prerender_themes as pt
+    ts = sorted([t for t in themes["themes"] if pt.SLUGS.get(t["name"])],
+                key=lambda x: -(x.get("week_pct") or 0))
+    links = '<span class="ft-label">テーマ株から探す</span>'
+    links += "".join(f'<a href="/themes/{pt.SLUGS[t["name"]]}/">{esc(t["name"])}関連株</a>' for t in ts)
+    links += '<a href="/themes/"><b>テーマ株一覧 ›</b></a>'
+    return links
+
+
 def build_heat(nikkei):
     if not nikkei or not nikkei.get("items"):
         return ""
@@ -295,9 +308,10 @@ def build_heat(nikkei):
     return f'<div class="hm-fallback">{spans}</div>'
 
 
-def write_sitemap():
+def write_sitemap(theme_slugs=None):
     """sitemap.xml を生成。トップは毎日データ更新されるので lastmod=当日(JST)・changefreq=daily。
-    /about/ は内容がほぼ不変なのでファイルの更新日を lastmod にする（毎日変わったと誤認させない）。"""
+    /about/ は内容がほぼ不変なのでファイルの更新日を lastmod にする（毎日変わったと誤認させない）。
+    theme_slugs を渡すと /themes/ ハブ + 各テーマページも収録する。"""
     today = datetime.datetime.now(JST).strftime("%Y-%m-%d")
     try:
         mtime = os.path.getmtime(os.path.join(ROOT, "about", "index.html"))
@@ -308,6 +322,10 @@ def write_sitemap():
         (f"{BASE_URL}/", today, "daily", "1.0"),
         (f"{BASE_URL}/about/", about_lastmod, "monthly", "0.7"),
     ]
+    if theme_slugs:
+        urls.append((f"{BASE_URL}/themes/", today, "daily", "0.8"))
+        for slug in theme_slugs:
+            urls.append((f"{BASE_URL}/themes/{slug}/", today, "daily", "0.7"))
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, lastmod, freq, pr in urls:
@@ -350,6 +368,7 @@ def main():
         "themes": build_themes(themes),
         "events": build_events(events),
         "heat": build_heat(nikkei),
+        "themelinks": build_themelinks(themes),
     }
     filled = 0
     for key, content in sections.items():
@@ -361,7 +380,15 @@ def main():
         f.write(doc)
     print(f"  ✓ [プリレンダリング] index.html に {filled} セクションを焼き込み")
 
-    write_sitemap()
+    # テーマ個別ページ（SSG）を生成し、その URL をサイトマップに収録
+    try:
+        import prerender_themes
+        theme_slugs = prerender_themes.main()
+    except Exception as e:
+        print(f"  ⚠ テーマページ生成に失敗: {e}")
+        theme_slugs = None
+
+    write_sitemap(theme_slugs)
 
 
 if __name__ == "__main__":
