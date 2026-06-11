@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T06:18:37.248896+09:00",
+  "updated_at": "2026-06-12T06:31:59.072460+09:00",
   "article_date": "2026-06-11",
   "sources": [
     "irbank",
@@ -7,52 +7,245 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 30,
+    "kabutan": 15,
     "kabupro": 67
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-11",
+    "kabutan": "06/11",
     "kabupro": "2026-06-11"
   },
   "groups": [
+    {
+      "category": "一転増益",
+      "display": "一転増益",
+      "priority": 20,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "1873",
+          "name": "日本ハウス",
+          "time": "15:30",
+          "category": "一転増益",
+          "narrative": "前期経常を一転5％増益に上方修正",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "修正",
+            "sales": "296億 -12.7%",
+            "op": "23.8億 +50.6%",
+            "ord": "21.5億 +61.8%",
+            "net": "13.4億 +91.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-12.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 12.7
+            },
+            {
+              "label": "営業益",
+              "value": "+50.6%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 50.6
+            },
+            {
+              "label": "経常",
+              "value": "+61.8%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 61.8
+            },
+            {
+              "label": "純益",
+              "value": "+91.4%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 91.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/1873"
+        }
+      ]
+    },
+    {
+      "category": "大幅上方修正",
+      "display": "大幅上方修正",
+      "priority": 22,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "6264",
+          "name": "マルマエ",
+          "time": "16:30",
+          "category": "大幅上方修正",
+          "narrative": "今期経常を30％上方修正・最高益予想を上乗せ、配当も7円増額",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/08 12ヶ月",
+            "type": "修正",
+            "sales": "200億 +13%",
+            "op": "41億 +28.1%",
+            "ord": "39億 +30%",
+            "net": "33億 +22.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+13%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.0
+            },
+            {
+              "label": "営業益",
+              "value": "+28.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 28.1
+            },
+            {
+              "label": "経常",
+              "value": "+30%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 30.0
+            },
+            {
+              "label": "純益",
+              "value": "+22.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 22.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6264"
+        }
+      ]
+    },
+    {
+      "category": "増配・配当修正",
+      "display": "増配・配当修正",
+      "priority": 40,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "7435",
+          "name": "ナ・デックス",
+          "time": "19:00",
+          "category": "増配・配当修正",
+          "narrative": "今期経常は73％増益、9円増配へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "368億 -0.1%",
+            "op": "11.2億 +46.7%",
+            "ord": "12.7億 +42%",
+            "net": "6.59億 +162%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-0.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 0.1
+            },
+            {
+              "label": "営業益",
+              "value": "+46.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 46.7
+            },
+            {
+              "label": "経常",
+              "value": "+42%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 42.0
+            },
+            {
+              "label": "純益",
+              "value": "+162%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 162.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/7435"
+        }
+      ]
+    },
+    {
+      "category": "黒字浮上",
+      "display": "黒字浮上",
+      "priority": 45,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "2776",
+          "name": "新都ＨＤ",
+          "time": "16:00",
+          "category": "黒字浮上",
+          "narrative": "2-4月期(1Q)経常は黒字浮上で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "188億 +326.5%",
+            "op": "0.69億",
+            "ord": "0.64億",
+            "net": "0.09億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+326.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 326.5
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/2776"
+        }
+      ]
+    },
     {
       "category": "本決算・四半期決算",
       "display": "決算発表",
       "priority": 60,
       "zone": "decision",
       "items": [
-        {
-          "code": "7435",
-          "name": "ナ・デックス",
-          "time": "19:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年４月期　決算短信〔日本基 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260401596375.pdf"
-        },
-        {
-          "code": "7095",
-          "name": "Ｍａｃｂｅｅ　Ｐｌａｎｅｔ",
-          "time": "18:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年4月期通期決算説明会資料 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568502.pdf"
-        },
         {
           "code": "5132",
           "name": "ｐｌｕｓｚｅｒｏ",
@@ -69,79 +262,1155 @@
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568724.pdf"
         },
         {
-          "code": "6309",
-          "name": "巴工業",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260609566214.pdf"
-        },
-        {
           "code": "3361",
           "name": "トーエル",
           "time": "16:00",
           "category": "本決算・四半期決算",
-          "narrative": "2026年４月期 決算短信〔日本基 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
+          "narrative": "今期経常は13％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "270億 -1.3%",
+            "op": "19.8億 +2.4%",
+            "ord": "24.6億 +8.4%",
+            "net": "16.1億 +91.6%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-1.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.3
+            },
+            {
+              "label": "営業益",
+              "value": "+2.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.4
+            },
+            {
+              "label": "経常",
+              "value": "+8.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 8.4
+            },
+            {
+              "label": "純益",
+              "value": "+91.6%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 91.6
+            }
+          ],
           "sources": [
+            "irbank",
+            "kabutan",
             "kabupro"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568393.pdf"
-        },
-        {
-          "code": "2776",
-          "name": "クリムゾン",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期　第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567509.pdf"
-        },
-        {
-          "code": "9262",
-          "name": "シルバーライフ",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年７月期　第３四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260609566022.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3361"
         },
         {
           "code": "7777",
           "name": "スリー・ディー・マトリックス",
           "time": "16:00",
           "category": "本決算・四半期決算",
-          "narrative": "2026年４月期決算短信〔日本基準 …",
+          "narrative": "今期経常は59％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "109億 +57%",
+            "op": "13.4億",
+            "ord": "39.7億",
+            "net": "41.6億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+57%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 57.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7777"
+        },
+        {
+          "code": "6309",
+          "name": "巴工業",
+          "time": "16:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(2Q)経常は10％増益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "308億 -1.5%",
+            "op": "37億 -0.2%",
+            "ord": "37.9億 +1.8%",
+            "net": "27.9億 +8.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-1.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.5
+            },
+            {
+              "label": "営業益",
+              "value": "-0.2%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 0.2
+            },
+            {
+              "label": "経常",
+              "value": "+1.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.8
+            },
+            {
+              "label": "純益",
+              "value": "+8.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 8.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6309"
+        },
+        {
+          "code": "9262",
+          "name": "シルバーライフ",
+          "time": "16:00",
+          "category": "本決算・四半期決算",
+          "narrative": "8-4月期(3Q累計)経常が17％増益で着地・2-4月期は8％減益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 9ヶ月",
+            "type": "実績",
+            "sales": "121億 +10.9%",
+            "op": "7.94億 +18.3%",
+            "ord": "9.16億 +17.4%",
+            "net": "5.63億 +17.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+10.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 10.9
+            },
+            {
+              "label": "営業益",
+              "value": "+18.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 18.3
+            },
+            {
+              "label": "経常",
+              "value": "+17.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.4
+            },
+            {
+              "label": "純益",
+              "value": "+17.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9262"
+        },
+        {
+          "code": "7640",
+          "name": "トップカルチャー",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期　第2四半期（中 …",
           "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "修正",
+            "sales": "94億 -2.3%",
+            "op": "1.42億 -47.8%",
+            "ord": "1.13億 -50%",
+            "net": "8.12億 +334.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-2.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 2.3
+            },
+            {
+              "label": "営業益",
+              "value": "-47.8%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 47.8
+            },
+            {
+              "label": "経常",
+              "value": "-50%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 50.0
+            },
+            {
+              "label": "純益",
+              "value": "+334.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 334.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7640"
+        },
+        {
+          "code": "3031",
+          "name": "ラクーン HD",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "前期経常が一転減益で下振れ着地・今期は56％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "65.7億 +7.8%",
+            "op": "13.2億 +5.3%",
+            "ord": "12.4億 -11.3%",
+            "net": "8.04億 -3.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+7.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 7.8
+            },
+            {
+              "label": "営業益",
+              "value": "+5.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.3
+            },
+            {
+              "label": "経常",
+              "value": "-11.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 11.3
+            },
+            {
+              "label": "純益",
+              "value": "-3.9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 3.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3031"
+        },
+        {
+          "code": "8142",
+          "name": "トーホー",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)経常は15％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "678億 +10.7%",
+            "op": "20.5億 +13.8%",
+            "ord": "20.7億 +14.8%",
+            "net": "13.7億 +25.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+10.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 10.7
+            },
+            {
+              "label": "営業益",
+              "value": "+13.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.8
+            },
+            {
+              "label": "経常",
+              "value": "+14.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 14.8
+            },
+            {
+              "label": "純益",
+              "value": "+25.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 25.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/8142"
+        },
+        {
+          "code": "4194",
+          "name": "ビジョナル",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "8-4月期(3Q累計)経常は17％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 9ヶ月",
+            "type": "実績",
+            "sales": "732億 +24.3%",
+            "op": "196億 +12.2%",
+            "ord": "214億 +17.2%",
+            "net": "142億 +13.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+24.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 24.3
+            },
+            {
+              "label": "営業益",
+              "value": "+12.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 12.2
+            },
+            {
+              "label": "経常",
+              "value": "+17.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.2
+            },
+            {
+              "label": "純益",
+              "value": "+13.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/4194"
+        },
+        {
+          "code": "215A",
+          "name": "タイミー",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "今期経常は88億～97億円へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "210億",
+            "op": "38.1億",
+            "ord": "37.6億",
+            "net": "24.4億"
+          },
+          "chips": [],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/215A"
+        },
+        {
+          "code": "6184",
+          "name": "鎌倉新書",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)経常は35％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "22億 +12%",
+            "op": "3.03億 +30%",
+            "ord": "3.11億 +35.5%",
+            "net": "1.95億 +24.8%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+12%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 12.0
+            },
+            {
+              "label": "営業益",
+              "value": "+30%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 30.0
+            },
+            {
+              "label": "経常",
+              "value": "+35.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 35.5
+            },
+            {
+              "label": "純益",
+              "value": "+24.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 24.8
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6184"
+        },
+        {
+          "code": "7095",
+          "name": "Macbee Planet",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "今期最終は19％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "506億 -2.1%",
+            "op": "36.5億 -29.4%",
+            "ord": "-",
+            "net": "23.5億 -31.7%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-2.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 2.1
+            },
+            {
+              "label": "営業益",
+              "value": "-29.4%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 29.4
+            },
+            {
+              "label": "純益",
+              "value": "-31.7%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 31.7
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7095"
+        },
+        {
+          "code": "350A",
+          "name": "デジタルグリッド",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "売上+6.6% / 営業益+3.1% の業績着地",
+          "narrative_source": "template",
+          "metrics": {
+            "period": "2026/04 9ヶ月",
+            "type": "実績",
+            "sales": "51.1億 +6.6%",
+            "op": "24.5億 +3.1%",
+            "ord": "25.5億 +12.2%",
+            "net": "18.7億 +17.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+6.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 6.6
+            },
+            {
+              "label": "営業益",
+              "value": "+3.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.1
+            },
+            {
+              "label": "経常",
+              "value": "+12.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 12.2
+            },
+            {
+              "label": "純益",
+              "value": "+17.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.9
+            }
+          ],
+          "sources": [
+            "irbank"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/350A"
+        },
+        {
+          "code": "8077",
+          "name": "トルク",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期第２四半期決算短 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "106億 -6.6%",
+            "op": "3.26億 -43.4%",
+            "ord": "3.99億 -33.5%",
+            "net": "2.49億 -37%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-6.6%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 6.6
+            },
+            {
+              "label": "営業益",
+              "value": "-43.4%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 43.4
+            },
+            {
+              "label": "経常",
+              "value": "-33.5%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 33.5
+            },
+            {
+              "label": "純益",
+              "value": "-37%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 37.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/8077"
+        },
+        {
+          "code": "9627",
+          "name": "アイン HD",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年４月期 決算短信〔日本基 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "6478億 +41.8%",
+            "op": "298億 +76.8%",
+            "ord": "284億 +57.2%",
+            "net": "173億 +86.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+41.8%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 41.8
+            },
+            {
+              "label": "営業益",
+              "value": "+76.8%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 76.8
+            },
+            {
+              "label": "経常",
+              "value": "+57.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 57.2
+            },
+            {
+              "label": "純益",
+              "value": "+86.4%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 86.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9627"
+        },
+        {
+          "code": "7131",
+          "name": "のむら産業",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期 第２四半期（中 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "38.4億 +18.1%",
+            "op": "5.6億 +79.7%",
+            "ord": "5.6億 +78.7%",
+            "net": "4.08億 +96.6%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+18.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 18.1
+            },
+            {
+              "label": "営業益",
+              "value": "+79.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 79.7
+            },
+            {
+              "label": "経常",
+              "value": "+78.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 78.7
+            },
+            {
+              "label": "純益",
+              "value": "+96.6%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 96.6
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7131"
+        },
+        {
+          "code": "3955",
+          "name": "イムラ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2027年1月期 第1四半期決算短 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "55.2億 -2.1%",
+            "op": "2.36億 -53.8%",
+            "ord": "2.35億 -53.9%",
+            "net": "1.42億 -68.5%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-2.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 2.1
+            },
+            {
+              "label": "営業益",
+              "value": "-53.8%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 53.8
+            },
+            {
+              "label": "経常",
+              "value": "-53.9%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 53.9
+            },
+            {
+              "label": "純益",
+              "value": "-68.5%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 68.5
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3955"
+        },
+        {
+          "code": "8927",
+          "name": "明豊エンタープライズ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年７月期第３四半期決算短信 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 9ヶ月",
+            "type": "実績",
+            "sales": "235億 +18.3%",
+            "op": "26.7億 +28.1%",
+            "ord": "22.1億 +39.3%",
+            "net": "15.7億 +49.5%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+18.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 18.3
+            },
+            {
+              "label": "営業益",
+              "value": "+28.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 28.1
+            },
+            {
+              "label": "経常",
+              "value": "+39.3%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 39.3
+            },
+            {
+              "label": "純益",
+              "value": "+49.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 49.5
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/8927"
+        },
+        {
+          "code": "6619",
+          "name": "ダブル・スコープ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2027年１月期第１四半期決算短信 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "13.9億 +83.2%",
+            "op": "-3.64億",
+            "ord": "-20.3億",
+            "net": "-20.3億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+83.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 83.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6619"
+        },
+        {
+          "code": "1758",
+          "name": "太洋基礎工業",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2027年１月期第１四半期決算短信 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "38.9億 +0.6%",
+            "op": "3.35億 +57.9%",
+            "ord": "3.5億 +61.4%",
+            "net": "2.36億 +53.5%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+0.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 0.6
+            },
+            {
+              "label": "営業益",
+              "value": "+57.9%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 57.9
+            },
+            {
+              "label": "経常",
+              "value": "+61.4%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 61.4
+            },
+            {
+              "label": "純益",
+              "value": "+53.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 53.5
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/1758"
+        },
+        {
+          "code": "3070",
+          "name": "ジェリービーンズグループ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2027年１月期　第１四半期決算短 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "18億 +689.5%",
+            "op": "0.46億",
+            "ord": "0.15億",
+            "net": "-0.36億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+689.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 689.5
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3070"
+        },
+        {
+          "code": "3491",
+          "name": "GA technologies",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期 第２四半期（中 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "1424億 +28.5%",
+            "op": "37.6億 -9.6%",
+            "ord": "-",
+            "net": "20.3億 -9.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+28.5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 28.5
+            },
+            {
+              "label": "営業益",
+              "value": "-9.6%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.6
+            },
+            {
+              "label": "純益",
+              "value": "-9.9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3491"
+        },
+        {
+          "code": "3248",
+          "name": "アールエイジ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期　第２四半期（中 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "16.7億 -7.7%",
+            "op": "3.15億 -9%",
+            "ord": "2.57億 -6.3%",
+            "net": "1.71億 -1.6%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-7.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 7.7
+            },
+            {
+              "label": "営業益",
+              "value": "-9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.0
+            },
+            {
+              "label": "経常",
+              "value": "-6.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 6.3
+            },
+            {
+              "label": "純益",
+              "value": "-1.6%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.6
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3248"
+        },
+        {
+          "code": "2375",
+          "name": "ギグワークス",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2026年10月期第２四半期（中間 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "115億 +3.5%",
+            "op": "2.9億",
+            "ord": "0.88億",
+            "net": "0.09億 -91.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.5
+            },
+            {
+              "label": "純益",
+              "value": "-91.9%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 91.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/2375"
+        },
+        {
+          "code": "5075",
+          "name": "アップコン",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "売上+30% / 営業益+18.1% の業績着地",
+          "narrative_source": "template",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "4.04億 +30%",
+            "op": "1.64億 +18.1%",
+            "ord": "1.64億 +20.3%",
+            "net": "1.09億 +19.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+30%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 30.0
+            },
+            {
+              "label": "営業益",
+              "value": "+18.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 18.1
+            },
+            {
+              "label": "経常",
+              "value": "+20.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 20.3
+            },
+            {
+              "label": "純益",
+              "value": "+19.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 19.9
+            }
+          ],
+          "sources": [
+            "irbank"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/5075"
+        },
+        {
+          "code": "7196",
+          "name": "Ｃａｓａ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)最終は赤字転落で着地",
+          "narrative_source": "kabutan",
           "metrics": null,
           "chips": [],
           "sources": [
+            "kabutan",
             "kabupro"
           ],
           "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567948.pdf"
+          "url": "https://kabutan.jp/news/?&b=k202606110033"
         },
         {
           "code": "5134",
@@ -172,201 +1441,6 @@
           ],
           "primary_source": "kabupro",
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260609566062.pdf"
-        },
-        {
-          "code": "6184",
-          "name": "鎌倉新書",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期 第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568086.pdf"
-        },
-        {
-          "code": "6619",
-          "name": "ダブル・スコープ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期第１四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567862.pdf"
-        },
-        {
-          "code": "7131",
-          "name": "のむら産業",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567929.pdf"
-        },
-        {
-          "code": "7196",
-          "name": "Ｃａｓａ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期 第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260608565721.pdf"
-        },
-        {
-          "code": "1758",
-          "name": "太洋基礎工業",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期第１四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567832.pdf"
-        },
-        {
-          "code": "2375",
-          "name": "スリープログループ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期第２四半期（中間 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567719.pdf"
-        },
-        {
-          "code": "3031",
-          "name": "ラクーン",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年４月期決算短信〔日本基準 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568259.pdf"
-        },
-        {
-          "code": "3070",
-          "name": "アマガサ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期　第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567814.pdf"
-        },
-        {
-          "code": "3248",
-          "name": "アールエイジ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期　第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567765.pdf"
-        },
-        {
-          "code": "4194",
-          "name": "ビジョナル",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年７月期 第３四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568117.pdf"
-        },
-        {
-          "code": "3955",
-          "name": "イムラ封筒",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年1月期 第1四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567914.pdf"
-        },
-        {
-          "code": "3491",
-          "name": "ＧＡ　ｔｅｃｈｎｏｌｏｇｉｅｓ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567788.pdf"
-        },
-        {
-          "code": "9627",
-          "name": "アインファーマシーズ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年４月期 決算短信〔日本基 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567931.pdf"
         },
         {
           "code": "9636",
@@ -412,66 +1486,6 @@
           ],
           "primary_source": "kabupro",
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567095.pdf"
-        },
-        {
-          "code": "8927",
-          "name": "明豊エンタープライズ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年７月期第３四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567881.pdf"
-        },
-        {
-          "code": "8077",
-          "name": "小林産業",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期第２四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611567957.pdf"
-        },
-        {
-          "code": "8142",
-          "name": "トーホー",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年１月期第１四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568150.pdf"
-        },
-        {
-          "code": "7640",
-          "name": "トップカルチャー",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年10月期　第2四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260610567708.pdf"
         },
         {
           "code": "2198",
@@ -521,6 +1535,59 @@
       ]
     },
     {
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "2502",
+          "name": "アサヒグループ HD",
+          "time": "15:30",
+          "category": "下方修正",
+          "narrative": "2025年12月期通期連結業績予想 …",
+          "narrative_source": "kabupro",
+          "metrics": {
+            "period": "2025/12 12ヶ月",
+            "type": "修正",
+            "sales": "2.89兆 -2%",
+            "op": "0.19兆 -27.5%",
+            "ord": "-",
+            "net": "0.12兆 -28.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-2%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 2.0
+            },
+            {
+              "label": "営業益",
+              "value": "-27.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 27.5
+            },
+            {
+              "label": "純益",
+              "value": "-28.4%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 28.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabupro"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/2502"
+        }
+      ]
+    },
+    {
       "category": "その他開示",
       "display": "その他開示",
       "priority": 99,
@@ -542,21 +1609,6 @@
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568638.pdf"
         },
         {
-          "code": "6264",
-          "name": "マルマエ",
-          "time": "16:30",
-          "category": "その他開示",
-          "narrative": "業績予想の修正及び配当予想の修正( …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568545.pdf"
-        },
-        {
           "code": "6706",
           "name": "電気興業",
           "time": "16:00",
@@ -570,36 +1622,6 @@
           ],
           "primary_source": "kabupro",
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260608565835.pdf"
-        },
-        {
-          "code": "1873",
-          "name": "東日本ハウス",
-          "time": "15:30",
-          "category": "その他開示",
-          "narrative": "業績予想の修正に関するお知らせ",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260611568115.pdf"
-        },
-        {
-          "code": "2502",
-          "name": "アサヒグループホールディングス",
-          "time": "15:30",
-          "category": "その他開示",
-          "narrative": "2025年12月期通期連結業績予想 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260611/140120260605564305.pdf"
         },
         {
           "code": "1436",
@@ -619,5 +1641,5 @@
       ]
     }
   ],
-  "total": 39
+  "total": 42
 }
