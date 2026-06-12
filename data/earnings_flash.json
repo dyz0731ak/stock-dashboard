@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T12:46:53.266356+09:00",
+  "updated_at": "2026-06-12T13:02:28.439134+09:00",
   "article_date": "2026-06-12",
   "sources": [
     "irbank",
@@ -7,8 +7,8 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 3,
-    "kabutan": 4,
+    "irbank": 4,
+    "kabutan": 6,
     "kabupro": 67
   },
   "source_dates": {
@@ -489,6 +489,37 @@
           "url": "http://ke.kabupro.jp/tsp/20260611/140120260527549901.pdf"
         },
         {
+          "code": "7073",
+          "name": "ジェイック",
+          "time": "13:00",
+          "category": "本決算・四半期決算",
+          "narrative": "2-4月期(1Q)経常は赤字縮小で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 3ヶ月",
+            "type": "実績",
+            "sales": "10.1億 +3.4%",
+            "op": "-0.77億",
+            "ord": "-0.76億",
+            "net": "-0.59億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7073"
+        },
+        {
           "code": "7692",
           "name": "アースインフィニティ",
           "time": "12:00",
@@ -670,6 +701,29 @@
       ]
     },
     {
+      "category": "赤字・減益",
+      "display": "赤字・減益",
+      "priority": 90,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "7604",
+          "name": "梅の花Ｇ",
+          "time": "13:00",
+          "category": "赤字・減益",
+          "narrative": "前期経常が一転減益で下振れ着地・今期は12％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606120005"
+        }
+      ]
+    },
+    {
       "category": "その他開示",
       "display": "その他開示",
       "priority": 99,
@@ -783,5 +837,5 @@
       ]
     }
   ],
-  "total": 43
+  "total": 45
 }
