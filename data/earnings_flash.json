@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T13:02:28.439134+09:00",
+  "updated_at": "2026-06-12T13:16:54.671959+09:00",
   "article_date": "2026-06-12",
   "sources": [
     "irbank",
@@ -7,7 +7,7 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 4,
+    "irbank": 5,
     "kabutan": 6,
     "kabupro": 67
   },
@@ -520,6 +520,51 @@
           "url": "https://irbank.net/7073"
         },
         {
+          "code": "7604",
+          "name": "梅の花グループ",
+          "time": "13:00",
+          "category": "本決算・四半期決算",
+          "narrative": "前期経常が一転減益で下振れ着地・今期は12％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "実績",
+            "sales": "298億 +1.3%",
+            "op": "6.48億 +17.8%",
+            "ord": "3.69億 -5.1%",
+            "net": "2.53億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+1.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.3
+            },
+            {
+              "label": "営業益",
+              "value": "+17.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.8
+            },
+            {
+              "label": "経常",
+              "value": "-5.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 5.1
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7604"
+        },
+        {
           "code": "7692",
           "name": "アースインフィニティ",
           "time": "12:00",
@@ -697,29 +742,6 @@
           ],
           "primary_source": "irbank",
           "url": "https://irbank.net/9556"
-        }
-      ]
-    },
-    {
-      "category": "赤字・減益",
-      "display": "赤字・減益",
-      "priority": 90,
-      "zone": "negative",
-      "items": [
-        {
-          "code": "7604",
-          "name": "梅の花Ｇ",
-          "time": "13:00",
-          "category": "赤字・減益",
-          "narrative": "前期経常が一転減益で下振れ着地・今期は12％減益へ",
-          "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabutan"
-          ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202606120005"
         }
       ]
     },
