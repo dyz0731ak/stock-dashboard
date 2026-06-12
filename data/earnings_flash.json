@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T13:46:57.926535+09:00",
+  "updated_at": "2026-06-12T14:02:02.729988+09:00",
   "article_date": "2026-06-12",
   "sources": [
     "irbank",
@@ -8,7 +8,7 @@
   ],
   "source_counts": {
     "irbank": 5,
-    "kabutan": 6,
+    "kabutan": 9,
     "kabupro": 10
   },
   "source_dates": {
@@ -18,11 +18,49 @@
   },
   "groups": [
     {
+      "category": "上方修正",
+      "display": "上方修正",
+      "priority": 30,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "6547",
+          "name": "グリーンズ",
+          "time": "14:00",
+          "category": "上方修正",
+          "narrative": "今期経常を4％上方修正・最高益予想を上乗せ、配当も12円増額",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606120007"
+        }
+      ]
+    },
+    {
       "category": "本決算・四半期決算",
       "display": "決算発表",
       "priority": 60,
       "zone": "decision",
       "items": [
+        {
+          "code": "2991",
+          "name": "ランドネット",
+          "time": "14:00",
+          "category": "本決算・四半期決算",
+          "narrative": "8-4月期(3Q累計)経常が20％増益で着地・2-4月期も3.2倍増益",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606120009"
+        },
         {
           "code": "7073",
           "name": "ジェイック",
@@ -251,6 +289,29 @@
       ]
     },
     {
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "211A",
+          "name": "カドスＣ",
+          "time": "14:00",
+          "category": "下方修正",
+          "narrative": "今期経常を一転50％減益に下方修正",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606120008"
+        }
+      ]
+    },
+    {
       "category": "その他開示",
       "display": "その他開示",
       "priority": 99,
@@ -409,5 +470,5 @@
       ]
     }
   ],
-  "total": 15
+  "total": 18
 }
