@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-17T16:32:11.797763+09:00",
+  "updated_at": "2026-06-17T16:46:54.591138+09:00",
   "article_date": "2026-06-17",
   "sources": [
     "irbank",
@@ -7,7 +7,7 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 6,
+    "irbank": 7,
     "kabutan": 7,
     "kabupro": 13
   },
@@ -122,6 +122,58 @@
       "priority": 60,
       "zone": "decision",
       "items": [
+        {
+          "code": "3476",
+          "name": "投資法人みらい",
+          "time": "16:30",
+          "category": "本決算・四半期決算",
+          "narrative": "今期経常は4％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 6ヶ月",
+            "type": "実績",
+            "sales": "61.1億 +2.2%",
+            "op": "30.7億 +4.8%",
+            "ord": "25.7億 +4%",
+            "net": "25.7億 +4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+2.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.2
+            },
+            {
+              "label": "営業益",
+              "value": "+4.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.8
+            },
+            {
+              "label": "経常",
+              "value": "+4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.0
+            },
+            {
+              "label": "純益",
+              "value": "+4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3476"
+        },
         {
           "code": "3451",
           "name": "トーセイ・リート投資法人",
@@ -337,29 +389,6 @@
           ],
           "primary_source": "irbank",
           "url": "https://irbank.net/7927"
-        }
-      ]
-    },
-    {
-      "category": "赤字・減益",
-      "display": "赤字・減益",
-      "priority": 90,
-      "zone": "negative",
-      "items": [
-        {
-          "code": "3476",
-          "name": "Ｒみらい",
-          "time": "16:30",
-          "category": "赤字・減益",
-          "narrative": "今期経常は4％減益へ",
-          "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabutan"
-          ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202606170007"
         }
       ]
     },
