@@ -1,22 +1,91 @@
 {
-  "updated_at": "2026-06-18T14:17:25.362564+09:00",
-  "article_date": "2026-06-15",
+  "updated_at": "2026-06-18T14:33:05.997902+09:00",
+  "article_date": "2026-06-18",
   "sources": [
     "irbank",
     "kabutan",
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 1,
+    "kabutan": 2,
     "kabupro": 13
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-18",
+    "kabutan": "06/18",
     "kabupro": "2026-06-15"
   },
   "groups": [
+    {
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "7369",
+          "name": "メイホー HD",
+          "time": "13:00",
+          "category": "下方修正",
+          "narrative": "今期最終を一転赤字に下方修正",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/06 12ヶ月",
+            "type": "修正",
+            "sales": "135億 ±0%",
+            "op": "4.9億 -9.3%",
+            "ord": "5億 -5.7%",
+            "net": "-0.4億"
+          },
+          "chips": [
+            {
+              "label": "営業益",
+              "value": "-9.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.3
+            },
+            {
+              "label": "経常",
+              "value": "-5.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 5.7
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7369"
+        }
+      ]
+    },
+    {
+      "category": "減配",
+      "display": "減配",
+      "priority": 85,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "3825",
+          "name": "リミックス",
+          "time": "11:30",
+          "category": "減配",
+          "narrative": "未定だった今期配当は2円減配",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606180001"
+        }
+      ]
+    },
     {
       "category": "その他開示",
       "display": "その他開示",
@@ -191,5 +260,5 @@
       ]
     }
   ],
-  "total": 11
+  "total": 13
 }
