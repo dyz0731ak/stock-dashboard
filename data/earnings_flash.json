@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-18T16:17:02.285095+09:00",
+  "updated_at": "2026-06-18T16:32:51.828481+09:00",
   "article_date": "2026-06-18",
   "sources": [
     "irbank",
@@ -7,8 +7,8 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 1,
-    "kabutan": 2,
+    "irbank": 2,
+    "kabutan": 3,
     "kabupro": 13
   },
   "source_dates": {
@@ -17,6 +17,66 @@
     "kabupro": "2026-06-15"
   },
   "groups": [
+    {
+      "category": "大幅上方修正",
+      "display": "大幅上方修正",
+      "priority": 22,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "5803",
+          "name": "フジクラ",
+          "time": "16:30",
+          "category": "大幅上方修正",
+          "narrative": "今期経常を45％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/09 6ヶ月",
+            "type": "修正",
+            "sales": "0.78兆 +31%",
+            "op": "0.17兆 +89.1%",
+            "ord": "0.18兆 +86.3%",
+            "net": "0.13兆 +91%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+31%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 31.0
+            },
+            {
+              "label": "営業益",
+              "value": "+89.1%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 89.1
+            },
+            {
+              "label": "経常",
+              "value": "+86.3%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 86.3
+            },
+            {
+              "label": "純益",
+              "value": "+91%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 91.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/5803"
+        }
+      ]
+    },
     {
       "category": "下方修正",
       "display": "下方修正",
@@ -260,5 +320,5 @@
       ]
     }
   ],
-  "total": 13
+  "total": 14
 }
