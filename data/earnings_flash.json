@@ -1,22 +1,197 @@
 {
-  "updated_at": "2026-06-19T07:16:49.242625+09:00",
-  "article_date": "2026-06-15",
+  "updated_at": "2026-06-19T07:32:31.642361+09:00",
+  "article_date": "2026-06-18",
   "sources": [
     "irbank",
     "kabutan",
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 3,
+    "kabutan": 4,
     "kabupro": 13
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-18",
+    "kabutan": "06/18",
     "kabupro": "2026-06-15"
   },
   "groups": [
+    {
+      "category": "大幅上方修正",
+      "display": "大幅上方修正",
+      "priority": 22,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "5803",
+          "name": "フジクラ",
+          "time": "16:30",
+          "category": "大幅上方修正",
+          "narrative": "今期経常を45％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/09 6ヶ月",
+            "type": "修正",
+            "sales": "0.78兆 +31%",
+            "op": "0.17兆 +89.1%",
+            "ord": "0.18兆 +86.3%",
+            "net": "0.13兆 +91%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+31%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 31.0
+            },
+            {
+              "label": "営業益",
+              "value": "+89.1%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 89.1
+            },
+            {
+              "label": "経常",
+              "value": "+86.3%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 86.3
+            },
+            {
+              "label": "純益",
+              "value": "+91%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 91.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/5803"
+        }
+      ]
+    },
+    {
+      "category": "上方修正",
+      "display": "上方修正",
+      "priority": 30,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "3843",
+          "name": "フリービット",
+          "time": "17:00",
+          "category": "上方修正",
+          "narrative": "前期営業を9％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/04 12ヶ月",
+            "type": "修正",
+            "sales": "625億 +4.2%",
+            "op": "66.5億 +9%",
+            "ord": "57.7億 ±0%",
+            "net": "35億 ±0%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+4.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.2
+            },
+            {
+              "label": "営業益",
+              "value": "+9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 9.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3843"
+        }
+      ]
+    },
+    {
+      "category": "下方修正",
+      "display": "下方修正",
+      "priority": 80,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "7369",
+          "name": "メイホー HD",
+          "time": "13:00",
+          "category": "下方修正",
+          "narrative": "今期最終を一転赤字に下方修正",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/06 12ヶ月",
+            "type": "修正",
+            "sales": "135億 ±0%",
+            "op": "4.9億 -9.3%",
+            "ord": "5億 -5.7%",
+            "net": "-0.4億"
+          },
+          "chips": [
+            {
+              "label": "営業益",
+              "value": "-9.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.3
+            },
+            {
+              "label": "経常",
+              "value": "-5.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 5.7
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7369"
+        }
+      ]
+    },
+    {
+      "category": "減配",
+      "display": "減配",
+      "priority": 85,
+      "zone": "negative",
+      "items": [
+        {
+          "code": "3825",
+          "name": "リミックス",
+          "time": "11:30",
+          "category": "減配",
+          "narrative": "未定だった今期配当は2円減配",
+          "narrative_source": "kabutan",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://kabutan.jp/news/?&b=k202606180001"
+        }
+      ]
+    },
     {
       "category": "その他開示",
       "display": "その他開示",
@@ -191,5 +366,5 @@
       ]
     }
   ],
-  "total": 11
+  "total": 15
 }
