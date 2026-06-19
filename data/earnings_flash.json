@@ -1,22 +1,68 @@
 {
-  "updated_at": "2026-06-19T14:47:18.402038+09:00",
-  "article_date": "2026-06-15",
+  "updated_at": "2026-06-19T15:02:07.867567+09:00",
+  "article_date": "2026-06-19",
   "sources": [
     "irbank",
     "kabutan",
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 1,
+    "kabutan": 1,
     "kabupro": 13
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-19",
+    "kabutan": "06/19",
     "kabupro": "2026-06-15"
   },
   "groups": [
+    {
+      "category": "増配・配当修正",
+      "display": "増配・配当修正",
+      "priority": 40,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "6905",
+          "name": "コーセル",
+          "time": "11:30",
+          "category": "増配・配当修正",
+          "narrative": "前期経常が上振れ着地・今期は5.8倍増益、5円増配へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 13ヶ月",
+            "type": "実績",
+            "sales": "250億 -7.4%",
+            "op": "-6.95億",
+            "ord": "2.67億 -63.9%",
+            "net": "-34.1億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-7.4%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 7.4
+            },
+            {
+              "label": "経常",
+              "value": "-63.9%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 63.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/6905"
+        }
+      ]
+    },
     {
       "category": "その他開示",
       "display": "その他開示",
@@ -191,5 +237,5 @@
       ]
     }
   ],
-  "total": 11
+  "total": 12
 }
