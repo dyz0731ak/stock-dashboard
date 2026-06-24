@@ -1,94 +1,298 @@
 {
-  "updated_at": "2026-06-23T12:47:38.499752+09:00",
-  "article_date": "2026-06-15",
+  "updated_at": "2026-06-24T20:17:20.875755+09:00",
+  "article_date": "2026-06-23",
   "market": "us",
   "sources": [
     "nasdaq"
   ],
   "source_counts": {
-    "nasdaq": 16
+    "nasdaq": 12
   },
   "groups": [
     {
-      "category": "大幅下振れ",
-      "display": "大幅下振れ",
-      "priority": 85,
+      "category": "大幅上振れ",
+      "display": "大幅上振れ",
+      "priority": 10,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "CBRS",
+          "name": "Cerebras Systems Inc.",
+          "time": "",
+          "category": "大幅上振れ",
+          "narrative": "EPS実績 ($0.04) / 予想 ($0.14)（+71.4%）の大幅上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "($0.04)",
+            "eps_forecast": "($0.14)",
+            "surprise_pct": 71.43,
+            "market_cap": 48796614816.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+71.4%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 71.43
+            },
+            {
+              "label": "実績",
+              "value": "($0.04)",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 71.43
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 48796614816.0,
+          "url": "https://finance.yahoo.com/quote/CBRS"
+        },
+        {
+          "code": "CCL",
+          "name": "Carnival Corporation Ltd.",
+          "time": "",
+          "category": "大幅上振れ",
+          "narrative": "EPS実績 $0.41 / 予想 $0.35（+17.1%）の大幅上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$0.41",
+            "eps_forecast": "$0.35",
+            "surprise_pct": 17.14,
+            "market_cap": 41012615183.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+17.1%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 17.14
+            },
+            {
+              "label": "実績",
+              "value": "$0.41",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.14
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 41012615183.0,
+          "url": "https://finance.yahoo.com/quote/CCL"
+        }
+      ]
+    },
+    {
+      "category": "上振れ",
+      "display": "上振れ",
+      "priority": 20,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "FDX",
+          "name": "FedEx Corporation",
+          "time": "",
+          "category": "上振れ",
+          "narrative": "EPS実績 $6.31 / 予想 $5.91（+6.8%）で上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$6.31",
+            "eps_forecast": "$5.91",
+            "surprise_pct": 6.77,
+            "market_cap": 75695607273.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+6.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 6.77
+            },
+            {
+              "label": "実績",
+              "value": "$6.31",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 6.77
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 75695607273.0,
+          "url": "https://finance.yahoo.com/quote/FDX"
+        },
+        {
+          "code": "ICLR",
+          "name": "ICON plc",
+          "time": "",
+          "category": "上振れ",
+          "narrative": "EPS実績 $2.22 / 予想 $2.16（+2.8%）で上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$2.22",
+            "eps_forecast": "$2.16",
+            "surprise_pct": 2.78,
+            "market_cap": 10923860258.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+2.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.78
+            },
+            {
+              "label": "実績",
+              "value": "$2.22",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.78
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 10923860258.0,
+          "url": "https://finance.yahoo.com/quote/ICLR"
+        },
+        {
+          "code": "KFY",
+          "name": "Korn Ferry",
+          "time": "",
+          "category": "上振れ",
+          "narrative": "EPS実績 $1.40 / 予想 $1.37（+2.2%）で上振れ",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$1.40",
+            "eps_forecast": "$1.37",
+            "surprise_pct": 2.19,
+            "market_cap": 3721341880.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+2.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.19
+            },
+            {
+              "label": "実績",
+              "value": "$1.40",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.19
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 3721341880.0,
+          "url": "https://finance.yahoo.com/quote/KFY"
+        }
+      ]
+    },
+    {
+      "category": "ほぼ予想通り",
+      "display": "ほぼ予想通り",
+      "priority": 60,
+      "zone": "decision",
+      "items": [
+        {
+          "code": "SUNB",
+          "name": "Sunbelt Rentals Holdings, Inc.",
+          "time": "",
+          "category": "ほぼ予想通り",
+          "narrative": "EPS実績 $0.74 / 予想 $0.73（+1.4%）でほぼ予想通り",
+          "narrative_source": "nasdaq",
+          "metrics": {
+            "eps_actual": "$0.74",
+            "eps_forecast": "$0.73",
+            "surprise_pct": 1.37,
+            "market_cap": 31166938144.0
+          },
+          "chips": [
+            {
+              "label": "サプライズ",
+              "value": "+1.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.37
+            },
+            {
+              "label": "実績",
+              "value": "$0.74",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.37
+            }
+          ],
+          "sources": [
+            "nasdaq"
+          ],
+          "primary_source": "nasdaq",
+          "sort_val": 31166938144.0,
+          "url": "https://finance.yahoo.com/quote/SUNB"
+        }
+      ]
+    },
+    {
+      "category": "下振れ",
+      "display": "下振れ",
+      "priority": 80,
       "zone": "negative",
       "items": [
         {
-          "code": "CGC",
-          "name": "Canopy Growth Corporation",
+          "code": "WOR",
+          "name": "Worthington Enterprises, Inc.",
           "time": "",
-          "category": "大幅下振れ",
-          "narrative": "EPS実績 ($0.17) / 予想 ($0.06)（-183.3%）の大幅下振れ",
+          "category": "下振れ",
+          "narrative": "EPS実績 $0.97 / 予想 $1.04（-6.7%）で下振れ",
           "narrative_source": "nasdaq",
           "metrics": {
-            "eps_actual": "($0.17)",
-            "eps_forecast": "($0.06)",
-            "surprise_pct": -183.33,
-            "market_cap": 418491443.0
+            "eps_actual": "$0.97",
+            "eps_forecast": "$1.04",
+            "surprise_pct": -6.73,
+            "market_cap": 3005910224.0
           },
           "chips": [
             {
               "label": "サプライズ",
-              "value": "-183.3%",
+              "value": "-6.7%",
               "direction": "down",
-              "strength": "strong",
-              "pct": 183.33
+              "strength": "normal",
+              "pct": 6.73
             },
             {
               "label": "実績",
-              "value": "($0.17)",
+              "value": "$0.97",
               "direction": "down",
               "strength": "normal",
-              "pct": 183.33
+              "pct": 6.73
             }
           ],
           "sources": [
             "nasdaq"
           ],
           "primary_source": "nasdaq",
-          "sort_val": 418491443.0,
-          "url": "https://finance.yahoo.com/quote/CGC"
-        },
-        {
-          "code": "PLAY",
-          "name": "Dave & Buster's Entertainment, Inc.",
-          "time": "",
-          "category": "大幅下振れ",
-          "narrative": "EPS実績 $0.22 / 予想 $0.37（-40.5%）の大幅下振れ",
-          "narrative_source": "nasdaq",
-          "metrics": {
-            "eps_actual": "$0.22",
-            "eps_forecast": "$0.37",
-            "surprise_pct": -40.54,
-            "market_cap": 415724893.0
-          },
-          "chips": [
-            {
-              "label": "サプライズ",
-              "value": "-40.5%",
-              "direction": "down",
-              "strength": "strong",
-              "pct": 40.54
-            },
-            {
-              "label": "実績",
-              "value": "$0.22",
-              "direction": "down",
-              "strength": "normal",
-              "pct": 40.54
-            }
-          ],
-          "sources": [
-            "nasdaq"
-          ],
-          "primary_source": "nasdaq",
-          "sort_val": 415724893.0,
-          "url": "https://finance.yahoo.com/quote/PLAY"
+          "sort_val": 3005910224.0,
+          "url": "https://finance.yahoo.com/quote/WOR"
         }
       ]
     }
   ],
-  "total": 2
+  "total": 7
 }
