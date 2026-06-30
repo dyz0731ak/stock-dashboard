@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-30T14:53:53.014820+09:00",
+  "updated_at": "2026-06-30T15:04:48.876569+09:00",
   "article_date": "2026-06-30",
   "sources": [
     "irbank",
@@ -7,16 +7,136 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 2,
+    "kabutan": 2,
     "kabupro": 31
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-06-30",
+    "kabutan": "06/30",
     "kabupro": "2026-06-30"
   },
   "groups": [
+    {
+      "category": "増配・配当修正",
+      "display": "増配・配当修正",
+      "priority": 40,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "8011",
+          "name": "三陽商",
+          "time": "11:00",
+          "category": "増配・配当修正",
+          "narrative": "3-5月期(1Q)経常は4.1倍増益・上期計画を超過、今期配当を15円増額修正",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "146億 +0.6%",
+            "op": "1.13億 +210.5%",
+            "ord": "1.03億 +313%",
+            "net": "1.06億 +191.1%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+0.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 0.6
+            },
+            {
+              "label": "営業益",
+              "value": "+210.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 210.5
+            },
+            {
+              "label": "経常",
+              "value": "+313%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 313.0
+            },
+            {
+              "label": "純益",
+              "value": "+191.1%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 191.1
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/8011"
+        }
+      ]
+    },
+    {
+      "category": "本決算・四半期決算",
+      "display": "決算発表",
+      "priority": 60,
+      "zone": "decision",
+      "items": [
+        {
+          "code": "3607",
+          "name": "クラウディア HD",
+          "time": "15:00",
+          "category": "本決算・四半期決算",
+          "narrative": "9-5月期(3Q累計)経常は60％増益・通期計画を超過",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 9ヶ月",
+            "type": "実績",
+            "sales": "111億 +3.5%",
+            "op": "11.4億 +55.5%",
+            "ord": "11.9億 +60%",
+            "net": "9.28億 +46.3%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.5
+            },
+            {
+              "label": "営業益",
+              "value": "+55.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 55.5
+            },
+            {
+              "label": "経常",
+              "value": "+60%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 60.0
+            },
+            {
+              "label": "純益",
+              "value": "+46.3%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 46.3
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3607"
+        }
+      ]
+    },
     {
       "category": "その他開示",
       "display": "その他開示",
@@ -401,5 +521,5 @@
       ]
     }
   ],
-  "total": 25
+  "total": 27
 }
