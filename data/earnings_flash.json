@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T17:17:19.764057+09:00",
+  "updated_at": "2026-07-01T17:31:59.652865+09:00",
   "article_date": "2026-07-01",
   "sources": [
     "irbank",
@@ -7,8 +7,8 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 6,
-    "kabutan": 7,
+    "irbank": 7,
+    "kabutan": 8,
     "kabupro": 28
   },
   "source_dates": {
@@ -83,6 +83,58 @@
       "priority": 22,
       "zone": "positive",
       "items": [
+        {
+          "code": "7781",
+          "name": "平山",
+          "time": "17:20",
+          "category": "大幅上方修正",
+          "narrative": "前期経常を32％上方修正・最高益予想を上乗せ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2027/06 12ヶ月",
+            "type": "修正",
+            "sales": "376億 -0.5%",
+            "op": "17.2億 +28.1%",
+            "ord": "17.8億 +31.8%",
+            "net": "11.2億 +26.6%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-0.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 0.5
+            },
+            {
+              "label": "営業益",
+              "value": "+28.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 28.1
+            },
+            {
+              "label": "経常",
+              "value": "+31.8%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 31.8
+            },
+            {
+              "label": "純益",
+              "value": "+26.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 26.6
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/7781"
+        },
         {
           "code": "464A",
           "name": "ＱＰＳＨＤ",
@@ -777,5 +829,5 @@
       ]
     }
   ],
-  "total": 33
+  "total": 34
 }
