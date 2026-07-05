@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T04:02:33.779923+09:00",
+  "updated_at": "2026-07-06T04:16:38.563346+09:00",
   "article_date": "2026-07-03",
   "sources": [
     "irbank",
@@ -7,16 +7,108 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
-    "kabupro": 25
+    "irbank": 16,
+    "kabutan": 15,
+    "kabupro": 62
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
-    "kabupro": "2026-07-03"
+    "irbank": "2026-07-03",
+    "kabutan": "07/03",
+    "kabupro": "2026-07-02"
   },
   "groups": [
+    {
+      "category": "上方修正",
+      "display": "上方修正",
+      "priority": 30,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "3612",
+          "name": "ワールド",
+          "time": "15:30",
+          "category": "上方修正",
+          "narrative": "3-5月期(1Q)最終は25％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2027/02 12ヶ月",
+            "type": "修正",
+            "sales": "3000億 +5.6%",
+            "op": "175億 +11.5%",
+            "ord": "-",
+            "net": "126億 +4.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+5.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.6
+            },
+            {
+              "label": "営業益",
+              "value": "+11.5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 11.5
+            },
+            {
+              "label": "純益",
+              "value": "+4.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.9
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3612"
+        }
+      ]
+    },
+    {
+      "category": "黒字浮上",
+      "display": "黒字浮上",
+      "priority": 45,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "2678",
+          "name": "アスクル",
+          "time": "15:30",
+          "category": "黒字浮上",
+          "narrative": "今期最終は黒字浮上、10円増配へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 13ヶ月",
+            "type": "実績",
+            "sales": "4002億 -16.8%",
+            "op": "-174億",
+            "ord": "-191億",
+            "net": "-222億"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-16.8%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 16.8
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/2678"
+        }
+      ]
+    },
     {
       "category": "本決算・四半期決算",
       "display": "決算発表",
@@ -24,244 +116,643 @@
       "zone": "decision",
       "items": [
         {
+          "code": "2753",
+          "name": "あみやき亭",
+          "time": "9:00",
+          "category": "本決算・四半期決算",
+          "narrative": "売上+10.1% / 営業益+1.2% の業績着地",
+          "narrative_source": "template",
+          "metrics": {
+            "period": "2026/06 3ヶ月",
+            "type": "実績",
+            "sales": "98.9億 +10.1%",
+            "op": "5.11億 +1.2%",
+            "ord": "5.38億 +2.7%",
+            "net": "3.08億 +13.1%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+10.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 10.1
+            },
+            {
+              "label": "営業益",
+              "value": "+1.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 1.2
+            },
+            {
+              "label": "経常",
+              "value": "+2.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.7
+            },
+            {
+              "label": "純益",
+              "value": "+13.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.1
+            }
+          ],
+          "sources": [
+            "irbank"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/2753"
+        },
+        {
           "code": "9872",
           "name": "北恵",
           "time": "16:00",
           "category": "本決算・四半期決算",
-          "narrative": "2026年11月期第２四半期（中間 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "上期経常が10％減益で着地・3-5月期も8％減益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 7ヶ月",
+            "type": "実績",
+            "sales": "297億 -2.2%",
+            "op": "3.9億 -9.8%",
+            "ord": "4.75億 -9.6%",
+            "net": "2.91億 -10.3%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-2.2%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 2.2
+            },
+            {
+              "label": "営業益",
+              "value": "-9.8%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.8
+            },
+            {
+              "label": "経常",
+              "value": "-9.6%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.6
+            },
+            {
+              "label": "純益",
+              "value": "-10.3%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 10.3
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587635.pdf"
-        },
-        {
-          "code": "8233",
-          "name": "高島屋",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年2月期 第1四半期 決算 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
           "sources": [
-            "kabupro"
+            "irbank",
+            "kabutan"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702587019.pdf"
-        },
-        {
-          "code": "6264",
-          "name": "マルマエ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年8月期 第3四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587649.pdf"
-        },
-        {
-          "code": "4361",
-          "name": "川口化学工業",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年11月期第２四半期（中間 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702586708.pdf"
-        },
-        {
-          "code": "4394",
-          "name": "エクスモーション",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年11月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260625581014.pdf"
-        },
-        {
-          "code": "3612",
-          "name": "ワールド",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年２月期 第１四半期 決算 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702587250.pdf"
-        },
-        {
-          "code": "3377",
-          "name": "バイク王＆カンパニー",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年11月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587491.pdf"
-        },
-        {
-          "code": "3498",
-          "name": "霞ヶ関キャピタル",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年8月期 第3四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702586896.pdf"
-        },
-        {
-          "code": "2678",
-          "name": "アスクル",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2026年５月期決算短信〔日本基準 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587650.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9872"
         },
         {
           "code": "9369",
           "name": "キユーソー流通システム",
           "time": "15:30",
           "category": "本決算・四半期決算",
-          "narrative": "2026年11月期 第２四半期（中 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "上期経常は6％減益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 6ヶ月",
+            "type": "実績",
+            "sales": "1027億 +3.1%",
+            "op": "29.6億 -3.6%",
+            "ord": "24.8億 -5.7%",
+            "net": "12.6億 -13.9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.1
+            },
+            {
+              "label": "営業益",
+              "value": "-3.6%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 3.6
+            },
+            {
+              "label": "経常",
+              "value": "-5.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 5.7
+            },
+            {
+              "label": "純益",
+              "value": "-13.9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 13.9
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587699.pdf"
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9369"
         },
         {
-          "code": "9253",
-          "name": "スローガン",
+          "code": "6264",
+          "name": "マルマエ",
           "time": "15:30",
           "category": "本決算・四半期決算",
-          "narrative": "2027年2月期 第1四半期決算説 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "9-5月期(3Q累計)経常が86％増益で着地・3-5月期も2.6倍増益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 9ヶ月",
+            "type": "実績",
+            "sales": "140億 +92.9%",
+            "op": "26.4億 +84.1%",
+            "ord": "24.6億 +85.7%",
+            "net": "24.3億 +159.7%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+92.9%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 92.9
+            },
+            {
+              "label": "営業益",
+              "value": "+84.1%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 84.1
+            },
+            {
+              "label": "経常",
+              "value": "+85.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 85.7
+            },
+            {
+              "label": "純益",
+              "value": "+159.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 159.7
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702587285.pdf"
-        },
-        {
-          "code": "7975",
-          "name": "リヒトラブ",
-          "time": "15:30",
-          "category": "本決算・四半期決算",
-          "narrative": "2027年２月期第１四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
           "sources": [
-            "kabupro"
+            "irbank",
+            "kabutan"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702586703.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6264"
         },
         {
           "code": "9948",
           "name": "アークス",
           "time": "15:30",
           "category": "本決算・四半期決算",
-          "narrative": "2027年２月期 第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "3-5月期(1Q)経常は6％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "1585億 +2.7%",
+            "op": "41億 +5.9%",
+            "ord": "44.7億 +5.6%",
+            "net": "28.8億 +3%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+2.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.7
+            },
+            {
+              "label": "営業益",
+              "value": "+5.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.9
+            },
+            {
+              "label": "経常",
+              "value": "+5.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.6
+            },
+            {
+              "label": "純益",
+              "value": "+3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.0
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587606.pdf"
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/9948"
         },
         {
-          "code": "1997",
-          "name": "暁飯島工業",
-          "time": "15:00",
+          "code": "3377",
+          "name": "バイク王&カンパニー",
+          "time": "15:30",
           "category": "本決算・四半期決算",
-          "narrative": "2026年８月期 第３四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
+          "narrative": "3-5月期(2Q)経常は31％増益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 6ヶ月",
+            "type": "実績",
+            "sales": "196億 +4.9%",
+            "op": "2.62億 -18%",
+            "ord": "4.33億 +0.3%",
+            "net": "3.39億 +83%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+4.9%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.9
+            },
+            {
+              "label": "営業益",
+              "value": "-18%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 18.0
+            },
+            {
+              "label": "経常",
+              "value": "+0.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 0.3
+            },
+            {
+              "label": "純益",
+              "value": "+83%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 83.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3377"
+        },
+        {
+          "code": "275A",
+          "name": "ハンワホームズ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "3-5月期(1Q)経常は78％減益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 4ヶ月",
+            "type": "実績",
+            "sales": "6.62億",
+            "op": "0.17億",
+            "ord": "0.12億",
+            "net": "0.16億"
+          },
           "chips": [],
           "sources": [
-            "kabupro"
+            "irbank",
+            "kabutan"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260702587027.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/275A"
+        },
+        {
+          "code": "3498",
+          "name": "霞ヶ関キャピタル",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "9-5月期(3Q累計)経常が11％減益で着地・3-5月期は赤字転落",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 9ヶ月",
+            "type": "実績",
+            "sales": "885億 +75%",
+            "op": "82億 -12.5%",
+            "ord": "70.5億 -10.7%",
+            "net": "45.6億 +12.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+75%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 75.0
+            },
+            {
+              "label": "営業益",
+              "value": "-12.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 12.5
+            },
+            {
+              "label": "経常",
+              "value": "-10.7%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 10.7
+            },
+            {
+              "label": "純益",
+              "value": "+12.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 12.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/3498"
+        },
+        {
+          "code": "4361",
+          "name": "川口化学工業",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "非開示だった今期経常は16％減益へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 6ヶ月",
+            "type": "実績",
+            "sales": "43.2億 ±0%",
+            "op": "3.03億 +52.7%",
+            "ord": "2.85億 +55.6%",
+            "net": "2.09億 +55.6%"
+          },
+          "chips": [
+            {
+              "label": "営業益",
+              "value": "+52.7%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 52.7
+            },
+            {
+              "label": "経常",
+              "value": "+55.6%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 55.6
+            },
+            {
+              "label": "純益",
+              "value": "+55.6%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 55.6
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/4361"
+        },
+        {
+          "code": "7975",
+          "name": "リヒトラブ",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "3-5月期(1Q)経常は3.9倍増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "28.8億 +2.7%",
+            "op": "1.39億 +645.3%",
+            "ord": "1.54億 +289.5%",
+            "net": "0.92億 +257%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+2.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 2.7
+            },
+            {
+              "label": "営業益",
+              "value": "+645.3%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 645.3
+            },
+            {
+              "label": "経常",
+              "value": "+289.5%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 289.5
+            },
+            {
+              "label": "純益",
+              "value": "+257%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 257.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7975"
+        },
+        {
+          "code": "4394",
+          "name": "エクスモーション",
+          "time": "15:30",
+          "category": "本決算・四半期決算",
+          "narrative": "上期経常は30％増益で上振れ着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 6ヶ月",
+            "type": "実績",
+            "sales": "7.06億 +4.6%",
+            "op": "0.97億 +30.2%",
+            "ord": "1億 +29.5%",
+            "net": "0.64億 +31.2%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+4.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 4.6
+            },
+            {
+              "label": "営業益",
+              "value": "+30.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 30.2
+            },
+            {
+              "label": "経常",
+              "value": "+29.5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 29.5
+            },
+            {
+              "label": "純益",
+              "value": "+31.2%",
+              "direction": "up",
+              "strength": "strong",
+              "pct": 31.2
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/4394"
         },
         {
           "code": "7611",
           "name": "ハイデイ日高",
           "time": "15:00",
           "category": "本決算・四半期決算",
-          "narrative": "2027年２月期 第１四半期決算短 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "3-5月期(1Q)経常は13％増益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "170億 +11.4%",
+            "op": "21.1億 +13%",
+            "ord": "21.2億 +13.4%",
+            "net": "14.4億 +13.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+11.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 11.4
+            },
+            {
+              "label": "営業益",
+              "value": "+13%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.0
+            },
+            {
+              "label": "経常",
+              "value": "+13.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.4
+            },
+            {
+              "label": "純益",
+              "value": "+13.4%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.4
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587460.pdf"
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/7611"
         },
         {
-          "code": "2753",
-          "name": "あみやき亭",
-          "time": "09:00",
+          "code": "1997",
+          "name": "暁飯島工業",
+          "time": "15:00",
           "category": "本決算・四半期決算",
-          "narrative": "2027年3月期第1四半期決算短信 …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
+          "narrative": "9-5月期(3Q累計)経常が16％増益で着地・3-5月期は26％減益",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 9ヶ月",
+            "type": "実績",
+            "sales": "70.7億 +3.6%",
+            "op": "10.8億 +13.7%",
+            "ord": "11.3億 +15.7%",
+            "net": "7.8億 +17.7%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.6%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.6
+            },
+            {
+              "label": "営業益",
+              "value": "+13.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 13.7
+            },
+            {
+              "label": "経常",
+              "value": "+15.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 15.7
+            },
+            {
+              "label": "純益",
+              "value": "+17.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 17.7
+            }
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260629583541.pdf"
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/1997"
         }
       ]
     },
@@ -272,26 +763,289 @@
       "zone": "other",
       "items": [
         {
+          "code": "1786",
+          "name": "オリエンタル白石",
+          "time": "19:00",
+          "category": "その他開示",
+          "narrative": "その他の関係会社の異動に関するお知 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587089.pdf"
+        },
+        {
+          "code": "2371",
+          "name": "カカクコム",
+          "time": "17:30",
+          "category": "その他開示",
+          "narrative": "Kamgras １株式会社による株 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587119.pdf"
+        },
+        {
+          "code": "4390",
+          "name": "アイ・ピー・エス",
+          "time": "17:30",
+          "category": "その他開示",
+          "narrative": "和歌山県における海底ケーブル陸揚局 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586343.pdf"
+        },
+        {
+          "code": "4812",
+          "name": "ＩＳＩＤ",
+          "time": "17:10",
+          "category": "その他開示",
+          "narrative": "当社に関する一部報道について",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586631.pdf"
+        },
+        {
+          "code": "4593",
+          "name": "ヘリオス",
+          "time": "17:05",
+          "category": "その他開示",
+          "narrative": "無償ストック・オプション（第28回 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260630584730.pdf"
+        },
+        {
+          "code": "2134",
+          "name": "燦キャピタルマネージメント",
+          "time": "17:00",
+          "category": "その他開示",
+          "narrative": "訴訟の判決確定に関するお知らせ",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587113.pdf"
+        },
+        {
+          "code": "6597",
+          "name": "ＨＰＣシステムズ",
+          "time": "17:00",
+          "category": "その他開示",
+          "narrative": "（開示事項の経過）特別当座貸越契約 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260629583256.pdf"
+        },
+        {
+          "code": "3266",
+          "name": "ファンドクリエーショングループ",
+          "time": "16:35",
+          "category": "その他開示",
+          "narrative": "財務上の特約が付された金銭消費貸借 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587078.pdf"
+        },
+        {
+          "code": "4324",
+          "name": "電通",
+          "time": "16:35",
+          "category": "その他開示",
+          "narrative": "当社および当社グループ会社に関する …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587106.pdf"
+        },
+        {
+          "code": "4597",
+          "name": "ソレイジア・ファーマ",
+          "time": "16:35",
+          "category": "その他開示",
+          "narrative": "（開示事項の経過）Sancuso( …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587073.pdf"
+        },
+        {
+          "code": "6993",
+          "name": "アジアグロースキャピタル",
+          "time": "16:30",
+          "category": "その他開示",
+          "narrative": "第21回新株予約権の行使完了に関す …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586969.pdf"
+        },
+        {
+          "code": "5161",
+          "name": "西川ゴム工業",
+          "time": "16:00",
+          "category": "その他開示",
+          "narrative": "従業員持株会を通じた株式付与として …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586825.pdf"
+        },
+        {
+          "code": "9425",
+          "name": "日本テレホン",
+          "time": "16:00",
+          "category": "その他開示",
+          "narrative": "株式会社あいプロの株式取得（子会社 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586640.pdf"
+        },
+        {
+          "code": "3566",
+          "name": "ユニフォームネクスト",
+          "time": "16:00",
+          "category": "その他開示",
+          "narrative": "2026年12月期６月度 月次業績 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586731.pdf"
+        },
+        {
+          "code": "2338",
+          "name": "ファステップス",
+          "time": "16:00",
+          "category": "その他開示",
+          "narrative": "ＡＩインフラストラクチャ（ＡＩＤＣ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587003.pdf"
+        },
+        {
+          "code": "4973",
+          "name": "日本高純度化学",
+          "time": "15:40",
+          "category": "その他開示",
+          "narrative": "主要株主の異動に関するお知らせ",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587032.pdf"
+        },
+        {
+          "code": "4171",
+          "name": "グローバルインフォメーション",
+          "time": "15:35",
+          "category": "その他開示",
+          "narrative": "株式会社ユーザベースによる当社株券 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586850.pdf"
+        },
+        {
           "code": "4617",
           "name": "中国塗料",
           "time": "15:30",
           "category": "その他開示",
-          "narrative": "業績予想の修正に関するお知らせ",
-          "narrative_source": "kabupro",
-          "metrics": null,
+          "narrative": "今期売上を1600億円に修正",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2027/03 12ヶ月",
+            "type": "修正",
+            "sales": "1600億",
+            "op": "175億",
+            "ord": "180億",
+            "net": "110億"
+          },
           "chips": [],
           "sources": [
-            "kabupro"
+            "irbank",
+            "kabutan"
           ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587492.pdf"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/4617"
         },
         {
-          "code": "9842",
-          "name": "アークランドサカモト",
+          "code": "3549",
+          "name": "クスリのアオキホールディングス",
           "time": "15:30",
           "category": "その他開示",
-          "narrative": "特別調査委員会の設置及び2027年 …",
+          "narrative": "2026年6月度 月次営業速報に関 …",
           "narrative_source": "kabupro",
           "metrics": null,
           "chips": [],
@@ -299,10 +1053,535 @@
             "kabupro"
           ],
           "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260703/140120260703587366.pdf"
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586871.pdf"
+        },
+        {
+          "code": "3719",
+          "name": "ジェクシード",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "第三者割当により発行された行使価額 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586997.pdf"
+        },
+        {
+          "code": "3837",
+          "name": "アドソル日進",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "従業員（役職者）に対する譲渡制限付 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701585965.pdf"
+        },
+        {
+          "code": "2370",
+          "name": "メディネット",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "（開示事項の経過）インドで製造販売 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586705.pdf"
+        },
+        {
+          "code": "3350",
+          "name": "レッド・プラネット・ジャパン",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "ビットコインの追加購入に関するお知 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702587026.pdf"
+        },
+        {
+          "code": "3415",
+          "name": "ＳＴＵＤＩＯＵＳ",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "【2027年1月期】2026年6月 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586716.pdf"
+        },
+        {
+          "code": "2670",
+          "name": "エービーシー・マート",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "2027年2月期　6月度概況につい …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586922.pdf"
+        },
+        {
+          "code": "2685",
+          "name": "アダストリアホールディングス",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "月次売上高前年比に関するお知らせ",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586909.pdf"
+        },
+        {
+          "code": "7606",
+          "name": "ユナイテッドアローズ",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "2026年6月度月次売上概況（速報 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586651.pdf"
+        },
+        {
+          "code": "7625",
+          "name": "グローバルダイニング",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "月次売上速報（2026年6月度）",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586964.pdf"
+        },
+        {
+          "code": "7640",
+          "name": "トップカルチャー",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "2026年10月期6月度月次売上動 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586657.pdf"
+        },
+        {
+          "code": "9990",
+          "name": "東京デリカ",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "(株)東京デリカの月次売上情報等の …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586805.pdf"
+        },
+        {
+          "code": "4596",
+          "name": "窪田製薬ホールディングス",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "エミクススタト塩酸塩の製造に係るマ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260507517556.pdf"
+        },
+        {
+          "code": "6571",
+          "name": "キュービーネットホールディングス",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "国内店舗売上高前年比（2026年6 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701585943.pdf"
+        },
+        {
+          "code": "7047",
+          "name": "ポート",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "投資家Q&A（2026年６ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586264.pdf"
+        },
+        {
+          "code": "7318",
+          "name": "セレンディップ・ホールディングス",
+          "time": "15:30",
+          "category": "その他開示",
+          "narrative": "新中期経営計画説明会動画および質疑 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586616.pdf"
+        },
+        {
+          "code": "9936",
+          "name": "王将フードサービス",
+          "time": "14:30",
+          "category": "その他開示",
+          "narrative": "2026年6月　月次売上高（速報版 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586642.pdf"
+        },
+        {
+          "code": "9072",
+          "name": "日本梱包運輸倉庫",
+          "time": "14:00",
+          "category": "その他開示",
+          "narrative": "コーポレートガバナンス・コードに関 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586635.pdf"
+        },
+        {
+          "code": "9412",
+          "name": "スカパーＪＳＡＴホールディングス",
+          "time": "14:00",
+          "category": "その他開示",
+          "narrative": "2026年6月末現在 加入件数につ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260624579048.pdf"
+        },
+        {
+          "code": "6574",
+          "name": "コンヴァノ",
+          "time": "14:00",
+          "category": "その他開示",
+          "narrative": "（開示事項の経過）アクセルマーク株 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586305.pdf"
+        },
+        {
+          "code": "6497",
+          "name": "ハマイ",
+          "time": "14:00",
+          "category": "その他開示",
+          "narrative": "（開示事項の経過）一時会計監査人の …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260624578001.pdf"
+        },
+        {
+          "code": "3624",
+          "name": "アクセルマーク",
+          "time": "14:00",
+          "category": "その他開示",
+          "narrative": "第三者割当による新株式の発行に係る …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586465.pdf"
+        },
+        {
+          "code": "6104",
+          "name": "東芝機械",
+          "time": "13:00",
+          "category": "その他開示",
+          "narrative": "南欧市場における射出成形機事業の収 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586268.pdf"
+        },
+        {
+          "code": "9519",
+          "name": "レノバ",
+          "time": "13:00",
+          "category": "その他開示",
+          "narrative": "軽米西ソーラー発電所の操業再開に関 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586766.pdf"
+        },
+        {
+          "code": "7012",
+          "name": "川崎重工業",
+          "time": "12:30",
+          "category": "その他開示",
+          "narrative": "海外募集による新株式の発行並びに2 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586607.pdf"
+        },
+        {
+          "code": "4591",
+          "name": "リボミック",
+          "time": "12:30",
+          "category": "その他開示",
+          "narrative": "軟骨無形成症治療薬（umedapt …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586672.pdf"
+        },
+        {
+          "code": "8742",
+          "name": "小林洋行",
+          "time": "12:00",
+          "category": "その他開示",
+          "narrative": "2026年６月の月間売買実績（速報 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586552.pdf"
+        },
+        {
+          "code": "3070",
+          "name": "アマガサ",
+          "time": "12:00",
+          "category": "その他開示",
+          "narrative": "サンリオキャラクターズ（Sanri …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586789.pdf"
+        },
+        {
+          "code": "9235",
+          "name": "売れるネット広告社",
+          "time": "11:35",
+          "category": "その他開示",
+          "narrative": "【売上14.63億円】【黒字】モバ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586476.pdf"
+        },
+        {
+          "code": "7063",
+          "name": "エードット",
+          "time": "11:30",
+          "category": "その他開示",
+          "narrative": "系統用蓄電池設備の完工及び運用開始 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586749.pdf"
+        },
+        {
+          "code": "4056",
+          "name": "ニューラルポケット",
+          "time": "11:30",
+          "category": "その他開示",
+          "narrative": "親会社以外の支配株主の異動に関する …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586678.pdf"
+        },
+        {
+          "code": "6579",
+          "name": "ログリー",
+          "time": "11:00",
+          "category": "その他開示",
+          "narrative": "財務報告に係る内部統制の開示すべき …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586741.pdf"
+        },
+        {
+          "code": "5574",
+          "name": "ＡＢＥＪＡ",
+          "time": "10:00",
+          "category": "その他開示",
+          "narrative": "「製造現場視 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586584.pdf"
+        },
+        {
+          "code": "9076",
+          "name": "セイノーホールディングス",
+          "time": "08:50",
+          "category": "その他開示",
+          "narrative": "社外取締役の辞任に関するお知らせ",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586494.pdf"
+        },
+        {
+          "code": "4578",
+          "name": "大塚ホールディングス",
+          "time": "08:30",
+          "category": "その他開示",
+          "narrative": "IgA腎症治療薬「VOYXACT（ …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260702586514.pdf"
+        },
+        {
+          "code": "4594",
+          "name": "グリーンペプタイド",
+          "time": "08:30",
+          "category": "その他開示",
+          "narrative": "BP2202に係る米国食品医薬品局 …",
+          "narrative_source": "kabupro",
+          "metrics": null,
+          "chips": [],
+          "sources": [
+            "kabupro"
+          ],
+          "primary_source": "kabupro",
+          "url": "http://ke.kabupro.jp/tsp/20260702/140120260701586304.pdf"
         }
       ]
     }
   ],
-  "total": 18
+  "total": 69
 }
