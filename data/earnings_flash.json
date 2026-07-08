@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-08T14:47:02.703253+09:00",
+  "updated_at": "2026-07-08T15:02:23.903906+09:00",
   "article_date": "2026-07-08",
   "sources": [
     "irbank",
@@ -7,16 +7,182 @@
     "kabupro"
   ],
   "source_counts": {
-    "irbank": 0,
-    "kabutan": 0,
+    "irbank": 3,
+    "kabutan": 3,
     "kabupro": 11
   },
   "source_dates": {
-    "irbank": "",
-    "kabutan": "",
+    "irbank": "2026-07-08",
+    "kabutan": "07/08",
     "kabupro": "2026-07-08"
   },
   "groups": [
+    {
+      "category": "増配・配当修正",
+      "display": "増配・配当修正",
+      "priority": 40,
+      "zone": "positive",
+      "items": [
+        {
+          "code": "7921",
+          "name": "宝＆ＣＯ",
+          "time": "15:00",
+          "category": "増配・配当修正",
+          "narrative": "今期最終は3％増益、60円増配へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 12ヶ月",
+            "type": "実績",
+            "sales": "312億 +5%",
+            "op": "44.2億 +9.2%",
+            "ord": "45.8億 +8.1%",
+            "net": "33.8億 -17%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+5%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.0
+            },
+            {
+              "label": "営業益",
+              "value": "+9.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 9.2
+            },
+            {
+              "label": "経常",
+              "value": "+8.1%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 8.1
+            },
+            {
+              "label": "純益",
+              "value": "-17%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 17.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/7921"
+        },
+        {
+          "code": "2502",
+          "name": "アサヒ",
+          "time": "11:30",
+          "category": "増配・配当修正",
+          "narrative": "今期最終は60％増で2期ぶり最高益、5円増配へ",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2025/12 12ヶ月",
+            "type": "実績",
+            "sales": "2.89兆 -1.5%",
+            "op": "0.19兆 -30.9%",
+            "ord": "-",
+            "net": "0.12兆 -36.4%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "-1.5%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 1.5
+            },
+            {
+              "label": "営業益",
+              "value": "-30.9%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 30.9
+            },
+            {
+              "label": "純益",
+              "value": "-36.4%",
+              "direction": "down",
+              "strength": "strong",
+              "pct": 36.4
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan",
+            "kabupro"
+          ],
+          "primary_source": "kabutan",
+          "url": "https://irbank.net/2502"
+        }
+      ]
+    },
+    {
+      "category": "本決算・四半期決算",
+      "display": "決算発表",
+      "priority": 60,
+      "zone": "decision",
+      "items": [
+        {
+          "code": "8194",
+          "name": "ライフコーポレーション",
+          "time": "11:30",
+          "category": "本決算・四半期決算",
+          "narrative": "3-5月期(1Q)経常は6％減益で着地",
+          "narrative_source": "kabutan",
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "2233億 +3.2%",
+            "op": "72.3億 -6.9%",
+            "ord": "74.8億 -6.1%",
+            "net": "50.8億 -9%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+3.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 3.2
+            },
+            {
+              "label": "営業益",
+              "value": "-6.9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 6.9
+            },
+            {
+              "label": "経常",
+              "value": "-6.1%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 6.1
+            },
+            {
+              "label": "純益",
+              "value": "-9%",
+              "direction": "down",
+              "strength": "normal",
+              "pct": 9.0
+            }
+          ],
+          "sources": [
+            "irbank",
+            "kabutan"
+          ],
+          "primary_source": "irbank",
+          "url": "https://irbank.net/8194"
+        }
+      ]
+    },
     {
       "category": "その他開示",
       "display": "その他開示",
@@ -159,21 +325,6 @@
           "url": "http://ke.kabupro.jp/tsp/20260708/140120260708589560.pdf"
         },
         {
-          "code": "2502",
-          "name": "アサヒグループホールディングス",
-          "time": "11:30",
-          "category": "その他開示",
-          "narrative": "臨時株主総会の開催日時及び場所並び …",
-          "narrative_source": "kabupro",
-          "metrics": null,
-          "chips": [],
-          "sources": [
-            "kabupro"
-          ],
-          "primary_source": "kabupro",
-          "url": "http://ke.kabupro.jp/tsp/20260708/140120260703587833.pdf"
-        },
-        {
           "code": "8418",
           "name": "山口フィナンシャルグループ",
           "time": "11:30",
@@ -191,5 +342,5 @@
       ]
     }
   ],
-  "total": 11
+  "total": 13
 }
