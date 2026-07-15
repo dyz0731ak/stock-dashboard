@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-15T18:02:51.831116+09:00",
+  "updated_at": "2026-07-15T18:17:23.988699+09:00",
   "article_date": "2026-07-15",
   "sources": [
     "irbank",
@@ -243,18 +243,55 @@
       "items": [
         {
           "code": "6086",
-          "name": "シンメンテ",
+          "name": "シンメンテ HD",
           "time": "18:00",
           "category": "本決算・四半期決算",
           "narrative": "3-5月期(1Q)経常は5％増益で着地",
           "narrative_source": "kabutan",
-          "metrics": null,
-          "chips": [],
+          "metrics": {
+            "period": "2026/05 3ヶ月",
+            "type": "実績",
+            "sales": "75.7億 +12.2%",
+            "op": "4.98億 +11.7%",
+            "ord": "4.97億 +5.3%",
+            "net": "3.62億 +18.8%"
+          },
+          "chips": [
+            {
+              "label": "売上",
+              "value": "+12.2%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 12.2
+            },
+            {
+              "label": "営業益",
+              "value": "+11.7%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 11.7
+            },
+            {
+              "label": "経常",
+              "value": "+5.3%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 5.3
+            },
+            {
+              "label": "純益",
+              "value": "+18.8%",
+              "direction": "up",
+              "strength": "normal",
+              "pct": 18.8
+            }
+          ],
           "sources": [
+            "irbank",
             "kabutan"
           ],
-          "primary_source": "kabutan",
-          "url": "https://kabutan.jp/news/?&b=k202607150133"
+          "primary_source": "irbank",
+          "url": "https://irbank.net/6086"
         },
         {
           "code": "3557",
@@ -1267,57 +1304,6 @@
           ],
           "primary_source": "irbank",
           "url": "https://irbank.net/9252"
-        },
-        {
-          "code": "2798",
-          "name": "ワイズテーブルコーポレーション",
-          "time": "16:00",
-          "category": "本決算・四半期決算",
-          "narrative": "売上+6.3% / 営業益+9.9% の業績着地",
-          "narrative_source": "template",
-          "metrics": {
-            "period": "2026/05 3ヶ月",
-            "type": "実績",
-            "sales": "35.5億 +6.3%",
-            "op": "1.98億 +9.9%",
-            "ord": "1.7億 -2.2%",
-            "net": "3.9億 +152.7%"
-          },
-          "chips": [
-            {
-              "label": "売上",
-              "value": "+6.3%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 6.3
-            },
-            {
-              "label": "営業益",
-              "value": "+9.9%",
-              "direction": "up",
-              "strength": "normal",
-              "pct": 9.9
-            },
-            {
-              "label": "経常",
-              "value": "-2.2%",
-              "direction": "down",
-              "strength": "normal",
-              "pct": 2.2
-            },
-            {
-              "label": "純益",
-              "value": "+152.7%",
-              "direction": "up",
-              "strength": "strong",
-              "pct": 152.7
-            }
-          ],
-          "sources": [
-            "irbank"
-          ],
-          "primary_source": "irbank",
-          "url": "https://irbank.net/2798"
         }
       ]
     },
@@ -2576,5 +2562,5 @@
       ]
     }
   ],
-  "total": 111
+  "total": 110
 }
