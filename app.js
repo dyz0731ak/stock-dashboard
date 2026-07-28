@@ -41,6 +41,32 @@ function clock(iso) {
   const d = new Date(iso);
   return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 }
+function ageHours(iso) {
+  if (!iso) return Infinity;
+  return (Date.now() - new Date(iso).getTime()) / 3600000;
+}
+const isFresh = (data, maxHours) => !!data && data.fetch_status !== 'stale' && ageHours(data.updated_at) <= maxHours;
+function updateLabel(data, maxHours) {
+  if (!data) return '取得できません';
+  const suffix = data.is_fallback ? `・${data.scope || '代替データ'}` : '';
+  if (!isFresh(data, maxHours)) return `要確認 ${clock(data.updated_at)}（${timeAgo(data.updated_at)}）${suffix}`;
+  return `更新 ${clock(data.updated_at)}${suffix}`;
+}
+
+function renderHealth(health) {
+  const box = $('#dataHealth');
+  if (!box || !health) return;
+  const bad = (health.datasets || []).filter(d => d.status !== 'ok');
+  if (!bad.length) {
+    box.className = 'health-banner ok';
+    box.innerHTML = `<b>データ取得は正常です</b><span>${health.healthy}/${health.total}項目を確認 ・ ${clock(health.checked_at)}</span>`;
+    return;
+  }
+  const critical = bad.filter(d => d.status === 'error' || d.status === 'missing');
+  box.className = 'health-banner ' + (critical.length ? 'error' : 'warning');
+  box.innerHTML = `<b>${critical.length ? '一部データの更新に遅れがあります' : '一部データの取得状況に注意があります'}</b>
+    <span>${bad.map(d => `${d.name}${d.message ? `：${d.message}` : ''}`).join(' ／ ')}</span>`;
+}
 
 /* ---------- ミニ・スパークライン (SVG) ---------- */
 function sparkline(chart, up) {
@@ -76,7 +102,7 @@ function renderIndices(data) {
         <span class="pct-badge" ${pctBadge(it.pct)}>${pctTxt(it.pct)}</span>
       </div>
       <div class="price num ${signCls(it.pct)}">${fmt(it.price, it.decimals)}</div>
-      <div class="change num ${signCls(it.change)}">${it.change > 0 ? '▲' : it.change < 0 ? '▼' : ''} ${signTxt(fmt(Math.abs(it.change), it.decimals))}</div>
+      <div class="change num ${signCls(it.change)}">${it.change > 0 ? '▲' : it.change < 0 ? '▼' : ''} ${fmt(Math.abs(it.change), it.decimals)}</div>
     `;
     grid.appendChild(card);
   });
@@ -164,6 +190,11 @@ function renderEarn() {
    ============================================================ */
 function renderNews(d) {
   const body = $('#newsBody'); body.innerHTML = '';
+  if (!isFresh(d, 12)) {
+    body.innerHTML = `<div class="data-notice">市場ニュースの更新を確認中です。古い記事は最新情報として表示していません。<br><small>最終取得 ${clock(d.updated_at)}（${timeAgo(d.updated_at)}）</small></div>`;
+    $('#updNews').textContent = updateLabel(d, 12);
+    return;
+  }
   d.items.forEach(it => {
     const row = el('a', 'row-item');
     row.href = it.url; row.target = '_blank'; row.rel = 'noopener';
@@ -173,17 +204,18 @@ function renderNews(d) {
       <span class="r-tag">${it.source_label || it.source}</span>`;
     body.appendChild(row);
   });
-  $('#updNews').textContent = '更新 ' + clock(d.updated_at);
+  $('#updNews').textContent = updateLabel(d, 12);
 }
 
 /* ============================================================
    5. サマリー統計
    ============================================================ */
 function renderStats(jp, ev, flashJp) {
-  const top = jp.all_stocks[0];
+  const top = (jp.all_stocks || [])[0];
+  const fallback = !!jp.is_fallback;
   const cards = [
-    { k: 'ストップ高', v: jp.stop_high_count, u: '銘柄', meta: '本日の値幅制限到達' },
-    { k: 'ストップ高接近', v: jp.near_stop_count, u: '銘柄', meta: '5%以内に接近' },
+    { k: 'ストップ高', v: fallback ? '—' : jp.stop_high_count, u: fallback ? '' : '銘柄', meta: fallback ? '全市場データを取得確認中' : '本日の値幅制限到達' },
+    { k: fallback ? '日経225 上昇銘柄' : 'ストップ高接近', v: jp.near_stop_count, u: '銘柄', meta: fallback ? '代替ランキングの対象' : '5%以内に接近' },
     { k: '最高騰落率', v: top ? top.change_pct : '—', u: '%', meta: top ? top.name : '', cls: 'up' },
     { k: '決算発表(速報)', v: flashJp ? flashJp.total : 0, u: '件', meta: '日本株・前営業日分' },
     { k: '本日の経済指標', v: ev ? ev.economic.length : 0, u: '件', meta: '★重要度付き' },
@@ -218,8 +250,14 @@ function renderRank() {
 
   if (rankMode === 'jp') {
     if (!jp) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
-    $('#rankSub').textContent = '日本株・値上がり率上位';
-    $('#updRank').textContent = '更新 ' + clock(jp.updated_at);
+    if (!isFresh(jp, 36)) {
+      body.innerHTML = `<div class="data-notice">日本株ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(jp.updated_at)}（${timeAgo(jp.updated_at)}）</small></div>`;
+      $('#rankSub').textContent = '日本株・取得確認中';
+      $('#updRank').textContent = updateLabel(jp, 36);
+      return;
+    }
+    $('#rankSub').textContent = `${jp.scope || '日本株・全市場'}・値上がり率上位${jp.is_fallback ? '（代替表示）' : ''}`;
+    $('#updRank').textContent = updateLabel(jp, 36);
     const rows = [...jp.all_stocks].filter(s => s.change_pct != null)
       .sort((a, b) => parseFloat(b.change_pct) - parseFloat(a.change_pct)).slice(0, 15);
     t.innerHTML = `<thead><tr>
@@ -235,7 +273,7 @@ function renderRank() {
         <td><div class="t-name">${s.name}</div><div class="t-sec">${s.sector || ''}</div></td>
         <td><span class="pill-mkt">${s.market}</span></td>
         <td class="r num">${fmt(s.price)}円</td>
-        <td class="r num ${signCls(pct)}">${s.change_amount}</td>
+        <td class="r num ${signCls(pct)}">${s.change_amount == null ? '—' : (Number(s.change_amount) > 0 ? '+' : '') + fmt(s.change_amount, Number.isInteger(Number(s.change_amount)) ? 0 : 2)}</td>
         <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
         <td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>`;
       tb.appendChild(tr);
@@ -244,7 +282,7 @@ function renderRank() {
   } else {
     if (!us) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
     $('#rankSub').textContent = '米国株・値上がり率上位';
-    $('#updRank').textContent = '更新 ' + clock(us.updated_at);
+    $('#updRank').textContent = updateLabel(us, 36);
     const rows = [...(us.gainers || [])].filter(s => s.change_pct != null)
       .sort((a, b) => parseFloat(b.change_pct) - parseFloat(a.change_pct)).slice(0, 15);
     t.innerHTML = `<thead><tr>
@@ -519,13 +557,15 @@ async function boot() {
     nikkei: getJSON('data/nikkei225.json'),
     sp500: getJSON('data/sp500.json'),
     themes: getJSON('data/themes.json'),
+    health: getJSON('data/health.json'),
   };
   const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
 
-  const [futures, japan, usStocks, flashJp, flashUs, events, news, nikkei, sp500, themes] = await Promise.all(
-    ['futures', 'japan', 'usStocks', 'flashJp', 'flashUs', 'events', 'news', 'nikkei', 'sp500', 'themes'].map(get)
+  const [futures, japan, usStocks, flashJp, flashUs, events, news, nikkei, sp500, themes, health] = await Promise.all(
+    ['futures', 'japan', 'usStocks', 'flashJp', 'flashUs', 'events', 'news', 'nikkei', 'sp500', 'themes', 'health'].map(get)
   );
 
+  if (health) renderHealth(health);
   if (futures) renderIndices(futures);
   if (flashJp || flashUs) { flashData = { jp: flashJp, us: flashUs }; flashMode = flashJp ? 'jp' : 'us'; renderFlash(); $('#navFlash').textContent = (flashJp ? flashJp.total : 0); }
   if (events) {
@@ -535,16 +575,24 @@ async function boot() {
     renderEvents(events);
   }
   if (news) renderNews(news);
-  if (japan || usStocks) { rankData = { jp: japan, us: usStocks }; rankMode = japan ? 'jp' : 'us'; renderRank(); }
+  if (japan || usStocks) {
+    rankData = { jp: japan, us: usStocks };
+    rankMode = isFresh(japan, 36) ? 'jp' : 'us';
+    renderRank();
+  }
   if (japan) renderStats(japan, events, flashJp);
   if (themes) { themesData = themes; renderThemes(); }
   if (nikkei || sp500) { heatData = { jp: nikkei, us: sp500 }; heatMode = nikkei ? 'jp' : 'us'; renderHeatmap(); }
 
-  // 最終更新（最新のタイムスタンプ）
-  const stamps = [futures, japan, events, news, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
-  if (stamps.length) {
-    const latest = stamps.sort().pop();
-    $('#lastUpdated').textContent = '最終更新 ' + clock(latest) + '（' + timeAgo(latest) + '）';
+  // 単一の最新時刻で古い項目を隠さず、監査時刻と正常件数を表示
+  if (health) {
+    $('#lastUpdated').textContent = `確認 ${clock(health.checked_at)}・正常 ${health.healthy}/${health.total}`;
+  } else {
+    const stamps = [futures, japan, events, news, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
+    if (stamps.length) {
+      const latest = stamps.sort().pop();
+      $('#lastUpdated').textContent = '最終取得 ' + clock(latest);
+    }
   }
 
   // ナビのスクロールスパイ

@@ -13,10 +13,12 @@
 import requests
 import json
 import datetime
+import email.utils
 import time
 import sys
 import os
 import re
+import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -339,6 +341,64 @@ def fetch_yahoo_finance_jp():
 
 
 # ──────────────────────────────────────────────
+# Google ニュース RSS（既存3ソースが取得できない場合の公開RSS代替）
+# ──────────────────────────────────────────────
+
+def fetch_google_news_rss():
+    """Google ニュースの公開RSSから日本株・市場関連の新着記事を取得。"""
+    url = (
+        "https://news.google.com/rss/search"
+        "?q=%E6%97%A5%E6%9C%AC%E6%A0%AA%20OR%20%E6%97%A5%E7%B5%8C%E5%B9%B3%E5%9D%87"
+        "&hl=ja&gl=JP&ceid=JP:ja"
+    )
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=20)
+        resp.raise_for_status()
+        root = ET.fromstring(resp.content)
+    except Exception as e:
+        print(f"  google news rss error: {e}", file=sys.stderr)
+        return []
+
+    now = datetime.datetime.now(datetime.timezone.utc)
+    items = []
+    seen = set()
+    for node in root.findall(".//item"):
+        title = (node.findtext("title") or "").strip()
+        link = (node.findtext("link") or "").strip()
+        pub = (node.findtext("pubDate") or "").strip()
+        source_node = node.find("source")
+        publisher = (source_node.text or "").strip() if source_node is not None else ""
+        if not title or not link or not is_market_related(title):
+            continue
+        try:
+            published = email.utils.parsedate_to_datetime(pub)
+            if published.tzinfo is None:
+                published = published.replace(tzinfo=datetime.timezone.utc)
+            # 古い記事が混ざらないよう直近48時間に限定
+            if (now - published.astimezone(datetime.timezone.utc)).total_seconds() > 48 * 3600:
+                continue
+            date_str = published.astimezone(JST).strftime("%m/%d %H:%M")
+        except Exception:
+            date_str = ""
+        key = title[:25]
+        if key in seen:
+            continue
+        seen.add(key)
+        items.append({
+            "title": title,
+            "url": link,
+            "date": date_str,
+            "source": "google_news",
+            "source_label": publisher or "Google ニュース",
+        })
+        if len(items) >= MAX_PER_SRC:
+            break
+
+    print(f"  google news rss: {len(items)}件", file=sys.stderr)
+    return items
+
+
+# ──────────────────────────────────────────────
 # 統合・重複除去
 # ──────────────────────────────────────────────
 
@@ -350,9 +410,11 @@ def fetch_all_market_news():
     minkabu_items  = fetch_minkabu_market()
     time.sleep(0.5)
     yahoo_items    = fetch_yahoo_finance_jp()
+    time.sleep(0.5)
+    google_items   = fetch_google_news_rss()
 
     # 統合（優先順位順）
-    all_items = kabutan_items + minkabu_items + yahoo_items
+    all_items = kabutan_items + minkabu_items + yahoo_items + google_items
 
     # タイトルで重複除去
     seen = set()
@@ -364,7 +426,12 @@ def fetch_all_market_news():
             result.append(item)
 
     print(f"  合計: {len(result)}件（重複除去後）", file=sys.stderr)
-    return result[:MAX_TOTAL]
+    return result[:MAX_TOTAL], {
+        "kabutan": len(kabutan_items),
+        "minkabu": len(minkabu_items),
+        "yahoo_jp": len(yahoo_items),
+        "google_news": len(google_items),
+    }
 
 
 # ──────────────────────────────────────────────
@@ -380,11 +447,15 @@ def main():
         print(json.dumps({"status": "cached", "count": len(cache.get("items", []))}))
         return
 
-    items = fetch_all_market_news()
+    items, source_counts = fetch_all_market_news()
+    now = datetime.datetime.now(JST).isoformat()
 
     result = {
         "items":      items,
-        "updated_at": datetime.datetime.now(JST).isoformat(),
+        "updated_at": now,
+        "last_attempt_at": now,
+        "fetch_status": "ok" if items else "stale",
+        "source_counts": source_counts,
     }
     # 取得失敗（0件）で既存の良いデータを破壊しないようガード
     saved = safe_save(
@@ -392,6 +463,7 @@ def main():
         result,
         lambda d: len(d.get("items", [])),
         label="市場ニュース",
+        failure_reason="市場ニュースの全取得元で新着記事を取得できませんでした",
     )
 
     print(json.dumps({

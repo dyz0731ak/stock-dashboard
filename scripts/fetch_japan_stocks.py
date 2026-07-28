@@ -360,12 +360,99 @@ def change_pct_float(s):
         return 0.0
 
 
+def load_nikkei225_fallback():
+    """
+    株探を取得できない環境向けの代替データ。
+    日経225構成銘柄に範囲を限定し、全市場ランキングとは明確に区別する。
+    """
+    path = "data/nikkei225.json"
+    try:
+        with open(path, encoding="utf-8") as f:
+            source = json.load(f)
+    except Exception as e:
+        print(f"[日本株] 日経225フォールバック読込失敗: {e}", file=sys.stderr)
+        return None
+
+    stocks = []
+    for item in source.get("stocks", source.get("items", [])):
+        price = item.get("price")
+        prev = item.get("prev_close")
+        pct = item.get("change_pct")
+        if price is None or pct is None:
+            continue
+        change = (price - prev) if prev is not None else None
+        stocks.append({
+            "code": str(item.get("code") or "").replace(".T", ""),
+            "name": item.get("name") or item.get("ticker") or "",
+            "market": "東証",
+            "price": price,
+            "stop_high_price": None,
+            "is_stop_high": False,
+            "change_amount": round(change, 2) if change is not None else None,
+            "change_pct": round(float(pct), 3),
+            "volume": item.get("volume"),
+            "sector": item.get("sector") or "不明",
+            "description": None,
+            "industry": None,
+            "website": None,
+            "chart": None,
+        })
+
+    stocks.sort(key=change_pct_float, reverse=True)
+    if not stocks:
+        return None
+
+    return {
+        "stocks": stocks[:50],
+        "source_updated_at": source.get("updated_at"),
+    }
+
+
 def main():
     print("[日本株] 取得開始...", file=sys.stderr)
 
     # 1. S高 + 上昇率上位を取得
-    stop_high, near_stop = fetch_stop_high_pages()
+    if os.environ.get("FORCE_JP_FALLBACK") == "1":
+        stop_high, near_stop = [], []
+        print("[日本株] テスト指定により株探取得をスキップ", file=sys.stderr)
+    else:
+        stop_high, near_stop = fetch_stop_high_pages()
     print(f"[日本株] S高={len(stop_high)}件 / 上昇率上位={len(near_stop)}件", file=sys.stderr)
+
+    # GitHub Actions などで株探が0件になる場合は、更新済みの日経225データに切替。
+    # 対象範囲が異なるため、表示側で「日経225構成銘柄」と明示する。
+    if not stop_high and not near_stop:
+        fallback = load_nikkei225_fallback()
+        if fallback:
+            now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
+            output = {
+                "updated_at": now,
+                "source_updated_at": fallback["source_updated_at"],
+                "last_attempt_at": now,
+                "source": "nikkei225_yfinance",
+                "source_label": "日経225構成銘柄（Yahoo Finance / yfinance）",
+                "scope": "日経225構成銘柄",
+                "fetch_status": "fallback",
+                "fetch_warning": "全市場ランキングの取得に失敗したため、日経225構成銘柄の値上がり率順を表示しています",
+                "is_fallback": True,
+                "stop_high_count": None,
+                "near_stop_count": len(fallback["stocks"]),
+                "all_stocks": fallback["stocks"],
+                "sector_analysis": {},
+                "theme_keywords": [],
+            }
+            safe_save(
+                "data/japan_stocks.json",
+                output,
+                lambda d: len(d.get("all_stocks", [])),
+                label="日本株（日経225代替）",
+            )
+            print(json.dumps({
+                "status": "fallback",
+                "scope": output["scope"],
+                "all_stocks": len(output["all_stocks"]),
+            }))
+            return
 
     # 2. 全銘柄の業種を kabutan から取得（S高 + 上昇率上位）
     if stop_high:
@@ -408,6 +495,12 @@ def main():
     jst = datetime.timezone(datetime.timedelta(hours=9))
     output = {
         "updated_at":      datetime.datetime.now(jst).isoformat(),
+        "last_attempt_at": datetime.datetime.now(jst).isoformat(),
+        "source":          "kabutan",
+        "source_label":    "株探 値上がり率ランキング",
+        "scope":           "国内株・全市場",
+        "fetch_status":    "ok",
+        "is_fallback":     False,
         "stop_high_count": len(stop_high),
         "near_stop_count": len(near_stop),
         "all_stocks":      all_stocks,

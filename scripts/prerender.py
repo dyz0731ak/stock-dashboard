@@ -24,6 +24,29 @@ DATA = os.path.join(ROOT, "data")
 INDEX = os.path.join(ROOT, "index.html")
 SITEMAP = os.path.join(ROOT, "sitemap.xml")
 BASE_URL = "https://dashboard.stock-overflow24.com"
+ADSENSE_CLIENT = "ca-pub-8504127793204920"
+GA_ID = os.environ.get("GA4_ID", "")
+
+FIXED_PAGES = [
+    ("stop-high", "今日のストップ高銘柄", "ストップ高銘柄"),
+    ("top-gainers", "今日の急騰銘柄ランキング", "急騰銘柄ランキング"),
+    ("volume-surge", "出来高急増銘柄", "出来高急増"),
+    ("us-gainers", "米国株トップゲイナー", "米国株トップゲイナー"),
+    ("earnings", "本日の決算速報", "決算速報"),
+    ("economic-calendar", "経済指標カレンダー", "経済指標"),
+]
+
+
+def adsense_head():
+    return (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+            f'?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
+
+
+def ga_head():
+    if not GA_ID:
+        return ""
+    return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>"""
 
 
 def load(name):
@@ -75,23 +98,41 @@ def pct_badge_style(pct):
     return "background:#eef1f5;color:var(--ink-3)"
 
 
+def is_fresh(data, max_hours):
+    if not data or data.get("fetch_status") == "stale":
+        return False
+    try:
+        updated = datetime.datetime.fromisoformat(data["updated_at"].replace("Z", "+00:00"))
+        if updated.tzinfo is None:
+            updated = updated.replace(tzinfo=JST)
+        return (datetime.datetime.now(datetime.timezone.utc) - updated.astimezone(
+            datetime.timezone.utc
+        )).total_seconds() <= max_hours * 3600
+    except Exception:
+        return False
+
+
 # ─────────────────────────────────────────────
 # 各セクションの HTML 生成
 # ─────────────────────────────────────────────
 def build_hero(japan, themes, futures):
     today = datetime.datetime.now(JST).strftime("%-m/%-d")
     bits = []
-    if japan and japan.get("all_stocks"):
+    if is_fresh(japan, 36) and japan.get("all_stocks"):
         top = max(japan["all_stocks"], key=lambda s: float(s.get("change_pct") or 0))
-        bits.append(f'本日のストップ高は{japan.get("stop_high_count", 0)}銘柄、'
-                    f'急騰トップは{esc(top["name"])}（{esc(top["code"])}・{pcttxt(top["change_pct"])}）')
-    if themes and themes.get("themes"):
+        if japan.get("is_fallback"):
+            bits.append(f'{esc(japan.get("scope", "日経225構成銘柄"))}の上昇率トップは'
+                        f'{esc(top["name"])}（{esc(top["code"])}・{pcttxt(top["change_pct"])}）')
+        else:
+            bits.append(f'本日のストップ高は{japan.get("stop_high_count", 0)}銘柄、'
+                        f'急騰トップは{esc(top["name"])}（{esc(top["code"])}・{pcttxt(top["change_pct"])}）')
+    if is_fresh(themes, 36) and themes.get("themes"):
         t = max(themes["themes"], key=lambda x: x.get("week_pct", 0))
         bits.append(f'注目テーマは{esc(t["name"])}（週{pcttxt(t["week_pct"])}）')
     lead2 = "、".join(bits)
-    h = ['<h1 class="hero-h1">日本株・米国株 リアルタイム株式ダッシュボード｜投資の砦</h1>']
+    h = ['<h1 class="hero-h1">日本株・米国株 定期更新ダッシュボード｜投資の砦</h1>']
     h.append('<p class="hero-lead">ストップ高・急騰銘柄・米国株トップゲイナー・決算速報・テーマ株ランキング・'
-             '経済指標カレンダー・日経225/S&amp;P500ヒートマップを一画面でリアルタイム自動更新。'
+             '経済指標カレンダー・日経225/S&amp;P500ヒートマップを一画面で約15分間隔に定期更新。'
              + (f'<br>{today}時点 — {lead2}。' if lead2 else "") + '</p>')
     return "\n".join(h)
 
@@ -116,7 +157,7 @@ def build_idx(futures):
 
 
 def build_rank(japan):
-    if not japan or not japan.get("all_stocks"):
+    if not is_fresh(japan, 36) or not japan.get("all_stocks"):
         return ""
     rows = sorted([s for s in japan["all_stocks"] if s.get("change_pct") is not None],
                   key=lambda s: -float(s["change_pct"]))[:15]
@@ -231,7 +272,7 @@ def build_flash(flash):
 
 
 def build_news(news):
-    if not news or not news.get("items"):
+    if not is_fresh(news, 12) or not news.get("items"):
         return ""
     rows = []
     for it in news["items"]:
@@ -265,10 +306,16 @@ def build_earn(events):
 def build_stats(japan, events, flash):
     if not japan:
         return ""
-    cards = [
-        ("ストップ高", japan.get("stop_high_count", 0), "銘柄", "本日の値幅制限到達", ""),
-        ("ストップ高接近", japan.get("near_stop_count", 0), "銘柄", "5%以内に接近", ""),
-    ]
+    if japan.get("is_fallback"):
+        cards = [
+            ("ストップ高", "—", "", "全市場データを取得確認中", ""),
+            ("日経225 上昇銘柄", japan.get("near_stop_count", 0), "銘柄", "代替ランキングの対象", ""),
+        ]
+    else:
+        cards = [
+            ("ストップ高", japan.get("stop_high_count", 0), "銘柄", "本日の値幅制限到達", ""),
+            ("ストップ高接近", japan.get("near_stop_count", 0), "銘柄", "5%以内に接近", ""),
+        ]
     if japan.get("all_stocks"):
         top = max(japan["all_stocks"], key=lambda s: float(s.get("change_pct") or 0))
         cards.append(("最高騰落率", pcttxt(top["change_pct"]).rstrip("%"), "%", esc(top["name"]), "up"))
@@ -284,12 +331,14 @@ def build_stats(japan, events, flash):
 
 def build_themelinks(themes):
     """フッターのテーマ株リンク（クロール導線）。週間騰落率順。"""
+    links = '<span class="ft-label">毎日見るページ</span>'
+    links += "".join(f'<a href="/{slug}/">{esc(label)}</a>' for slug, _title, label in FIXED_PAGES)
     if not themes or not themes.get("themes"):
-        return ""
+        return links
     import prerender_themes as pt
     ts = sorted([t for t in themes["themes"] if pt.SLUGS.get(t["name"])],
                 key=lambda x: -(x.get("week_pct") or 0))
-    links = '<span class="ft-label">テーマ株から探す</span>'
+    links += '<span class="ft-label">テーマ株から探す</span>'
     links += "".join(f'<a href="/themes/{pt.SLUGS[t["name"]]}/">{esc(t["name"])}関連株</a>' for t in ts)
     links += '<a href="/themes/"><b>テーマ株一覧 ›</b></a>'
     return links
@@ -308,7 +357,281 @@ def build_heat(nikkei):
     return f'<div class="hm-fallback">{spans}</div>'
 
 
-def write_sitemap(theme_slugs=None):
+def as_float(v, default=None):
+    try:
+        return float(v)
+    except Exception:
+        return default
+
+
+def stock_label(s):
+    code = s.get("code") or s.get("symbol") or s.get("ticker") or ""
+    name = s.get("name") or s.get("company") or s.get("company_name") or ""
+    return code, name
+
+
+def market_page_nav(current):
+    links = []
+    for slug, _title, label in FIXED_PAGES:
+        attr = ' aria-current="page"' if slug == current else ""
+        links.append(f'<a href="/{slug}/"{attr}>{esc(label)}</a>')
+    return '<div class="rel">' + "".join(links) + '</div>'
+
+
+def fixed_table(headers, rows, empty):
+    if not rows:
+        return f'<div class="lead">{esc(empty)}</div>'
+    head = "".join(f'<th class="{cls}">{esc(label)}</th>' for label, cls in headers)
+    body = "".join(rows)
+    return f'<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
+
+
+def jp_stock_table(stocks, empty):
+    rows = []
+    for i, s in enumerate(stocks[:30]):
+        code, name = stock_label(s)
+        pct = as_float(s.get("change_pct"), 0)
+        status = '<span class="up">S高</span>' if s.get("is_stop_high") else ""
+        rows.append(
+            f'<tr><td class="r">{i+1}</td><td><b>{esc(name)}</b><br><span style="color:var(--ink-3);font-size:12px">{esc(s.get("sector",""))}</span></td>'
+            f'<td class="r">{esc(code)}</td><td class="r">{fmt(s.get("price"))}円</td>'
+            f'<td class="r {sign_cls(pct)}"><b>{pcttxt(pct)}</b></td><td class="r">{status}</td></tr>'
+        )
+    return fixed_table(
+        [("#", "r"), ("銘柄", ""), ("コード", "r"), ("株価", "r"), ("騰落率", "r"), ("状態", "r")],
+        rows,
+        empty,
+    )
+
+
+def us_stock_table(stocks, empty):
+    rows = []
+    for i, s in enumerate(stocks[:30]):
+        code, name = stock_label(s)
+        pct = as_float(s.get("change_pct") or s.get("changesPercentage"), 0)
+        price = s.get("price") or s.get("last_price") or s.get("regularMarketPrice")
+        rows.append(
+            f'<tr><td class="r">{i+1}</td><td><b>{esc(name or code)}</b></td>'
+            f'<td class="r">{esc(code)}</td><td class="r">{fmt(price, 2)}</td>'
+            f'<td class="r {sign_cls(pct)}"><b>{pcttxt(pct)}</b></td></tr>'
+        )
+    return fixed_table(
+        [("#", "r"), ("銘柄", ""), ("ティッカー", "r"), ("株価", "r"), ("騰落率", "r")],
+        rows,
+        empty,
+    )
+
+
+def volume_table(volume):
+    jp = (volume or {}).get("jp_stocks") or []
+    us = (volume or {}).get("us_stocks") or []
+    stocks = [(s, "日本株") for s in jp] + [(s, "米国株") for s in us]
+    if not stocks:
+        stocks = [(s, "日本株") for s in ((volume or {}).get("items") or [])]
+    rows = []
+    for i, (s, market) in enumerate(stocks[:30]):
+        code, name = stock_label(s)
+        pct = as_float(s.get("change_pct"), 0)
+        vol = s.get("volume_today") or s.get("volume") or s.get("出来高") or ""
+        ratio = s.get("volume_ratio") or s.get("ratio") or s.get("volume_change_pct") or ""
+        price_unit = "円" if market == "日本株" else "ドル"
+        rows.append(
+            f'<tr><td class="r">{i+1}</td><td>{market}</td><td><b>{esc(name)}</b></td><td class="r">{esc(code)}</td>'
+            f'<td class="r">{fmt(s.get("price"), 0 if market == "日本株" else 2)}{price_unit}</td><td class="r {sign_cls(pct)}"><b>{pcttxt(pct)}</b></td>'
+            f'<td class="r">{esc(vol)}</td><td class="r">{esc(ratio)}</td></tr>'
+        )
+    return fixed_table(
+        [("#", "r"), ("市場", ""), ("銘柄", ""), ("コード", "r"), ("株価", "r"), ("騰落率", "r"), ("出来高", "r"), ("急増度", "r")],
+        rows,
+        "出来高急増データは次回の自動更新後に表示されます。トップページのリアルタイム欄もあわせて確認してください。",
+    )
+
+
+def earnings_table(events, flash):
+    rows = []
+    for g in (flash or {}).get("groups") or []:
+        label = g.get("display") or g.get("label") or "決算速報"
+        for it in (g.get("items") or [])[:12]:
+            code = it.get("code") or it.get("symbol") or ""
+            name = it.get("name") or ""
+            chips = " / ".join(f'{c.get("label","")} {c.get("value","")}' for c in (it.get("chips") or []))
+            rows.append(
+                f'<tr><td>{esc(label)}</td><td class="r">{esc(it.get("time",""))}</td>'
+                f'<td><b>{esc(name)}</b></td><td class="r">{esc(code)}</td>'
+                f'<td>{esc(it.get("narrative") or chips)}</td></tr>'
+            )
+    if not rows:
+        for it in ((events or {}).get("jp_earnings") or (events or {}).get("us_earnings") or [])[:30]:
+            code = it.get("code") or it.get("symbol") or ""
+            rows.append(
+                f'<tr><td>{esc(it.get("market","決算予定"))}</td><td class="r">{esc(it.get("time_jst_label") or it.get("quarter") or "")}</td>'
+                f'<td><b>{esc(it.get("name"))}</b></td><td class="r">{esc(code)}</td><td>{esc(it.get("memo",""))}</td></tr>'
+            )
+    return fixed_table(
+        [("区分", ""), ("時刻", "r"), ("銘柄", ""), ("コード", "r"), ("内容", "")],
+        rows,
+        "決算速報データは次回の自動更新後に表示されます。",
+    )
+
+
+def economic_table(events):
+    rows = []
+    for e in sorted((events or {}).get("economic") or [], key=lambda x: x.get("datetime_jst") or "")[:40]:
+        stars = "★" * int(e.get("stars") or 0)
+        rows.append(
+            f'<tr><td>{esc(e.get("date",""))}</td><td class="r">{esc(e.get("time_jst",""))}</td>'
+            f'<td>{esc(e.get("country_label") or e.get("country") or "")}</td>'
+            f'<td><b>{esc(e.get("event_ja") or e.get("event"))}</b></td>'
+            f'<td class="r">{esc(e.get("actual",""))}</td><td class="r">{esc(e.get("forecast",""))}</td>'
+            f'<td class="r">{esc(e.get("prior",""))}</td><td class="r">{esc(stars)}</td></tr>'
+        )
+    return fixed_table(
+        [("日付", ""), ("時刻", "r"), ("国", ""), ("指標", ""), ("結果", "r"), ("予想", "r"), ("前回", "r"), ("重要度", "r")],
+        rows,
+        "経済指標データは次回の自動更新後に表示されます。",
+    )
+
+
+def fixed_page_html(slug, title, desc, lead, updated, content):
+    import prerender_themes as pt
+    url = f"{BASE_URL}/{slug}/"
+    jsonld = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": title,
+        "url": url,
+        "description": desc,
+        "inLanguage": "ja",
+        "isPartOf": {"@type": "WebSite", "name": "投資の砦", "url": BASE_URL + "/"},
+    }
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>{esc(title)}｜投資の砦</title>
+<meta name="description" content="{esc(desc)}"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="{url}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="{url}"/>
+<meta property="og:title" content="{esc(title)}｜投資の砦"/>
+<meta property="og:description" content="{esc(desc)}"/>
+<meta property="og:image" content="{BASE_URL}/ogp.png"/>
+<meta property="og:site_name" content="投資の砦"/>
+<meta property="og:locale" content="ja_JP"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{esc(title)}｜投資の砦"/>
+<meta name="twitter:description" content="{esc(desc)}"/>
+<meta name="twitter:image" content="{BASE_URL}/ogp.png"/>
+{adsense_head()}
+{ga_head()}
+<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
+<style>{pt.CSS}</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner">
+<a href="{BASE_URL}/" class="brand"><span class="logo">砦</span>
+<span>投資の砦<small>日本株・米国株マーケット</small></span></a>
+</div></header>
+<div class="wrap">
+<nav class="crumb"><a href="{BASE_URL}/">ホーム</a> › {esc(title)}</nav>
+<h1>{esc(title)}</h1>
+<p class="sub">更新日 {esc(updated)}（定期更新・各ページの参照データ時刻）</p>
+<div class="lead">{esc(lead)}</div>
+{content}
+<h2>ほかの市場データを見る</h2>
+{market_page_nav(slug)}
+</div>
+<footer><div class="foot-inner">© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
+</body>
+</html>
+"""
+
+
+def write_fixed_pages(japan, volume, us, events, flash):
+    today = datetime.datetime.now(JST).strftime("%Y-%m-%d")
+    def data_date(data):
+        return ((data or {}).get("updated_at") or today)[:10]
+
+    all_jp = (japan or {}).get("all_stocks") or []
+    top_jp = sorted([s for s in all_jp if as_float(s.get("change_pct")) is not None],
+                    key=lambda s: as_float(s.get("change_pct"), -999), reverse=True)
+    stop_high = [s for s in top_jp if s.get("is_stop_high")]
+    us_gainers = (us or {}).get("gainers") or []
+    jp_fallback = bool((japan or {}).get("is_fallback"))
+    jp_scope = (japan or {}).get("scope") or "国内株・全市場"
+    jp_source = (japan or {}).get("source_label") or "ランキング取得元"
+    if jp_fallback:
+        stop_lead = "全市場のストップ高データは現在取得確認中です。代替ランキングをストップ高として扱っていません。"
+        stop_content = jp_stock_table([], "本日のストップ高は取得確認中です。古いデータや代替データは表示していません。")
+    else:
+        stop_lead = f"本日のストップ高は{(japan or {}).get('stop_high_count', len(stop_high))}銘柄。値幅制限に到達した銘柄を急騰率順にまとめています。出典: {jp_source}"
+        stop_content = jp_stock_table(stop_high, "本日のストップ高該当銘柄はありません。")
+    volume_warning = (volume or {}).get("fetch_warning")
+    if not volume_warning and (volume or {}).get("jp_count", 0) == 0:
+        volume_warning = "日本株の出来高ランキングは取得確認中です"
+    payloads = {
+        "stop-high": (
+            "今日のストップ高銘柄",
+            "本日のストップ高銘柄を一覧で確認できます。株価・騰落率・業種を自動更新し、短期資金が集まる銘柄を素早く把握できます。",
+            stop_lead,
+            stop_content,
+        ),
+        "top-gainers": (
+            "今日の急騰銘柄ランキング",
+            "日本株の急騰銘柄を騰落率順にランキング表示。株価・業種・ストップ高到達有無を自動更新します。",
+            f"{jp_scope}の値上がり率上位を一覧化しています。出典: {jp_source}。"
+            + (" 全市場データ取得停止中のため、対象を限定した代替表示です。" if jp_fallback else ""),
+            jp_stock_table(top_jp, "急騰銘柄データは次回の自動更新後に表示されます。"),
+        ),
+        "volume-surge": (
+            "出来高急増銘柄",
+            "出来高が急増した日本株を一覧化。値動きだけでなく売買代金や市場参加者の注目度を確認できます。",
+            f"出来高急増データを定期更新しています。件数は日本株{(volume or {}).get('jp_count', 0)}件、米国株{(volume or {}).get('us_count', 0)}件です。"
+            + (f" 注意: {volume_warning}。" if volume_warning else ""),
+            volume_table(volume),
+        ),
+        "us-gainers": (
+            "米国株トップゲイナー",
+            "米国株の値上がり率上位銘柄を自動更新。ティッカー・株価・騰落率を日本語サイト上でまとめて確認できます。",
+            f"米国株トップゲイナーを騰落率順に表示します。取得件数は{(us or {}).get('total_gainers', len(us_gainers))}件です。",
+            us_stock_table(us_gainers, "米国株トップゲイナーデータは次回の自動更新後に表示されます。"),
+        ),
+        "earnings": (
+            "本日の決算速報",
+            "日本株・米国株の決算速報と決算予定を一覧化。サプライズ決算や注目銘柄の発表状況を確認できます。",
+            f"決算速報・決算予定を自動更新しています。現在の速報件数は{(flash or {}).get('total', 0)}件です。",
+            earnings_table(events, flash),
+        ),
+        "economic-calendar": (
+            "経済指標カレンダー",
+            "本日の経済指標カレンダーを日本時間で確認。結果・予想・前回値・重要度を一覧化しています。",
+            f"本日の主要経済指標は{len((events or {}).get('economic') or [])}件。発表時刻・結果・予想を日本時間で整理しています。",
+            economic_table(events),
+        ),
+    }
+    updates = {
+        "stop-high": data_date(japan),
+        "top-gainers": data_date(japan),
+        "volume-surge": data_date(volume),
+        "us-gainers": data_date(us),
+        "earnings": data_date(flash or events),
+        "economic-calendar": data_date(events),
+    }
+    written = []
+    for slug, _title, _label in FIXED_PAGES:
+        title, desc, lead, content = payloads[slug]
+        d = os.path.join(ROOT, slug)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(fixed_page_html(slug, title, desc, lead, updates[slug], content))
+        written.append(slug)
+    print(f"  ✓ [固定SEOページ] {len(written)} ページを生成")
+    return written
+
+
+def write_sitemap(theme_slugs=None, fixed_slugs=None):
     """sitemap.xml を生成。トップは毎日データ更新されるので lastmod=当日(JST)・changefreq=daily。
     /about/ は内容がほぼ不変なのでファイルの更新日を lastmod にする（毎日変わったと誤認させない）。
     theme_slugs を渡すと /themes/ ハブ + 各テーマページも収録する。"""
@@ -322,6 +645,9 @@ def write_sitemap(theme_slugs=None):
         (f"{BASE_URL}/", today, "daily", "1.0"),
         (f"{BASE_URL}/about/", about_lastmod, "monthly", "0.7"),
     ]
+    if fixed_slugs:
+        for slug in fixed_slugs:
+            urls.append((f"{BASE_URL}/{slug}/", today, "daily", "0.85"))
     if theme_slugs:
         urls.append((f"{BASE_URL}/themes/", today, "daily", "0.8"))
         for slug in theme_slugs:
@@ -349,6 +675,8 @@ def main():
     futures = load("futures.json")
     japan = load("japan_stocks.json")
     themes = load("themes.json")
+    volume = load("volume_stocks.json")
+    us = load("us_stocks.json")
     events = load("events.json")
     flash = load("earnings_flash.json")
     news = load("market_news.json")
@@ -388,7 +716,8 @@ def main():
         print(f"  ⚠ テーマページ生成に失敗: {e}")
         theme_slugs = None
 
-    write_sitemap(theme_slugs)
+    fixed_slugs = write_fixed_pages(japan, volume, us, events, flash)
+    write_sitemap(theme_slugs, fixed_slugs)
 
 
 if __name__ == "__main__":

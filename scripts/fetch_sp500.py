@@ -21,6 +21,7 @@ GICS 11セクター分類で銘柄をグルーピング。各銘柄について:
 import yfinance as yf
 import json
 import datetime
+import math
 import sys
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -409,7 +410,11 @@ def fetch_one(symbol, name, sector):
             return None
         prev_close = float(hist["Close"].iloc[-2])
         price      = float(hist["Close"].iloc[-1])
+        if not math.isfinite(prev_close) or not math.isfinite(price) or price <= 0:
+            return None
         change_pct = ((price - prev_close) / prev_close * 100) if prev_close else 0.0
+        if not math.isfinite(change_pct):
+            return None
 
         market_cap = None
         try:
@@ -433,7 +438,7 @@ def fetch_one(symbol, name, sector):
             "price":      round(price, 2),
             "prev_close": round(prev_close, 2),
             "change_pct": round(change_pct, 3),
-            "market_cap": int(market_cap) if market_cap else None,
+            "market_cap": int(market_cap) if market_cap and math.isfinite(market_cap) else None,
         }
     except Exception as e:
         print(f"  [{symbol}] error: {e}", file=sys.stderr)

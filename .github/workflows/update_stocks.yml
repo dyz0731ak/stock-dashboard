@@ -2,8 +2,8 @@ name: Update Stock Data
 
 on:
   schedule:
-    # 5分おきに実行（UTC）※GitHub Actions cron は仕様上ベストエフォートで遅延あり
-    - cron: '*/5 * * * *'
+    # 約15分おきに実行（UTC）※GitHub Actions cron は仕様上ベストエフォートで遅延あり
+    - cron: '*/15 * * * *'
   workflow_dispatch:   # 手動実行も可能
 
 permissions:
@@ -35,12 +35,6 @@ jobs:
           pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
-      - name: Fetch Japan stocks (kabutan.jp ストップ高)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_japan_stocks.py
-        continue-on-error: true
-
       - name: Fetch futures and FX (先物・為替)
         run: |
           cd ${{ github.workspace }}
@@ -51,6 +45,13 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_nikkei225.py
+        continue-on-error: true
+
+      # 株探が0件の場合、直前に更新した日経225を対象限定の代替ランキングに使う
+      - name: Fetch Japan stocks (kabutan.jp ストップ高)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_japan_stocks.py
         continue-on-error: true
 
       - name: Fetch S&P 500 heatmap data (S&P500ヒートマップ)
@@ -125,6 +126,11 @@ jobs:
           python scripts/fetch_themes.py
         continue-on-error: true
 
+      - name: Audit data freshness (件数・更新時刻・部分取得失敗)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/audit_data_freshness.py
+
       - name: Prerender index.html (SSG・SEO用に本文を焼き込む)
         run: |
           cd ${{ github.workspace }}
@@ -134,7 +140,7 @@ jobs:
       - name: Check if data changed
         id: check-changes
         run: |
-          git diff --quiet data/ index.html || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet -- data/ index.html sitemap.xml themes/ stop-high/ top-gainers/ volume-surge/ us-gainers/ earnings/ economic-calendar/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated data
         if: steps.check-changes.outputs.changed == 'true'
@@ -151,6 +157,12 @@ jobs:
       - name: No changes detected
         if: steps.check-changes.outputs.changed != 'true'
         run: echo "Data unchanged, skipping commit."
+
+      # health.json は先に公開し、その後に重大な欠損があればジョブを赤くして見逃しを防ぐ
+      - name: Fail workflow on critical stale data
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/audit_data_freshness.py --strict --no-write
 
   # データ更新後のデプロイは deploy.yml (push トリガー) が担当
   # update-data が git push すると自動的に deploy.yml が起動する

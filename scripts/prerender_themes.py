@@ -21,6 +21,20 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 DATA = os.path.join(ROOT, "data")
 OUT_DIR = os.path.join(ROOT, "themes")
 BASE_URL = "https://dashboard.stock-overflow24.com"
+ADSENSE_CLIENT = "ca-pub-8504127793204920"
+GA_ID = os.environ.get("GA4_ID", "")
+
+
+def adsense_head():
+    return (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+            f'?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
+
+
+def ga_head():
+    if not GA_ID:
+        return ""
+    return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>"""
 
 # テーマ名 → URL スラッグ（ascii・固定）
 SLUGS = {
@@ -160,7 +174,7 @@ def build_page(theme, all_themes, updated):
         return None
     intro = THEME_INTRO.get(name, f"{name}に関連する銘柄群の値動きをまとめたページです。")
     title = f"{name}関連株 一覧・値動きランキング｜投資の砦"
-    desc = (f"{name}関連株の主要銘柄一覧と週間・月間の騰落率、勝率をリアルタイムで確認できます。"
+    desc = (f"{name}関連株の主要銘柄一覧と週間・月間の騰落率、勝率を定期更新で確認できます。"
             f"{intro[:60]}…")[:120]
     url = f"{BASE_URL}/themes/{slug}/"
 
@@ -222,6 +236,8 @@ def build_page(theme, all_themes, updated):
 <meta name="twitter:title" content="{esc(title)}"/>
 <meta name="twitter:description" content="{esc(desc)}"/>
 <meta name="twitter:image" content="{BASE_URL}/ogp.png"/>
+{adsense_head()}
+{ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{CSS}</style>
 </head>
@@ -233,7 +249,7 @@ def build_page(theme, all_themes, updated):
 <div class="wrap">
 <nav class="crumb"><a href="{BASE_URL}/">ホーム</a> › <a href="{BASE_URL}/themes/">テーマ株</a> › {esc(name)}関連株</nav>
 <h1>{esc(name)}関連株【主要銘柄・週間/月間騰落率ランキング】</h1>
-<p class="sub">構成銘柄 {esc(theme.get("count", ""))} 社 ／ 更新日 {esc(updated)}（自動更新）</p>
+<p class="sub">構成銘柄 {esc(theme.get("count", ""))} 社 ／ 更新日 {esc(updated)}（定期更新）</p>
 <div class="lead">{esc(intro)}{spark}</div>
 <div class="stats">
 <div class="stat"><div class="k">前日比</div><div class="v {sign_cls(theme.get("day_pct"))}">{pcttxt(theme.get("day_pct"))}</div></div>
@@ -243,7 +259,7 @@ def build_page(theme, all_themes, updated):
 </div>
 <h2>{esc(name)}関連の主要銘柄</h2>
 {table}
-<p style="margin:18px 0"><a class="cta" href="{BASE_URL}/#themes">▶ 全テーマのランキングをリアルタイムで見る</a></p>
+<p style="margin:18px 0"><a class="cta" href="{BASE_URL}/#themes">▶ 全テーマの最新ランキングを見る</a></p>
 <h2>他のテーマ株を見る</h2>
 <div class="rel">{rel}</div>
 </div>
@@ -258,7 +274,7 @@ def build_hub(themes, updated):
     url = f"{BASE_URL}/themes/"
     title = "テーマ株ランキング一覧｜関連株の値動きを一覧で｜投資の砦"
     desc = ("半導体・AI・防衛・海運・高配当など主要テーマ株の週間・月間騰落率ランキングを一覧で確認。"
-            "各テーマの関連銘柄と値動きをリアルタイムで自動更新する個人投資家向けダッシュボード「投資の砦」。")[:120]
+            "各テーマの関連銘柄と値動きを定期更新する個人投資家向けダッシュボード「投資の砦」。")[:120]
     ts = sorted([t for t in themes if SLUGS.get(t["name"])], key=lambda x: -(x.get("week_pct") or 0))
     rows = ""
     ld_items = []
@@ -299,6 +315,8 @@ def build_hub(themes, updated):
 <meta name="twitter:title" content="{esc(title)}"/>
 <meta name="twitter:description" content="{esc(desc)}"/>
 <meta name="twitter:image" content="{BASE_URL}/ogp.png"/>
+{adsense_head()}
+{ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{CSS}</style>
 </head>
@@ -310,14 +328,14 @@ def build_hub(themes, updated):
 <div class="wrap">
 <nav class="crumb"><a href="{BASE_URL}/">ホーム</a> › テーマ株</nav>
 <h1>テーマ株ランキング一覧</h1>
-<p class="sub">主要テーマ {len(ts)} 件 ／ 更新日 {esc(updated)}（自動更新）</p>
+<p class="sub">主要テーマ {len(ts)} 件 ／ 更新日 {esc(updated)}（定期更新）</p>
 <div class="lead">半導体・AI・防衛・海運・高配当など、注目テーマごとの関連株の値動き（週間・月間騰落率）を一覧でまとめています。
 気になるテーマをクリックすると、構成銘柄とテーマの解説をご覧いただけます。</div>
 <h2>週間騰落率ランキング</h2>
 <table><thead><tr><th class="r" style="width:44px">#</th><th>テーマ</th>
 <th class="r">銘柄数</th><th class="r">週間</th><th class="r">月間</th></tr></thead>
 <tbody>{rows}</tbody></table>
-<p style="margin:18px 0"><a class="cta" href="{BASE_URL}/#themes">▶ ダッシュボードでリアルタイムに見る</a></p>
+<p style="margin:18px 0"><a class="cta" href="{BASE_URL}/#themes">▶ ダッシュボードで最新値を見る</a></p>
 </div>
 <footer><div class="foot-inner">© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
 </body>

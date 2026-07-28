@@ -11,6 +11,7 @@ import pandas as pd
 import requests
 import json
 import datetime
+import math
 import sys
 import time
 import re
@@ -327,11 +328,13 @@ def get_us_volume_stocks(top_n: int = 20) -> list[dict]:
     for ticker in top_tickers:
         price = float(curr_close.get(ticker, 0) or 0)
         prev  = float(prev_close.get(ticker, 0) or 0)
-        if price <= 0:
+        if not math.isfinite(price) or not math.isfinite(prev) or price <= 0 or prev <= 0:
             continue
         vt_val = float(vol_today.get(ticker, 0) or 0)
         vy_val = float(vol_yesterday.get(ticker, 0) or 0)
         vol_r  = float(ratio.get(ticker, 0))
+        if not all(math.isfinite(v) for v in (vt_val, vy_val, vol_r)):
+            continue
         candidates.append({
             "symbol": ticker,
             "price": round(price, 2),
@@ -392,8 +395,24 @@ def main():
     save_cache(cache)
     print(f"  翻訳キャッシュ保存: {len(cache)}件", file=sys.stderr)
 
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    missing = []
+    if not jp_stocks:
+        missing.append("日本株")
+    if not us_stocks:
+        missing.append("米国株")
     output = {
-        "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "updated_at": now,
+        "last_attempt_at": now,
+        "fetch_status": "ok" if not missing else ("partial" if jp_stocks or us_stocks else "stale"),
+        "fetch_warning": (
+            f"{'・'.join(missing)}の出来高ランキングを取得できませんでした"
+            if missing else None
+        ),
+        "source_status": {
+            "jp": "ok" if jp_stocks else "unavailable",
+            "us": "ok" if us_stocks else "unavailable",
+        },
         "jp_count":   len(jp_stocks),
         "us_count":   len(us_stocks),
         "jp_stocks":  jp_stocks,
