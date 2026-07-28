@@ -52,8 +52,8 @@ jobs:
           python scripts/fetch_nikkei225.py
         continue-on-error: true
 
-      # 株探が0件の場合、直前に更新した日経225を対象限定の代替ランキングに使う
-      - name: Fetch Japan stocks (kabutan.jp ストップ高)
+      # 楽天証券の東証P/S/Gを統合。失敗時は株探、さらに失敗時は日経225へ切替
+      - name: Fetch Japan stocks (TSE Prime/Standard/Growth gainers)
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_japan_stocks.py

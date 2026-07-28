@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-kabutan.jp ストップ高ページ (mode=2_1) + yfinance で
-チャート・会社情報・テーマキーワードを一括取得
+楽天証券の公開ランキング（東証P/S/G）を統合し、東証全市場の
+値上がり率上位を作成。取得できない場合のみ kabutan.jp を利用する。
+yfinance でチャート・会社情報・テーマキーワードを補完する。
 
 出力 JSON 構造:
   updated_at        : ISO8601 (JST)
@@ -54,6 +55,16 @@ DETAIL_URL        = BASE_URL + "/stock/?code={code}"
 MAX_PAGES         = 20    # 最大走査ページ数
 STOP_AFTER_NO_S   = 3     # 連続 N ページ S高なし → 打ち切り
 TOP_NEAR_STOP     = 50    # S高以外の上昇率上位の保持件数
+RAKUTEN_RANK_URL  = (
+    "https://www.rakuten-sec.co.jp/smartphone/market/info/pagecontent"
+    "?pid=600&rid=0&xid={market_id}"
+)
+RAKUTEN_MARKETS   = {
+    0: "東証P",
+    1: "東証S",
+    2: "東証G",
+}
+RAKUTEN_GLOBAL_TOP = 10
 
 # チャート・会社情報を取得する対象（件数制限で Actions 時間を節約）
 CHART_INFO_MAX_STOP_HIGH = 50   # S高全件
@@ -68,6 +79,122 @@ HEADERS = {
 }
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
+
+
+# ═══════════════════════════════════════════
+#  楽天証券 公開ランキング（東証P/S/G）
+# ═══════════════════════════════════════════
+
+def parse_number(text):
+    """カンマ・符号・%付きの表示値を float に変換"""
+    cleaned = str(text or "").replace(",", "").replace("%", "").strip()
+    if not cleaned or cleaned == "-":
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def daily_price_limit(previous_close):
+    """東証の基準値段別・通常の制限値幅を返す（円）"""
+    bands = [
+        (100, 30), (200, 50), (500, 80), (700, 100), (1_000, 150),
+        (1_500, 300), (2_000, 400), (3_000, 500), (5_000, 700),
+        (7_000, 1_000), (10_000, 1_500), (15_000, 3_000),
+        (20_000, 4_000), (30_000, 5_000), (50_000, 7_000),
+        (70_000, 10_000), (100_000, 15_000), (150_000, 30_000),
+        (200_000, 40_000), (300_000, 50_000), (500_000, 70_000),
+        (700_000, 100_000), (1_000_000, 150_000),
+        (1_500_000, 300_000), (2_000_000, 400_000),
+        (3_000_000, 500_000), (5_000_000, 700_000),
+        (7_000_000, 1_000_000), (10_000_000, 1_500_000),
+        (15_000_000, 3_000_000), (20_000_000, 4_000_000),
+        (30_000_000, 5_000_000), (50_000_000, 7_000_000),
+    ]
+    if previous_close is None or previous_close < 0:
+        return None
+    for upper, limit in bands:
+        if previous_close < upper:
+            return limit
+    return 10_000_000
+
+
+def is_price_limit_high(price, change_amount):
+    """現在値と前日比から通常のストップ高到達を推定"""
+    if price is None or change_amount is None or change_amount <= 0:
+        return False
+    previous_close = price - change_amount
+    limit = daily_price_limit(previous_close)
+    return limit is not None and abs(change_amount - limit) < 0.01
+
+
+def parse_rakuten_ranking(html, expected_market):
+    """楽天証券のランキングHTMLから銘柄行を抽出"""
+    soup = BeautifulSoup(html, "html.parser")
+    stocks = []
+    for row in soup.select(".rankingBox li"):
+        name_el = row.select_one(".name")
+        code_el = row.select_one(".code")
+        price_el = row.select_one(".price")
+        pct_el = row.select_one(".percent")
+        if not all((name_el, code_el, price_el, pct_el)):
+            continue
+
+        price = parse_number(price_el.get_text(strip=True))
+        change_el = row.select_one(".change")
+        change_amount = parse_number(change_el.get_text(strip=True)) if change_el else None
+        change_pct = parse_number(pct_el.get_text(strip=True))
+        code = code_el.get_text(strip=True)
+        market_el = row.select_one(".market")
+        market = market_el.get_text(strip=True) if market_el else expected_market
+        if not code or price is None or change_pct is None:
+            continue
+
+        stocks.append({
+            "code": code,
+            "name": name_el.get_text(strip=True),
+            "market": market,
+            "price": price,
+            "stop_high_price": price if is_price_limit_high(price, change_amount) else None,
+            "is_stop_high": is_price_limit_high(price, change_amount),
+            "change_amount": change_amount,
+            "change_pct": change_pct,
+            "volume": None,
+            "sector": None,
+            "description": None,
+            "industry": None,
+            "website": None,
+            "chart": None,
+        })
+    return stocks
+
+
+def fetch_rakuten_all_market():
+    """
+    東証P/S/Gの上位10件を取得して統合する。
+    全市場上位10件は、各市場上位10件の和集合内に必ず含まれる。
+    """
+    combined = []
+    for market_id, market_name in RAKUTEN_MARKETS.items():
+        url = RAKUTEN_RANK_URL.format(market_id=market_id)
+        try:
+            resp = SESSION.get(url, timeout=20)
+            resp.raise_for_status()
+            resp.encoding = resp.apparent_encoding or "utf-8"
+            rows = parse_rakuten_ranking(resp.text, market_name)
+        except Exception as e:
+            print(f"  楽天証券 {market_name} 取得失敗: {e}", file=sys.stderr)
+            return []
+        if len(rows) < RAKUTEN_GLOBAL_TOP:
+            print(f"  楽天証券 {market_name}: {len(rows)}件（必要件数未満）", file=sys.stderr)
+            return []
+        print(f"  楽天証券 {market_name}: {len(rows)}件", file=sys.stderr)
+        combined.extend(rows)
+
+    unique = {s["code"]: s for s in combined}
+    ranked = sorted(unique.values(), key=change_pct_float, reverse=True)
+    return ranked[:RAKUTEN_GLOBAL_TOP]
 
 
 # ═══════════════════════════════════════════
@@ -411,12 +538,19 @@ def load_nikkei225_fallback():
 def main():
     print("[日本株] 取得開始...", file=sys.stderr)
 
-    # 1. S高 + 上昇率上位を取得
+    # 1. 楽天証券の東証P/S/Gを統合。失敗時のみ株探へ切替。
+    source_kind = "rakuten"
     if os.environ.get("FORCE_JP_FALLBACK") == "1":
         stop_high, near_stop = [], []
-        print("[日本株] テスト指定により株探取得をスキップ", file=sys.stderr)
+        print("[日本株] テスト指定により外部ランキング取得をスキップ", file=sys.stderr)
     else:
-        stop_high, near_stop = fetch_stop_high_pages()
+        all_market = fetch_rakuten_all_market()
+        stop_high = [s for s in all_market if s["is_stop_high"]]
+        near_stop = [s for s in all_market if not s["is_stop_high"]]
+        if not all_market:
+            source_kind = "kabutan"
+            print("[日本株] 楽天証券取得失敗 → 株探へ切替", file=sys.stderr)
+            stop_high, near_stop = fetch_stop_high_pages()
     print(f"[日本株] S高={len(stop_high)}件 / 上昇率上位={len(near_stop)}件", file=sys.stderr)
 
     # GitHub Actions などで株探が0件になる場合は、更新済みの日経225データに切替。
@@ -454,11 +588,12 @@ def main():
             }))
             return
 
-    # 2. 全銘柄の業種を kabutan から取得（S高 + 上昇率上位）
-    if stop_high:
-        stop_high = enrich_sector_kabutan(stop_high)
-    if near_stop:
-        near_stop = enrich_sector_kabutan(near_stop, max_workers=12)
+    # 2. 株探経由のときのみ、個別ページから業種を取得
+    if source_kind == "kabutan":
+        if stop_high:
+            stop_high = enrich_sector_kabutan(stop_high)
+        if near_stop:
+            near_stop = enrich_sector_kabutan(near_stop, max_workers=12)
 
     # 3. yfinance でチャート + 会社情報を取得
     sh_target   = stop_high[:CHART_INFO_MAX_STOP_HIGH]
@@ -477,14 +612,7 @@ def main():
     all_stocks = sh_target + stop_rest + near_target + near_rest
     all_stocks.sort(key=change_pct_float, reverse=True)
 
-    # 5. セクター集計（S高株ベース）
-    sector_analysis = aggregate_by_sector(stop_high)
-
-    # 6. テーマキーワード抽出
-    theme_keywords = extract_theme_keywords(stop_high, sector_analysis)
-    print(f"[日本株] テーマキーワード: {theme_keywords[:8]}", file=sys.stderr)
-
-    # 7. 翻訳（description → description_ja, industry → industry_ja）
+    # 5. 翻訳（description → description_ja, industry → industry_ja）
     if HAS_TRANSLATE:
         print("[日本株] 事業説明を日本語化中...", file=sys.stderr)
         cache = load_cache()
@@ -492,13 +620,37 @@ def main():
         save_cache(cache)
         print(f"  翻訳キャッシュ保存: {len(cache)}件", file=sys.stderr)
 
+    # 公開ランキングには業種列がないため、補完した業種を表示用にも利用する。
+    for stock in all_stocks:
+        if not stock.get("sector"):
+            stock["sector"] = (
+                stock.get("industry_ja")
+                or stock.get("industry")
+                or "不明"
+            )
+
+    # 6. セクター集計・テーマキーワード（S高株ベース）
+    sector_analysis = aggregate_by_sector(stop_high)
+    theme_keywords = extract_theme_keywords(stop_high, sector_analysis)
+    print(f"[日本株] テーマキーワード: {theme_keywords[:8]}", file=sys.stderr)
+
     jst = datetime.timezone(datetime.timedelta(hours=9))
+    is_rakuten = source_kind == "rakuten"
     output = {
         "updated_at":      datetime.datetime.now(jst).isoformat(),
         "last_attempt_at": datetime.datetime.now(jst).isoformat(),
-        "source":          "kabutan",
-        "source_label":    "株探 値上がり率ランキング",
-        "scope":           "国内株・全市場",
+        "source":          "rakuten_securities" if is_rakuten else "kabutan",
+        "source_label":    (
+            "楽天証券 公開ランキング（東証P/S/G）"
+            if is_rakuten else "株探 値上がり率ランキング"
+        ),
+        "source_url":      (
+            RAKUTEN_RANK_URL.format(market_id=0)
+            if is_rakuten else LIST_URL.format(page=1)
+        ),
+        "scope":           "東証全市場（プライム・スタンダード・グロース）",
+        "ranking_definition": "前日比・値上がり率上位10銘柄",
+        "ranking_count":   len(all_stocks),
         "fetch_status":    "ok",
         "is_fallback":     False,
         "stop_high_count": len(stop_high),

@@ -198,9 +198,15 @@ function renderNews(d) {
 function renderStats(jp, ev, flashJp) {
   const top = (jp.all_stocks || [])[0];
   const fallback = !!jp.is_fallback;
+  const isTseRanking = jp.source === 'rakuten_securities';
   const cards = [
     { k: 'ストップ高', v: fallback ? '—' : jp.stop_high_count, u: fallback ? '' : '銘柄', meta: fallback ? '全市場データを取得確認中' : '本日の値幅制限到達' },
-    { k: fallback ? '日経225 上昇銘柄' : 'ストップ高接近', v: jp.near_stop_count, u: '銘柄', meta: fallback ? '代替ランキングの対象' : '5%以内に接近' },
+    {
+      k: fallback ? '日経225 上昇銘柄' : (isTseRanking ? '東証全市場 上位' : 'ストップ高接近'),
+      v: isTseRanking ? (jp.ranking_count || jp.all_stocks.length) : jp.near_stop_count,
+      u: '銘柄',
+      meta: fallback ? '代替ランキングの対象' : (isTseRanking ? 'P・S・Gを統合' : '5%以内に接近'),
+    },
     { k: '最高騰落率', v: top ? top.change_pct : '—', u: '%', meta: top ? top.name : '', cls: 'up' },
     { k: '決算発表(速報)', v: flashJp ? flashJp.total : 0, u: '件', meta: '日本株・前営業日分' },
     { k: '本日の経済指標', v: ev ? ev.economic.length : 0, u: '件', meta: '★重要度付き' },
@@ -454,6 +460,8 @@ function heatColor(pct) {
 }
 // squarified treemap layout
 function squarify(items, x, y, w, h) {
+  items = items.filter(i => Number.isFinite(i.value) && i.value > 0);
+  if (!items.length || !Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) return [];
   const total = items.reduce((s, i) => s + i.value, 0);
   const scaled = items.map(i => ({ ...i, area: i.value / total * w * h }));
   const out = [];
@@ -462,6 +470,7 @@ function squarify(items, x, y, w, h) {
   function worst(row, len) {
     const sum = row.reduce((s, r) => s + r.area, 0);
     const max = Math.max(...row.map(r => r.area)), min = Math.min(...row.map(r => r.area));
+    if (!sum || !min || !len) return Infinity;
     return Math.max((len * len * max) / (sum * sum), (sum * sum) / (len * len * min));
   }
   while (rest.length) {
@@ -475,6 +484,7 @@ function squarify(items, x, y, w, h) {
     }
     const sum = row.reduce((s, r) => s + r.area, 0);
     const thick = sum / len;
+    if (!Number.isFinite(thick) || thick <= 0) break;
     let off = horizontal ? cy : cx;
     row.forEach(r => {
       const sz = r.area / thick;
@@ -488,6 +498,8 @@ function squarify(items, x, y, w, h) {
 }
 let heatData = { jp: null, us: null };
 let heatMode = 'jp';
+let heatResizeObserver = null;
+let heatRenderTimer = null;
 const HEAT_META = {
   jp: { title: '日経225 ヒートマップ', label: '日本株', count: 80 },
   us: { title: 'S&P500 ヒートマップ', label: '米国株', count: 100 },
@@ -506,13 +518,27 @@ function renderHeatmap() {
   const box = $('#heatmap');
   if (!d) { box.innerHTML = '<div class="skeleton">データなし</div>'; return; }
 
-  const W = box.clientWidth || 1100, H = box.clientHeight || 520;
+  const W = box.clientWidth, H = box.clientHeight;
+  if (W < 100 || H < 100) {
+    clearTimeout(heatRenderTimer);
+    heatRenderTimer = setTimeout(renderHeatmap, 150);
+    return;
+  }
   const items = [...d.items]
-    .filter(s => s.market_cap > 0)
+    .filter(s => Number.isFinite(Number(s.market_cap)) && Number(s.market_cap) > 0)
     .sort((a, b) => b.market_cap - a.market_cap)
     .slice(0, HEAT_META[heatMode].count)
-    .map(s => ({ value: s.market_cap, name: s.name || s.symbol, pct: s.change_pct, code: s.code || s.symbol }));
+    .map(s => ({
+      value: Number(s.market_cap),
+      name: s.name || s.symbol,
+      pct: Number(s.change_pct) || 0,
+      code: s.code || s.symbol,
+    }));
   const tiles = squarify(items, 0, 0, W, H);
+  if (!tiles.length) {
+    box.innerHTML = '<div class="skeleton">ヒートマップを再読み込みしています</div>';
+    return;
+  }
   box.innerHTML = '';
   tiles.forEach(t => {
     const tile = el('div', 'hm-tile');
@@ -525,6 +551,18 @@ function renderHeatmap() {
     box.appendChild(tile);
   });
   $('#updHeat').textContent = '更新 ' + clock(d.updated_at);
+
+  if (!heatResizeObserver && 'ResizeObserver' in window) {
+    let lastWidth = W;
+    heatResizeObserver = new ResizeObserver(entries => {
+      const nextWidth = Math.round(entries[0]?.contentRect?.width || 0);
+      if (nextWidth < 100 || Math.abs(nextWidth - lastWidth) < 2) return;
+      lastWidth = nextWidth;
+      clearTimeout(heatRenderTimer);
+      heatRenderTimer = setTimeout(renderHeatmap, 100);
+    });
+    heatResizeObserver.observe(box);
+  }
 }
 
 /* ============================================================
