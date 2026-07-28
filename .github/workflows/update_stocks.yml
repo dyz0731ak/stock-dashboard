@@ -6,6 +6,11 @@ on:
     - cron: '*/15 * * * *'
   workflow_dispatch:   # 手動実行も可能
 
+# 外部ディスパッチとcronが重なっても、データ生成・pushは必ず1本ずつ実行する
+concurrency:
+  group: stock-data-update
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
