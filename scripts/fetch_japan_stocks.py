@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-楽天証券の公開ランキング（東証P/S/G）を統合し、東証全市場の
-値上がり率上位を作成。取得できない場合のみ kabutan.jp を利用する。
-yfinance でチャート・会社情報・テーマキーワードを補完する。
+JPX公式の東証上場銘柄一覧を母集団に、yfinanceの日足を一括取得して
+東証全市場の値上がり率上位30件を作成する。取得できない場合は
+楽天証券の公開ランキング、kabutan.jp、日経225の順に切り替える。
 
 出力 JSON 構造:
   updated_at        : ISO8601 (JST)
@@ -16,7 +16,7 @@ yfinance でチャート・会社情報・テーマキーワードを補完す�
   code, name, market, price, stop_high_price, is_stop_high
   change_amount, change_pct, volume, sector
   description, industry, website   (yfinance info)
-  chart: { dates, closes, volumes } (6ヶ月日足)
+  chart: { dates, opens, highs, lows, closes, volumes } (約3ヶ月日足)
 """
 
 import requests
@@ -27,6 +27,7 @@ import re
 import sys
 import os
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -65,10 +66,20 @@ RAKUTEN_MARKETS   = {
     2: "東証G",
 }
 RAKUTEN_GLOBAL_TOP = 10
+TSE_GLOBAL_TOP     = 30
+JPX_LIST_URL       = (
+    "https://www.jpx.co.jp/markets/statistics-equities/misc/"
+    "tvdivq0000001vg2-att/data_j.xls"
+)
+JPX_MARKETS = {
+    "プライム（内国株式）": "東証P",
+    "スタンダード（内国株式）": "東証S",
+    "グロース（内国株式）": "東証G",
+}
 
 # チャート・会社情報を取得する対象（件数制限で Actions 時間を節約）
 CHART_INFO_MAX_STOP_HIGH = 50   # S高全件
-CHART_INFO_MAX_NEAR_STOP = 20   # 上昇率上位上位 N 件
+CHART_INFO_MAX_NEAR_STOP = 30   # 上昇率上位 N 件
 
 HEADERS = {
     "User-Agent": (
@@ -79,6 +90,155 @@ HEADERS = {
 }
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
+
+
+# ═══════════════════════════════════════════
+#  JPX公式銘柄一覧 × yfinance 一括株価
+# ═══════════════════════════════════════════
+
+def fetch_jpx_listed_stocks():
+    """JPX公式の東証上場銘柄一覧から内国株式P/S/Gを取得する。"""
+    try:
+        import xlrd
+        resp = SESSION.get(JPX_LIST_URL, timeout=60)
+        resp.raise_for_status()
+        book = xlrd.open_workbook(file_contents=resp.content)
+        sheet = book.sheet_by_index(0)
+        header = [str(sheet.cell_value(0, c)).strip() for c in range(sheet.ncols)]
+
+        def col(label):
+            return next(i for i, value in enumerate(header) if label in value)
+
+        c_code = col("コード")
+        c_name = col("銘柄名")
+        c_market = col("市場・商品区分")
+        c_sector = col("33業種区分")
+        stocks = []
+        for row in range(1, sheet.nrows):
+            market_raw = str(sheet.cell_value(row, c_market)).strip()
+            if market_raw not in JPX_MARKETS:
+                continue
+            raw_code = sheet.cell_value(row, c_code)
+            code = str(int(raw_code)) if isinstance(raw_code, float) else str(raw_code).strip()
+            sector = str(sheet.cell_value(row, c_sector)).strip()
+            stocks.append({
+                "code": code,
+                "name": unicodedata.normalize(
+                    "NFKC", str(sheet.cell_value(row, c_name)).strip()
+                ),
+                "market": JPX_MARKETS[market_raw],
+                "sector": sector if sector and sector != "-" else "その他",
+            })
+        if len(stocks) < 3000:
+            raise ValueError(f"JPX銘柄数が少なすぎます: {len(stocks)}")
+        return stocks
+    except Exception as e:
+        print(f"  JPX上場銘柄一覧の取得失敗: {e}", file=sys.stderr)
+        return []
+
+
+def _series_values(frame, column, tail=60):
+    """DataFrame列をJSON向けの配列に整える。"""
+    values = []
+    for value in frame[column].tail(tail):
+        values.append(round(float(value), 2) if value == value else None)
+    return values
+
+
+def fetch_tse_all_market():
+    """
+    JPX公式の全上場銘柄を母集団に、yfinance日足を一括取得して
+    東証P/S/G横断の値上がり率上位30銘柄を算出する。
+    """
+    if not HAS_YFINANCE:
+        return []
+    master = fetch_jpx_listed_stocks()
+    if not master:
+        return []
+
+    print(f"  東証全市場を一括計算: {len(master)}銘柄", file=sys.stderr)
+    by_code = {s["code"]: s for s in master}
+    candidates = []
+    chunk_size = 400
+    for start in range(0, len(master), chunk_size):
+        chunk = master[start:start + chunk_size]
+        tickers = [f"{s['code']}.T" for s in chunk]
+        try:
+            data = yf.download(
+                tickers,
+                period="3mo",
+                interval="1d",
+                group_by="ticker",
+                threads=True,
+                progress=False,
+                auto_adjust=False,
+            )
+        except Exception as e:
+            print(f"  一括株価 {start}件目で失敗: {e}", file=sys.stderr)
+            continue
+
+        for ticker in tickers:
+            code = ticker[:-2]
+            try:
+                frame = data[ticker] if len(tickers) > 1 else data
+                frame = frame.dropna(subset=["Close"])
+                if len(frame) < 2:
+                    continue
+                last = float(frame["Close"].iloc[-1])
+                prev = float(frame["Close"].iloc[-2])
+                change = last - prev
+                meta = by_code[code]
+                chart_frame = frame.tail(60)
+                candidates.append({
+                    **meta,
+                    "price": round(last, 2),
+                    "stop_high_price": (
+                        round(last, 2) if is_price_limit_high(last, change) else None
+                    ),
+                    "is_stop_high": is_price_limit_high(last, change),
+                    "change_amount": round(change, 2),
+                    "change_pct": round(change / prev * 100, 3),
+                    "volume": (
+                        int(frame["Volume"].iloc[-1])
+                        if frame["Volume"].iloc[-1] == frame["Volume"].iloc[-1]
+                        else None
+                    ),
+                    "description": None,
+                    "industry": None,
+                    "website": None,
+                    "price_date": frame.index[-1].strftime("%Y-%m-%d"),
+                    "chart": {
+                        "dates": [d.strftime("%Y-%m-%d") for d in chart_frame.index],
+                        "opens": _series_values(chart_frame, "Open"),
+                        "highs": _series_values(chart_frame, "High"),
+                        "lows": _series_values(chart_frame, "Low"),
+                        "closes": _series_values(chart_frame, "Close"),
+                        "volumes": [
+                            int(v) if v == v else None
+                            for v in chart_frame["Volume"]
+                        ],
+                    },
+                })
+            except Exception:
+                continue
+        print(
+            f"    一括株価 {min(start + chunk_size, len(master))}/{len(master)}",
+            file=sys.stderr,
+        )
+
+    if len(candidates) < 2500:
+        print(f"  東証全市場の有効株価が不足: {len(candidates)}件", file=sys.stderr)
+        return []
+
+    # 売買停止・上場廃止などの古い最終値をランキングへ混ぜない。
+    latest_date = max(s["price_date"] for s in candidates)
+    current = [s for s in candidates if s["price_date"] == latest_date]
+    current.sort(key=change_pct_float, reverse=True)
+    print(
+        f"  東証全市場 {latest_date}: 有効{len(current)}件 / 上位{TSE_GLOBAL_TOP}件",
+        file=sys.stderr,
+    )
+    return current[:TSE_GLOBAL_TOP]
 
 
 # ═══════════════════════════════════════════
@@ -538,13 +698,17 @@ def load_nikkei225_fallback():
 def main():
     print("[日本株] 取得開始...", file=sys.stderr)
 
-    # 1. 楽天証券の東証P/S/Gを統合。失敗時のみ株探へ切替。
-    source_kind = "rakuten"
+    # 1. JPX公式の全銘柄を母集団に一括計算。失敗時は楽天、さらに株探へ切替。
+    source_kind = "tse_bulk"
     if os.environ.get("FORCE_JP_FALLBACK") == "1":
         stop_high, near_stop = [], []
         print("[日本株] テスト指定により外部ランキング取得をスキップ", file=sys.stderr)
     else:
-        all_market = fetch_rakuten_all_market()
+        all_market = fetch_tse_all_market()
+        if not all_market:
+            source_kind = "rakuten"
+            print("[日本株] 全銘柄一括計算失敗 → 楽天証券へ切替", file=sys.stderr)
+            all_market = fetch_rakuten_all_market()
         stop_high = [s for s in all_market if s["is_stop_high"]]
         near_stop = [s for s in all_market if not s["is_stop_high"]]
         if not all_market:
@@ -578,7 +742,11 @@ def main():
             safe_save(
                 "data/japan_stocks.json",
                 output,
-                lambda d: len(d.get("all_stocks", [])),
+                lambda d: (
+                    len(d.get("all_stocks", []))
+                    if not d.get("is_fallback") and len(d.get("all_stocks", [])) >= TSE_GLOBAL_TOP
+                    else 0
+                ),
                 label="日本株（日経225代替）",
             )
             print(json.dumps({
@@ -599,9 +767,9 @@ def main():
     sh_target   = stop_high[:CHART_INFO_MAX_STOP_HIGH]
     near_target = near_stop[:CHART_INFO_MAX_NEAR_STOP]
 
-    if sh_target:
+    if sh_target and source_kind != "tse_bulk":
         sh_target = enrich_yfinance(sh_target, label="S高銘柄 ")
-    if near_target:
+    if near_target and source_kind != "tse_bulk":
         near_target = enrich_yfinance(near_target, max_workers=6, label="上昇率上位 ")
 
     # near_stop の残り（チャートなし）を補完
@@ -635,21 +803,34 @@ def main():
     print(f"[日本株] テーマキーワード: {theme_keywords[:8]}", file=sys.stderr)
 
     jst = datetime.timezone(datetime.timedelta(hours=9))
+    is_tse_bulk = source_kind == "tse_bulk"
     is_rakuten = source_kind == "rakuten"
     output = {
         "updated_at":      datetime.datetime.now(jst).isoformat(),
         "last_attempt_at": datetime.datetime.now(jst).isoformat(),
-        "source":          "rakuten_securities" if is_rakuten else "kabutan",
+        "source":          (
+            "jpx_yfinance" if is_tse_bulk
+            else "rakuten_securities" if is_rakuten
+            else "kabutan"
+        ),
         "source_label":    (
+            "JPX公式上場銘柄一覧 × Yahoo Finance日足"
+            if is_tse_bulk else
             "楽天証券 公開ランキング（東証P/S/G）"
-            if is_rakuten else "株探 値上がり率ランキング"
+            if is_rakuten else
+            "株探 値上がり率ランキング"
         ),
         "source_url":      (
-            RAKUTEN_RANK_URL.format(market_id=0)
-            if is_rakuten else LIST_URL.format(page=1)
+            JPX_LIST_URL if is_tse_bulk else
+            RAKUTEN_RANK_URL.format(market_id=0) if is_rakuten else
+            LIST_URL.format(page=1)
         ),
         "scope":           "東証全市場（プライム・スタンダード・グロース）",
-        "ranking_definition": "前日比・値上がり率上位10銘柄",
+        "ranking_definition": (
+            "JPX上場内国株式の前日比・値上がり率上位30銘柄"
+            if is_tse_bulk else
+            "前日比・値上がり率上位10銘柄"
+        ),
         "ranking_count":   len(all_stocks),
         "fetch_status":    "ok",
         "is_fallback":     False,
@@ -664,7 +845,11 @@ def main():
     saved = safe_save(
         "data/japan_stocks.json",
         output,
-        lambda d: len(d.get("all_stocks", [])),
+        lambda d: (
+            len(d.get("all_stocks", []))
+            if len(d.get("all_stocks", [])) >= TSE_GLOBAL_TOP
+            else 0
+        ),
         label="日本株",
     )
 

@@ -160,7 +160,7 @@ def build_rank(japan):
     if not is_fresh(japan, 36) or not japan.get("all_stocks"):
         return ""
     rows = sorted([s for s in japan["all_stocks"] if s.get("change_pct") is not None],
-                  key=lambda s: -float(s["change_pct"]))[:15]
+                  key=lambda s: -float(s["change_pct"]))[:30]
     body = []
     st_tag = '<span class="st-tag">S高</span>'
     for s in rows:

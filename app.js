@@ -11,6 +11,9 @@ const fmt = (n, dec = 0) => n == null ? '—' : Number(n).toLocaleString('en-US'
 const signCls = v => v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
 const signTxt = v => (v > 0 ? '+' : '') + v;
 const pctTxt = v => (v > 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+const escHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[ch]));
 
 // 上げ赤・下げ緑（日本式）の背景色
 function pctBadge(pct) {
@@ -198,7 +201,7 @@ function renderNews(d) {
 function renderStats(jp, ev, flashJp) {
   const top = (jp.all_stocks || [])[0];
   const fallback = !!jp.is_fallback;
-  const isTseRanking = jp.source === 'rakuten_securities';
+  const isTseRanking = ['jpx_yfinance', 'rakuten_securities'].includes(jp.source);
   const cards = [
     { k: 'ストップ高', v: fallback ? '—' : jp.stop_high_count, u: fallback ? '' : '銘柄', meta: fallback ? '全市場データを取得確認中' : '本日の値幅制限到達' },
     {
@@ -224,6 +227,113 @@ function renderStats(jp, ev, flashJp) {
    ============================================================ */
 let rankData = { jp: null, us: null };
 let rankMode = 'jp';
+let rankView = 'table';
+
+function rankRows() {
+  if (rankMode === 'jp') {
+    return [...(rankData.jp?.all_stocks || [])]
+      .filter(s => s.change_pct != null)
+      .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
+      .slice(0, 30);
+  }
+  return [...(rankData.us?.gainers || [])]
+    .filter(s => s.change_pct != null)
+    .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
+    .slice(0, 30);
+}
+
+function miniCandleChart(chart) {
+  const closes = chart?.closes || [];
+  if (closes.length < 2) return '<div class="mini-nochart">チャート準備中</div>';
+  const n = Math.min(42, closes.length);
+  const c = closes.slice(-n).map(Number);
+  const o = (chart.opens || closes).slice(-n).map(Number);
+  const h = (chart.highs || closes).slice(-n).map(Number);
+  const l = (chart.lows || closes).slice(-n).map(Number);
+  const v = (chart.volumes || []).slice(-n).map(x => Number(x || 0));
+  const valid = [...h, ...l].filter(Number.isFinite);
+  const min = Math.min(...valid), max = Math.max(...valid), span = max - min || 1;
+  const maxVol = Math.max(...v, 1);
+  const W = 440, H = 210, priceH = 156, volumeTop = 166, volumeH = 34;
+  const step = W / n, bodyW = Math.max(2, Math.min(6, step * .58));
+  const y = val => 8 + (max - val) / span * (priceH - 16);
+  const grid = [0, 1, 2, 3].map(i => {
+    const gy = 8 + i * (priceH - 16) / 3;
+    return `<line x1="0" y1="${gy}" x2="${W}" y2="${gy}" class="mc-grid"/>`;
+  }).join('');
+  const candles = c.map((close, i) => {
+    if (![o[i], h[i], l[i], close].every(Number.isFinite)) return '';
+    const x = step * i + step / 2;
+    const rising = close >= o[i];
+    const color = rising ? '#26a69a' : '#ef5350';
+    const top = Math.min(y(o[i]), y(close));
+    const height = Math.max(1.4, Math.abs(y(o[i]) - y(close)));
+    const vh = v[i] / maxVol * volumeH;
+    return `<line x1="${x.toFixed(1)}" y1="${y(h[i]).toFixed(1)}" x2="${x.toFixed(1)}" y2="${y(l[i]).toFixed(1)}" stroke="${color}" stroke-width="1"/>
+      <rect x="${(x-bodyW/2).toFixed(1)}" y="${top.toFixed(1)}" width="${bodyW.toFixed(1)}" height="${height.toFixed(1)}" fill="${color}" rx=".5"/>
+      <rect x="${(x-bodyW/2).toFixed(1)}" y="${(volumeTop+volumeH-vh).toFixed(1)}" width="${bodyW.toFixed(1)}" height="${vh.toFixed(1)}" fill="${color}" opacity=".45"/>`;
+  }).join('');
+  const lastY = y(c[c.length - 1]);
+  return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="直近約2か月の日足チャート">
+    ${grid}<line x1="0" y1="${lastY.toFixed(1)}" x2="${W}" y2="${lastY.toFixed(1)}" class="mc-last"/>
+    ${candles}
+  </svg>`;
+}
+
+function renderRankTable(rows) {
+  const isJp = rankMode === 'jp';
+  const t = el('table', 'rank');
+  t.innerHTML = isJp
+    ? `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th><th class="r">状態</th></tr></thead>`
+    : `<thead><tr><th class="rank-col">順位</th><th>ティッカー</th><th>銘柄</th><th>セクター</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th></tr></thead>`;
+  const tb = el('tbody');
+  rows.forEach((s, i) => {
+    const pct = Number(s.change_pct);
+    const tr = el('tr');
+    const code = isJp ? s.code : s.symbol;
+    const change = isJp ? s.change_amount : s.change;
+    tr.innerHTML = `<td><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
+      <td class="t-code">${escHtml(code)}</td>
+      <td><div class="t-name">${escHtml(s.name || code)}</div><div class="t-sec">${escHtml(isJp ? s.sector : '')}</div></td>
+      <td><span class="pill-mkt">${escHtml(isJp ? s.market : (s.sector || s.sector_en || '—'))}</span></td>
+      <td class="r num">${isJp ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</td>
+      <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, isJp && Number.isInteger(Number(change)) ? 0 : 2)}</td>
+      <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
+      ${isJp ? `<td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>` : ''}`;
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb);
+  return t;
+}
+
+function renderRankCards(rows) {
+  const grid = el('div', 'rank-card-grid');
+  rows.forEach((s, i) => {
+    const pct = Number(s.change_pct);
+    const card = el('article', 'rank-card');
+    card.innerHTML = `<div class="rank-card-top"><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span><span class="pill-mkt">${escHtml(s.market || s.sector || '—')}</span></div>
+      <div class="rank-card-name">${escHtml(s.name || s.symbol)}</div>
+      <div class="rank-card-code">${escHtml(s.code || s.symbol)}・${escHtml(s.sector || '')}</div>
+      <div class="rank-card-values"><b class="num">${rankMode === 'jp' ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</b><strong class="num ${signCls(pct)}">${pctTxt(pct)}</strong></div>`;
+    grid.appendChild(card);
+  });
+  return grid;
+}
+
+function renderRankCharts(rows) {
+  const grid = el('div', 'rank-chart-grid');
+  rows.forEach((s, i) => {
+    const pct = Number(s.change_pct);
+    const card = el('article', 'rank-chart-card');
+    card.innerHTML = `<div class="rank-chart-head">
+      <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
+      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(s.market || s.sector || '')}</small></div>
+      <div class="rank-chart-price"><b class="num">${rankMode === 'jp' ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
+    </div>${miniCandleChart(s.chart)}</article>`;
+    grid.appendChild(card);
+  });
+  return grid;
+}
 
 function renderRank() {
   const jp = rankData.jp, us = rankData.us;
@@ -234,9 +344,12 @@ function renderRank() {
   pills.innerHTML = `
     <span class="pill ${rankMode === 'jp' ? 'active' : ''}" data-m="jp">日本株 <span class="n">${jpN}</span></span>
     <span class="pill ${rankMode === 'us' ? 'active' : ''}" data-m="us">米国株 <span class="n">${usN}</span></span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => { rankMode = p.dataset.m; renderRank(); });
+  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => {
+    rankMode = p.dataset.m;
+    if (rankMode === 'us' && rankView === 'chart') rankView = 'table';
+    renderRank();
+  });
 
-  const t = el('table', 'rank');
   const body = $('#rankBody'); body.innerHTML = '';
 
   if (rankMode === 'jp') {
@@ -249,53 +362,30 @@ function renderRank() {
     }
     $('#rankSub').textContent = `${jp.scope || '日本株・全市場'}・値上がり率上位${jp.is_fallback ? '（代替表示）' : ''}`;
     $('#updRank').textContent = updateLabel(jp, 36);
-    const rows = [...jp.all_stocks].filter(s => s.change_pct != null)
-      .sort((a, b) => parseFloat(b.change_pct) - parseFloat(a.change_pct)).slice(0, 15);
-    t.innerHTML = `<thead><tr>
-      <th>コード</th><th>銘柄</th><th>市場</th>
-      <th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th><th class="r">状態</th>
-    </tr></thead>`;
-    const tb = el('tbody');
-    rows.forEach(s => {
-      const pct = parseFloat(s.change_pct);
-      const tr = el('tr');
-      tr.innerHTML = `
-        <td class="t-code">${s.code}</td>
-        <td><div class="t-name">${s.name}</div><div class="t-sec">${s.sector || ''}</div></td>
-        <td><span class="pill-mkt">${s.market}</span></td>
-        <td class="r num">${fmt(s.price)}円</td>
-        <td class="r num ${signCls(pct)}">${s.change_amount == null ? '—' : (Number(s.change_amount) > 0 ? '+' : '') + fmt(s.change_amount, Number.isInteger(Number(s.change_amount)) ? 0 : 2)}</td>
-        <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
-        <td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>`;
-      tb.appendChild(tr);
-    });
-    t.appendChild(tb);
   } else {
     if (!us) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
     $('#rankSub').textContent = '米国株・値上がり率上位';
     $('#updRank').textContent = updateLabel(us, 36);
-    const rows = [...(us.gainers || [])].filter(s => s.change_pct != null)
-      .sort((a, b) => parseFloat(b.change_pct) - parseFloat(a.change_pct)).slice(0, 15);
-    t.innerHTML = `<thead><tr>
-      <th>ティッカー</th><th>銘柄</th><th>セクター</th>
-      <th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th>
-    </tr></thead>`;
-    const tb = el('tbody');
-    rows.forEach(s => {
-      const pct = parseFloat(s.change_pct);
-      const tr = el('tr');
-      tr.innerHTML = `
-        <td class="t-code">${s.symbol}</td>
-        <td><div class="t-name">${s.name || s.symbol}</div></td>
-        <td><span class="pill-mkt">${s.sector || s.sector_en || '—'}</span></td>
-        <td class="r num">$${fmt(s.price, 2)}</td>
-        <td class="r num ${signCls(pct)}">${s.change > 0 ? '+' : ''}${fmt(s.change, 2)}</td>
-        <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>`;
-      tb.appendChild(tr);
-    });
-    t.appendChild(tb);
   }
-  body.appendChild(t);
+
+  const views = $('#rankViews');
+  const availableViews = rankMode === 'jp'
+    ? [['table', '一覧'], ['cards', 'カード'], ['chart', 'ミニチャート']]
+    : [['table', '一覧'], ['cards', 'カード']];
+  views.innerHTML = availableViews.map(([key, label]) =>
+    `<button type="button" class="rank-view-btn ${rankView === key ? 'active' : ''}" data-v="${key}">${label}</button>`
+  ).join('');
+  views.querySelectorAll('.rank-view-btn').forEach(btn => btn.onclick = () => {
+    rankView = btn.dataset.v;
+    renderRank();
+  });
+
+  const rows = rankRows();
+  body.appendChild(
+    rankView === 'cards' ? renderRankCards(rows)
+      : rankView === 'chart' ? renderRankCharts(rows)
+      : renderRankTable(rows)
+  );
 }
 
 /* ============================================================
