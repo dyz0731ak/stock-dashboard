@@ -53,21 +53,6 @@ function updateLabel(data, maxHours) {
   return `更新 ${clock(data.updated_at)}${suffix}`;
 }
 
-function renderHealth(health) {
-  const box = $('#dataHealth');
-  if (!box || !health) return;
-  const bad = (health.datasets || []).filter(d => d.status !== 'ok');
-  if (!bad.length) {
-    box.className = 'health-banner ok';
-    box.innerHTML = `<b>データ取得は正常です</b><span>${health.healthy}/${health.total}項目を確認 ・ ${clock(health.checked_at)}</span>`;
-    return;
-  }
-  const critical = bad.filter(d => d.status === 'error' || d.status === 'missing');
-  box.className = 'health-banner ' + (critical.length ? 'error' : 'warning');
-  box.innerHTML = `<b>${critical.length ? '一部データの更新に遅れがあります' : '一部データの取得状況に注意があります'}</b>
-    <span>${bad.map(d => `${d.name}${d.message ? `：${d.message}` : ''}`).join(' ／ ')}</span>`;
-}
-
 /* ---------- ミニ・スパークライン (SVG) ---------- */
 function sparkline(chart, up) {
   if (!chart || chart.length < 2) return '';
@@ -565,7 +550,6 @@ async function boot() {
     ['futures', 'japan', 'usStocks', 'flashJp', 'flashUs', 'events', 'news', 'nikkei', 'sp500', 'themes', 'health'].map(get)
   );
 
-  if (health) renderHealth(health);
   if (futures) renderIndices(futures);
   if (flashJp || flashUs) { flashData = { jp: flashJp, us: flashUs }; flashMode = flashJp ? 'jp' : 'us'; renderFlash(); $('#navFlash').textContent = (flashJp ? flashJp.total : 0); }
   if (events) {
@@ -584,9 +568,9 @@ async function boot() {
   if (themes) { themesData = themes; renderThemes(); }
   if (nikkei || sp500) { heatData = { jp: nikkei, us: sp500 }; heatMode = nikkei ? 'jp' : 'us'; renderHeatmap(); }
 
-  // 単一の最新時刻で古い項目を隠さず、監査時刻と正常件数を表示
+  // 利用者向けには内部監査の件数を出さず、確認済みの更新時刻だけを表示
   if (health) {
-    $('#lastUpdated').textContent = `確認 ${clock(health.checked_at)}・正常 ${health.healthy}/${health.total}`;
+    $('#lastUpdated').textContent = `データ更新 ${clock(health.checked_at)}`;
   } else {
     const stamps = [futures, japan, events, news, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
     if (stamps.length) {

@@ -288,13 +288,6 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 .foot-nav a:hover{color:var(--brand-ink)}
 
 .skeleton{color:var(--ink-3);font-size:12.5px;padding:20px;text-align:center}
-.health-banner{max-width:var(--maxw);margin:12px auto 0;padding:10px 16px;border:1px solid var(--border);border-radius:8px;display:flex;gap:10px;align-items:flex-start;font-size:12px}
-.health-banner:empty{display:none}
-.health-banner b{white-space:nowrap}
-.health-banner span{color:var(--ink-2)}
-.health-banner.ok{background:var(--brand-soft);border-color:#b8ddca;color:var(--brand-ink)}
-.health-banner.warning{background:#fff7e6;border-color:#f0d08a;color:#8a5a00}
-.health-banner.error{background:var(--up-soft);border-color:#f2b8b5;color:var(--up)}
 .data-notice{padding:24px;text-align:center;color:var(--ink-2);background:#fff8e8;border:1px solid #f0d08a;border-radius:8px}
 .data-notice small{color:var(--ink-3)}
 
@@ -347,8 +340,6 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
     <a href="#heat">ヒートマップ</a>
   </div>
 </nav>
-
-<div id="dataHealth" class="health-banner" role="status" aria-live="polite"></div>
 
 <main class="wrap">
 
@@ -462,6 +453,6 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
   </div>
 </footer>
 
-<script src="app.js?v=20260728-freshness2"></script>
+<script src="app.js?v=20260728-clean-status"></script>
 </body>
 </html>
