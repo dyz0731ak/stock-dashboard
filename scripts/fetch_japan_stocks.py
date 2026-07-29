@@ -16,7 +16,7 @@ JPX公式の東証上場銘柄一覧を母集団に、yfinanceの日足を一括
   code, name, market, price, stop_high_price, is_stop_high
   change_amount, change_pct, volume, sector
   description, industry, website   (yfinance info)
-  chart: { dates, opens, highs, lows, closes, volumes } (約3ヶ月日足)
+  chart: { dates, opens, highs, lows, closes, volumes } (約6ヶ月日足)
 """
 
 import requests
@@ -67,6 +67,7 @@ RAKUTEN_MARKETS   = {
 }
 RAKUTEN_GLOBAL_TOP = 10
 TSE_GLOBAL_TOP     = 30
+CHART_TRADING_DAYS = 130  # 約6か月分の営業日
 JPX_LIST_URL       = (
     "https://www.jpx.co.jp/markets/statistics-equities/misc/"
     "tvdivq0000001vg2-att/data_j.xls"
@@ -137,7 +138,7 @@ def fetch_jpx_listed_stocks():
         return []
 
 
-def _series_values(frame, column, tail=60):
+def _series_values(frame, column, tail=CHART_TRADING_DAYS):
     """DataFrame列をJSON向けの配列に整える。"""
     values = []
     for value in frame[column].tail(tail):
@@ -166,7 +167,7 @@ def fetch_tse_all_market():
         try:
             data = yf.download(
                 tickers,
-                period="3mo",
+                period="6mo",
                 interval="1d",
                 group_by="ticker",
                 threads=True,
@@ -188,7 +189,7 @@ def fetch_tse_all_market():
                 prev = float(frame["Close"].iloc[-2])
                 change = last - prev
                 meta = by_code[code]
-                chart_frame = frame.tail(60)
+                chart_frame = frame.tail(CHART_TRADING_DAYS)
                 candidates.append({
                     **meta,
                     "price": round(last, 2),
@@ -519,6 +520,12 @@ def fetch_yfinance_data(code):
         if not hist.empty:
             chart = {
                 "dates":   [d.strftime("%Y-%m-%d") for d in hist.index],
+                "opens":   [round(float(v), 2) if v == v else None
+                            for v in hist["Open"]],
+                "highs":   [round(float(v), 2) if v == v else None
+                            for v in hist["High"]],
+                "lows":    [round(float(v), 2) if v == v else None
+                            for v in hist["Low"]],
                 "closes":  [round(float(v), 1) if v == v else None
                             for v in hist["Close"]],
                 "volumes": [int(v) if v == v else None

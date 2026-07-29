@@ -245,7 +245,8 @@ function rankRows() {
 function miniCandleChart(chart) {
   const closes = chart?.closes || [];
   if (closes.length < 2) return '<div class="mini-nochart">チャート準備中</div>';
-  const n = Math.min(42, closes.length);
+  // 約6か月分の日足（営業日ベースで最大130本）を表示する。
+  const n = Math.min(130, closes.length);
   const c = closes.slice(-n).map(Number);
   const o = (chart.opens || closes).slice(-n).map(Number);
   const h = (chart.highs || closes).slice(-n).map(Number);
@@ -274,7 +275,7 @@ function miniCandleChart(chart) {
       <rect x="${(x-bodyW/2).toFixed(1)}" y="${(volumeTop+volumeH-vh).toFixed(1)}" width="${bodyW.toFixed(1)}" height="${vh.toFixed(1)}" fill="${color}" opacity=".45"/>`;
   }).join('');
   const lastY = y(c[c.length - 1]);
-  return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="直近約2か月の日足チャート">
+  return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="直近約6か月の日足チャート">
     ${grid}<line x1="0" y1="${lastY.toFixed(1)}" x2="${W}" y2="${lastY.toFixed(1)}" class="mc-last"/>
     ${candles}
   </svg>`;
@@ -306,20 +307,6 @@ function renderRankTable(rows) {
   return t;
 }
 
-function renderRankCards(rows) {
-  const grid = el('div', 'rank-card-grid');
-  rows.forEach((s, i) => {
-    const pct = Number(s.change_pct);
-    const card = el('article', 'rank-card');
-    card.innerHTML = `<div class="rank-card-top"><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span><span class="pill-mkt">${escHtml(s.market || s.sector || '—')}</span></div>
-      <div class="rank-card-name">${escHtml(s.name || s.symbol)}</div>
-      <div class="rank-card-code">${escHtml(s.code || s.symbol)}・${escHtml(s.sector || '')}</div>
-      <div class="rank-card-values"><b class="num">${rankMode === 'jp' ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</b><strong class="num ${signCls(pct)}">${pctTxt(pct)}</strong></div>`;
-    grid.appendChild(card);
-  });
-  return grid;
-}
-
 function renderRankCharts(rows) {
   const grid = el('div', 'rank-chart-grid');
   rows.forEach((s, i) => {
@@ -327,7 +314,7 @@ function renderRankCharts(rows) {
     const card = el('article', 'rank-chart-card');
     card.innerHTML = `<div class="rank-chart-head">
       <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
-      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(s.market || s.sector || '')}</small></div>
+      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(s.market || s.sector || '')}・6か月日足</small></div>
       <div class="rank-chart-price"><b class="num">${rankMode === 'jp' ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
     </div>${miniCandleChart(s.chart)}</article>`;
     grid.appendChild(card);
@@ -370,8 +357,8 @@ function renderRank() {
 
   const views = $('#rankViews');
   const availableViews = rankMode === 'jp'
-    ? [['table', '一覧'], ['cards', 'カード'], ['chart', 'ミニチャート']]
-    : [['table', '一覧'], ['cards', 'カード']];
+    ? [['table', '一覧'], ['chart', 'ミニチャート']]
+    : [['table', '一覧']];
   views.innerHTML = availableViews.map(([key, label]) =>
     `<button type="button" class="rank-view-btn ${rankView === key ? 'active' : ''}" data-v="${key}">${label}</button>`
   ).join('');
@@ -382,8 +369,7 @@ function renderRank() {
 
   const rows = rankRows();
   body.appendChild(
-    rankView === 'cards' ? renderRankCards(rows)
-      : rankView === 'chart' ? renderRankCharts(rows)
+    rankView === 'chart' ? renderRankCharts(rows)
       : renderRankTable(rows)
   );
 }
