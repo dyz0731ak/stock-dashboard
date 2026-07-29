@@ -666,6 +666,16 @@ def move_section_after(html_text, section_id, target_id):
     return without_section[:insert_at] + "\n" + section_html + without_section[insert_at:]
 
 
+def remove_section(html_text, section_id):
+    """指定セクションと直前の説明コメントをHTMLから取り除く。"""
+    pat = re.compile(
+        rf"\n\s*(?:<!-- ===== [^>]* ===== -->\s*)?"
+        rf"<section\b[^>]*\bid=[\"']{re.escape(section_id)}[\"'][^>]*>.*?</section>",
+        re.S,
+    )
+    return pat.sub("", html_text)
+
+
 def main():
     futures = load("futures.json")
     japan = load("japan_stocks.json")
@@ -673,7 +683,6 @@ def main():
     volume = load("volume_stocks.json")
     events = load("events.json")
     flash = load("earnings_flash.json")
-    news = load("market_news.json")
     nikkei = load("nikkei225.json")
 
     with open(INDEX, encoding="utf-8") as f:
@@ -682,9 +691,6 @@ def main():
     sections = {
         "idx": build_idx(futures),
         "flash": build_flash(flash),
-        "earn": build_earn(events),
-        "news": build_news(news),
-        "stats": build_stats(japan, events, flash),
         "rank": build_rank(japan),
         "themes": build_themes(themes),
         "events": build_events(events),
@@ -699,6 +705,16 @@ def main():
 
     doc = move_section_after(doc, "rank", "idx")
     doc = move_section_after(doc, "themes", "rank")
+    doc = remove_section(doc, "earn")
+    doc = remove_section(doc, "news")
+    doc = remove_section(doc, "stats")
+    doc = re.sub(
+        r"\n\s*<!-- ===== 本日の決算 \+ 市場ニュース ===== -->\s*"
+        r"<div class=\"cols\">\s*</div>",
+        "",
+        doc,
+        flags=re.S,
+    )
 
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(doc)

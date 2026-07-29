@@ -139,80 +139,7 @@ function renderFlash() {
   });
 }
 
-/* ============================================================
-   3. 本日の決算発表（日本株）
-   ============================================================ */
 let eventsData = null;
-function renderEarn() {
-  const d = eventsData; if (!d) return;
-  const pills = $('#earnPills');
-  const list = d.jp_earnings || [];
-  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${list.length}</span></span>`;
-
-  const body = $('#earnBody'); body.innerHTML = '';
-  if (!list.length) { body.innerHTML = '<div class="skeleton">本日の予定なし</div>'; }
-  list.slice(0, 12).forEach(it => {
-    const row = el('div', 'row-item');
-    const id = it.code;
-    const tag = it.time_jst_label || it.quarter || '';
-    row.innerHTML = `
-      <span class="r-code">${id}</span>
-      <span class="r-name">${it.name}</span>
-      ${tag ? `<span class="r-tag">${tag}</span>` : ''}`;
-    body.appendChild(row);
-  });
-  $('#updEarn').textContent = '更新 ' + clock(d.updated_at);
-}
-
-/* ============================================================
-   4. 市場ニュース
-   ============================================================ */
-function renderNews(d) {
-  const body = $('#newsBody'); body.innerHTML = '';
-  if (!isFresh(d, 12)) {
-    body.innerHTML = `<div class="data-notice">市場ニュースの更新を確認中です。古い記事は最新情報として表示していません。<br><small>最終取得 ${clock(d.updated_at)}（${timeAgo(d.updated_at)}）</small></div>`;
-    $('#updNews').textContent = updateLabel(d, 12);
-    return;
-  }
-  d.items.forEach(it => {
-    const row = el('a', 'row-item');
-    row.href = it.url; row.target = '_blank'; row.rel = 'noopener';
-    row.innerHTML = `
-      <span class="r-date">${(it.date || '').split(' ')[0]}</span>
-      <span class="r-name">${it.title}</span>
-      <span class="r-tag">${it.source_label || it.source}</span>`;
-    body.appendChild(row);
-  });
-  $('#updNews').textContent = updateLabel(d, 12);
-}
-
-/* ============================================================
-   5. サマリー統計
-   ============================================================ */
-function renderStats(jp, ev, flashJp) {
-  const top = (jp.all_stocks || [])[0];
-  const fallback = !!jp.is_fallback;
-  const isTseRanking = ['jpx_yfinance', 'rakuten_securities'].includes(jp.source);
-  const cards = [
-    { k: 'ストップ高', v: fallback ? '—' : jp.stop_high_count, u: fallback ? '' : '銘柄', meta: fallback ? '全市場データを取得確認中' : '本日の値幅制限到達' },
-    {
-      k: fallback ? '日経225 上昇銘柄' : (isTseRanking ? '東証全市場 上位' : 'ストップ高接近'),
-      v: isTseRanking ? (jp.ranking_count || jp.all_stocks.length) : jp.near_stop_count,
-      u: '銘柄',
-      meta: fallback ? '代替ランキングの対象' : (isTseRanking ? 'P・S・Gを統合' : '5%以内に接近'),
-    },
-    { k: '最高騰落率', v: top ? top.change_pct : '—', u: '%', meta: top ? top.name : '', cls: 'up' },
-    { k: '決算発表(速報)', v: flashJp ? flashJp.total : 0, u: '件', meta: '日本株・前営業日分' },
-    { k: '本日の経済指標', v: ev ? ev.economic.length : 0, u: '件', meta: '★重要度付き' },
-  ];
-  const strip = $('#statStrip'); strip.innerHTML = '';
-  cards.forEach(c => {
-    const s = el('div', 'stat');
-    s.innerHTML = `<div class="k">${c.k}</div><div class="v ${c.cls || ''}">${c.v}<small>${c.u}</small></div><div class="meta">${c.meta}</div>`;
-    strip.appendChild(s);
-  });
-}
-
 /* ============================================================
    6. 急騰ランキング
    ============================================================ */
@@ -605,31 +532,27 @@ async function boot() {
     japan: getJSON('data/japan_stocks.json'),
     flashJp: getJSON('data/earnings_flash.json'),
     events: getJSON('data/events.json'),
-    news: getJSON('data/market_news.json'),
     nikkei: getJSON('data/nikkei225.json'),
     themes: getJSON('data/themes.json'),
     health: getJSON('data/health.json'),
   };
   const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
 
-  const [futures, japan, flashJp, events, news, nikkei, themes, health] = await Promise.all(
-    ['futures', 'japan', 'flashJp', 'events', 'news', 'nikkei', 'themes', 'health'].map(get)
+  const [futures, japan, flashJp, events, nikkei, themes, health] = await Promise.all(
+    ['futures', 'japan', 'flashJp', 'events', 'nikkei', 'themes', 'health'].map(get)
   );
 
   if (futures) renderIndices(futures);
   if (flashJp) { flashData = flashJp; renderFlash(); $('#navFlash').textContent = flashJp.total || 0; }
   if (events) {
-    eventsData = events; renderEarn();
     const ec = events.economic || [];
     eventMode = ec.filter(e => e.country === 'JP').length > ec.filter(e => e.country === 'US').length ? 'jp' : 'us';
     renderEvents(events);
   }
-  if (news) renderNews(news);
   if (japan) {
     rankData = japan;
     renderRank();
   }
-  if (japan) renderStats(japan, events, flashJp);
   if (themes) { themesData = themes; renderThemes(); }
   if (nikkei) { heatData = nikkei; renderHeatmap(); }
 
@@ -637,7 +560,7 @@ async function boot() {
   if (health) {
     $('#lastUpdated').textContent = `データ更新 ${clock(health.checked_at)}`;
   } else {
-    const stamps = [futures, japan, events, news, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
+    const stamps = [futures, japan, events, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
     if (stamps.length) {
       const latest = stamps.sort().pop();
       $('#lastUpdated').textContent = '最終取得 ' + clock(latest);

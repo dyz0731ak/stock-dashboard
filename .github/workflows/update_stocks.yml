@@ -89,12 +89,6 @@ jobs:
           python scripts/fetch_earnings_flash.py
         continue-on-error: true
 
-      - name: Fetch market news (本日の市場ニュース)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_market_news.py
-        continue-on-error: true
-
       - name: Fetch JP stock news (急騰理由・ニュース)
         run: |
           cd ${{ github.workspace }}
