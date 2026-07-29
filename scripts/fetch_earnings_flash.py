@@ -580,6 +580,16 @@ def impact_details(item: dict) -> tuple[int, str, str, str]:
     else:
         label = "注目決算"
 
+    if category == "本決算・四半期決算" and strongest and magnitude >= 30:
+        if strongest.get("direction") == "up":
+            zone = "positive"
+            label = "大幅増益"
+            score = min(100, 85 + int(min(magnitude, 100) / 10))
+        elif strongest.get("direction") == "down":
+            zone = "negative"
+            label = "大幅減益"
+            score = min(100, 85 + int(min(magnitude, 100) / 10))
+
     mixed = positive and any(word in narrative for word in ("減益", "赤字", "下方修正", "減配"))
     if mixed:
         zone = "decision"
