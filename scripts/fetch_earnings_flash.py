@@ -843,12 +843,30 @@ def group_items(items: list[dict]) -> list[dict]:
 def main() -> int:
     now = datetime.datetime.now(JST)
     print(f"[決算速報] {now.isoformat()} 実行開始", file=sys.stderr)
+    out_path = os.path.normpath(
+        os.path.join(os.path.dirname(__file__), "..", "data", "earnings_flash.json")
+    )
 
     ir_items, ir_date = fetch_irbank()
     time.sleep(0.4)
     ku_items, ku_md = fetch_kabutan()
     time.sleep(0.4)
     kp_items, kp_date = fetch_kabupro()
+
+    # 数値を持つIRBANKと、要点を持つ株探が両方取れない場合は、
+    # 適時開示の見出しだけで質の高い既存データを上書きしない。
+    if not ir_items and not ku_items:
+        safe_save(
+            out_path,
+            {
+                "updated_at": now.isoformat(),
+                "total": 0,
+                "fetch_error": "数値・要点付きの決算情報を取得できなかったため、前回の高品質データを維持しています",
+            },
+            lambda d: d.get("total", 0),
+            label="決算速報",
+        )
+        return 0
 
     merged = merge_items(ir_items, ku_items, kp_items)
     important = [it for it in merged if it.get("category") != "その他開示"]
@@ -898,10 +916,6 @@ def main() -> int:
         "total": total,
         "selection_note": "業績修正・増減益・黒字転換など、市場への影響が大きい決算を優先",
     }
-
-    out_path = os.path.normpath(
-        os.path.join(os.path.dirname(__file__), "..", "data", "earnings_flash.json")
-    )
 
     print(
         f"[決算速報] 統合結果 total={total} groups={len(groups)} "

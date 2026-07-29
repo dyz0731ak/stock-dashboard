@@ -138,19 +138,19 @@ function renderFlash() {
       <div class="nar">${escHtml(it.narrative || '')}</div>
       <div class="chips">${chips}</div>
       <div class="impact-summary">${escHtml(it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。')}</div>
-      <div class="flash-chart-toggle">6か月チャートを見る</div>
+      <div class="flash-chart-toggle">3か月チャートを見る</div>
       <div class="flash-chart-panel" hidden>
         <div class="flash-chart-head">
-          <span class="flash-chart-title">6か月日足（最大130営業日）</span>
+          <span class="flash-chart-title">3か月日足（約65営業日）</span>
           <a class="flash-source" href="${escHtml(it.url || '#')}" target="_blank" rel="noopener">決算資料を確認</a>
         </div>
-        ${miniCandleChart(it.chart)}
+        ${miniCandleChart(it.chart, 65, '直近約3か月の日足チャート')}
       </div>`;
     const setOpen = open => {
       item.classList.toggle('open', open);
       item.setAttribute('aria-expanded', String(open));
       item.querySelector('.flash-chart-panel').hidden = !open;
-      item.querySelector('.flash-chart-toggle').textContent = open ? 'チャートを閉じる' : '6か月チャートを見る';
+      item.querySelector('.flash-chart-toggle').textContent = open ? 'チャートを閉じる' : '3か月チャートを見る';
     };
     const toggle = () => {
       const willOpen = !item.classList.contains('open');
@@ -159,7 +159,7 @@ function renderFlash() {
         other.classList.remove('open');
         other.setAttribute('aria-expanded', 'false');
         other.querySelector('.flash-chart-panel').hidden = true;
-        other.querySelector('.flash-chart-toggle').textContent = '6か月チャートを見る';
+        other.querySelector('.flash-chart-toggle').textContent = '3か月チャートを見る';
       });
       setOpen(willOpen);
     };
@@ -192,11 +192,10 @@ function rankRows() {
     .slice(0, 30);
 }
 
-function miniCandleChart(chart) {
+function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月の日足チャート') {
   const closes = chart?.closes || [];
   if (closes.length < 2) return '<div class="mini-nochart">チャート準備中</div>';
-  // 約6か月分の日足（営業日ベースで最大130本）を表示する。
-  const n = Math.min(130, closes.length);
+  const n = Math.min(maxPoints, closes.length);
   const c = closes.slice(-n).map(Number);
   const o = (chart.opens || closes).slice(-n).map(Number);
   const h = (chart.highs || closes).slice(-n).map(Number);
@@ -225,7 +224,7 @@ function miniCandleChart(chart) {
       <rect x="${(x-bodyW/2).toFixed(1)}" y="${(volumeTop+volumeH-vh).toFixed(1)}" width="${bodyW.toFixed(1)}" height="${vh.toFixed(1)}" fill="${color}" opacity=".45"/>`;
   }).join('');
   const lastY = y(c[c.length - 1]);
-  return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="直近約6か月の日足チャート">
+  return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${escHtml(ariaLabel)}">
     ${grid}<line x1="0" y1="${lastY.toFixed(1)}" x2="${W}" y2="${lastY.toFixed(1)}" class="mc-last"/>
     ${candles}
   </svg>`;
