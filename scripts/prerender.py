@@ -520,8 +520,7 @@ def fixed_page_html(slug, title, desc, lead, updated, content):
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
-<a href="{BASE_URL}/" class="brand"><span class="logo">砦</span>
-<span>投資の砦<small>日本株マーケット</small></span></a>
+<a href="{BASE_URL}/" class="brand"><span class="brand-word">投資の<span>砦</span></span></a>
 </div></header>
 <div class="wrap">
 <nav class="crumb"><a href="{BASE_URL}/">ホーム</a> › {esc(title)}</nav>

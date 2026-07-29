@@ -33,10 +33,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 a{color:var(--brand-ink);text-decoration:none}a:hover{text-decoration:underline}
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:9}
 .topbar-inner{max-width:var(--maxw);margin:0 auto;padding:12px 18px;display:flex;align-items:center}
-.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;text-decoration:none}
-.brand .logo{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:flex;
-align-items:center;justify-content:center;font-weight:800}
-.brand small{display:block;font-size:11px;color:var(--ink-3);font-weight:500}
+.brand{position:relative;display:inline-flex;align-items:center;padding:4px 1px 7px;color:var(--ink);
+font-size:21px;font-weight:850;line-height:1;letter-spacing:-.055em;text-decoration:none}
+.brand::after{content:"";position:absolute;left:1px;right:1px;bottom:0;height:3px;border-radius:3px;
+background:linear-gradient(90deg,var(--brand) 0 72%,#68c39a 72% 100%)}
+.brand-word span{color:var(--brand);font-size:1.08em}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:22px 18px 60px}
 .crumb{font-size:12.5px;color:var(--ink-3);margin:4px 0 14px}
 .crumb a{color:var(--ink-3)}
@@ -69,8 +70,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:4
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
-<a href="https://dashboard.stock-overflow24.com/" class="brand"><span class="logo">砦</span>
-<span>投資の砦<small>日本株・米国株マーケット</small></span></a>
+<a href="https://dashboard.stock-overflow24.com/" class="brand"><span class="brand-word">投資の<span>砦</span></span></a>
 </div></header>
 <div class="wrap">
 <nav class="crumb"><a href="https://dashboard.stock-overflow24.com/">ホーム</a> › <a href="https://dashboard.stock-overflow24.com/themes/">テーマ株</a> › 高配当関連株</nav>
