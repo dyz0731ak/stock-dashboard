@@ -59,18 +59,6 @@ jobs:
           python scripts/fetch_japan_stocks.py
         continue-on-error: true
 
-      - name: Fetch S&P 500 heatmap data (S&P500ヒートマップ)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_sp500.py
-        continue-on-error: true
-
-      - name: Fetch US stocks (Yahoo Finance top gainers)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_us_stocks.py
-        continue-on-error: true
-
       - name: Fetch volume surge stocks (出来高急増)
         run: |
           cd ${{ github.workspace }}
@@ -101,12 +89,6 @@ jobs:
           python scripts/fetch_earnings_flash.py
         continue-on-error: true
 
-      - name: Fetch US earnings flash (米国株 決算速報・EPSサプライズ)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_us_earnings_flash.py
-        continue-on-error: true
-
       - name: Fetch market news (本日の市場ニュース)
         run: |
           cd ${{ github.workspace }}
@@ -117,12 +99,6 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           python scripts/fetch_news.py
-        continue-on-error: true
-
-      - name: Fetch US stock news (米国株ニュース)
-        run: |
-          cd ${{ github.workspace }}
-          python scripts/fetch_us_news.py
         continue-on-error: true
 
       - name: Fetch theme stocks ranking (テーマ株ランキング・週間/月間騰落)
@@ -145,7 +121,7 @@ jobs:
       - name: Check if data changed
         id: check-changes
         run: |
-          git diff --quiet -- data/ index.html sitemap.xml themes/ stop-high/ top-gainers/ volume-surge/ us-gainers/ earnings/ economic-calendar/ || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet -- data/ index.html sitemap.xml themes/ stop-high/ top-gainers/ volume-surge/ earnings/ economic-calendar/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated data
         if: steps.check-changes.outputs.changed == 'true'

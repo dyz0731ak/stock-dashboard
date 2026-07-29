@@ -19,6 +19,7 @@ import sys
 import os
 import re
 import xml.etree.ElementTree as ET
+from urllib.parse import quote
 from bs4 import BeautifulSoup
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -47,6 +48,7 @@ MARKET_KW = [
     "S&P", "ナスダック", "NYSE", "決算", "業績", "四半期",
     "米国株", "日本株", "株価", "指数", "ETF", "IPO",
 ]
+NEWS_NOISE = ["指数情報・推移", "リアルタイム株価・チャート", "掲示板 - Yahoo"]
 
 
 # ──────────────────────────────────────────────
@@ -344,11 +346,11 @@ def fetch_yahoo_finance_jp():
 # Google ニュース RSS（既存3ソースが取得できない場合の公開RSS代替）
 # ──────────────────────────────────────────────
 
-def fetch_google_news_rss():
-    """Google ニュースの公開RSSから日本株・市場関連の新着記事を取得。"""
+def fetch_google_news_rss(query, source_key, label, limit=MAX_PER_SRC):
+    """Google ニュースの公開RSSから指定テーマの市場ニュースを取得。"""
     url = (
         "https://news.google.com/rss/search"
-        "?q=%E6%97%A5%E6%9C%AC%E6%A0%AA%20OR%20%E6%97%A5%E7%B5%8C%E5%B9%B3%E5%9D%87"
+        f"?q={quote(query)}"
         "&hl=ja&gl=JP&ceid=JP:ja"
     )
     try:
@@ -368,7 +370,8 @@ def fetch_google_news_rss():
         pub = (node.findtext("pubDate") or "").strip()
         source_node = node.find("source")
         publisher = (source_node.text or "").strip() if source_node is not None else ""
-        if not title or not link or not is_market_related(title):
+        if (not title or not link or not is_market_related(title)
+                or any(noise in title for noise in NEWS_NOISE)):
             continue
         try:
             published = email.utils.parsedate_to_datetime(pub)
@@ -388,13 +391,13 @@ def fetch_google_news_rss():
             "title": title,
             "url": link,
             "date": date_str,
-            "source": "google_news",
-            "source_label": publisher or "Google ニュース",
+            "source": source_key,
+            "source_label": publisher or label,
         })
-        if len(items) >= MAX_PER_SRC:
+        if len(items) >= limit:
             break
 
-    print(f"  google news rss: {len(items)}件", file=sys.stderr)
+    print(f"  {label}: {len(items)}件", file=sys.stderr)
     return items
 
 
@@ -411,26 +414,45 @@ def fetch_all_market_news():
     time.sleep(0.5)
     yahoo_items    = fetch_yahoo_finance_jp()
     time.sleep(0.5)
-    google_items   = fetch_google_news_rss()
+    google_jp_items = fetch_google_news_rss(
+        "日本株 OR 日経平均 OR 東証",
+        "google_news_jp",
+        "Google ニュース（国内）",
+    )
+    time.sleep(0.5)
+    google_global_items = fetch_google_news_rss(
+        "米国株 OR NYダウ OR ナスダック OR 欧州株 OR 中国株 OR 海外市場 OR FRB",
+        "google_news_global",
+        "Google ニュース（海外）",
+        limit=8,
+    )
 
-    # 統合（優先順位順）
-    all_items = kabutan_items + minkabu_items + yahoo_items + google_items
-
-    # タイトルで重複除去
+    # 国内10件を主軸にしつつ、海外市場5件を必ず確保する。
     seen = set()
     result = []
-    for item in all_items:
+    domestic = kabutan_items + minkabu_items + yahoo_items + google_jp_items
+    for item in domestic:
         key = item["title"][:25]
         if key not in seen:
             seen.add(key)
             result.append(item)
+        if len(result) >= 10:
+            break
+    for item in google_global_items:
+        key = item["title"][:25]
+        if key not in seen:
+            seen.add(key)
+            result.append(item)
+        if len(result) >= MAX_TOTAL:
+            break
 
     print(f"  合計: {len(result)}件（重複除去後）", file=sys.stderr)
     return result[:MAX_TOTAL], {
         "kabutan": len(kabutan_items),
         "minkabu": len(minkabu_items),
         "yahoo_jp": len(yahoo_items),
-        "google_news": len(google_items),
+        "google_news_jp": len(google_jp_items),
+        "google_news_global": len(google_global_items),
     }
 
 
@@ -442,7 +464,7 @@ def main():
     print("[市場ニュース] 取得開始...", file=sys.stderr)
 
     cache = load_cache()
-    if is_fresh(cache):
+    if os.environ.get("FORCE_REFRESH") != "1" and is_fresh(cache):
         print("[市場ニュース] キャッシュ有効 → スキップ", file=sys.stderr)
         print(json.dumps({"status": "cached", "count": len(cache.get("items", []))}))
         return

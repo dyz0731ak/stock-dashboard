@@ -15,15 +15,12 @@ NOW = datetime.datetime.now(datetime.timezone.utc)
 DATASETS = [
     ("先物・為替", "futures.json", "items", 8, 3, True),
     ("日本株ランキング", "japan_stocks.json", "all_stocks", 36, 30, True),
-    ("米国株ランキング", "us_stocks.json", "gainers", 36, 5, True),
     ("市場ニュース", "market_news.json", "items", 12, 3, True),
     ("経済指標・決算予定", "events.json", "economic", 12, 1, True),
     ("日経225", "nikkei225.json", "items", 12, 100, True),
-    ("S&P500", "sp500.json", "items", 12, 100, True),
     ("テーマ株", "themes.json", "themes", 36, 3, True),
     ("日本株決算速報", "earnings_flash.json", "groups", 36, 1, False),
-    ("米国株決算速報", "earnings_flash_us.json", "groups", 36, 1, False),
-    ("出来高急増", "volume_stocks.json", None, 36, 1, False),
+    ("出来高急増", "volume_stocks.json", "jp_stocks", 36, 1, False),
 ]
 
 
@@ -88,8 +85,6 @@ def audit():
             missing_markets = []
             if not data.get("jp_stocks"):
                 missing_markets.append("日本株")
-            if not data.get("us_stocks"):
-                missing_markets.append("米国株")
             if missing_markets and status == "ok":
                 status = "warning"
                 messages.append(f"{'・'.join(missing_markets)}の出来高データが未取得")

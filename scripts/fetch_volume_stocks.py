@@ -2,7 +2,6 @@
 """
 出来高急増ランキング取得スクリプト
 - 日本株: kabutan.jp /warning/volume_ranking をスクレイピング後 yfinance で前日比算出
-- 米国株: yfinance で S&P500 2日分の出来高を比較
 - 事業説明は Claude API で日本語翻訳（キャッシュ利用）
 """
 
@@ -383,14 +382,12 @@ def main():
     print("[出来高急増] 取得開始...", file=sys.stderr)
 
     jp_stocks = get_jp_volume_stocks(top_n=20)
-    us_stocks = get_us_volume_stocks(top_n=20)
 
     # ── 翻訳 ──
     print("[翻訳] 事業説明を日本語化中...", file=sys.stderr)
     cache = load_cache()
 
-    all_stocks = jp_stocks + us_stocks
-    all_stocks, cache = enrich_with_translations(all_stocks, cache)
+    jp_stocks, cache = enrich_with_translations(jp_stocks, cache)
 
     save_cache(cache)
     print(f"  翻訳キャッシュ保存: {len(cache)}件", file=sys.stderr)
@@ -399,38 +396,35 @@ def main():
     missing = []
     if not jp_stocks:
         missing.append("日本株")
-    if not us_stocks:
-        missing.append("米国株")
     output = {
         "updated_at": now,
         "last_attempt_at": now,
-        "fetch_status": "ok" if not missing else ("partial" if jp_stocks or us_stocks else "stale"),
+        "fetch_status": "ok" if not missing else "stale",
         "fetch_warning": (
             f"{'・'.join(missing)}の出来高ランキングを取得できませんでした"
             if missing else None
         ),
         "source_status": {
             "jp": "ok" if jp_stocks else "unavailable",
-            "us": "ok" if us_stocks else "unavailable",
         },
         "jp_count":   len(jp_stocks),
-        "us_count":   len(us_stocks),
+        "us_count":   0,
         "jp_stocks":  jp_stocks,
-        "us_stocks":  us_stocks,
+        "us_stocks":  [],
     }
 
     # 取得失敗（0件）で既存の良いデータを破壊しないようガード
     saved = safe_save(
         "data/volume_stocks.json",
         output,
-        lambda d: len(d.get("jp_stocks", [])) + len(d.get("us_stocks", [])),
+        lambda d: len(d.get("jp_stocks", [])),
         label="出来高急増",
     )
 
     print(json.dumps({
         "status": "ok" if saved else "kept_existing",
         "jp": len(jp_stocks),
-        "us": len(us_stocks),
+        "us": 0,
     }))
 
 

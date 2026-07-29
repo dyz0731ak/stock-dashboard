@@ -100,20 +100,15 @@ function renderIndices(data) {
 /* ============================================================
    2. 決算速報（決算サプライズ / 修正など zone別）
    ============================================================ */
-let flashData = { jp: null, us: null };
-let flashMode = 'jp';
+let flashData = null;
 
 function renderFlash() {
-  const d = flashData[flashMode];
+  const d = flashData;
   const body = $('#flashBody');
   if (!d) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
 
-  // モード切替ピル（日本株 / 米国株）
   const pills = $('#flashPills');
-  pills.innerHTML = `
-    <span class="pill ${flashMode === 'jp' ? 'active' : ''}" data-m="jp">日本株 <span class="n">${flashData.jp ? flashData.jp.total : 0}</span></span>
-    <span class="pill ${flashMode === 'us' ? 'active' : ''}" data-m="us">米国株 <span class="n">${flashData.us ? flashData.us.total : 0}</span></span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => { flashMode = p.dataset.m; renderFlash(); });
+  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${d.total || 0}</span></span>`;
 
   $('#flashSub').textContent = `${d.article_date} 発表分 ・ 計${d.total}件`;
   $('#updFlash').textContent = '更新 ' + clock(d.updated_at);
@@ -145,24 +140,20 @@ function renderFlash() {
 }
 
 /* ============================================================
-   3. 本日の決算発表（events.json の jp/us earnings）
+   3. 本日の決算発表（日本株）
    ============================================================ */
 let eventsData = null;
-let earnMode = 'us';
 function renderEarn() {
   const d = eventsData; if (!d) return;
   const pills = $('#earnPills');
-  pills.innerHTML = `
-    <span class="pill ${earnMode === 'jp' ? 'active' : ''}" data-m="jp">日本株 <span class="n">${d.jp_earnings.length}</span></span>
-    <span class="pill ${earnMode === 'us' ? 'active' : ''}" data-m="us">米国株 <span class="n">${d.us_earnings.length}</span></span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => { earnMode = p.dataset.m; renderEarn(); });
+  const list = d.jp_earnings || [];
+  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${list.length}</span></span>`;
 
-  const list = earnMode === 'jp' ? d.jp_earnings : d.us_earnings;
   const body = $('#earnBody'); body.innerHTML = '';
   if (!list.length) { body.innerHTML = '<div class="skeleton">本日の予定なし</div>'; }
   list.slice(0, 12).forEach(it => {
     const row = el('div', 'row-item');
-    const id = earnMode === 'jp' ? it.code : it.symbol;
+    const id = it.code;
     const tag = it.time_jst_label || it.quarter || '';
     row.innerHTML = `
       <span class="r-code">${id}</span>
@@ -225,18 +216,11 @@ function renderStats(jp, ev, flashJp) {
 /* ============================================================
    6. 急騰ランキング
    ============================================================ */
-let rankData = { jp: null, us: null };
-let rankMode = 'jp';
+let rankData = null;
 let rankView = 'table';
 
 function rankRows() {
-  if (rankMode === 'jp') {
-    return [...(rankData.jp?.all_stocks || [])]
-      .filter(s => s.change_pct != null)
-      .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
-      .slice(0, 30);
-  }
-  return [...(rankData.us?.gainers || [])]
+  return [...(rankData?.all_stocks || [])]
     .filter(s => s.change_pct != null)
     .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
     .slice(0, 30);
@@ -282,25 +266,22 @@ function miniCandleChart(chart) {
 }
 
 function renderRankTable(rows) {
-  const isJp = rankMode === 'jp';
   const t = el('table', 'rank');
-  t.innerHTML = isJp
-    ? `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th><th class="r">状態</th></tr></thead>`
-    : `<thead><tr><th class="rank-col">順位</th><th>ティッカー</th><th>銘柄</th><th>セクター</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th></tr></thead>`;
+  t.innerHTML = `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th><th class="r">状態</th></tr></thead>`;
   const tb = el('tbody');
   rows.forEach((s, i) => {
     const pct = Number(s.change_pct);
     const tr = el('tr');
-    const code = isJp ? s.code : s.symbol;
-    const change = isJp ? s.change_amount : s.change;
+    const code = s.code;
+    const change = s.change_amount;
     tr.innerHTML = `<td><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
       <td class="t-code">${escHtml(code)}</td>
-      <td><div class="t-name">${escHtml(s.name || code)}</div><div class="t-sec">${escHtml(isJp ? s.sector : '')}</div></td>
-      <td><span class="pill-mkt">${escHtml(isJp ? s.market : (s.sector || s.sector_en || '—'))}</span></td>
-      <td class="r num">${isJp ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</td>
-      <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, isJp && Number.isInteger(Number(change)) ? 0 : 2)}</td>
+      <td><div class="t-name">${escHtml(s.name || code)}</div><div class="t-sec">${escHtml(s.sector || '')}</div></td>
+      <td><span class="pill-mkt">${escHtml(s.market || '—')}</span></td>
+      <td class="r num">${fmt(s.price)}円</td>
+      <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, Number.isInteger(Number(change)) ? 0 : 2)}</td>
       <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
-      ${isJp ? `<td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>` : ''}`;
+      <td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>`;
     tb.appendChild(tr);
   });
   t.appendChild(tb);
@@ -315,7 +296,7 @@ function renderRankCharts(rows) {
     card.innerHTML = `<div class="rank-chart-head">
       <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
       <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(s.market || s.sector || '')}・6か月日足</small></div>
-      <div class="rank-chart-price"><b class="num">${rankMode === 'jp' ? fmt(s.price) + '円' : '$' + fmt(s.price, 2)}</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
+      <div class="rank-chart-price"><b class="num">${fmt(s.price)}円</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
     </div>${miniCandleChart(s.chart)}</article>`;
     grid.appendChild(card);
   });
@@ -323,42 +304,25 @@ function renderRankCharts(rows) {
 }
 
 function renderRank() {
-  const jp = rankData.jp, us = rankData.us;
-  // タブ（日本株 / 米国株）
+  const jp = rankData;
   const jpN = jp ? jp.all_stocks.length : 0;
-  const usN = us ? (us.gainers || []).length : 0;
   const pills = $('#rankPills');
-  pills.innerHTML = `
-    <span class="pill ${rankMode === 'jp' ? 'active' : ''}" data-m="jp">日本株 <span class="n">${jpN}</span></span>
-    <span class="pill ${rankMode === 'us' ? 'active' : ''}" data-m="us">米国株 <span class="n">${usN}</span></span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => {
-    rankMode = p.dataset.m;
-    if (rankMode === 'us' && rankView === 'chart') rankView = 'table';
-    renderRank();
-  });
+  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${jpN}</span></span>`;
 
   const body = $('#rankBody'); body.innerHTML = '';
 
-  if (rankMode === 'jp') {
-    if (!jp) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
-    if (!isFresh(jp, 36)) {
-      body.innerHTML = `<div class="data-notice">日本株ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(jp.updated_at)}（${timeAgo(jp.updated_at)}）</small></div>`;
-      $('#rankSub').textContent = '日本株・取得確認中';
-      $('#updRank').textContent = updateLabel(jp, 36);
-      return;
-    }
-    $('#rankSub').textContent = `${jp.scope || '日本株・全市場'}・値上がり率上位${jp.is_fallback ? '（代替表示）' : ''}`;
+  if (!jp) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
+  if (!isFresh(jp, 36)) {
+    body.innerHTML = `<div class="data-notice">日本株ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(jp.updated_at)}（${timeAgo(jp.updated_at)}）</small></div>`;
+    $('#rankSub').textContent = '日本株・取得確認中';
     $('#updRank').textContent = updateLabel(jp, 36);
-  } else {
-    if (!us) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
-    $('#rankSub').textContent = '米国株・値上がり率上位';
-    $('#updRank').textContent = updateLabel(us, 36);
+    return;
   }
+  $('#rankSub').textContent = `${jp.scope || '日本株・全市場'}・値上がり率上位${jp.is_fallback ? '（代替表示）' : ''}`;
+  $('#updRank').textContent = updateLabel(jp, 36);
 
   const views = $('#rankViews');
-  const availableViews = rankMode === 'jp'
-    ? [['table', '一覧'], ['chart', 'ミニチャート']]
-    : [['table', '一覧']];
+  const availableViews = [['table', '一覧'], ['chart', 'ミニチャート']];
   views.innerHTML = availableViews.map(([key, label]) =>
     `<button type="button" class="rank-view-btn ${rankView === key ? 'active' : ''}" data-v="${key}">${label}</button>`
   ).join('');
@@ -572,25 +536,16 @@ function squarify(items, x, y, w, h) {
   }
   return out;
 }
-let heatData = { jp: null, us: null };
-let heatMode = 'jp';
+let heatData = null;
 let heatResizeObserver = null;
 let heatRenderTimer = null;
-const HEAT_META = {
-  jp: { title: '日経225 ヒートマップ', label: '日本株', count: 80 },
-  us: { title: 'S&P500 ヒートマップ', label: '米国株', count: 100 },
-};
 
 function renderHeatmap() {
-  const d = heatData[heatMode];
-  // タブ
+  const d = heatData;
   const pills = $('#heatPills');
-  pills.innerHTML = `
-    <span class="pill ${heatMode === 'jp' ? 'active' : ''}" data-m="jp">日本株</span>
-    <span class="pill ${heatMode === 'us' ? 'active' : ''}" data-m="us">米国株</span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => { heatMode = p.dataset.m; renderHeatmap(); });
+  pills.innerHTML = '<span class="pill active">日本株</span>';
 
-  $('#heatTitle').textContent = HEAT_META[heatMode].title;
+  $('#heatTitle').textContent = '日経225 ヒートマップ';
   const box = $('#heatmap');
   if (!d) { box.innerHTML = '<div class="skeleton">データなし</div>'; return; }
 
@@ -603,7 +558,7 @@ function renderHeatmap() {
   const items = [...d.items]
     .filter(s => Number.isFinite(Number(s.market_cap)) && Number(s.market_cap) > 0)
     .sort((a, b) => b.market_cap - a.market_cap)
-    .slice(0, HEAT_META[heatMode].count)
+    .slice(0, 80)
     .map(s => ({
       value: Number(s.market_cap),
       name: s.name || s.symbol,
@@ -648,24 +603,21 @@ async function boot() {
   const tasks = {
     futures: getJSON('data/futures.json'),
     japan: getJSON('data/japan_stocks.json'),
-    usStocks: getJSON('data/us_stocks.json'),
     flashJp: getJSON('data/earnings_flash.json'),
-    flashUs: getJSON('data/earnings_flash_us.json'),
     events: getJSON('data/events.json'),
     news: getJSON('data/market_news.json'),
     nikkei: getJSON('data/nikkei225.json'),
-    sp500: getJSON('data/sp500.json'),
     themes: getJSON('data/themes.json'),
     health: getJSON('data/health.json'),
   };
   const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
 
-  const [futures, japan, usStocks, flashJp, flashUs, events, news, nikkei, sp500, themes, health] = await Promise.all(
-    ['futures', 'japan', 'usStocks', 'flashJp', 'flashUs', 'events', 'news', 'nikkei', 'sp500', 'themes', 'health'].map(get)
+  const [futures, japan, flashJp, events, news, nikkei, themes, health] = await Promise.all(
+    ['futures', 'japan', 'flashJp', 'events', 'news', 'nikkei', 'themes', 'health'].map(get)
   );
 
   if (futures) renderIndices(futures);
-  if (flashJp || flashUs) { flashData = { jp: flashJp, us: flashUs }; flashMode = flashJp ? 'jp' : 'us'; renderFlash(); $('#navFlash').textContent = (flashJp ? flashJp.total : 0); }
+  if (flashJp) { flashData = flashJp; renderFlash(); $('#navFlash').textContent = flashJp.total || 0; }
   if (events) {
     eventsData = events; renderEarn();
     const ec = events.economic || [];
@@ -673,14 +625,13 @@ async function boot() {
     renderEvents(events);
   }
   if (news) renderNews(news);
-  if (japan || usStocks) {
-    rankData = { jp: japan, us: usStocks };
-    rankMode = isFresh(japan, 36) ? 'jp' : 'us';
+  if (japan) {
+    rankData = japan;
     renderRank();
   }
   if (japan) renderStats(japan, events, flashJp);
   if (themes) { themesData = themes; renderThemes(); }
-  if (nikkei || sp500) { heatData = { jp: nikkei, us: sp500 }; heatMode = nikkei ? 'jp' : 'us'; renderHeatmap(); }
+  if (nikkei) { heatData = nikkei; renderHeatmap(); }
 
   // 利用者向けには内部監査の件数を出さず、確認済みの更新時刻だけを表示
   if (health) {
@@ -705,7 +656,7 @@ async function boot() {
 
 window.addEventListener('resize', () => { /* ヒートマップ再描画はデバウンス */
   clearTimeout(window._rz);
-  window._rz = setTimeout(() => { if (heatData.jp || heatData.us) renderHeatmap(); }, 300);
+  window._rz = setTimeout(() => { if (heatData) renderHeatmap(); }, 300);
 });
 
 boot();

@@ -4,7 +4,6 @@
 
 データソース:
   - 日本株決算予定: kabutan.jp /warning/?mode=5_1（翌営業日）
-  - 米国株決算予定: Yahoo Finance /calendar/earnings
   - 経済指標スケジュール: ForexFactory 週次フィード（nfs.faireconomy.media）
   - 全て JST（UTC+9）で出力
 
@@ -930,7 +929,6 @@ def main():
 
     # ── 各データ取得 ──
     jp_earnings  = fetch_jp_earnings(max_pages=3)    # 翌日 ~45件
-    us_earnings  = fetch_us_earnings([today, tomorrow])
     economic, eco_fetched_at = get_economic_data(prior, now_jst)
 
     output = {
@@ -939,11 +937,11 @@ def main():
         "target_tomorrow": tomorrow.isoformat(),
         "economic_fetched_at": eco_fetched_at,
         "jp_earnings":  jp_earnings,
-        "us_earnings":  us_earnings,
+        "us_earnings":  [],
         "economic":     economic,
         "summary": {
             "jp_earnings_count": len(jp_earnings),
-            "us_earnings_count": len(us_earnings),
+            "us_earnings_count": 0,
             "economic_count":    len(economic),
         },
     }
@@ -953,7 +951,6 @@ def main():
         "data/events.json",
         output,
         lambda d: (len(d.get("jp_earnings", []))
-                   + len(d.get("us_earnings", []))
                    + len(d.get("economic", []))),
         label="イベント",
     )
@@ -961,7 +958,7 @@ def main():
     print(json.dumps({
         "status": "ok" if saved else "kept_existing",
         "jp_earnings": len(jp_earnings),
-        "us_earnings": len(us_earnings),
+        "us_earnings": 0,
         "economic":    len(economic),
     }))
 
