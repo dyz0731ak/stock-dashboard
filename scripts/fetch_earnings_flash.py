@@ -820,6 +820,19 @@ def main() -> int:
         # kabutanのMM/DDをそのまま使う（年は今年）
         article_date = f"{now.year}-{ku_md.replace('/', '-')}"
 
+    for item in important:
+        item["published_date"] = article_date
+        item["published_time"] = item.get("time", "")
+        try:
+            published = datetime.date.fromisoformat(article_date)
+            date_label = f"{published.month}/{published.day}"
+        except (TypeError, ValueError):
+            date_label = article_date or "日付不明"
+        item["published_label"] = (
+            f"{date_label} {item['published_time']}発表"
+            if item["published_time"] else f"{date_label}発表"
+        )
+
     data: dict[str, Any] = {
         "updated_at": now.isoformat(),
         "article_date": article_date,

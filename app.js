@@ -132,6 +132,7 @@ function renderFlash() {
       <div class="flash-top">
         <span class="nm">${it.name}</span>
         <span class="code">${it.code}</span>
+        <span class="flash-published">${it.published_label || `${d.article_date} ${it.time || ''}発表`}</span>
         <span class="impact-label">${it.impact_label || '注目決算'}</span>
       </div>
       <div class="nar">${it.narrative || ''}</div>

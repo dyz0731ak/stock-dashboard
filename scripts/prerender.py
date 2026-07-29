@@ -245,6 +245,7 @@ def build_flash(flash):
             f'href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">'
             f'<div class="flash-top"><span class="nm">{esc(it.get("name"))}</span>'
             f'<span class="code">{esc(it.get("code"))}</span>'
+            f'<span class="flash-published">{esc(it.get("published_label") or "")}</span>'
             f'<span class="impact-label">{esc(it.get("impact_label") or "注目決算")}</span></div>'
             f'<div class="nar">{esc(it.get("narrative"))}</div>'
             f'<div class="chips">{"".join(chips)}</div>'
