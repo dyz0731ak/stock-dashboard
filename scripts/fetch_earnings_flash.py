@@ -99,6 +99,9 @@ def classify_by_title(title: str) -> str:
         return "黒字浮上"
     if "下方修正" in t:
         return "下方修正"
+    # 増配の明確なシグナルを先に判定（「未定だった配当は増配」を減配扱いしない）
+    if "増配" in t or ("配当" in t and ("増額" in t or "上方" in t)):
+        return "増配・配当修正"
     # 減配の明確なシグナル
     if (
         "減配" in t
@@ -107,9 +110,6 @@ def classify_by_title(title: str) -> str:
         or ("配当" in t and "未定" in t)
     ):
         return "減配"
-    # 増配の明確なシグナル（「配当予想の修正」だけでは方向不明なので増額キーワード必須）
-    if "増配" in t or ("配当" in t and ("増額" in t or "上方" in t)):
-        return "増配・配当修正"
     if "赤字" in t or "減益" in t:
         return "赤字・減益"
     if (
@@ -534,6 +534,85 @@ def extract_chips(metrics: dict | None) -> list[dict]:
     return chips
 
 
+IMPACT_BASE = {
+    "一転最高益": 100,
+    "上振れ最高益": 98,
+    "連続最高益": 94,
+    "大幅上方修正": 92,
+    "一転増益": 90,
+    "黒字浮上": 88,
+    "上方修正": 82,
+    "増配・配当修正": 78,
+    "下方修正": 92,
+    "減配": 90,
+    "赤字・減益": 68,
+    "本決算・四半期決算": 55,
+}
+
+
+def _strongest_profit_chip(chips: list[dict]) -> dict | None:
+    profits = [c for c in chips if c.get("label") in ("営業益", "経常", "純益")]
+    return max(profits or chips, key=lambda c: float(c.get("pct") or 0), default=None)
+
+
+def impact_details(item: dict) -> tuple[int, str, str, str]:
+    """決算の重要度と、利用者向けのかみ砕いた意味を決定論的に生成する。"""
+    category = item.get("category", "")
+    chips = item.get("chips") or []
+    strongest = _strongest_profit_chip(chips)
+    magnitude = float(strongest.get("pct") or 0) if strongest else 0
+    narrative = item.get("narrative") or ""
+    if not magnitude:
+        title_pct = re.search(r"(\d+(?:\.\d+)?)％(?:増益|減益|上方|下方)", narrative)
+        magnitude = float(title_pct.group(1)) if title_pct else 0
+    score = min(100, IMPACT_BASE.get(category, 0) + int(min(magnitude, 100) / 10))
+
+    positive = category in {
+        "一転最高益", "上振れ最高益", "連続最高益", "一転増益",
+        "大幅上方修正", "上方修正", "増配・配当修正", "黒字浮上",
+    }
+    negative = category in {"下方修正", "減配", "赤字・減益"}
+    zone = "positive" if positive else "negative" if negative else "decision"
+    if zone == "positive":
+        label = "強い好材料" if score >= 90 else "好材料"
+    elif zone == "negative":
+        label = "強い警戒材料" if score >= 90 else "警戒材料"
+    else:
+        label = "注目決算"
+
+    mixed = positive and any(word in narrative for word in ("減益", "赤字", "下方修正", "減配"))
+    if mixed:
+        zone = "decision"
+        label = "内容混在"
+        score = max(score, 80)
+
+    metric_text = (
+        f"{strongest['label']}が前年同期比{strongest['value']}"
+        if strongest else ""
+    )
+    if mixed:
+        summary = "株主還元などの好材料と利益面の弱さが混在しています。見出しだけで判断せず、通期計画と悪化要因を確認したい決算です。"
+    elif category in {"一転最高益", "上振れ最高益", "連続最高益"}:
+        summary = "最高益見通しの更新は、会社計画と利益成長への評価が切り上がりやすい材料です。"
+    elif category in {"大幅上方修正", "上方修正", "一転増益"}:
+        summary = "会社計画の上方修正は従来想定を上回る進捗を示します。通期予想の達成確度と翌営業日の初動に注目です。"
+    elif category == "黒字浮上":
+        summary = "赤字から黒字への転換です。収益構造の改善が一過性か、次の四半期も続くかが焦点です。"
+    elif category == "増配・配当修正":
+        summary = "株主還元の強化は評価材料です。増配の継続性と業績の裏付けを確認したい決算です。"
+    elif category in {"下方修正", "減配"}:
+        summary = "会社計画または株主還元の引き下げは警戒材料です。下振れ要因が一時的か長期化するかを確認する必要があります。"
+    elif category == "赤字・減益":
+        summary = "利益の悪化が確認された決算です。通期計画への進捗と、悪化要因の継続性に注意が必要です。"
+    elif strongest and strongest.get("direction") == "up":
+        summary = f"{metric_text}。利益成長が大きく、通期計画への進捗と関連銘柄への評価波及を確認したい決算です。"
+    elif strongest and strongest.get("direction") == "down":
+        summary = f"{metric_text}。利益の弱さが通期計画に及ぼす影響と、翌営業日の株価反応に注意が必要です。"
+    else:
+        summary = "業績の着地を確認する決算です。会社計画に対する進捗と次回見通しが評価の焦点になります。"
+    return score, label, zone, summary
+
+
 def clean_narrative(text: str, company_name: str = "") -> str:
     """株探タイトルの冒頭「会社名、」プレフィックスを除去"""
     if not text:
@@ -649,6 +728,13 @@ def merge_items(*lists: list[dict]) -> list[dict]:
             }
         )
 
+    for item in final:
+        score, label, zone, summary = impact_details(item)
+        item["impact_score"] = score
+        item["impact_label"] = label
+        item["impact_zone"] = zone
+        item["impact_summary"] = summary
+
     return final
 
 
@@ -710,8 +796,13 @@ def main() -> int:
     kp_items, kp_date = fetch_kabupro()
 
     merged = merge_items(ir_items, ku_items, kp_items)
-    groups = group_items(merged)
-    total = sum(len(g["items"]) for g in groups)
+    important = [it for it in merged if it.get("category") != "その他開示"]
+    important.sort(
+        key=lambda it: (int(it.get("impact_score") or 0), it.get("time", "")),
+        reverse=True,
+    )
+    groups = group_items(important)
+    total = len(important)
 
     # 表示用の article_date: irbankの最新日を優先（最も信頼できる日付）
     article_date = ir_date or kp_date
@@ -734,7 +825,9 @@ def main() -> int:
             "kabupro": kp_date,
         },
         "groups": groups,
+        "highlights": important[:12],
         "total": total,
+        "selection_note": "業績修正・増減益・黒字転換など、市場への影響が大きい決算を優先",
     }
 
     out_path = os.path.normpath(

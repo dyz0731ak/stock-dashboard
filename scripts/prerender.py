@@ -225,26 +225,33 @@ def build_events(events):
 
 
 def build_flash(flash):
-    if not flash or not flash.get("groups"):
+    if not flash:
         return ""
-    out = []
-    for g in flash["groups"]:
-        items = g.get("items") or []
-        if not items:
-            continue
-        out.append(f'<div class="flash-zone zone-{esc(g.get("zone","neutral"))}">'
-                   f'<div class="zone-label"><span class="zone-tag">{esc(g.get("display"))}</span></div>')
-        for it in items[:6]:
-            chips = "".join(f'<span class="chip">{esc(c.get("label"))} {esc(c.get("value"))}</span>'
-                            for c in (it.get("chips") or []))
-            out.append(
-                f'<div class="flash-item"><span class="time">{esc(it.get("time",""))}</span>'
-                f'<span class="code">{esc(it.get("code"))}</span>'
-                f'<div class="body"><div class="nm">{esc(it.get("name"))}</div>'
-                f'<div class="nar">{esc(it.get("narrative",""))}</div>'
-                f'<div class="chips">{chips}</div></div></div>'
+    items = flash.get("highlights") or [
+        item for group in (flash.get("groups") or []) for item in (group.get("items") or [])
+    ]
+    if not items:
+        return '<div class="skeleton">重要決算を確認中です</div>'
+    out = ['<div class="flash-list">']
+    for it in items[:12]:
+        chips = []
+        for chip in it.get("chips") or []:
+            cls = "pos" if chip.get("direction") == "up" else "neg" if chip.get("direction") == "down" else ""
+            chips.append(
+                f'<span class="chip {cls}">{esc(chip.get("label"))} {esc(chip.get("value"))}</span>'
             )
-        out.append("</div>")
+        out.append(
+            f'<a class="flash-item {esc(it.get("impact_zone") or "decision")}" '
+            f'href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">'
+            f'<div class="flash-top"><span class="nm">{esc(it.get("name"))}</span>'
+            f'<span class="code">{esc(it.get("code"))}</span>'
+            f'<span class="impact-label">{esc(it.get("impact_label") or "注目決算")}</span></div>'
+            f'<div class="nar">{esc(it.get("narrative"))}</div>'
+            f'<div class="chips">{"".join(chips)}</div>'
+            f'<div class="impact-summary">{esc(it.get("impact_summary") or "通期計画への進捗と今後の見通しを確認したい決算です。")}</div>'
+            f'</a>'
+        )
+    out.append("</div>")
     return "".join(out)
 
 

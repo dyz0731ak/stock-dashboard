@@ -107,36 +107,39 @@ function renderFlash() {
   const body = $('#flashBody');
   if (!d) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
 
-  const pills = $('#flashPills');
-  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${d.total || 0}</span></span>`;
-
-  $('#flashSub').textContent = `${d.article_date} 発表分 ・ 計${d.total}件`;
+  const shown = Math.min(12, (d.highlights || []).length || d.total || 0);
+  $('#flashSub').textContent = `${d.article_date} 発表分 ・ 重要度上位${shown}件`;
   $('#updFlash').textContent = '更新 ' + clock(d.updated_at);
 
   body.innerHTML = '';
-  d.groups.forEach(g => {
-    if (!g.items || !g.items.length) return;
-    const zone = el('div', 'flash-zone zone-' + g.zone);
-    zone.appendChild(el('div', 'zone-label', `<span class="zone-tag">${g.display}</span><span style="color:var(--ink-3);font-weight:500">${g.items.length}件</span>`));
-    g.items.slice(0, 6).forEach(it => {
-      const chips = (it.chips || []).map(c => {
-        const cls = c.direction === 'up' ? 'pos' : c.direction === 'down' ? 'neg' : '';
-        const strong = c.strength === 'strong' ? 'font-weight:700' : '';
-        return `<span class="chip ${cls}" style="${strong}">${c.label} ${c.value}</span>`;
-      }).join('');
-      const item = el('div', 'flash-item');
-      item.innerHTML = `
-        <span class="time">${it.time || ''}</span>
+  const rows = d.highlights || (d.groups || []).flatMap(g => g.items || []);
+  if (!rows.length) {
+    body.innerHTML = '<div class="skeleton">重要決算を確認中です</div>';
+    return;
+  }
+  const list = el('div', 'flash-list');
+  rows.slice(0, 12).forEach(it => {
+    const chips = (it.chips || []).map(c => {
+      const cls = c.direction === 'up' ? 'pos' : c.direction === 'down' ? 'neg' : '';
+      const strong = c.strength === 'strong' ? 'font-weight:700' : '';
+      return `<span class="chip ${cls}" style="${strong}">${c.label} ${c.value}</span>`;
+    }).join('');
+    const item = el('a', `flash-item ${it.impact_zone || 'decision'}`);
+    item.href = it.url || '#';
+    item.target = '_blank';
+    item.rel = 'noopener';
+    item.innerHTML = `
+      <div class="flash-top">
+        <span class="nm">${it.name}</span>
         <span class="code">${it.code}</span>
-        <div class="body">
-          <div class="nm">${it.name}</div>
-          <div class="nar">${it.narrative || ''}</div>
-          <div class="chips">${chips}</div>
-        </div>`;
-      zone.appendChild(item);
-    });
-    body.appendChild(zone);
+        <span class="impact-label">${it.impact_label || '注目決算'}</span>
+      </div>
+      <div class="nar">${it.narrative || ''}</div>
+      <div class="chips">${chips}</div>
+      <div class="impact-summary">${it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。'}</div>`;
+    list.appendChild(item);
   });
+  body.appendChild(list);
 }
 
 let eventsData = null;
@@ -543,7 +546,11 @@ async function boot() {
   );
 
   if (futures) renderIndices(futures);
-  if (flashJp) { flashData = flashJp; renderFlash(); $('#navFlash').textContent = flashJp.total || 0; }
+  if (flashJp) {
+    flashData = flashJp;
+    renderFlash();
+    $('#navFlash').textContent = Math.min(12, (flashJp.highlights || []).length || flashJp.total || 0);
+  }
   if (events) {
     const ec = events.economic || [];
     eventMode = ec.filter(e => e.country === 'JP').length > ec.filter(e => e.country === 'US').length ? 'jp' : 'us';
