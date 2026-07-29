@@ -114,29 +114,6 @@ def is_fresh(data, max_hours):
 # ─────────────────────────────────────────────
 # 各セクションの HTML 生成
 # ─────────────────────────────────────────────
-def build_hero(japan, themes, futures):
-    today = datetime.datetime.now(JST).strftime("%-m/%-d")
-    bits = []
-    if is_fresh(japan, 36) and japan.get("all_stocks"):
-        top = max(japan["all_stocks"], key=lambda s: float(s.get("change_pct") or 0))
-        if japan.get("is_fallback"):
-            bits.append(f'{esc(japan.get("scope", "日経225構成銘柄"))}の上昇率トップは'
-                        f'{esc(top["name"])}（{esc(top["code"])}・{pcttxt(top["change_pct"])}）')
-        else:
-            bits.append(f'本日のストップ高は{japan.get("stop_high_count", 0)}銘柄、'
-                        f'急騰トップは{esc(top["name"])}（{esc(top["code"])}・{pcttxt(top["change_pct"])}）')
-    if is_fresh(themes, 36) and themes.get("themes"):
-        t = max(themes["themes"], key=lambda x: x.get("week_pct", 0))
-        bits.append(f'注目テーマは{esc(t["name"])}（週{pcttxt(t["week_pct"])}）')
-    lead2 = "、".join(bits)
-    h = ['<h1 class="hero-h1">日本株 定期更新ダッシュボード｜投資の砦</h1>']
-    h.append('<p class="hero-lead">日本株のストップ高・急騰銘柄・決算速報・テーマ株ランキング・'
-             '経済指標カレンダー・日経225ヒートマップを一画面で約15分間隔に定期更新。'
-             '海外市場は、日本株への影響を把握するための先物・為替・重要ニュースに絞って掲載。'
-             + (f'<br>{today}時点 — {lead2}。' if lead2 else "") + '</p>')
-    return "\n".join(h)
-
-
 def build_idx(futures):
     if not futures or not futures.get("items"):
         return ""
@@ -703,7 +680,6 @@ def main():
         doc = f.read()
 
     sections = {
-        "hero": build_hero(japan, themes, futures),
         "idx": build_idx(futures),
         "flash": build_flash(flash),
         "earn": build_earn(events),

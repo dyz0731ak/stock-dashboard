@@ -310,11 +310,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 .data-notice{padding:24px;text-align:center;color:var(--ink-2);background:#fff8e8;border:1px solid #f0d08a;border-radius:8px}
 .data-notice small{color:var(--ink-3)}
 
-/* ===== SEO ヒーロー ===== */
-#hero{margin-bottom:14px}
-.hero-h1{font-size:19px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:6px}
-.hero-lead{font-size:12.5px;color:var(--ink-2);line-height:1.7;max-width:880px}
-@media(max-width:560px){.hero-h1{font-size:16px}}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 /* プリレンダリングのヒートマップ代替（JSロード前/失敗時に表示・SEO用） */
 .hm-fallback{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px;padding:10px;height:100%;align-content:start;overflow:auto}
 .hm-fallback>span{font-size:11px;padding:7px 9px;border-radius:5px;background:var(--surface);border:1px solid var(--border);color:var(--ink-2)}
@@ -367,14 +363,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 </nav>
 
 <main class="wrap">
-
-  <!-- ===== SEO ヒーロー（プリレンダリングで本文を焼き込む） ===== -->
-  <section class="section" id="hero">
-    <!--PRERENDER:hero-->
-<h1 class="hero-h1">日本株 定期更新ダッシュボード｜投資の砦</h1>
-<p class="hero-lead">日本株のストップ高・急騰銘柄・決算速報・テーマ株ランキング・経済指標カレンダー・日経225ヒートマップを一画面で約15分間隔に定期更新。海外市場は、日本株への影響を把握するための先物・為替・重要ニュースに絞って掲載。<br>7/29時点 — 本日のストップ高は3銘柄、急騰トップはシリコンスタジオ（3907・+29.47%）、注目テーマはゲーム（週+15.36%）。</p>
-<!--/PRERENDER:hero-->
-  </section>
+  <h1 class="sr-only">日本株 定期更新ダッシュボード｜投資の砦</h1>
 
   <!-- ===== 指数・先物 ===== -->
   <section class="section" id="idx">
@@ -392,6 +381,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 <div class="idx-card"><div class="head"><span class="label">金先物</span><span class="pct-badge" style="background:var(--down-soft);color:var(--down)">-0.26%</span></div><div class="price num down">4,025.9</div><div class="change num down">▼ 10.4</div></div>
 <!--/PRERENDER:idx--></div>
   </section>
+
 
 
   <!-- ===== 急騰ランキング ===== -->
