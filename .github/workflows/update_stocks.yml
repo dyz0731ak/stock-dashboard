@@ -59,6 +59,12 @@ jobs:
           python scripts/fetch_japan_stocks.py
         continue-on-error: true
 
+      - name: Fetch night PTS ranking (ジャパンネクスト夜間PTS)
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/fetch_pts_ranking.py
+        continue-on-error: true
+
       - name: Fetch volume surge stocks (出来高急増)
         run: |
           cd ${{ github.workspace }}

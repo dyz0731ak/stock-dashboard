@@ -183,10 +183,13 @@ let marketNewsData = null;
    6. 急騰ランキング
    ============================================================ */
 let rankData = null;
+let ptsRankData = null;
+let rankMarket = 'tse';
 let rankView = 'table';
 
 function rankRows() {
-  return [...(rankData?.all_stocks || [])]
+  const data = rankMarket === 'pts' ? ptsRankData : rankData;
+  return [...(data?.all_stocks || [])]
     .filter(s => s.change_pct != null)
     .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
     .slice(0, 30);
@@ -231,8 +234,9 @@ function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月�
 }
 
 function renderRankTable(rows) {
+  const isPts = rankMarket === 'pts';
   const t = el('table', 'rank');
-  t.innerHTML = `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th><th class="r">状態</th></tr></thead>`;
+  t.innerHTML = `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">${isPts ? 'PTS価格' : '株価'}</th><th class="r">${isPts ? '東証終値比' : '前日比'}</th><th class="r">騰落率</th><th class="r">${isPts ? '出来高' : '状態'}</th></tr></thead>`;
   const tb = el('tbody');
   rows.forEach((s, i) => {
     const pct = Number(s.change_pct);
@@ -242,11 +246,11 @@ function renderRankTable(rows) {
     tr.innerHTML = `<td><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
       <td class="t-code">${escHtml(code)}</td>
       <td><div class="t-name">${escHtml(s.name || code)}</div><div class="t-sec">${escHtml(s.sector || '')}</div></td>
-      <td><span class="pill-mkt">${escHtml(s.market || '—')}</span></td>
+      <td><span class="pill-mkt">${escHtml(isPts ? (s.market_tse || 'PTS') : (s.market || '—'))}</span></td>
       <td class="r num">${fmt(s.price)}円</td>
       <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, Number.isInteger(Number(change)) ? 0 : 2)}</td>
       <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
-      <td class="r">${s.is_stop_high ? '<span class="st-tag">S高</span>' : ''}</td>`;
+      <td class="r">${isPts ? `<span class="num">${s.volume == null ? '—' : fmt(s.volume) + '株'}</span>` : (s.is_stop_high ? '<span class="st-tag">S高</span>' : '')}</td>`;
     tb.appendChild(tr);
   });
   t.appendChild(tb);
@@ -254,13 +258,14 @@ function renderRankTable(rows) {
 }
 
 function renderRankCharts(rows) {
+  const isPts = rankMarket === 'pts';
   const grid = el('div', 'rank-chart-grid');
   rows.forEach((s, i) => {
     const pct = Number(s.change_pct);
     const card = el('article', 'rank-chart-card');
     card.innerHTML = `<div class="rank-chart-head">
       <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
-      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(s.market || s.sector || '')}・6か月日足</small></div>
+      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(isPts ? (s.market_tse || '夜間PTS') : (s.market || s.sector || ''))}・${isPts ? '東証' : ''}6か月日足</small></div>
       <div class="rank-chart-price"><b class="num">${fmt(s.price)}円</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
     </div>${miniCandleChart(s.chart)}</article>`;
     grid.appendChild(card);
@@ -270,21 +275,33 @@ function renderRankCharts(rows) {
 
 function renderRank() {
   const jp = rankData;
-  const jpN = jp ? jp.all_stocks.length : 0;
+  const pts = ptsRankData;
+  const data = rankMarket === 'pts' ? pts : jp;
+  const jpN = jp?.all_stocks?.length || 0;
+  const ptsN = pts?.all_stocks?.length || 0;
   const pills = $('#rankPills');
-  pills.innerHTML = `<span class="pill active">日本株 <span class="n">${jpN}</span></span>`;
+  pills.innerHTML = `<button type="button" class="pill ${rankMarket === 'tse' ? 'active' : ''}" data-market="tse">東証全市場 <span class="n">${jpN}</span></button>
+    <button type="button" class="pill ${rankMarket === 'pts' ? 'active' : ''}" data-market="pts">夜間PTS <span class="n">${ptsN}</span></button>`;
+  pills.querySelectorAll('[data-market]').forEach(button => button.onclick = () => {
+    rankMarket = button.dataset.market;
+    renderRank();
+  });
 
   const body = $('#rankBody'); body.innerHTML = '';
 
-  if (!jp) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
-  if (!isFresh(jp, 36)) {
-    body.innerHTML = `<div class="data-notice">日本株ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(jp.updated_at)}（${timeAgo(jp.updated_at)}）</small></div>`;
-    $('#rankSub').textContent = '日本株・取得確認中';
-    $('#updRank').textContent = updateLabel(jp, 36);
+  if (!data) { body.innerHTML = '<div class="skeleton">データを準備しています</div>'; return; }
+  const maxAge = rankMarket === 'pts' ? 120 : 36;
+  if (!isFresh(data, maxAge)) {
+    body.innerHTML = `<div class="data-notice">${rankMarket === 'pts' ? '夜間PTS' : '日本株'}ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(data.updated_at)}（${timeAgo(data.updated_at)}）</small></div>`;
+    $('#rankSub').textContent = `${rankMarket === 'pts' ? '夜間PTS' : '日本株'}・取得確認中`;
+    $('#updRank').textContent = updateLabel(data, maxAge);
     return;
   }
-  $('#rankSub').textContent = `${jp.scope || '日本株・全市場'}・値上がり率上位${jp.is_fallback ? '（代替表示）' : ''}`;
-  $('#updRank').textContent = updateLabel(jp, 36);
+  const ptsDate = data.session_date ? `・${data.session_date.replaceAll('-', '/')}取引` : '';
+  $('#rankSub').textContent = rankMarket === 'pts'
+    ? `夜間PTS${ptsDate}・東証終値比の値上がり率上位`
+    : `${data.scope || '日本株・全市場'}・値上がり率上位${data.is_fallback ? '（代替表示）' : ''}`;
+  $('#updRank').textContent = updateLabel(data, maxAge);
 
   const views = $('#rankViews');
   const availableViews = [['table', '一覧'], ['chart', 'ミニチャート']];
@@ -525,6 +542,7 @@ async function boot() {
   const tasks = {
     futures: getJSON('data/futures.json'),
     japan: getJSON('data/japan_stocks.json'),
+    pts: getJSON('data/pts_ranking.json'),
     flashJp: getJSON('data/earnings_flash.json'),
     marketNews: getJSON('data/market_news.json'),
     nikkei: getJSON('data/nikkei225.json'),
@@ -533,8 +551,8 @@ async function boot() {
   };
   const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
 
-  const [futures, japan, flashJp, marketNews, nikkei, themes, health] = await Promise.all(
-    ['futures', 'japan', 'flashJp', 'marketNews', 'nikkei', 'themes', 'health'].map(get)
+  const [futures, japan, pts, flashJp, marketNews, nikkei, themes, health] = await Promise.all(
+    ['futures', 'japan', 'pts', 'flashJp', 'marketNews', 'nikkei', 'themes', 'health'].map(get)
   );
 
   if (futures) renderIndices(futures);
@@ -544,8 +562,10 @@ async function boot() {
     $('#navFlash').textContent = Math.min(12, (flashJp.highlights || []).length || flashJp.total || 0);
   }
   if (marketNews) renderMarketNews(marketNews);
-  if (japan) {
+  if (japan || pts) {
     rankData = japan;
+    ptsRankData = pts;
+    if (!japan && pts) rankMarket = 'pts';
     renderRank();
   }
   if (themes) { themesData = themes; renderThemes(); }
