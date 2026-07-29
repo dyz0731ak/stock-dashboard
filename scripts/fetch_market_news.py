@@ -37,7 +37,7 @@ HEADERS = {
 CACHE_FILE    = "data/market_news.json"
 CACHE_TTL_MIN = 20   # キャッシュ有効時間（分）
 MAX_PER_SRC   = 8    # ソースあたり最大件数
-MAX_TOTAL     = 15   # 合計最大件数
+MAX_TOTAL     = 10   # 市場全体を動かす重要トピックに絞る
 
 JST = datetime.timezone(datetime.timedelta(hours=9))
 
@@ -49,6 +49,63 @@ MARKET_KW = [
     "米国株", "日本株", "株価", "指数", "ETF", "IPO",
 ]
 NEWS_NOISE = ["指数情報・推移", "リアルタイム株価・チャート", "掲示板 - Yahoo"]
+MACRO_KW = [
+    "日経平均", "TOPIX", "東証", "日本株", "米国株", "NYダウ", "ナスダック",
+    "S&P500", "FRB", "FOMC", "日銀", "金利", "国債", "為替", "円安", "円高",
+    "ドル円", "半導体", "AI", "中国株", "中国経済", "原油", "関税", "貿易",
+    "インフレ", "雇用", "景気", "地政学",
+]
+
+TOPIC_RULES = [
+    (
+        "金融政策",
+        ("日銀", "FRB", "FOMC", "金利", "国債", "利上げ", "利下げ"),
+        "金利見通しの変化は銀行・保険に追い風／逆風となり、不動産や高PER株の評価にも波及します。",
+        ["銀行", "保険", "不動産", "グロース"],
+    ),
+    (
+        "半導体・AI",
+        ("半導体", "AI", "エヌビディア", "NVIDIA", "SKハイニックス", "SOX"),
+        "海外ハイテク株の流れは、日本の半導体製造装置・電子部品株へ波及しやすい材料です。",
+        ["半導体", "電子部品", "精密機器"],
+    ),
+    (
+        "米国市場",
+        ("米国株", "NYダウ", "ナスダック", "S&P500", "ウォール街"),
+        "米国株のリスク選好は翌営業日の日本株、とくに外需・ハイテク株の寄り付きに影響しやすい材料です。",
+        ["半導体", "電機", "自動車", "商社"],
+    ),
+    (
+        "中国・アジア",
+        ("中国", "香港", "韓国", "台湾", "アジア株"),
+        "中国・アジアの景気や株価は、機械・素材・化粧品など中国売上比率の高い日本企業に波及します。",
+        ["機械", "化学", "化粧品", "素材"],
+    ),
+    (
+        "資源・エネルギー",
+        ("原油", "天然ガス", "OPEC", "金価格", "資源"),
+        "資源価格の変動は商社・石油株の収益と、空運・陸運・製造業のコストに逆方向の影響を与えます。",
+        ["商社", "石油", "鉱業", "空運"],
+    ),
+    (
+        "政策・通商",
+        ("関税", "貿易", "選挙", "政権", "規制", "経済対策"),
+        "政策変更は輸出条件や国内需要を変えるため、関連業種の業績予想と為替反応を確認したい材料です。",
+        ["自動車", "機械", "防衛", "内需"],
+    ),
+    (
+        "日本株全体",
+        ("日経平均", "TOPIX", "東証", "日本株"),
+        "指数全体の動きは市場心理と資金配分の変化を示します。値動きを主導する業種と売買代金を確認したい局面です。",
+        ["日経平均", "TOPIX", "主力株"],
+    ),
+    (
+        "為替",
+        ("円安", "円高", "ドル円", "為替", "円相場"),
+        "円安は輸出企業の採算改善要因、円高は内需・輸入企業のコスト改善要因です。方向転換の有無を確認したい局面です。",
+        ["自動車", "機械", "小売", "空運"],
+    ),
+]
 
 
 # ──────────────────────────────────────────────
@@ -90,6 +147,39 @@ def is_fresh(cache):
 def is_market_related(title):
     """株式市場関連ニュースかどうかを判定"""
     return any(kw in title for kw in MARKET_KW)
+
+
+def is_macro_market_news(title):
+    """個別銘柄だけの材料を除き、市場全体へ波及するニュースを判定する。"""
+    return any(kw.lower() in title.lower() for kw in MACRO_KW)
+
+
+def enrich_market_item(item):
+    """見出しから、日本株への影響を読むための論点を付与する。"""
+    title = item.get("title", "")
+    source_label = item.get("source_label", "")
+    # Google Newsの「見出し - 媒体名」は媒体名を別表示するため末尾だけ除く。
+    if source_label and title.endswith(f" - {source_label}"):
+        title = title[: -(len(source_label) + 3)].strip()
+    item["title"] = title
+    for topic, keywords, impact, sectors in TOPIC_RULES:
+        if any(word.lower() in title.lower() for word in keywords):
+            item["topic"] = topic
+            item["impact_summary"] = impact
+            item["watch_sectors"] = sectors
+            break
+    else:
+        item["topic"] = "日本株全体"
+        item["impact_summary"] = (
+            "市場心理や資金の向きが変わる可能性があります。指数だけでなく、"
+            "関連業種への波及と翌営業日の売買動向を確認したいニュースです。"
+        )
+        item["watch_sectors"] = ["日経平均", "TOPIX"]
+    item["importance"] = 3 if any(
+        word.lower() in title.lower()
+        for word in ("日銀", "FRB", "FOMC", "関税", "急落", "暴落", "最高値", "半導体", "円安", "円高")
+    ) else 2
+    return item
 
 
 # ──────────────────────────────────────────────
@@ -408,52 +498,69 @@ def fetch_google_news_rss(query, source_key, label, limit=MAX_PER_SRC):
 def fetch_all_market_news():
     """全ソースからニュースを取得して統合・重複除去して返す"""
 
-    kabutan_items  = fetch_kabutan_market()
-    time.sleep(0.5)
-    minkabu_items  = fetch_minkabu_market()
-    time.sleep(0.5)
-    yahoo_items    = fetch_yahoo_finance_jp()
-    time.sleep(0.5)
-    google_jp_items = fetch_google_news_rss(
-        "日本株 OR 日経平均 OR 東証",
-        "google_news_jp",
-        "Google ニュース（国内）",
-    )
-    time.sleep(0.5)
-    google_global_items = fetch_google_news_rss(
-        "米国株 OR NYダウ OR ナスダック OR 欧州株 OR 中国株 OR 海外市場 OR FRB",
-        "google_news_global",
-        "Google ニュース（海外）",
-        limit=8,
-    )
+    preferred_specs = [
+        (
+            "(日本株 OR 日経平均 OR 円相場 OR 日銀 OR 米国株 OR ナスダック) when:2d site:nikkei.com",
+            "nikkei", "日本経済新聞", 3,
+        ),
+        (
+            "(日本株 OR 日経平均 OR 円相場 OR 日銀 OR 米国株) when:2d site:mainichi.jp",
+            "mainichi", "毎日新聞", 2,
+        ),
+        (
+            "(Japan stocks OR Nikkei OR yen OR BOJ OR Federal Reserve OR Nasdaq) when:2d site:wsj.com",
+            "wsj", "The Wall Street Journal", 2,
+        ),
+        (
+            "(日本株 OR 日経平均 OR 円相場 OR 日銀 OR 米国株 OR 半導体) when:2d site:reuters.com",
+            "reuters", "ロイター", 3,
+        ),
+    ]
+    preferred = []
+    source_counts = {}
+    for query, key, label, limit in preferred_specs:
+        fetched = fetch_google_news_rss(query, key, label, limit=limit)
+        preferred.extend(fetched)
+        source_counts[key] = len(fetched)
+        time.sleep(0.35)
 
-    # 国内10件を主軸にしつつ、海外市場5件を必ず確保する。
+    broad = fetch_google_news_rss(
+        "(日本株 OR 日経平均 OR 東証 OR 円相場 OR 日銀 OR 米国株 OR ナスダック OR 半導体 OR 原油) when:2d",
+        "market_press",
+        "主要メディア",
+        limit=12,
+    )
+    time.sleep(0.35)
+    kabutan_items = [
+        item for item in fetch_kabutan_market()
+        if is_macro_market_news(item.get("title", ""))
+    ]
+
+    # 媒体の偏りを抑えながら、個別銘柄ではなく市場全体に効く見出しを採用。
     seen = set()
+    per_publisher = {}
     result = []
-    domestic = kabutan_items + minkabu_items + yahoo_items + google_jp_items
-    for item in domestic:
-        key = item["title"][:25]
-        if key not in seen:
-            seen.add(key)
-            result.append(item)
-        if len(result) >= 10:
-            break
-    for item in google_global_items:
-        key = item["title"][:25]
-        if key not in seen:
-            seen.add(key)
-            result.append(item)
+    for item in preferred + broad + kabutan_items:
+        if not is_macro_market_news(item.get("title", "")):
+            continue
+        publisher = item.get("source_label") or item.get("source") or "その他"
+        if per_publisher.get(publisher, 0) >= 3:
+            continue
+        key = re.sub(r"\s+", "", item["title"]).lower()[:32]
+        if key in seen:
+            continue
+        seen.add(key)
+        per_publisher[publisher] = per_publisher.get(publisher, 0) + 1
+        result.append(enrich_market_item(item))
         if len(result) >= MAX_TOTAL:
             break
 
     print(f"  合計: {len(result)}件（重複除去後）", file=sys.stderr)
-    return result[:MAX_TOTAL], {
-        "kabutan": len(kabutan_items),
-        "minkabu": len(minkabu_items),
-        "yahoo_jp": len(yahoo_items),
-        "google_news_jp": len(google_jp_items),
-        "google_news_global": len(google_global_items),
-    }
+    source_counts.update({
+        "broad_market_press": len(broad),
+        "kabutan_macro": len(kabutan_items),
+    })
+    return result[:MAX_TOTAL], source_counts
 
 
 # ──────────────────────────────────────────────

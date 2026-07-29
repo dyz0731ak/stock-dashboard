@@ -178,7 +178,7 @@ function renderFlash() {
   body.appendChild(list);
 }
 
-let eventsData = null;
+let marketNewsData = null;
 /* ============================================================
    6. 急騰ランキング
    ============================================================ */
@@ -368,86 +368,43 @@ function renderThemes() {
 }
 
 /* ============================================================
-   7. 経済指標・イベント
+   7. 市場のいま — 日本株に影響する重要トピックス
    ============================================================ */
-let eventMode = 'us';
-function renderEvents(d) {
-  if (d) eventsData = d;
-  const data = eventsData;
-  const all = data.economic || [];
-  const jp = all.filter(e => e.country === 'JP');
-  const us = all.filter(e => e.country === 'US');
-
-  // タブ（日本 / 米国）
-  const pills = $('#eventPills');
-  pills.innerHTML = `
-    <span class="pill ${eventMode === 'jp' ? 'active' : ''}" data-m="jp">日本 <span class="n">${jp.length}</span></span>
-    <span class="pill ${eventMode === 'us' ? 'active' : ''}" data-m="us">米国 <span class="n">${us.length}</span></span>`;
-  pills.querySelectorAll('.pill').forEach(p => p.onclick = () => { eventMode = p.dataset.m; renderEvents(); });
-
-  const src = eventMode === 'jp' ? jp : us;
-  const body = $('#eventsBody'); body.innerHTML = '';
-  if (!src.length) { body.innerHTML = '<div class="skeleton">予定なし</div>'; }
-  const WD = ['日', '月', '火', '水', '木', '金', '土'];
-  const evDate = iso => {
-    if (!iso) return '';
-    const p = iso.split('-');
-    const d = new Date(+p[0], +p[1] - 1, +p[2]);
-    return `${+p[1]}/${+p[2]}(${WD[d.getDay()]})`;
-  };
-  // "53.3" "118K" "-1.5%" などを数値化（サプライズ判定用）
-  const parseNum = v => {
-    if (v == null || v === '') return null;
-    let s = String(v).replace(/[,\s%]/g, '').replace(/[人件社円ドル件戸棟]/g, '')
-      .replace(/兆/, 'e12').replace(/億/, 'e8').replace(/万/, 'e4')
-      .replace(/K$/i, 'e3').replace(/M$/i, 'e6').replace(/B$/i, 'e9');
-    const n = parseFloat(s);
-    return isNaN(n) ? null : n;
-  };
-  // 結果が予想を上回った/下回った→ good_when を加味して市場プラス(赤)/マイナス(緑)
-  const surpriseCls = ev => {
-    const a = parseNum(ev.actual), f = parseNum(ev.forecast);
-    if (a == null || f == null || a === f || ev.good_when === 'neutral') return 'flat';
-    const higher = a > f;
-    const positive = (ev.good_when === 'high' && higher) || (ev.good_when === 'low' && !higher);
-    return positive ? 'up' : 'down';
-  };
-
-  const list = [...src].sort((a, b) => new Date(a.datetime_jst) - new Date(b.datetime_jst)).slice(0, 16);
-  list.forEach(ev => {
-    const stars = '★'.repeat(ev.stars || 0);
-    const released = ev.status === 'released';
-    const isToday = ev.date === data.target_today;
-
-    // 数値系の指標か（予想/前回/結果のいずれかを持つ）。会見・要人発言は数値なし。
-    const hasData = !!(ev.actual || ev.forecast || ev.prior);
-    const parts = [];
-    if (ev.actual) parts.push(`結果 <b class="${surpriseCls(ev)}">${ev.actual}</b>`);
-    else if (released && hasData) parts.push(`結果 <span class="flat">—</span>`);
-    if (ev.forecast) parts.push(`予想 <span class="num">${ev.forecast}</span>`);
-    if (ev.prior) parts.push(`前回 <span class="num">${ev.prior}</span>`);
-    const metrics = parts.length ? `<div class="ev-metrics">${parts.join('<span class="sep">・</span>')}</div>` : '';
-
-    const statusChip = released
-      ? `<span class="ev-status done">発表済み</span>`
-      : `<span class="ev-status soon">発表前</span>`;
-
-    const row = el('div', 'row-item ev-row');
-    row.innerHTML = `
-      <span class="r-datetime">
-        <span class="r-d${isToday ? ' today' : ''}">${evDate(ev.date)}</span>
-        <span class="r-t num">${ev.time_jst || ''}</span>
-      </span>
-      <span class="r-tag" style="min-width:40px;text-align:center">${(ev.country_label || '').slice(0, 3)}</span>
-      <div class="ev-body">
-        <div class="r-name">${ev.event_ja || ev.event}${isToday ? ' <span style="color:var(--up);font-size:10px;font-weight:700">●本日</span>' : ''}</div>
-        ${metrics}
+function renderMarketNews(d) {
+  if (d) marketNewsData = d;
+  const data = marketNewsData;
+  const body = $('#marketNewsBody');
+  const items = (data?.items || []).slice(0, 10);
+  body.innerHTML = '';
+  if (!items.length) {
+    body.innerHTML = '<div class="skeleton">重要ニュースを確認中です</div>';
+    return;
+  }
+  items.forEach((news, i) => {
+    const card = el('a', `market-news-card${i === 0 ? ' lead' : ''}`);
+    card.href = news.url || '#';
+    card.target = '_blank';
+    card.rel = 'noopener';
+    const sectors = (news.watch_sectors || []).slice(0, 4)
+      .map(s => `<span>${escHtml(s)}</span>`).join('');
+    card.innerHTML = `
+      <div class="market-news-meta">
+        <span class="market-topic">${escHtml(news.topic || '市場全体')}</span>
+        <span>${escHtml(news.source_label || '主要メディア')}</span>
+        <time>${escHtml(news.date || '')}</time>
       </div>
-      ${statusChip}
-      <span class="ev-stars">${stars}</span>`;
-    body.appendChild(row);
+      <h3>${escHtml(news.title || '')}</h3>
+      <div class="market-impact">
+        <b>日本株への見方</b>
+        <p>${escHtml(news.impact_summary || '')}</p>
+      </div>
+      <div class="market-news-foot">
+        <div class="market-sectors">${sectors}</div>
+        <span class="market-read">記事を読む</span>
+      </div>`;
+    body.appendChild(card);
   });
-  $('#updEvents').textContent = '更新 ' + clock(data.updated_at);
+  $('#updMarketNews').textContent = '更新 ' + clock(data.updated_at);
 }
 
 /* ============================================================
@@ -569,15 +526,15 @@ async function boot() {
     futures: getJSON('data/futures.json'),
     japan: getJSON('data/japan_stocks.json'),
     flashJp: getJSON('data/earnings_flash.json'),
-    events: getJSON('data/events.json'),
+    marketNews: getJSON('data/market_news.json'),
     nikkei: getJSON('data/nikkei225.json'),
     themes: getJSON('data/themes.json'),
     health: getJSON('data/health.json'),
   };
   const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
 
-  const [futures, japan, flashJp, events, nikkei, themes, health] = await Promise.all(
-    ['futures', 'japan', 'flashJp', 'events', 'nikkei', 'themes', 'health'].map(get)
+  const [futures, japan, flashJp, marketNews, nikkei, themes, health] = await Promise.all(
+    ['futures', 'japan', 'flashJp', 'marketNews', 'nikkei', 'themes', 'health'].map(get)
   );
 
   if (futures) renderIndices(futures);
@@ -586,11 +543,7 @@ async function boot() {
     renderFlash();
     $('#navFlash').textContent = Math.min(12, (flashJp.highlights || []).length || flashJp.total || 0);
   }
-  if (events) {
-    const ec = events.economic || [];
-    eventMode = ec.filter(e => e.country === 'JP').length > ec.filter(e => e.country === 'US').length ? 'jp' : 'us';
-    renderEvents(events);
-  }
+  if (marketNews) renderMarketNews(marketNews);
   if (japan) {
     rankData = japan;
     renderRank();
@@ -602,7 +555,7 @@ async function boot() {
   if (health) {
     $('#lastUpdated').textContent = `データ更新 ${clock(health.checked_at)}`;
   } else {
-    const stamps = [futures, japan, events, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
+    const stamps = [futures, japan, marketNews, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
     if (stamps.length) {
       const latest = stamps.sort().pop();
       $('#lastUpdated').textContent = '最終取得 ' + clock(latest);

@@ -15,7 +15,7 @@ NOW = datetime.datetime.now(datetime.timezone.utc)
 DATASETS = [
     ("先物・為替", "futures.json", "items", 8, 3, True),
     ("日本株ランキング", "japan_stocks.json", "all_stocks", 36, 30, True),
-    ("経済指標・決算予定", "events.json", "economic", 12, 1, True),
+    ("市場のいま", "market_news.json", "items", 12, 5, True),
     ("日経225", "nikkei225.json", "items", 12, 100, True),
     ("テーマ株", "themes.json", "themes", 36, 3, True),
     ("日本株決算速報", "earnings_flash.json", "groups", 36, 1, False),

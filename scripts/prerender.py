@@ -32,7 +32,6 @@ FIXED_PAGES = [
     ("top-gainers", "今日の急騰銘柄ランキング", "急騰銘柄ランキング"),
     ("volume-surge", "出来高急増銘柄", "出来高急増"),
     ("earnings", "本日の決算速報", "決算速報"),
-    ("economic-calendar", "経済指標カレンダー", "経済指標"),
 ]
 
 
@@ -224,6 +223,29 @@ def build_events(events):
     return "".join(rows)
 
 
+def build_market_news(news):
+    if not news or not news.get("items"):
+        return ""
+    cards = []
+    for index, item in enumerate(news["items"][:10]):
+        sectors = "".join(
+            f"<span>{esc(sector)}</span>" for sector in (item.get("watch_sectors") or [])[:4]
+        )
+        cards.append(
+            f'<a class="market-news-card{" lead" if index == 0 else ""}" '
+            f'href="{esc(item.get("url") or "#")}" target="_blank" rel="noopener">'
+            f'<div class="market-news-meta"><span class="market-topic">{esc(item.get("topic") or "市場全体")}</span>'
+            f'<span>{esc(item.get("source_label") or "主要メディア")}</span>'
+            f'<time>{esc(item.get("date") or "")}</time></div>'
+            f'<h3>{esc(item.get("title") or "")}</h3>'
+            f'<div class="market-impact"><b>日本株への見方</b>'
+            f'<p>{esc(item.get("impact_summary") or "")}</p></div>'
+            f'<div class="market-news-foot"><div class="market-sectors">{sectors}</div>'
+            f'<span class="market-read">記事を読む</span></div></a>'
+        )
+    return "".join(cards)
+
+
 def build_flash(flash):
     if not flash:
         return ""
@@ -291,32 +313,6 @@ def build_earn(events):
             f'{tagspan}</div>'
         )
     return "".join(rows) or '<div class="skeleton">本日の日本株決算予定はありません</div>'
-
-
-def build_stats(japan, events, flash):
-    if not japan:
-        return ""
-    if japan.get("is_fallback"):
-        cards = [
-            ("ストップ高", "—", "", "全市場データを取得確認中", ""),
-            ("日経225 上昇銘柄", japan.get("near_stop_count", 0), "銘柄", "代替ランキングの対象", ""),
-        ]
-    else:
-        cards = [
-            ("ストップ高", japan.get("stop_high_count", 0), "銘柄", "本日の値幅制限到達", ""),
-            ("ストップ高接近", japan.get("near_stop_count", 0), "銘柄", "5%以内に接近", ""),
-        ]
-    if japan.get("all_stocks"):
-        top = max(japan["all_stocks"], key=lambda s: float(s.get("change_pct") or 0))
-        cards.append(("最高騰落率", pcttxt(top["change_pct"]).rstrip("%"), "%", esc(top["name"]), "up"))
-    cards.append(("決算発表(速報)", (flash or {}).get("total", 0), "件", "日本株・前営業日分", ""))
-    cards.append(("本日の経済指標", len((events or {}).get("economic", [])), "件", "★重要度付き", ""))
-    out = []
-    for k, v, u, meta, cls in cards:
-        out.append(f'<div class="stat"><div class="k">{esc(k)}</div>'
-                   f'<div class="v {cls}">{esc(v)}<small>{esc(u)}</small></div>'
-                   f'<div class="meta">{meta}</div></div>')
-    return "".join(out)
 
 
 def build_themelinks(themes):
@@ -463,24 +459,6 @@ def earnings_table(events, flash):
     )
 
 
-def economic_table(events):
-    rows = []
-    for e in sorted((events or {}).get("economic") or [], key=lambda x: x.get("datetime_jst") or "")[:40]:
-        stars = "★" * int(e.get("stars") or 0)
-        rows.append(
-            f'<tr><td>{esc(e.get("date",""))}</td><td class="r">{esc(e.get("time_jst",""))}</td>'
-            f'<td>{esc(e.get("country_label") or e.get("country") or "")}</td>'
-            f'<td><b>{esc(e.get("event_ja") or e.get("event"))}</b></td>'
-            f'<td class="r">{esc(e.get("actual",""))}</td><td class="r">{esc(e.get("forecast",""))}</td>'
-            f'<td class="r">{esc(e.get("prior",""))}</td><td class="r">{esc(stars)}</td></tr>'
-        )
-    return fixed_table(
-        [("日付", ""), ("時刻", "r"), ("国", ""), ("指標", ""), ("結果", "r"), ("予想", "r"), ("前回", "r"), ("重要度", "r")],
-        rows,
-        "経済指標データは次回の自動更新後に表示されます。",
-    )
-
-
 def fixed_page_html(slug, title, desc, lead, updated, content):
     import prerender_themes as pt
     url = f"{BASE_URL}/{slug}/"
@@ -581,23 +559,16 @@ def write_fixed_pages(japan, volume, events, flash):
         ),
         "earnings": (
             "本日の決算速報",
-            "日本株の決算速報と決算予定を一覧化。サプライズ決算や注目銘柄の発表状況を確認できます。",
-            f"日本株の決算速報・決算予定を自動更新しています。現在の速報件数は{(flash or {}).get('total', 0)}件です。",
-            earnings_table(events, flash),
-        ),
-        "economic-calendar": (
-            "経済指標カレンダー",
-            "本日の経済指標カレンダーを日本時間で確認。結果・予想・前回値・重要度を一覧化しています。",
-            f"本日の主要経済指標は{len((events or {}).get('economic') or [])}件。発表時刻・結果・予想を日本時間で整理しています。",
-            economic_table(events),
+            "日本株の決算速報を一覧化。サプライズ決算や市場への影響が大きい発表を確認できます。",
+            f"日本株の重要決算速報を自動更新しています。現在の速報件数は{(flash or {}).get('total', 0)}件です。",
+            earnings_table({}, flash),
         ),
     }
     updates = {
         "stop-high": data_date(japan),
         "top-gainers": data_date(japan),
         "volume-surge": data_date(volume),
-        "earnings": data_date(flash or events),
-        "economic-calendar": data_date(events),
+        "earnings": data_date(flash),
     }
     written = []
     for slug, _title, _label in FIXED_PAGES:
@@ -693,7 +664,8 @@ def main():
     japan = load("japan_stocks.json")
     themes = load("themes.json")
     volume = load("volume_stocks.json")
-    events = load("events.json")
+    events = {}
+    market_news = load("market_news.json")
     flash = load("earnings_flash.json")
     nikkei = load("nikkei225.json")
 
@@ -705,7 +677,7 @@ def main():
         "flash": build_flash(flash),
         "rank": build_rank(japan),
         "themes": build_themes(themes),
-        "events": build_events(events),
+        "marketnews": build_market_news(market_news),
         "heat": build_heat(nikkei),
         "themelinks": build_themelinks(themes),
     }
