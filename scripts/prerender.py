@@ -698,6 +698,7 @@ def main():
             filled += 1
 
     doc = move_section_after(doc, "rank", "idx")
+    doc = move_section_after(doc, "themes", "rank")
 
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(doc)
