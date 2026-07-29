@@ -21,10 +21,17 @@ import os
 import re
 import sys
 import time
-from typing import Any
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Any, Optional
 
 import requests
 from bs4 import BeautifulSoup
+
+try:
+    import yfinance as yf
+    HAS_YFINANCE = True
+except ImportError:
+    HAS_YFINANCE = False
 
 sys.path.insert(0, os.path.dirname(__file__))
 from safe_save import safe_save
@@ -623,6 +630,44 @@ def impact_details(item: dict) -> tuple[int, str, str, str]:
     return score, label, zone, summary
 
 
+def _fetch_six_month_chart(code: str) -> tuple[str, Optional[dict]]:
+    """日本株1銘柄の約6か月日足（OHLC・出来高）を取得する。"""
+    if not HAS_YFINANCE:
+        return code, None
+    try:
+        hist = yf.Ticker(f"{code}.T").history(period="6mo", interval="1d", auto_adjust=True)
+        if hist.empty:
+            return code, None
+        hist = hist.tail(130)
+        chart = {
+            "dates": [d.strftime("%Y-%m-%d") for d in hist.index],
+            "opens": [round(float(v), 2) if v == v else None for v in hist["Open"]],
+            "highs": [round(float(v), 2) if v == v else None for v in hist["High"]],
+            "lows": [round(float(v), 2) if v == v else None for v in hist["Low"]],
+            "closes": [round(float(v), 2) if v == v else None for v in hist["Close"]],
+            "volumes": [int(v) if v == v else None for v in hist["Volume"]],
+        }
+        return code, chart
+    except Exception as exc:
+        print(f"  [chart] {code}.T 取得エラー: {exc}", file=sys.stderr)
+        return code, None
+
+
+def enrich_highlight_charts(items: list[dict]) -> None:
+    """決算インパクト上位銘柄にランキングと同形式の6か月日足を付与する。"""
+    if not items or not HAS_YFINANCE:
+        return
+    print(f"  [chart] 決算上位{len(items)}銘柄の6か月日足を取得中...", file=sys.stderr)
+    charts: dict[str, Optional[dict]] = {}
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(_fetch_six_month_chart, it["code"]): it["code"] for it in items}
+        for future in as_completed(futures):
+            code, chart = future.result()
+            charts[code] = chart
+    for item in items:
+        item["chart"] = charts.get(item["code"])
+
+
 def clean_narrative(text: str, company_name: str = "") -> str:
     """株探タイトルの冒頭「会社名、」プレフィックスを除去"""
     if not text:
@@ -811,6 +856,7 @@ def main() -> int:
         key=lambda it: (int(it.get("impact_score") or 0), it.get("time", "")),
         reverse=True,
     )
+    enrich_highlight_charts(important[:12])
     groups = group_items(important)
     total = len(important)
 

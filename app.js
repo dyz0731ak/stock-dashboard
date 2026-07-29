@@ -124,20 +124,55 @@ function renderFlash() {
       const strong = c.strength === 'strong' ? 'font-weight:700' : '';
       return `<span class="chip ${cls}" style="${strong}">${c.label} ${c.value}</span>`;
     }).join('');
-    const item = el('a', `flash-item ${it.impact_zone || 'decision'}`);
-    item.href = it.url || '#';
-    item.target = '_blank';
-    item.rel = 'noopener';
+    const item = el('article', `flash-item ${it.impact_zone || 'decision'}`);
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-expanded', 'false');
     item.innerHTML = `
       <div class="flash-top">
-        <span class="nm">${it.name}</span>
-        <span class="code">${it.code}</span>
-        <span class="flash-published">${it.published_label || `${d.article_date} ${it.time || ''}発表`}</span>
-        <span class="impact-label">${it.impact_label || '注目決算'}</span>
+        <span class="nm">${escHtml(it.name || '')}</span>
+        <span class="code">${escHtml(it.code || '')}</span>
+        <span class="flash-published">${escHtml(it.published_label || `${d.article_date} ${it.time || ''}発表`)}</span>
+        <span class="impact-label">${escHtml(it.impact_label || '注目決算')}</span>
       </div>
-      <div class="nar">${it.narrative || ''}</div>
+      <div class="nar">${escHtml(it.narrative || '')}</div>
       <div class="chips">${chips}</div>
-      <div class="impact-summary">${it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。'}</div>`;
+      <div class="impact-summary">${escHtml(it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。')}</div>
+      <div class="flash-chart-toggle">6か月チャートを見る</div>
+      <div class="flash-chart-panel" hidden>
+        <div class="flash-chart-head">
+          <span class="flash-chart-title">6か月日足（最大130営業日）</span>
+          <a class="flash-source" href="${escHtml(it.url || '#')}" target="_blank" rel="noopener">決算資料を確認</a>
+        </div>
+        ${miniCandleChart(it.chart)}
+      </div>`;
+    const setOpen = open => {
+      item.classList.toggle('open', open);
+      item.setAttribute('aria-expanded', String(open));
+      item.querySelector('.flash-chart-panel').hidden = !open;
+      item.querySelector('.flash-chart-toggle').textContent = open ? 'チャートを閉じる' : '6か月チャートを見る';
+    };
+    const toggle = () => {
+      const willOpen = !item.classList.contains('open');
+      list.querySelectorAll('.flash-item.open').forEach(other => {
+        if (other === item) return;
+        other.classList.remove('open');
+        other.setAttribute('aria-expanded', 'false');
+        other.querySelector('.flash-chart-panel').hidden = true;
+        other.querySelector('.flash-chart-toggle').textContent = '6か月チャートを見る';
+      });
+      setOpen(willOpen);
+    };
+    item.addEventListener('click', event => {
+      if (event.target.closest('.flash-source')) return;
+      toggle();
+    });
+    item.addEventListener('keydown', event => {
+      if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.flash-source')) {
+        event.preventDefault();
+        toggle();
+      }
+    });
     list.appendChild(item);
   });
   body.appendChild(list);
