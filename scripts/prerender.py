@@ -662,6 +662,33 @@ def replace_marker(html_text, key, content):
     return pat.sub(lambda m: m.group(1) + "\n" + content + "\n" + m.group(2), html_text)
 
 
+def move_section_after(html_text, section_id, target_id):
+    """指定セクションを対象セクションの直後へ移し、表示順を固定する。"""
+    section_pat = re.compile(
+        rf"\n\s*<!-- ===== [^>]* ===== -->\s*"
+        rf"<section\b[^>]*\bid=[\"']{re.escape(section_id)}[\"'][^>]*>.*?</section>",
+        re.S,
+    )
+    section_match = section_pat.search(html_text)
+    if not section_match:
+        print(f"  ⚠ セクション #{section_id} が見つからない")
+        return html_text
+
+    section_html = section_match.group(0)
+    without_section = html_text[:section_match.start()] + html_text[section_match.end():]
+    target_pat = re.compile(
+        rf"<section\b[^>]*\bid=[\"']{re.escape(target_id)}[\"'][^>]*>.*?</section>",
+        re.S,
+    )
+    target_match = target_pat.search(without_section)
+    if not target_match:
+        print(f"  ⚠ 移動先セクション #{target_id} が見つからない")
+        return html_text
+
+    insert_at = target_match.end()
+    return without_section[:insert_at] + "\n" + section_html + without_section[insert_at:]
+
+
 def main():
     futures = load("futures.json")
     japan = load("japan_stocks.json")
@@ -693,6 +720,8 @@ def main():
         if content:
             doc = replace_marker(doc, key, content)
             filled += 1
+
+    doc = move_section_after(doc, "rank", "idx")
 
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(doc)
