@@ -298,8 +298,9 @@ function renderRank() {
     return;
   }
   const ptsDate = data.session_date ? `・${data.session_date.replaceAll('-', '/')}取引` : '';
+  const ptsAsOf = data.as_of ? `・${clock(data.as_of)}現在` : '';
   $('#rankSub').textContent = rankMarket === 'pts'
-    ? `夜間PTS${ptsDate}・東証終値比の値上がり率上位`
+    ? `夜間PTS${ptsDate}${ptsAsOf}・東証終値比の値上がり率上位`
     : `${data.scope || '日本株・全市場'}・値上がり率上位${data.is_fallback ? '（代替表示）' : ''}`;
   $('#updRank').textContent = updateLabel(data, maxAge);
 
