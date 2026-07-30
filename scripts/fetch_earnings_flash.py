@@ -1064,6 +1064,38 @@ def group_items(items: list[dict]) -> list[dict]:
     return out
 
 
+def retain_same_day_quality(
+    fresh_items: list[dict],
+    existing_data: dict | None,
+    article_date: str,
+) -> tuple[list[dict], int]:
+    """
+    PDFフォールバックの取得範囲が当日途中まででも、同じ日に別ソースから
+    取得済みの高品質項目を落とさない。日付をまたいだ持ち越しはしない。
+    """
+    if not existing_data or existing_data.get("article_date") != article_date:
+        return fresh_items, 0
+
+    existing_items = [
+        item
+        for group in existing_data.get("groups", [])
+        for item in group.get("items", [])
+        if item.get("code")
+    ]
+    combined = {item["code"]: item for item in existing_items}
+    retained_rich = len([
+        item for item in existing_items
+        if set(item.get("sources", [])).intersection({"irbank", "kabutan"})
+    ])
+    for item in fresh_items:
+        old = combined.get(item["code"])
+        old_sources = set(old.get("sources", [])) if old else set()
+        if old and old_sources.intersection({"irbank", "kabutan"}):
+            continue
+        combined[item["code"]] = item
+    return list(combined.values()), retained_rich
+
+
 # ─────────────────────────────────────────────────
 # メイン
 # ─────────────────────────────────────────────────
@@ -1104,7 +1136,25 @@ def main() -> int:
         else kp_items
     )
     merged = merge_items(ir_items, ku_items, kp_for_merge)
+
+    # 表示用の article_date: irbankの最新日を優先（最も信頼できる日付）
+    article_date = ir_date or kp_date
+    if not article_date and ku_md:
+        # kabutanのMM/DDをそのまま使う（年は今年）
+        article_date = f"{now.year}-{ku_md.replace('/', '-')}"
+
     important = [it for it in merged if it.get("category") != "その他開示"]
+    retained_same_day = 0
+    if not ir_items and not ku_items:
+        existing_data = None
+        try:
+            with open(out_path, encoding="utf-8") as existing_file:
+                existing_data = json.load(existing_file)
+        except (OSError, ValueError):
+            pass
+        important, retained_same_day = retain_same_day_quality(
+            important, existing_data, article_date
+        )
     important.sort(
         key=lambda it: (int(it.get("impact_score") or 0), it.get("time", "")),
         reverse=True,
@@ -1112,12 +1162,6 @@ def main() -> int:
     enrich_highlight_charts(important[:12])
     groups = group_items(important)
     total = len(important)
-
-    # 表示用の article_date: irbankの最新日を優先（最も信頼できる日付）
-    article_date = ir_date or kp_date
-    if not article_date and ku_md:
-        # kabutanのMM/DDをそのまま使う（年は今年）
-        article_date = f"{now.year}-{ku_md.replace('/', '-')}"
 
     for item in important:
         item["published_date"] = article_date
@@ -1136,12 +1180,12 @@ def main() -> int:
         "updated_at": now.isoformat(),
         "article_date": article_date,
         "sources": [
-            source for source, count in (
-                ("irbank", len(ir_items)),
-                ("kabutan", len(ku_items)),
+            source for source, available in (
+                ("irbank", bool(ir_items) or retained_same_day > 0),
+                ("kabutan", bool(ku_items) or retained_same_day > 0),
                 ("kabupro_pdf", kp_rich_count),
             )
-            if count
+            if available
         ],
         "source_counts": {
             "irbank": len(ir_items),
@@ -1169,6 +1213,10 @@ def main() -> int:
         data["fetch_warning"] = (
             f"{'・'.join(unavailable)}を取得できないため、当日の原資料PDFから"
             f"数値抽出した{kp_rich_count}件を中心に選定"
+            + (
+                f"。同日取得済みの高品質項目{retained_same_day}件も保持"
+                if retained_same_day else ""
+            )
         )
     else:
         data["fetch_status"] = "ok"

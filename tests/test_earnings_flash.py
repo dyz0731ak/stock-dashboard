@@ -43,6 +43,45 @@ class DisclosureMetricsTests(unittest.TestCase):
             "大幅上方修正",
         )
 
+    def test_same_day_rich_item_is_not_replaced_by_pdf_fallback(self):
+        rich = {
+            "code": "6912",
+            "name": "菊水HD",
+            "sources": ["irbank", "kabutan"],
+            "impact_score": 100,
+        }
+        pdf_only = {
+            "code": "6364",
+            "name": "北越工業",
+            "sources": ["kabupro"],
+            "impact_score": 100,
+        }
+        existing = {
+            "article_date": "2026-07-30",
+            "groups": [{"items": [rich]}],
+        }
+
+        combined, retained = earnings.retain_same_day_quality(
+            [pdf_only], existing, "2026-07-30"
+        )
+
+        self.assertEqual({item["code"] for item in combined}, {"6912", "6364"})
+        self.assertEqual(retained, 1)
+
+    def test_previous_day_items_are_not_carried_forward(self):
+        existing = {
+            "article_date": "2026-07-29",
+            "groups": [{"items": [{"code": "6042", "sources": ["irbank"]}]}],
+        }
+        fresh = [{"code": "6364", "sources": ["kabupro"]}]
+
+        combined, retained = earnings.retain_same_day_quality(
+            fresh, existing, "2026-07-30"
+        )
+
+        self.assertEqual(combined, fresh)
+        self.assertEqual(retained, 0)
+
 
 if __name__ == "__main__":
     unittest.main()
