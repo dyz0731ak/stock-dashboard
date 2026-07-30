@@ -16,16 +16,24 @@
 from __future__ import annotations
 
 import datetime
+import io
 import json
 import os
 import re
 import sys
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Optional
 
 import requests
 from bs4 import BeautifulSoup
+
+try:
+    import pdfplumber
+    HAS_PDFPLUMBER = True
+except ImportError:
+    HAS_PDFPLUMBER = False
 
 try:
     import yfinance as yf
@@ -131,6 +139,13 @@ def classify_by_title(title: str) -> str:
     ):
         return "本決算・四半期決算"
     return "その他開示"
+
+
+def is_generic_forecast_revision(title: str) -> bool:
+    """方向が見出しに出ない「業績予想の修正」をPDF数値抽出の対象にする。"""
+    return bool(
+        re.search(r"(?:連結)?業績予想.*修正|業績.*修正.*お知らせ", title)
+    )
 
 
 # 鮮度の高い決算情報として表示対象外にするタイトル（訂正・組織変更など）
@@ -505,6 +520,213 @@ def _fetch_kabupro_one(url: str) -> tuple[list[dict], str]:
 
 
 # ─────────────────────────────────────────────────
+# 決算プロの原資料PDFから数値を補完
+# ─────────────────────────────────────────────────
+
+PDF_TARGET_RE = re.compile(
+    r"決算短|決算決|業績予想.*修正|業績.*修正.*お知らせ|配当予想.*修正"
+)
+NUMBER_TOKEN_RE = re.compile(
+    r"[+\-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?|[-]"
+)
+
+
+def _normalize_pdf_text(text: str) -> str:
+    normalized = unicodedata.normalize("NFKC", text or "")
+    return (
+        normalized.replace("△", "-")
+        .replace("▲", "-")
+        .replace("−", "-")
+        .replace("–", "-")
+        .replace("―", "-")
+        .replace("ー", "-")
+    )
+
+
+def _format_amount_million(raw: str) -> str:
+    """百万円単位の金額をカード向けの億円表記へ変換する。"""
+    try:
+        million = float(raw.replace(",", ""))
+    except (TypeError, ValueError):
+        return raw
+    oku = million / 100
+    if abs(oku) >= 100:
+        return f"{oku:,.0f}億"
+    if abs(oku) >= 10:
+        return f"{oku:,.1f}億".rstrip("0").rstrip(".")
+    return f"{oku:,.2f}億".rstrip("0").rstrip(".")
+
+
+def _format_pct(raw: str) -> str:
+    if not raw or raw == "-":
+        return ""
+    try:
+        value = float(raw.replace(",", ""))
+    except ValueError:
+        return ""
+    sign = "+" if value > 0 else ""
+    return f"{sign}{value:g}%"
+
+
+def _metrics_from_pairs(period: str, kind: str, amounts: list[str], pcts: list[str]) -> dict | None:
+    if len(amounts) < 4 or len(pcts) < 4:
+        return None
+    values = []
+    for amount, pct in zip(amounts[:4], pcts[:4]):
+        pct_text = _format_pct(pct)
+        amount_text = _format_amount_million(amount)
+        values.append(f"{amount_text} {pct_text}".strip())
+    return {
+        "period": period.strip(),
+        "type": kind,
+        "sales": values[0],
+        "op": values[1],
+        "ord": values[2],
+        "net": values[3],
+    }
+
+
+def _parse_revision_metrics(text: str) -> dict | None:
+    """業績予想修正資料の「今回修正予想」「増減率」から4指標を読む。"""
+    flat = re.sub(r"\s+", " ", text)
+    current = re.search(
+        r"今回修正予想\s*[\(（]?[BＢ]?[）\)]?\s*"
+        r"((?:[-+\d,.]+\s+){3,5}[-+\d,.]+)",
+        flat,
+    )
+    rate = re.search(
+        r"増減率\s*[\(（]?%[）\)]?\s*"
+        r"((?:[-+\d,.]+\s+){3,5}[-+\d,.]+)",
+        flat,
+    )
+    if not current or not rate:
+        return None
+
+    amounts = NUMBER_TOKEN_RE.findall(current.group(1))
+    pcts = NUMBER_TOKEN_RE.findall(rate.group(1))
+    period_match = re.search(
+        r"(20\d{2}年\d{1,2}月期(?:第[1-4]四半期|第2四半期\(中間期\)|通期)?)",
+        flat,
+    )
+    period = period_match.group(1) if period_match else "業績予想"
+    return _metrics_from_pairs(period, "修正", amounts, pcts)
+
+
+def _parse_quarterly_metrics(text: str) -> dict | None:
+    """決算短信1ページ目の連結経営成績から当期4指標を読む。"""
+    lines = [re.sub(r"\s+", " ", line).strip() for line in text.splitlines()]
+    period_re = re.compile(
+        r"(20\d{2}年\d{1,2}月期(?:第[1-4]四半期|第2四半期\(中間期\))?)\s+(.+)"
+    )
+    for line in lines:
+        match = period_re.search(line)
+        if not match:
+            continue
+        tokens = NUMBER_TOKEN_RE.findall(match.group(2))
+        # 標準的な決算短信は 売上高/営業/経常/純益 の「金額・前年比」4組。
+        if len(tokens) < 8:
+            continue
+        amounts = tokens[0:8:2]
+        pcts = tokens[1:8:2]
+        if all("," not in value and len(value.lstrip("+-")) <= 3 for value in amounts):
+            continue
+        return _metrics_from_pairs(match.group(1), "実績", amounts, pcts)
+    return None
+
+
+def parse_disclosure_metrics(text: str, title: str) -> dict | None:
+    """原資料本文から、修正値を優先して売上・利益4指標を抽出する。"""
+    normalized = _normalize_pdf_text(text)
+    if is_generic_forecast_revision(title) or "予想" in title:
+        revised = _parse_revision_metrics(normalized)
+        if revised:
+            return revised
+    return _parse_quarterly_metrics(normalized)
+
+
+def _classify_metrics(metrics: dict, fallback: str) -> str:
+    chips = extract_chips(metrics)
+    profits = [chip for chip in chips if chip["label"] in ("営業益", "経常", "純益")]
+    if metrics.get("type") == "修正" and profits:
+        signed = [
+            chip["pct"] if chip["direction"] == "up" else -chip["pct"]
+            for chip in profits
+        ]
+        strongest = max(signed, key=lambda value: abs(value))
+        if strongest >= 20:
+            return "大幅上方修正"
+        if strongest > 0:
+            return "上方修正"
+        if strongest < 0:
+            return "下方修正"
+    return fallback
+
+
+def _fetch_pdf_metrics(item: dict) -> tuple[str, dict | None, str]:
+    url = item.get("url", "")
+    if not url.lower().endswith(".pdf"):
+        return url, None, ""
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=25)
+        response.raise_for_status()
+        if not response.content.startswith(b"%PDF"):
+            return url, None, "PDF以外の応答"
+        with pdfplumber.open(io.BytesIO(response.content)) as pdf:
+            text = "\n".join(
+                page.extract_text() or "" for page in pdf.pages[:2]
+            )
+        return url, parse_disclosure_metrics(text, item.get("description", "")), ""
+    except Exception as exc:
+        return url, None, str(exc)
+
+
+def enrich_kabupro_metrics(items: list[dict]) -> int:
+    """
+    GitHub ActionsからIRBANK/株探が遮断されても当日データを止めないため、
+    決算プロが参照する原資料PDFから数値を補完する。
+    """
+    if not items or not HAS_PDFPLUMBER:
+        if items and not HAS_PDFPLUMBER:
+            print("  [kabupro-pdf] pdfplumber未導入のため数値補完をスキップ", file=sys.stderr)
+        return 0
+
+    targets = [
+        item for item in items
+        if PDF_TARGET_RE.search(item.get("description", ""))
+    ][:80]
+    if not targets:
+        return 0
+
+    print(f"  [kabupro-pdf] 原資料{len(targets)}件から数値を補完中...", file=sys.stderr)
+    by_url: dict[str, dict | None] = {}
+    failures = 0
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {executor.submit(_fetch_pdf_metrics, item): item for item in targets}
+        for future in as_completed(futures):
+            url, metrics, error = future.result()
+            by_url[url] = metrics
+            if error:
+                failures += 1
+
+    enriched = 0
+    for item in targets:
+        metrics = by_url.get(item.get("url", ""))
+        if not metrics:
+            continue
+        item["metrics"] = metrics
+        item["category"] = _classify_metrics(metrics, item["category"])
+        item["description"] = auto_summary_from_metrics(
+            item["category"], metrics, extract_chips(metrics)
+        ) or item["description"]
+        enriched += 1
+    print(
+        f"  [kabupro-pdf] 数値補完={enriched}件 / PDF取得・解析失敗={failures}件",
+        file=sys.stderr,
+    )
+    return enriched
+
+
+# ─────────────────────────────────────────────────
 # 統合・重複排除
 # ─────────────────────────────────────────────────
 
@@ -726,12 +948,18 @@ def merge_items(*lists: list[dict]) -> list[dict]:
         best = min(items, key=lambda x: CATEGORY_PRIORITY.get(x["category"], 999))
         category = best["category"]
 
-        # メトリクス（IRバンク由来）とチップ
+        # メトリクス。業績予想修正を実績より優先し、次にIRバンクを採用。
         metrics = None
-        for it in items:
-            if it.get("metrics"):
-                metrics = it["metrics"]
-                break
+        metric_items = [it for it in items if it.get("metrics")]
+        if metric_items:
+            metric_best = min(
+                metric_items,
+                key=lambda it: (
+                    0 if it["metrics"].get("type") == "修正" else 1,
+                    SOURCE_PRIORITY.get(it["source"], 99),
+                ),
+            )
+            metrics = metric_best["metrics"]
         chips = extract_chips(metrics)
 
         # ナラティブ: 株探(短い要約) > 決算プロ(タイトル) > IRのテンプレ生成
@@ -852,10 +1080,11 @@ def main() -> int:
     ku_items, ku_md = fetch_kabutan()
     time.sleep(0.4)
     kp_items, kp_date = fetch_kabupro()
+    kp_rich_count = enrich_kabupro_metrics(kp_items)
 
-    # 数値を持つIRBANKと、要点を持つ株探が両方取れない場合は、
-    # 適時開示の見出しだけで質の高い既存データを上書きしない。
-    if not ir_items and not ku_items:
+    # IRBANK/株探がGitHub ActionsのIPを拒否しても、原資料PDFから十分な
+    # 数値を補完できた日は最新日に進める。見出しだけしかない場合は従来通り温存。
+    if not ir_items and not ku_items and kp_rich_count < 3:
         safe_save(
             out_path,
             {
@@ -868,7 +1097,13 @@ def main() -> int:
         )
         return 0
 
-    merged = merge_items(ir_items, ku_items, kp_items)
+    # 決算プロ単独フォールバック時は、数値抽出できた高品質項目だけを採用する。
+    kp_for_merge = (
+        [item for item in kp_items if item.get("metrics")]
+        if not ir_items and not ku_items
+        else kp_items
+    )
+    merged = merge_items(ir_items, ku_items, kp_for_merge)
     important = [it for it in merged if it.get("category") != "その他開示"]
     important.sort(
         key=lambda it: (int(it.get("impact_score") or 0), it.get("time", "")),
@@ -900,11 +1135,19 @@ def main() -> int:
     data: dict[str, Any] = {
         "updated_at": now.isoformat(),
         "article_date": article_date,
-        "sources": ["irbank", "kabutan", "kabupro"],
+        "sources": [
+            source for source, count in (
+                ("irbank", len(ir_items)),
+                ("kabutan", len(ku_items)),
+                ("kabupro_pdf", kp_rich_count),
+            )
+            if count
+        ],
         "source_counts": {
             "irbank": len(ir_items),
             "kabutan": len(ku_items),
             "kabupro": len(kp_items),
+            "kabupro_pdf_metrics": kp_rich_count,
         },
         "source_dates": {
             "irbank": ir_date,
@@ -914,8 +1157,21 @@ def main() -> int:
         "groups": groups,
         "highlights": important[:12],
         "total": total,
-        "selection_note": "業績修正・増減益・黒字転換など、市場への影響が大きい決算を優先",
+        "selection_note": "業績修正・増減益・黒字転換など、市場への影響が大きい決算を優先。主要ニュースサイトが取得できない場合は原資料PDFの数値で補完",
     }
+    if not ir_items or not ku_items:
+        data["fetch_status"] = "fallback"
+        unavailable = []
+        if not ir_items:
+            unavailable.append("IRBANK")
+        if not ku_items:
+            unavailable.append("株探")
+        data["fetch_warning"] = (
+            f"{'・'.join(unavailable)}を取得できないため、当日の原資料PDFから"
+            f"数値抽出した{kp_rich_count}件を中心に選定"
+        )
+    else:
+        data["fetch_status"] = "ok"
 
     print(
         f"[決算速報] 統合結果 total={total} groups={len(groups)} "
