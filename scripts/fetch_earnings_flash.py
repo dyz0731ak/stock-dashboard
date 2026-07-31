@@ -736,6 +736,39 @@ SOURCE_PRIORITY = {"irbank": 1, "kabutan": 2, "kabupro": 3}
 METRIC_LABELS = {"sales": "売上", "op": "営業益", "ord": "経常", "net": "純益"}
 
 
+def official_tdnet_url(url: str) -> str:
+    """転載PDFの開示IDからTDnet公式PDF URLを組み立てる。"""
+    match = re.search(r"/(1401\d{14,})\.pdf(?:\?.*)?$", url or "", re.I)
+    if match:
+        return f"https://www.release.tdnet.info/inbs/{match.group(1)}.pdf"
+    return url if re.match(r"^https?://.+\.pdf(?:\?.*)?$", url or "", re.I) else ""
+
+
+def reference_links_for_item(code: str, items: list[dict]) -> dict[str, str]:
+    """カード詳細で使う一次資料・解説・履歴リンクを揃える。"""
+    document_url = ""
+    article_url = ""
+    for item in items:
+        candidate = item.get("url", "")
+        if not document_url:
+            document_url = official_tdnet_url(candidate)
+        if (
+            not article_url
+            and item.get("source") in {"irbank", "kabutan"}
+            and candidate
+            and not official_tdnet_url(candidate)
+        ):
+            article_url = candidate
+    return {
+        "document_url": document_url,
+        "article_url": article_url,
+        "ir_url": f"https://irbank.net/{code}/ir",
+        "news_url": (
+            f"https://s.kabutan.jp/stocks/{code}/news/?news_category_id=3"
+        ),
+    }
+
+
 def extract_chips(metrics: dict | None) -> list[dict]:
     """irbankの数値dictから ±% チップ用の構造化データを抽出"""
     if not metrics:
@@ -995,21 +1028,21 @@ def merge_items(*lists: list[dict]) -> list[dict]:
             if url:
                 break
 
-        final.append(
-            {
-                "code": code,
-                "name": best["name"],
-                "time": best.get("time", ""),
-                "category": category,
-                "narrative": narrative,
-                "narrative_source": narrative_src,
-                "metrics": metrics,
-                "chips": chips,
-                "sources": sources,
-                "primary_source": best["source"],
-                "url": url,
-            }
-        )
+        reference_links = reference_links_for_item(code, items)
+        final.append({
+            "code": code,
+            "name": best["name"],
+            "time": best.get("time", ""),
+            "category": category,
+            "narrative": narrative,
+            "narrative_source": narrative_src,
+            "metrics": metrics,
+            "chips": chips,
+            "sources": sources,
+            "primary_source": best["source"],
+            "url": url,
+            **reference_links,
+        })
 
     for item in final:
         score, label, zone, summary = impact_details(item)

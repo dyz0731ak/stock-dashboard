@@ -59,6 +59,52 @@ def esc(s):
     return html.escape(str(s if s is not None else ""))
 
 
+def flash_reference_links(item):
+    code = re.sub(r"[^0-9A-Z]", "", str(item.get("code") or ""), flags=re.I)
+    original = str(item.get("url") or "")
+    document_url = str(item.get("document_url") or "")
+    if not document_url:
+        match = re.search(r"/(1401\d{14,})\.pdf(?:\?.*)?$", original, re.I)
+        if match:
+            document_url = (
+                "https://www.release.tdnet.info/inbs/"
+                f"{match.group(1)}.pdf"
+            )
+        elif re.match(r"^https?://.+\.pdf(?:\?.*)?$", original, re.I):
+            document_url = original
+    article_url = str(item.get("article_url") or "")
+    if not article_url and original and not document_url:
+        article_url = original
+    candidates = [
+        (document_url, "決算短信・適時開示PDF", True),
+        (article_url, "決算速報・解説を読む", False),
+        (
+            str(item.get("ir_url") or "")
+            or (f"https://irbank.net/{code}/ir" if code else ""),
+            "過去の決算資料",
+            False,
+        ),
+        (
+            str(item.get("news_url") or "")
+            or (
+                f"https://s.kabutan.jp/stocks/{code}/news/"
+                "?news_category_id=3"
+                if code else ""
+            ),
+            "関連する決算記事",
+            False,
+        ),
+    ]
+    links = []
+    seen = set()
+    for url, label, primary in candidates:
+        if not re.match(r"^https?://", url, re.I) or url in seen:
+            continue
+        seen.add(url)
+        links.append((url, label, primary))
+    return links
+
+
 def fmt(n, dec=0):
     if n is None:
         return "—"
@@ -256,6 +302,14 @@ def build_flash(flash):
         return '<div class="skeleton">重要決算を確認中です</div>'
     out = ['<div class="flash-list">']
     for it in items[:12]:
+        reference_buttons = []
+        for url, label, primary in flash_reference_links(it):
+            cls = " primary" if primary else ""
+            reference_buttons.append(
+                f'<a class="flash-detail-link{cls}" href="{esc(url)}" '
+                f'target="_blank" rel="noopener"><span>{esc(label)}</span>'
+                f'<span aria-hidden="true">↗</span></a>'
+            )
         chips = []
         for chip in it.get("chips") or []:
             cls = "pos" if chip.get("direction") == "up" else "neg" if chip.get("direction") == "down" else ""
@@ -272,11 +326,15 @@ def build_flash(flash):
             f'<div class="nar">{esc(it.get("narrative"))}</div>'
             f'<div class="chips">{"".join(chips)}</div>'
             f'<div class="impact-summary">{esc(it.get("impact_summary") or "通期計画への進捗と今後の見通しを確認したい決算です。")}</div>'
-            f'<div class="flash-chart-toggle">3か月チャートを見る</div>'
-            f'<div class="flash-chart-panel" hidden><div class="flash-chart-head">'
+            f'<div class="flash-chart-toggle">詳細・根拠を見る</div>'
+            f'<div class="flash-detail-panel" hidden><div class="flash-reference">'
+            f'<div class="flash-detail-title">根拠資料・関連記事</div>'
+            f'<div class="flash-detail-note">表示内容は決算短信・適時開示をもとに整理しています。'
+            f'数値や会社予想は原資料でもご確認ください。</div>'
+            f'<div class="flash-detail-links">{"".join(reference_buttons)}</div>'
+            f'</div><div class="flash-chart-panel"><div class="flash-chart-head">'
             f'<span class="flash-chart-title">3か月日足（約65営業日）</span>'
-            f'<a class="flash-source" href="{esc(it.get("url") or "#")}" target="_blank" rel="noopener">決算資料を確認</a>'
-            f'</div><div class="mini-nochart">チャートを読み込み中</div></div>'
+            f'</div><div class="mini-nochart">チャートを読み込み中</div></div></div>'
             f'</article>'
         )
     out.append("</div>")

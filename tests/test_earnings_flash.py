@@ -82,6 +82,35 @@ class DisclosureMetricsTests(unittest.TestCase):
         self.assertEqual(combined, fresh)
         self.assertEqual(retained, 0)
 
+    def test_reference_links_include_official_document_and_detail_pages(self):
+        links = earnings.reference_links_for_item("5444", [
+            {
+                "source": "kabupro",
+                "url": (
+                    "http://ke.kabupro.jp/tsp/20260731/"
+                    "140120260730502919.pdf"
+                ),
+            },
+            {
+                "source": "kabutan",
+                "url": "https://kabutan.jp/news/?b=k202607310001",
+            },
+        ])
+
+        self.assertEqual(
+            links["document_url"],
+            (
+                "https://www.release.tdnet.info/inbs/"
+                "140120260730502919.pdf"
+            ),
+        )
+        self.assertEqual(
+            links["article_url"],
+            "https://kabutan.jp/news/?b=k202607310001",
+        )
+        self.assertEqual(links["ir_url"], "https://irbank.net/5444/ir")
+        self.assertIn("/stocks/5444/news/", links["news_url"])
+
 
 if __name__ == "__main__":
     unittest.main()

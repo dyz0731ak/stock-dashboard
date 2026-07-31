@@ -102,6 +102,33 @@ function renderIndices(data) {
    ============================================================ */
 let flashData = null;
 
+function safeExternalUrl(value) {
+  const url = String(value || '').trim();
+  return /^https?:\/\//i.test(url) ? url : '';
+}
+
+function tdnetDocumentUrl(value) {
+  const url = safeExternalUrl(value);
+  const match = url.match(/\/(1401\d{14,})\.pdf(?:\?.*)?$/i);
+  if (match) return `https://www.release.tdnet.info/inbs/${match[1]}.pdf`;
+  return /\.pdf(?:\?.*)?$/i.test(url) ? url : '';
+}
+
+function earningsReferenceLinks(it) {
+  const code = String(it.code || '').replace(/[^0-9A-Z]/gi, '');
+  const original = safeExternalUrl(it.url);
+  const documentUrl = safeExternalUrl(it.document_url) || tdnetDocumentUrl(original);
+  const articleUrl = safeExternalUrl(it.article_url) || (!tdnetDocumentUrl(original) ? original : '');
+  const candidates = [
+    { url: documentUrl, label: '決算短信・適時開示PDF', primary: true },
+    { url: articleUrl, label: '決算速報・解説を読む' },
+    { url: safeExternalUrl(it.ir_url) || (code ? `https://irbank.net/${code}/ir` : ''), label: '過去の決算資料' },
+    { url: safeExternalUrl(it.news_url) || (code ? `https://s.kabutan.jp/stocks/${code}/news/?news_category_id=3` : ''), label: '関連する決算記事' },
+  ];
+  const seen = new Set();
+  return candidates.filter(link => link.url && !seen.has(link.url) && seen.add(link.url));
+}
+
 function renderFlash() {
   const d = flashData;
   const body = $('#flashBody');
@@ -119,6 +146,11 @@ function renderFlash() {
   }
   const list = el('div', 'flash-list');
   rows.slice(0, 12).forEach(it => {
+    const referenceLinks = earningsReferenceLinks(it);
+    const referenceButtons = referenceLinks.map(link => `
+      <a class="flash-detail-link${link.primary ? ' primary' : ''}" href="${escHtml(link.url)}" target="_blank" rel="noopener">
+        <span>${escHtml(link.label)}</span><span aria-hidden="true">↗</span>
+      </a>`).join('');
     const chips = (it.chips || []).map(c => {
       const cls = c.direction === 'up' ? 'pos' : c.direction === 'down' ? 'neg' : '';
       const strong = c.strength === 'strong' ? 'font-weight:700' : '';
@@ -138,19 +170,25 @@ function renderFlash() {
       <div class="nar">${escHtml(it.narrative || '')}</div>
       <div class="chips">${chips}</div>
       <div class="impact-summary">${escHtml(it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。')}</div>
-      <div class="flash-chart-toggle">3か月チャートを見る</div>
-      <div class="flash-chart-panel" hidden>
+      <div class="flash-chart-toggle">詳細・根拠を見る</div>
+      <div class="flash-detail-panel" hidden>
+        <div class="flash-reference">
+          <div class="flash-detail-title">根拠資料・関連記事</div>
+          <div class="flash-detail-note">表示内容は決算短信・適時開示をもとに整理しています。数値や会社予想は原資料でもご確認ください。</div>
+          <div class="flash-detail-links">${referenceButtons}</div>
+        </div>
+        <div class="flash-chart-panel">
         <div class="flash-chart-head">
           <span class="flash-chart-title">3か月日足（約65営業日）</span>
-          <a class="flash-source" href="${escHtml(it.url || '#')}" target="_blank" rel="noopener">決算資料を確認</a>
         </div>
         ${miniCandleChart(it.chart, 65, '直近約3か月の日足チャート')}
+        </div>
       </div>`;
     const setOpen = open => {
       item.classList.toggle('open', open);
       item.setAttribute('aria-expanded', String(open));
-      item.querySelector('.flash-chart-panel').hidden = !open;
-      item.querySelector('.flash-chart-toggle').textContent = open ? 'チャートを閉じる' : '3か月チャートを見る';
+      item.querySelector('.flash-detail-panel').hidden = !open;
+      item.querySelector('.flash-chart-toggle').textContent = open ? '詳細を閉じる' : '詳細・根拠を見る';
     };
     const toggle = () => {
       const willOpen = !item.classList.contains('open');
@@ -158,17 +196,17 @@ function renderFlash() {
         if (other === item) return;
         other.classList.remove('open');
         other.setAttribute('aria-expanded', 'false');
-        other.querySelector('.flash-chart-panel').hidden = true;
-        other.querySelector('.flash-chart-toggle').textContent = '3か月チャートを見る';
+        other.querySelector('.flash-detail-panel').hidden = true;
+        other.querySelector('.flash-chart-toggle').textContent = '詳細・根拠を見る';
       });
       setOpen(willOpen);
     };
     item.addEventListener('click', event => {
-      if (event.target.closest('.flash-source')) return;
+      if (event.target.closest('.flash-detail-link')) return;
       toggle();
     });
     item.addEventListener('keydown', event => {
-      if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.flash-source')) {
+      if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.flash-detail-link')) {
         event.preventDefault();
         toggle();
       }
