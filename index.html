@@ -37,13 +37,11 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://dashboard.stock-overflow24.com/#organization",
-      "name": "投資の砦",
-      "alternateName": ["Toushi no Toride", "投資の砦ダッシュボード"],
-      "url": "https://dashboard.stock-overflow24.com/",
+      "@id": "https://stock-overflow24.com/#organization",
+      "name": "STOCK OVERFLOW",
+      "url": "https://stock-overflow24.com/about/",
       "logo": { "@type": "ImageObject", "url": "https://dashboard.stock-overflow24.com/ogp.png", "width": 1200, "height": 630 },
-      "description": "個人投資家のチャンスと資産を守る、無料の定期更新型株式ダッシュボード「投資の砦」を運営。",
-      "sameAs": ["https://yougo.stock-overflow24.com/", "https://stock-overflow24.com/"]
+      "description": "個人投資家Dすけが運営する投資情報サイト群の運営者。"
     },
     {
       "@type": "WebSite",
@@ -53,7 +51,7 @@
       "url": "https://dashboard.stock-overflow24.com/",
       "description": "日本株のストップ高・急騰銘柄・出来高急増・決算速報・テーマ株を約15分間隔で定期更新する無料ダッシュボード。",
       "inLanguage": "ja",
-      "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
+      "publisher": { "@id": "https://stock-overflow24.com/#organization" }
     },
     {
       "@type": "WebApplication",
@@ -66,7 +64,7 @@
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
       "inLanguage": "ja",
       "isPartOf": { "@id": "https://dashboard.stock-overflow24.com/#website" },
-      "publisher": { "@id": "https://dashboard.stock-overflow24.com/#organization" }
+      "publisher": { "@id": "https://stock-overflow24.com/#organization" }
     }
   ]
 }
@@ -145,6 +143,7 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(90deg,var(--brand) 0 72%,#68c39a 72% 100%);
 }
 .brand-word span{color:var(--brand);font-size:1.08em}
+.brand-role{font-size:11px;color:var(--ink-3);font-weight:600;white-space:nowrap}
 .topbar-meta{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ink-3)}
 .live-dot{display:inline-flex;align-items:center;gap:6px}
 .live-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--down);box-shadow:0 0 0 3px var(--down-soft);animation:pulse 2s infinite}
@@ -362,6 +361,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
   .flash-list{grid-template-columns:1fr}
 }
 @media(max-width:560px){
+  .brand-role{display:none}
   .idx-grid{grid-template-columns:1fr}
   .idx-card .price{font-size:22px}
   .heatmap{height:400px}
@@ -382,6 +382,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
     <a href="#" class="brand">
       <span class="brand-word">投資の<span>砦</span></span>
     </a>
+    <span class="brand-role">日本株の急騰・決算を追う定期更新ダッシュボード</span>
     <div class="topbar-meta">
       <span class="live-dot">自動更新</span>
       <span id="lastUpdated">最終更新 —</span>
@@ -3306,7 +3307,9 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 <span class="ft-label">毎日見るページ</span><a href="/stop-high/">ストップ高銘柄</a><a href="/top-gainers/">急騰銘柄ランキング</a><a href="/volume-surge/">出来高急増</a><a href="/earnings/">決算速報</a><span class="ft-label">テーマ株から探す</span><a href="/themes/game/">ゲーム関連株</a><a href="/themes/iyaku-bio/">医薬・バイオ関連株</a><a href="/themes/quantum-computer/">量子コンピュータ関連株</a><a href="/themes/handotai/">半導体関連株</a><a href="/themes/jidosha/">自動車関連株</a><a href="/themes/kohaito/">高配当関連株</a><a href="/themes/ginko/">銀行関連株</a><a href="/themes/sogo-shosha/">総合商社関連株</a><a href="/themes/ai/">人工知能（AI）関連株</a><a href="/themes/tekko/">鉄鋼関連株</a><a href="/themes/inbound/">インバウンド関連株</a><a href="/themes/kaiun/">海運関連株</a><a href="/themes/kuuun/">空運関連株</a><a href="/themes/robot/">ロボット関連株</a><a href="/themes/chikudenchi/">蓄電池関連株</a><a href="/themes/boei/">防衛関連株</a><a href="/themes/handotai-seizo-souchi/">半導体製造装置関連株</a><a href="/themes/fudosan/">不動産関連株</a><a href="/themes/denshi-buhin/">電子部品関連株</a><a href="/themes/saisei-energy/">再生可能エネルギー関連株</a><a href="/themes/"><b>テーマ株一覧 ›</b></a>
 <!--/PRERENDER:themelinks--></nav>
   <div class="foot-inner">
-    © 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。
+    <div>日本株の急騰銘柄・決算・テーマ株を定期更新で確認する無料ダッシュボード。</div>
+    <div>運営：STOCK OVERFLOW（Dすけ）</div>
+    <div>© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div>
   </div>
 </footer>
 

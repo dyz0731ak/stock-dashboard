@@ -263,7 +263,7 @@ def build_page(theme, all_themes, updated):
 <h2>他のテーマ株を見る</h2>
 <div class="rel">{rel}</div>
 </div>
-<footer><div class="foot-inner">© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
+<footer><div class="foot-inner">運営：STOCK OVERFLOW（Dすけ）<br>© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
 </body>
 </html>
 """
@@ -336,7 +336,7 @@ def build_hub(themes, updated):
 <tbody>{rows}</tbody></table>
 <p style="margin:18px 0"><a class="cta" href="{BASE_URL}/#themes">▶ ダッシュボードで最新値を見る</a></p>
 </div>
-<footer><div class="foot-inner">© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
+<footer><div class="foot-inner">運営：STOCK OVERFLOW（Dすけ）<br>© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
 </body>
 </html>
 """

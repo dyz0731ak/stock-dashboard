@@ -486,7 +486,7 @@ def volume_table(volume):
     return fixed_table(
         [("#", "r"), ("市場", ""), ("銘柄", ""), ("コード", "r"), ("株価", "r"), ("騰落率", "r"), ("出来高", "r"), ("急増度", "r")],
         rows,
-        "出来高急増データは次回の自動更新後に表示されます。トップページのリアルタイム欄もあわせて確認してください。",
+        "出来高急増データは次回の自動更新後に表示されます。トップページの定期更新欄もあわせて確認してください。",
     )
 
 
@@ -567,7 +567,7 @@ def fixed_page_html(slug, title, desc, lead, updated, content):
 <h2>ほかの日本株データを見る</h2>
 {market_page_nav(slug)}
 </div>
-<footer><div class="foot-inner">© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
+<footer><div class="foot-inner">運営：STOCK OVERFLOW（Dすけ）<br>© 投資の砦 ｜ 情報提供のみを目的とし、投資判断はご自身の責任で。</div></footer>
 </body>
 </html>
 """
