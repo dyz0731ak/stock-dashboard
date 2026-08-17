@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-08-18T00:06:06.943039+09:00",
-  "last_attempt_at": "2026-08-18T00:06:06.943039+09:00",
+  "last_attempt_at": "2026-08-18T00:19:59.669856+09:00",
   "session_date": "2026-08-17",
   "as_of": "2026-08-17T23:51:00+09:00",
   "source": "kabutan_pts_live",
@@ -9,7 +9,7 @@
   "scope": "PTS ナイトタイム・セッション（進行中）",
   "ranking_definition": "通常取引終値比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "fetch_status": "ok",
+  "fetch_status": "stale",
   "all_stocks": [
     {
       "code": "9344",
@@ -9401,5 +9401,6 @@
       "chart": null,
       "session_date": "2026-08-17"
     }
-  ]
+  ],
+  "fetch_error": "PTS当日値が未更新です: expected=2026-08-17, actual=2026-08-18"
 }
