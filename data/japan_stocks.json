@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-11T02:20:43.212188+09:00",
-  "last_attempt_at": "2026-09-11T02:20:43.212200+09:00",
+  "updated_at": "2026-09-11T02:30:02.574198+09:00",
+  "last_attempt_at": "2026-09-11T02:30:02.574213+09:00",
   "source": "kabutan_mobile",
   "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
   "source_url": "https://s.kabutan.jp/warnings/price_increase/",
@@ -15,9 +15,12 @@
   "source_attempts": [
     {
       "source": "yfinance_bulk",
-      "status": "error",
-      "error": "Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', '/home/runner/work/stock-dashboard/stock-dashboard/scripts/fetch_japan_stocks.py', '--bulk-only']' timed out after 280 seconds",
-      "exception": "TimeoutExpired"
+      "status": "partial",
+      "prices_fetched_at": "2026-09-10T17:26:53.844567+00:00",
+      "universe_count": 3700,
+      "quoted_count": 0,
+      "coverage": 0.0,
+      "session_date": "2026-09-10"
     },
     {
       "source": "kabutan_mobile",
@@ -23476,8 +23479,8 @@
     "不動産業",
     "小売業"
   ],
-  "fetched_at": "2026-09-11T02:20:43.212188+09:00",
-  "last_success_at": "2026-09-11T02:20:43.212188+09:00",
+  "fetched_at": "2026-09-11T02:30:02.574198+09:00",
+  "last_success_at": "2026-09-11T02:30:02.574198+09:00",
   "valid_until": "2026-09-11T09:30:00+09:00",
   "market": "tse",
   "market_state": "preopen"
