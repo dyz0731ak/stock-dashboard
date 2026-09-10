@@ -89,14 +89,10 @@ def parse_csv(text):
 
 
 def active_night_session_date(now):
-    """16:30〜翌06:00の進行中セッション日。時間外はNone。"""
-    local = now.astimezone(JST)
-    minutes = local.hour * 60 + local.minute
-    if minutes >= 16 * 60 + 30:
-        return local.date()
-    if minutes < 6 * 60:
-        return local.date() - datetime.timedelta(days=1)
-    return None
+    """営業日の17:00〜翌06:00。土曜早朝は金曜セッション。"""
+    from market_clock import market_context
+    context = market_context('pts', now)
+    return datetime.date.fromisoformat(context['session_date']) if context['state'] == 'open' else None
 
 
 def parse_kabutan_live(html):
@@ -190,8 +186,15 @@ def fetch_kabutan_live(expected_date):
         )
         response.raise_for_status()
         page_date, as_of, stocks = parse_kabutan_live(response.text)
-        session_date = page_date
-        newest_as_of = max(newest_as_of, as_of)
+        # Provider header date can be the calendar date after midnight.
+        stamp = datetime.datetime.fromisoformat(as_of)
+        actual = active_night_session_date(stamp) or stamp.date()
+        if actual != expected_date:
+            raise ValueError(f'PTS page={page} session mismatch: expected={expected_date}, actual={actual}')
+        session_date = actual.isoformat()
+        newest_as_of = min(newest_as_of, as_of) if newest_as_of else as_of
+        for stock in stocks:
+            stock['session_date'] = session_date
         for stock in stocks:
             combined[stock["code"]] = stock
 
@@ -204,7 +207,7 @@ def fetch_kabutan_live(expected_date):
         key=lambda stock: stock["change_pct"],
         reverse=True,
     )[:30]
-    if len(stocks) < 10:
+    if not stocks:
         raise ValueError(f"PTS当日値上がり銘柄が少なすぎます: {len(stocks)}件")
     return session_date, newest_as_of, stocks
 
@@ -225,27 +228,38 @@ def enrich_metadata(stocks):
 def main():
     now = datetime.datetime.now(JST)
     try:
+        from market_clock import market_context
         active_date = active_night_session_date(now)
+        expected = market_context('pts', now)['session_date']
+        errors = []
+        stocks = []
         if active_date:
-            session_date, as_of, stocks = fetch_kabutan_live(active_date)
-            source = "kabutan_pts_live"
-            source_label = "株探 PTS夜間ランキング（ジャパンネクスト提供値）"
-            source_url = KABUTAN_LIVE_URL
-            scope = "PTS ナイトタイム・セッション（進行中）"
-            ranking_definition = "通常取引終値比・値上がり率上位30銘柄"
-        else:
-            response = requests.get(CSV_URL, headers=HEADERS, timeout=45)
+            try:
+                session_date, as_of, stocks = fetch_kabutan_live(active_date)
+                source = 'kabutan_pts_live'
+                source_label = '株探 PTS夜間ランキング（15分遅延・ジャパンネクスト提供値）'
+                source_url = KABUTAN_LIVE_URL
+            except Exception as exc:
+                errors.append({'source':'kabutan_pts_live', 'error':str(exc)})
+                print(json.dumps(errors[-1], ensure_ascii=False), file=sys.stderr)
+        if not stocks:
+            response = requests.get(CSV_URL, headers=HEADERS, timeout=30)
             response.raise_for_status()
-            session_date, stocks = parse_csv(response.content.decode("utf-8-sig"))
-            as_of = None
-            source = "japannext"
-            source_label = "ジャパンネクスト証券 公式夜間PTSランキング"
-            source_url = SOURCE_PAGE
-            scope = "ジャパンネクストPTS ナイトタイム・セッション"
-            ranking_definition = "東証終値比・値上がり率上位30銘柄"
-        if len(stocks) < 10:
+            session_date, stocks = parse_csv(response.content.decode('utf-8-sig'))
+            session_date = session_date.replace('/', '-')
+            source, source_label, source_url = 'japannext', 'ジャパンネクスト公式CSV（終了セッション）', SOURCE_PAGE
+            # CSV is a final-session dataset. Never pass it off as a live snapshot.
+            end_day = datetime.date.fromisoformat(session_date) + datetime.timedelta(days=1)
+            as_of = datetime.datetime.combine(end_day, datetime.time(6), JST).isoformat()
+        scope = 'ジャパンネクストPTS ナイトタイム・セッション（17:00〜翌06:00）'
+        ranking_definition = f'東証終値比・値上がり率上位{min(len(stocks), 30)}銘柄'
+        session_is_old = session_date != expected
+        if not stocks:
             raise ValueError(f"PTS値上がり銘柄が少なすぎます: {len(stocks)}件")
-        stocks = enrich_metadata(stocks)
+        try:
+            stocks = enrich_metadata(stocks)
+        except Exception as exc:
+            print(f'[夜間PTS] 補完のみ失敗: {exc}', file=sys.stderr)
         output = {
             "updated_at": now.isoformat(),
             "last_attempt_at": now.isoformat(),
@@ -257,7 +271,10 @@ def main():
             "scope": scope,
             "ranking_definition": ranking_definition,
             "ranking_count": len(stocks),
-            "fetch_status": "ok",
+            "fetch_status": "stale" if session_is_old else ("fallback" if errors else "ok"),
+            "fetch_error": f'期待セッション={expected}, 取得セッション={session_date}' if session_is_old else None,
+            "fetch_warning": '進行中PTS取得失敗。公式の終了セッションを取得' if errors else None,
+            "source_attempts": errors,
             "all_stocks": stocks,
         }
     except Exception as exc:
@@ -275,7 +292,7 @@ def main():
         output,
         lambda data: (
             len(data.get("all_stocks", []))
-            if len(data.get("all_stocks", [])) >= 10 else 0
+            if data.get("all_stocks") and data.get("fetch_status") != "stale" else 0
         ),
         label="夜間PTS",
         failure_reason=output.get("fetch_error"),

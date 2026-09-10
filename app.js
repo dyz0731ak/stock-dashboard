@@ -1,5 +1,5 @@
 /* ============================================================
-   投資の砦 — 森スタイル ダッシュボード レンダラ
+   投資の砦 — 株式市場監視室 ダッシュボード レンダラ
    砦の data/*.json をそのまま読み込んで描画する。
    ============================================================ */
 
@@ -18,13 +18,13 @@ const escHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
 // 上げ赤・下げ緑（日本式）の背景色
 function pctBadge(pct) {
   const up = pct > 0, dn = pct < 0;
-  const bg = up ? 'var(--up-soft)' : dn ? 'var(--down-soft)' : '#eef1f5';
+  const bg = up ? 'var(--up-soft)' : dn ? 'var(--down-soft)' : 'var(--surface-2)';
   const fg = up ? 'var(--up)' : dn ? 'var(--down)' : 'var(--ink-3)';
   return `style="background:${bg};color:${fg}"`;
 }
 
 async function getJSON(path) {
-  const r = await fetch(path + '?_=' + Date.now());
+  const r = await fetch(path + '?_=' + Date.now(), { signal: AbortSignal.timeout(20000), cache: 'no-store' });
   if (!r.ok) throw new Error(path + ' ' + r.status);
   return r.json();
 }
@@ -40,20 +40,20 @@ function timeAgo(iso) {
   return Math.floor(h / 24) + '日前';
 }
 function clock(iso) {
-  if (!iso) return '—';
-  const d = new Date(iso);
-  return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  if (!iso || !Number.isFinite(new Date(iso).getTime())) return '不明';
+  return new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(iso));
 }
-function ageHours(iso) {
-  if (!iso) return Infinity;
-  return (Date.now() - new Date(iso).getTime()) / 3600000;
-}
-const isFresh = (data, maxHours) => !!data && data.fetch_status !== 'stale' && ageHours(data.updated_at) <= maxHours;
+function ageHours(iso) { return iso ? (Date.now() - new Date(iso).getTime()) / 3600000 : Infinity; }
+const isFresh = (data, maxHours) => !!data && !['stale','error'].includes(data.fetch_status) &&
+  ageHours(data.fetched_at || data.updated_at) >= -5/60 &&
+  (data.valid_until ? Date.now() <= new Date(data.valid_until).getTime() : ageHours(data.updated_at) <= maxHours);
 function updateLabel(data, maxHours) {
-  if (!data) return '取得できません';
-  const suffix = data.is_fallback ? `・${data.scope || '代替データ'}` : '';
-  if (!isFresh(data, maxHours)) return `要確認 ${clock(data.updated_at)}（${timeAgo(data.updated_at)}）${suffix}`;
-  return `更新 ${clock(data.updated_at)}${suffix}`;
+  if (!data) return '未取得';
+  const label = !isFresh(data, maxHours) ? '取得失敗・期限切れ' : ({partial:'一部取得',fallback:'代替取得'}[data.fetch_status] || '取得済み');
+  return `${label} ｜ 最終取得 ${clock(data.fetched_at || data.updated_at)} JST`;
+}
+function dataNotice(data, hours) {
+  return `<div class="data-notice">${escHtml(updateLabel(data,hours))}<br>期限切れの数値は表示していません。<br><small>最終試行 ${clock(data?.last_attempt_at)} JST${data?.session_date ? ' ・ 取引日 '+escHtml(data.session_date) : ''}</small></div>`;
 }
 
 /* ---------- ミニ・スパークライン (SVG) ---------- */
@@ -90,11 +90,11 @@ function renderIndices(data) {
         <span class="pct-badge" ${pctBadge(it.pct)}>${pctTxt(it.pct)}</span>
       </div>
       <div class="price num ${signCls(it.pct)}">${fmt(it.price, it.decimals)}</div>
-      <div class="change num ${signCls(it.change)}">${it.change > 0 ? '▲' : it.change < 0 ? '▼' : ''} ${fmt(Math.abs(it.change), it.decimals)}</div>
+      <div class="change num ${signCls(it.change)}">${it.change > 0 ? '▲' : it.change < 0 ? '▼' : ''} ${fmt(Math.abs(it.change), it.decimals)}</div><div class="price-date">日足 ${escHtml(it.price_date || it.chart?.at(-1)?.t?.slice(0,10) || '対象日不明')}</div>
     `;
     grid.appendChild(card);
   });
-  $('#updIdx').textContent = '更新 ' + clock(data.updated_at);
+  $('#updIdx').textContent = updateLabel(data, 12);
 }
 
 /* ============================================================
@@ -136,7 +136,7 @@ function renderFlash() {
 
   const shown = Math.min(12, (d.highlights || []).length || d.total || 0);
   $('#flashSub').textContent = `${d.article_date} 発表分 ・ 重要度上位${shown}件`;
-  $('#updFlash').textContent = '更新 ' + clock(d.updated_at);
+  $('#updFlash').textContent = updateLabel(d, 36);
 
   body.innerHTML = '';
   const rows = d.highlights || (d.groups || []).flatMap(g => g.items || []);
@@ -237,10 +237,10 @@ function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月�
   const closes = chart?.closes || [];
   if (closes.length < 2) return '<div class="mini-nochart">チャート準備中</div>';
   const n = Math.min(maxPoints, closes.length);
-  const c = closes.slice(-n).map(Number);
-  const o = (chart.opens || closes).slice(-n).map(Number);
-  const h = (chart.highs || closes).slice(-n).map(Number);
-  const l = (chart.lows || closes).slice(-n).map(Number);
+  const c = closes.slice(-n).map(value=>value==null ? NaN : Number(value));
+  const o = (chart.opens || closes).slice(-n).map(value=>value==null ? NaN : Number(value));
+  const h = (chart.highs || closes).slice(-n).map(value=>value==null ? NaN : Number(value));
+  const l = (chart.lows || closes).slice(-n).map(value=>value==null ? NaN : Number(value));
   const v = (chart.volumes || []).slice(-n).map(x => Number(x || 0));
   const valid = [...h, ...l].filter(Number.isFinite);
   const min = Math.min(...valid), max = Math.max(...valid), span = max - min || 1;
@@ -256,7 +256,7 @@ function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月�
     if (![o[i], h[i], l[i], close].every(Number.isFinite)) return '';
     const x = step * i + step / 2;
     const rising = close >= o[i];
-    const color = rising ? '#26a69a' : '#ef5350';
+    const color = rising ? '#ef5350' : '#26a69a';
     const top = Math.min(y(o[i]), y(close));
     const height = Math.max(1.4, Math.abs(y(o[i]) - y(close)));
     const vh = v[i] / maxVol * volumeH;
@@ -264,7 +264,7 @@ function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月�
       <rect x="${(x-bodyW/2).toFixed(1)}" y="${top.toFixed(1)}" width="${bodyW.toFixed(1)}" height="${height.toFixed(1)}" fill="${color}" rx=".5"/>
       <rect x="${(x-bodyW/2).toFixed(1)}" y="${(volumeTop+volumeH-vh).toFixed(1)}" width="${bodyW.toFixed(1)}" height="${vh.toFixed(1)}" fill="${color}" opacity=".45"/>`;
   }).join('');
-  const lastY = y(c[c.length - 1]);
+  const lastY = y([...c].reverse().find(Number.isFinite));
   return `<svg class="mini-candle" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${escHtml(ariaLabel)}">
     ${grid}<line x1="0" y1="${lastY.toFixed(1)}" x2="${W}" y2="${lastY.toFixed(1)}" class="mc-last"/>
     ${candles}
@@ -315,10 +315,10 @@ function renderRank() {
   const jp = rankData;
   const pts = ptsRankData;
   const data = rankMarket === 'pts' ? pts : jp;
-  const jpN = jp?.all_stocks?.length || 0;
-  const ptsN = pts?.all_stocks?.length || 0;
+  const jpN = isFresh(jp,36) ? jp?.all_stocks?.length || 0 : '—';
+  const ptsN = isFresh(pts,36) ? pts?.all_stocks?.length || 0 : '—';
   const pills = $('#rankPills');
-  pills.innerHTML = `<button type="button" class="pill ${rankMarket === 'tse' ? 'active' : ''}" data-market="tse">東証全市場 <span class="n">${jpN}</span></button>
+  pills.innerHTML = `<button type="button" class="pill ${rankMarket === 'tse' ? 'active' : ''}" data-market="tse">${jp?.is_fallback ? '日経225代替' : '東証全市場'} <span class="n">${jpN}</span></button>
     <button type="button" class="pill ${rankMarket === 'pts' ? 'active' : ''}" data-market="pts">夜間PTS <span class="n">${ptsN}</span></button>`;
   pills.querySelectorAll('[data-market]').forEach(button => button.onclick = () => {
     rankMarket = button.dataset.market;
@@ -327,10 +327,11 @@ function renderRank() {
 
   const body = $('#rankBody'); body.innerHTML = '';
 
-  if (!data) { body.innerHTML = '<div class="skeleton">データを準備しています</div>'; return; }
-  const maxAge = rankMarket === 'pts' ? 120 : 36;
+  if (!data) { body.innerHTML = dataNotice(null,36); $('#updRank').textContent='取得失敗'; return; }
+  const maxAge = 36;
+  $('#rankViews').innerHTML = '';
   if (!isFresh(data, maxAge)) {
-    body.innerHTML = `<div class="data-notice">${rankMarket === 'pts' ? '夜間PTS' : '日本株'}ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(data.updated_at)}（${timeAgo(data.updated_at)}）</small></div>`;
+    body.innerHTML = `<div class="data-notice">${rankMarket === 'pts' ? '夜間PTS' : '日本株'}ランキングの更新を確認中です。古いランキングは表示していません。<br><small>最終取得 ${clock(data.fetched_at || data.updated_at)} JST ・ 最終試行 ${clock(data.last_attempt_at)} JST</small></div>`;
     $('#rankSub').textContent = `${rankMarket === 'pts' ? '夜間PTS' : '日本株'}・取得確認中`;
     $('#updRank').textContent = updateLabel(data, maxAge);
     return;
@@ -341,6 +342,7 @@ function renderRank() {
     ? `夜間PTS${ptsDate}${ptsAsOf}・東証終値比の値上がり率上位`
     : `${data.scope || '日本株・全市場'}・値上がり率上位${data.is_fallback ? '（代替表示）' : ''}`;
   $('#updRank').textContent = updateLabel(data, maxAge);
+  if (rankMarket === 'tse') $('#rankSub').textContent += ` ・ ${data.session_date || '対象日不明'} ・ 上位${data.all_stocks?.length || 0}件${data.fetch_status === 'fallback' ? '（代替取得）' : ''}`;
 
   const views = $('#rankViews');
   const availableViews = [['table', '一覧'], ['chart', 'ミニチャート']];
@@ -391,7 +393,7 @@ function renderThemes() {
   const body = $('#themesBody');
   if (!d || !d.themes) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
   $('#themesSub').textContent = THEME_SORT[themeSort].sub;
-  $('#updThemes').textContent = '更新 ' + clock(d.updated_at);
+  $('#updThemes').textContent = updateLabel(d, 36);
 
   const key = THEME_SORT[themeSort].key;
   const themes = [...d.themes].sort((a, b) => b[key] - a[key]);
@@ -460,21 +462,16 @@ function renderMarketNews(d) {
       </div>`;
     body.appendChild(card);
   });
-  $('#updMarketNews').textContent = '更新 ' + clock(data.updated_at);
+  $('#updMarketNews').textContent = updateLabel(data, 12);
 }
 
 /* ============================================================
    8. ヒートマップ（squarified treemap）
    ============================================================ */
 function heatColor(pct) {
-  const p = Math.max(-3, Math.min(3, pct)) / 3;
-  if (p > 0) { // 上げ＝赤
-    const t = p;
-    return `rgb(${Math.round(233 + (217 - 233) * t)},${Math.round(237 + (45 - 237) * t)},${Math.round(240 + (32 - 240) * t)})`;
-  } else { // 下げ＝緑
-    const t = -p;
-    return `rgb(${Math.round(233 + (14 - 233) * t)},${Math.round(237 + (138 - 237) * t)},${Math.round(240 + (95 - 240) * t)})`;
-  }
+  const amount = Math.min(1,Math.abs(pct)/3);
+  const neutral=[30,46,63], target=pct>0?[153,47,61]:[22,115,85];
+  return `rgb(${neutral.map((v,i)=>Math.round(v+(target[i]-v)*amount)).join(',')})`;
 }
 // squarified treemap layout
 function squarify(items, x, y, w, h) {
@@ -525,7 +522,7 @@ function renderHeatmap() {
 
   $('#heatTitle').textContent = '日経225 ヒートマップ';
   const box = $('#heatmap');
-  if (!d) { box.innerHTML = '<div class="skeleton">データなし</div>'; return; }
+  if (!isFresh(d,12)) { box.innerHTML = dataNotice(d,12); return; }
 
   const W = box.clientWidth, H = box.clientHeight;
   if (W < 100 || H < 100) {
@@ -559,7 +556,7 @@ function renderHeatmap() {
     }
     box.appendChild(tile);
   });
-  $('#updHeat').textContent = '更新 ' + clock(d.updated_at);
+  $('#updHeat').textContent = updateLabel(d, 36);
 
   if (!heatResizeObserver && 'ResizeObserver' in window) {
     let lastWidth = W;
@@ -577,59 +574,72 @@ function renderHeatmap() {
 /* ============================================================
    Boot
    ============================================================ */
-async function boot() {
-  const tasks = {
-    futures: getJSON('data/futures.json'),
-    japan: getJSON('data/japan_stocks.json'),
-    pts: getJSON('data/pts_ranking.json'),
-    flashJp: getJSON('data/earnings_flash.json'),
-    marketNews: getJSON('data/market_news.json'),
-    nikkei: getJSON('data/nikkei225.json'),
-    themes: getJSON('data/themes.json'),
-    health: getJSON('data/health.json'),
-  };
-  const get = async k => { try { return await tasks[k]; } catch (e) { console.warn(k, e); return null; } };
-
-  const [futures, japan, pts, flashJp, marketNews, nikkei, themes, health] = await Promise.all(
-    ['futures', 'japan', 'pts', 'flashJp', 'marketNews', 'nikkei', 'themes', 'health'].map(get)
-  );
-
-  if (futures) renderIndices(futures);
-  if (flashJp) {
-    flashData = flashJp;
-    renderFlash();
-    $('#navFlash').textContent = Math.min(12, (flashJp.highlights || []).length || flashJp.total || 0);
-  }
-  if (marketNews) renderMarketNews(marketNews);
-  if (japan || pts) {
-    rankData = japan;
-    ptsRankData = pts;
-    if (!japan && pts) rankMarket = 'pts';
-    renderRank();
-  }
-  if (themes) { themesData = themes; renderThemes(); }
-  if (nikkei) { heatData = nikkei; renderHeatmap(); }
-
-  // 利用者向けには内部監査の件数を出さず、確認済みの更新時刻だけを表示
-  if (health) {
-    $('#lastUpdated').textContent = `データ更新 ${clock(health.checked_at)}`;
-  } else {
-    const stamps = [futures, japan, marketNews, nikkei].filter(Boolean).map(d => d.updated_at).filter(Boolean);
-    if (stamps.length) {
-      const latest = stamps.sort().pop();
-      $('#lastUpdated').textContent = '最終取得 ' + clock(latest);
-    }
-  }
-
-  // ナビのスクロールスパイ
-  const links = [...document.querySelectorAll('#navTabs a')];
-  const spy = () => {
-    let cur = links[0];
-    links.forEach(l => { const s = document.querySelector(l.getAttribute('href')); if (s && s.getBoundingClientRect().top < 120) cur = l; });
-    links.forEach(l => l.classList.toggle('active', l === cur));
-  };
-  window.addEventListener('scroll', spy, { passive: true });
+const feeds = [
+  ['futures','futures.json','指数・先物','idxGrid','updIdx',8, d=>renderIndices(d)],
+  ['japan','japan_stocks.json','東証全市場','rankBody','updRank',36,d=>{rankData=d;renderRank();}],
+  ['pts','pts_ranking.json','夜間PTS',null,null,36,d=>{ptsRankData=d;renderRank();}],
+  ['themes','themes.json','テーマ株','themesBody','updThemes',8,d=>{themesData=d;renderThemes();}],
+  ['flash','earnings_flash.json','決算速報','flashBody','updFlash',36,d=>{flashData=d;renderFlash();$('#navFlash').textContent=Math.min(12,(d.highlights||[]).length||d.total||0);}],
+  ['news','market_news.json','市場ニュース','marketNewsBody','updMarketNews',12,d=>renderMarketNews(d)],
+  ['heat','nikkei225.json','ヒートマップ','heatmap','updHeat',12,d=>{heatData=d;renderHeatmap();}],
+];
+const loadedFeeds = {};
+let refreshing = false;
+function renderStatus() {
+  const rows = feeds.map(([key,file,label,body,upd,hours])=> {
+    const data = loadedFeeds[key], fresh = isFresh(data,hours);
+    const state = !fresh ? 'error' : ['fallback','partial'].includes(data.fetch_status) ? 'warning' : 'ok';
+    const date = data?.session_date || data?.data_date || data?.article_date;
+    const coverage = data?.coverage;
+    const details = [data?.fetch_warning, coverage?.universe_count ? `対象${coverage.universe_count.toLocaleString()}銘柄 / 当日値${coverage.quoted_count.toLocaleString()}銘柄` : '', data?.source_label || data?.source || ''].filter(Boolean).join(' ・ ');
+    return `<div class="feed-status ${state}"><span class="status-light"></span><b>${label}</b><span>${escHtml(updateLabel(data,hours))}</span>${date ? '<small>対象日 '+escHtml(date)+'</small>' : ''}${details ? '<small>'+escHtml(details)+'</small>' : ''}</div>`;
+  });
+  $('#feedStatus').innerHTML = rows.join('');
+  const good = feeds.filter(([key,,,,,hours])=>isFresh(loadedFeeds[key],hours)).length;
+  const warnings = feeds.some(([key])=>['fallback','partial'].includes(loadedFeeds[key]?.fetch_status));
+  $('#lastUpdated').textContent = `${good}/${feeds.length}項目 有効${warnings ? ' ・ 一部代替／部分取得' : ''}`;
+  $('#systemState').dataset.state = good===feeds.length ? (warnings ? 'warning':'ok') : 'error';
+  $('#systemState').textContent = good===feeds.length ? (warnings ? '一部代替取得':'取得正常') : '更新状態に注意';
 }
+async function boot() {
+  if (refreshing) return;
+  refreshing = true;
+  await Promise.allSettled(feeds.map(async ([key,file,label,body,upd,hours,render])=> {
+    let data;
+    try {
+      data = await getJSON('data/'+file);
+      loadedFeeds[key] = data;
+      if (key==='japan' || key==='pts') render(data);
+      else if (isFresh(data,hours)) render(data);
+      else if (body) { if(key==='heat') heatData=null; $('#'+body).innerHTML = dataNotice(data,hours); }
+      if (upd && (key!=='japan' || rankMarket==='tse')) $('#'+upd).textContent = updateLabel(data,hours);
+    } catch (error) {
+      console.error(JSON.stringify({event:'feed_load_failed',dataset:file,time:new Date().toISOString(),error:String(error)}));
+      data = {...loadedFeeds[key], fetch_status:'stale', fetch_error:String(error)};
+      loadedFeeds[key] = data;
+      if (key==='japan') { rankData=data; renderRank(); }
+      else if (key==='pts') { ptsRankData=data; renderRank(); }
+      else if (body) { if(key==='heat') heatData=null; $('#'+body).innerHTML=dataNotice(data,hours); }
+      if (upd && (key!=='japan' || rankMarket==='tse')) $('#'+upd).textContent='取得失敗';
+    }
+    renderStatus();
+  }));
+  try {
+    const health = await getJSON('data/health.json');
+    $('#healthChecked').textContent = `監査 ${clock(health.checked_at)} JST${ageHours(health.checked_at)>1 ? '（監査情報が古い）' : ''}`;
+    $('#marketState').textContent = Object.entries(health.markets||{}).filter(([,v])=>Date.now()<new Date(v.next_transition_at).getTime()).map(([k,v])=>`${k==='tse'?'東証':'PTS'} ${v.label}`).join(' / ');
+    $('#marketState').title = '監査時点の市場状態';
+  } catch { $('#healthChecked').textContent='監査情報を取得できません'; }
+  refreshing = false;
+}
+const links = [...document.querySelectorAll('#navTabs a')];
+window.addEventListener('scroll', () => {
+  let current = links[0];
+  links.forEach(link=> { const section=document.querySelector(link.getAttribute('href')); if(section && section.getBoundingClientRect().top<120) current=link; });
+  links.forEach(link=>link.classList.toggle('active',link===current));
+}, {passive:true});
+setInterval(boot, 60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden) boot();});
 
 window.addEventListener('resize', () => { /* ヒートマップ再描画はデバウンス */
   clearTimeout(window._rz);

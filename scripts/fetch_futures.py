@@ -85,6 +85,8 @@ def fetch_one(item):
             "decimals":   item["decimals"],
             "sep":        item["sep"],
             "chart":      candles,
+            "price_date": hist.index[-1].strftime('%Y-%m-%d'),
+            "fetched_at": datetime.datetime.now(JST).isoformat(),
         }
     except Exception as e:
         print(f"  [{ticker}] error: {e}", file=sys.stderr)
@@ -103,6 +105,9 @@ def main():
 
     out = {
         "items":      results,
+        "source": "yfinance",
+        "fetch_status": "ok" if len(results) == len(SYMBOLS) else "partial",
+        "fetch_warning": f"{len(SYMBOLS)}項目中{len(results)}項目取得" if len(results) < len(SYMBOLS) else None,
         "updated_at": datetime.datetime.now(JST).isoformat(),
     }
 

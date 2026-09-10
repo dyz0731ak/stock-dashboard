@@ -45,60 +45,43 @@ def _write_json_atomic(path, data):
             os.remove(tmp_path)
 
 
+def mark_failed(path, reason, attempted_at=None, details=None):
+    attempted_at = attempted_at or datetime.datetime.now(datetime.timezone.utc).isoformat()
+    existing = _load_existing(path) or {}
+    existing.update(last_attempt_at=attempted_at, fetch_status='stale', fetch_error=reason)
+    if details:
+        existing['last_failure'] = details
+    _write_json_atomic(path, existing)
+    print(json.dumps({'dataset':path, 'event':'fetch_failed', 'attempted_at':attempted_at,
+                      'error':reason, 'retained_updated_at':existing.get('updated_at')}, ensure_ascii=False), file=sys.stderr)
+    return False
+
+
 def safe_save(path, new_data, count_fn, label="data", failure_reason=None):
-    """
-    取得失敗（0件）で既存データを破壊しないようガードしつつ JSON 保存する。
-
-    Args:
-        path:     保存先パス
-        new_data: 保存したいdict
-        count_fn: dictを受け取り「件数」を返す関数
-        label:    ログ表示用ラベル
-
-    Returns:
-        True  = 保存した
-        False = スキップした（既存データを温存）
-    """
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    attempt = new_data.get('last_attempt_at') or now
     try:
-        new_count = count_fn(new_data)
-    except Exception:
-        new_count = 0
-
-    existing = _load_existing(path)
-    old_count = 0
-    if existing is not None:
-        try:
-            old_count = count_fn(existing)
-        except Exception:
-            old_count = 0
-
-    # 取得失敗 → 既存の良いデータを温存しつつ、失敗した事実と試行時刻を残す。
-    # updated_at は「データ自体の更新時刻」なので書き換えない。
-    if new_count == 0 and old_count > 0:
-        attempted_at = (
-            new_data.get("last_attempt_at")
-            or new_data.get("updated_at")
-            or datetime.datetime.now(datetime.timezone.utc).isoformat()
-        )
-        existing["last_attempt_at"] = attempted_at
-        existing["fetch_status"] = "stale"
-        existing["fetch_error"] = (
-            new_data.get("fetch_error")
-            or failure_reason
-            or "取得結果が0件だったため、前回のデータを表示しています"
-        )
-        _write_json_atomic(path, existing)
-        print(
-            f"  ⚠ [{label}] 取得結果0件 → 既存データ{old_count}件を温存し、失敗状態を記録",
-            file=sys.stderr,
-        )
-        return False
-
+        count = count_fn(new_data)
+        json.dumps(new_data, allow_nan=False)
+    except (ValueError, TypeError, KeyError) as exc:
+        return mark_failed(path, f'JSON/validation: {type(exc).__name__}: {exc}', attempt)
+    if count <= 0:
+        return mark_failed(path, new_data.get('fetch_error') or failure_reason or
+                           new_data.get('fetch_warning') or '取得結果が0件または必要件数未満', attempt,
+                           {'source_attempts':new_data.get('source_attempts', [])})
+    new_data.setdefault('fetch_status', 'ok')
+    new_data.setdefault('last_attempt_at', attempt)
+    new_data.setdefault('fetched_at', new_data.get('updated_at') or now)
+    new_data.setdefault('last_success_at', new_data['fetched_at'])
+    from data_status import stamp_data
     try:
-        _write_json_atomic(path, new_data)
+        stamp_data(path, new_data)
     except (TypeError, ValueError) as exc:
-        print(f"  ✗ [{label}] 標準JSONではない値を検出し保存を中止: {exc}", file=sys.stderr)
-        return False
-
-    print(f"  ✓ [{label}] 保存: {path}（{new_count}件）", file=sys.stderr)
+        return mark_failed(path, f'data timestamp invalid: {exc}', attempt)
+    if new_data.get('fetch_status') == 'stale':
+        return mark_failed(path, new_data.get('fetch_error') or '取得元の日付・状態が不正', attempt)
+    _write_json_atomic(path, new_data)
+    print(json.dumps({'dataset':path, 'event':'saved', 'count':count,
+                      'status':new_data['fetch_status'], 'fetched_at':new_data['fetched_at'],
+                      'session_date':new_data.get('session_date')}, ensure_ascii=False), file=sys.stderr)
     return True

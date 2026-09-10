@@ -97,44 +97,67 @@ SESSION.headers.update(HEADERS)
 #  JPX公式銘柄一覧 × yfinance 一括株価
 # ═══════════════════════════════════════════
 
+JPX_LIST_PAGE = "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html"
+MASTER_CACHE = "data/jpx_master.json"
+FETCH_DIAGNOSTICS = []
+BULK_METADATA = {}
+
+def record_source(source, status, **details):
+    event = {"source": source, "status": status, **details}
+    FETCH_DIAGNOSTICS.append(event)
+    print(json.dumps(event, ensure_ascii=False), file=sys.stderr)
+
+def discover_master_url(html):
+    from urllib.parse import urljoin, urlparse
+    soup = BeautifulSoup(html, "html.parser")
+    for link in soup.select('a[href]'):
+        url = urljoin(JPX_LIST_PAGE, link['href'])
+        if urlparse(url).hostname == 'www.jpx.co.jp' and re.search(r'/data_j\.xlsx?(?:\?|$)', url):
+            return url
+    raise ValueError("JPX上場一覧ページに data_j.xls/xlsx がありません")
+
+def parse_master(content):
+    import io
+    import pandas as pd
+    frame = pd.read_excel(io.BytesIO(content), engine='openpyxl' if content[:2] == b'PK' else 'xlrd')
+    stocks = []
+    for _, row in frame.iterrows():
+        market = str(row['市場・商品区分']).strip()
+        if market not in JPX_MARKETS:
+            continue
+        code = str(row['コード']).removesuffix('.0').strip()
+        if not re.fullmatch(r'[0-9][0-9A-Z]{3}', code):
+            continue
+        stocks.append({'code':code, 'name':unicodedata.normalize('NFKC', str(row['銘柄名'])),
+                       'market':JPX_MARKETS[market], 'sector':str(row['33業種区分'])})
+    if len(stocks) < 3000 or len({s['code'] for s in stocks}) != len(stocks):
+        raise ValueError(f'JPX銘柄一覧の件数・重複が不正: {len(stocks)}')
+    return stocks
+
 def fetch_jpx_listed_stocks():
-    """JPX公式の東証上場銘柄一覧から内国株式P/S/Gを取得する。"""
+    from safe_save import _load_existing, _write_json_atomic
+    from market_clock import parse_time, JST
+    now = datetime.datetime.now(JST)
+    cache = _load_existing(MASTER_CACHE) or {}
+    cached_at = parse_time(cache.get('fetched_at'))
+    if cached_at and (now - cached_at).total_seconds() < 86400 and len(cache.get('stocks', [])) >= 3000:
+        return cache['stocks']
+    url = JPX_LIST_PAGE
     try:
-        import xlrd
-        resp = SESSION.get(JPX_LIST_URL, timeout=60)
-        resp.raise_for_status()
-        book = xlrd.open_workbook(file_contents=resp.content)
-        sheet = book.sheet_by_index(0)
-        header = [str(sheet.cell_value(0, c)).strip() for c in range(sheet.ncols)]
-
-        def col(label):
-            return next(i for i, value in enumerate(header) if label in value)
-
-        c_code = col("コード")
-        c_name = col("銘柄名")
-        c_market = col("市場・商品区分")
-        c_sector = col("33業種区分")
-        stocks = []
-        for row in range(1, sheet.nrows):
-            market_raw = str(sheet.cell_value(row, c_market)).strip()
-            if market_raw not in JPX_MARKETS:
-                continue
-            raw_code = sheet.cell_value(row, c_code)
-            code = str(int(raw_code)) if isinstance(raw_code, float) else str(raw_code).strip()
-            sector = str(sheet.cell_value(row, c_sector)).strip()
-            stocks.append({
-                "code": code,
-                "name": unicodedata.normalize(
-                    "NFKC", str(sheet.cell_value(row, c_name)).strip()
-                ),
-                "market": JPX_MARKETS[market_raw],
-                "sector": sector if sector and sector != "-" else "その他",
-            })
-        if len(stocks) < 3000:
-            raise ValueError(f"JPX銘柄数が少なすぎます: {len(stocks)}")
+        page = SESSION.get(url, timeout=30)
+        page.raise_for_status()
+        url = discover_master_url(page.text)
+        response = SESSION.get(url, timeout=45)
+        response.raise_for_status()
+        stocks = parse_master(response.content)
+        _write_json_atomic(MASTER_CACHE, {'fetched_at':now.isoformat(), 'url':url, 'stocks':stocks})
+        record_source('jpx_master', 'ok', url=url, count=len(stocks))
         return stocks
-    except Exception as e:
-        print(f"  JPX上場銘柄一覧の取得失敗: {e}", file=sys.stderr)
+    except Exception as exc:
+        record_source('jpx_master', 'error', url=url, error=str(exc), exception=type(exc).__name__)
+        if cached_at and (now - cached_at).days < 40 and len(cache.get('stocks', [])) >= 3000:
+            record_source('jpx_master', 'fallback', cached_at=cache['fetched_at'])
+            return cache['stocks']
         return []
 
 
@@ -157,6 +180,7 @@ def fetch_tse_all_market():
     if not master:
         return []
 
+    BULK_METADATA["prices_fetched_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
     print(f"  東証全市場を一括計算: {len(master)}銘柄", file=sys.stderr)
     by_code = {s["code"]: s for s in master}
     candidates = []
@@ -167,10 +191,11 @@ def fetch_tse_all_market():
         try:
             data = yf.download(
                 tickers,
-                period="6mo",
+                period="5d",
                 interval="1d",
                 group_by="ticker",
-                threads=True,
+                threads=12,
+                timeout=15,
                 progress=False,
                 auto_adjust=False,
             )
@@ -187,6 +212,9 @@ def fetch_tse_all_market():
                     continue
                 last = float(frame["Close"].iloc[-1])
                 prev = float(frame["Close"].iloc[-2])
+                if prev <= 0 or last <= 0:
+                    continue
+                # yfinance Close is split-adjusted. Keep the provider's comparable daily closes.
                 change = last - prev
                 meta = by_code[code]
                 chart_frame = frame.tail(CHART_TRADING_DAYS)
@@ -220,7 +248,8 @@ def fetch_tse_all_market():
                         ],
                     },
                 })
-            except Exception:
+            except Exception as exc:
+                record_source('yfinance_row', 'error', code=code, error=str(exc), exception=type(exc).__name__)
                 continue
         print(
             f"    一括株価 {min(start + chunk_size, len(master))}/{len(master)}",
@@ -232,8 +261,15 @@ def fetch_tse_all_market():
         return []
 
     # 売買停止・上場廃止などの古い最終値をランキングへ混ぜない。
-    latest_date = max(s["price_date"] for s in candidates)
+    from market_clock import market_context
+    latest_date = market_context()['session_date']
     current = [s for s in candidates if s["price_date"] == latest_date]
+    coverage = len(current) / len(master)
+    BULK_METADATA.update(universe_count=len(master), quoted_count=len(current), coverage=round(coverage, 4))
+    record_source('yfinance_bulk', 'ok' if coverage == 1 else 'partial', **BULK_METADATA, session_date=latest_date)
+    if coverage < .95:
+        return []
+    current = [s for s in current if s["change_pct"] > 0]
     current.sort(key=change_pct_float, reverse=True)
     print(
         f"  東証全市場 {latest_date}: 有効{len(current)}件 / 上位{TSE_GLOBAL_TOP}件",
@@ -331,6 +367,21 @@ def parse_rakuten_ranking(html, expected_market):
     return stocks
 
 
+def parse_rakuten_timestamp(html):
+    from market_clock import JST
+    soup = BeautifulSoup(html, 'html.parser')
+    box = soup.select_one('.rankingBox')
+    text = box.get_text(' ', strip=True) if box else ''
+    japanese = re.search(r'(?<!\d)(\d{2,4})/(\d{2})/(\d{2})\s+(\d{2}):(\d{2})(?!\d)', text)
+    if japanese:
+        y,m,d,h,minute = map(int,japanese.groups())
+        return datetime.datetime(2000+y if y<100 else y,m,d,h,minute,tzinfo=JST)
+    english = re.search(r'\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) [A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2} GMT \d{4}',text)
+    if english:
+        return datetime.datetime.strptime(english[0], '%a %b %d %H:%M:%S GMT %Y').replace(tzinfo=datetime.timezone.utc)
+    raise ValueError('楽天証券ランキングの基準日時がありません')
+
+
 def fetch_rakuten_all_market():
     """
     東証P/S/Gの上位10件を取得して統合する。
@@ -344,8 +395,17 @@ def fetch_rakuten_all_market():
             resp.raise_for_status()
             resp.encoding = resp.apparent_encoding or "utf-8"
             rows = parse_rakuten_ranking(resp.text, market_name)
+            from market_clock import market_context
+            checked = parse_rakuten_timestamp(resp.text)
+            from market_clock import JST
+            expected = market_context()['session_date']
+            if checked.astimezone(JST).date().isoformat() < expected:
+                raise ValueError(f'楽天証券の日時が古い: {checked.isoformat()}')
+            for row in rows:
+                row['price_date'] = expected
+                row['source_checked_at'] = checked.isoformat()
         except Exception as e:
-            print(f"  楽天証券 {market_name} 取得失敗: {e}", file=sys.stderr)
+            record_source('rakuten', 'error', market=market_name, url=url, error=str(e), exception=type(e).__name__)
             return []
         if len(rows) < RAKUTEN_GLOBAL_TOP:
             print(f"  楽天証券 {market_name}: {len(rows)}件（必要件数未満）", file=sys.stderr)
@@ -515,8 +575,9 @@ def fetch_yfinance_data(code):
         t = yf.Ticker(ticker_sym)
 
         # ── 6ヶ月日足 ──
-        hist = t.history(period="6mo", interval="1d", auto_adjust=True)
+        hist = t.history(period="6mo", interval="1d", auto_adjust=True, timeout=10)
         chart = None
+        hist = hist.dropna(subset=["Open", "High", "Low", "Close"])
         if not hist.empty:
             chart = {
                 "dates":   [d.strftime("%Y-%m-%d") for d in hist.index],
@@ -533,7 +594,7 @@ def fetch_yfinance_data(code):
             }
 
         # ── 会社情報 ──
-        info = t.info or {}
+        info = {}  # company metadata is optional; avoid 30 extra quote-summary requests
         company = {
             "description": (info.get("longBusinessSummary") or "")[:400],
             "industry":    info.get("industry") or "",
@@ -560,7 +621,11 @@ def enrich_yfinance(stocks, max_workers=8, label=""):
         futures = {ex.submit(fetch_yfinance_data, s["code"]): s["code"] for s in stocks}
         done = 0
         for fut in as_completed(futures):
-            code, chart, company = fut.result()
+            try:
+                code, chart, company = fut.result()
+            except Exception as exc:
+                record_source('chart_enrichment', 'error', code=futures[fut], error=str(exc))
+                continue
             results[code] = (chart, company)
             done += 1
             if done % 10 == 0:
@@ -667,6 +732,10 @@ def load_nikkei225_fallback():
         print(f"[日本株] 日経225フォールバック読込失敗: {e}", file=sys.stderr)
         return None
 
+    from market_clock import parse_time, JST
+    timestamp = parse_time(source.get('updated_at'))
+    if not source.get('data_date') or source.get('fetch_status') == 'stale' or not timestamp or (datetime.datetime.now(JST) - timestamp).total_seconds() > 12 * 3600:
+        return None
     stocks = []
     for item in source.get("stocks", source.get("items", [])):
         price = item.get("price")
@@ -699,7 +768,85 @@ def load_nikkei225_fallback():
     return {
         "stocks": stocks[:50],
         "source_updated_at": source.get("updated_at"),
+        "session_date": source.get("data_date"),
     }
+
+
+KABUTAN_TSE_URL = 'https://s.kabutan.jp/warnings/price_increase/'
+
+def parse_kabutan_tse(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    stamp = re.search(r'株価：(\d{4})年(\d{2})月(\d{2})日\s+(\d{2}:\d{2})現在', soup.get_text(' ',strip=True))
+    if not stamp:
+        raise ValueError('株探の市場データ日時がありません')
+    date = '-'.join(stamp.groups()[:3])
+    as_of = f'{date}T{stamp[4]}:00+09:00'
+    stocks=[]
+    for row in soup.select('table tbody tr'):
+        cells=row.find_all(['th','td'],recursive=False)
+        if len(cells)<4:
+            continue
+        link=cells[0].find('a',href=re.compile(r'^/stocks/[0-9A-Z]+/'))
+        if not link:
+            continue
+        code=re.search(r'/stocks/([0-9A-Z]+)/',link['href'])[1]
+        market=next((span.get_text(strip=True) for span in link.find_all('span') if span.get_text(strip=True) in ('東P','東S','東G')),None)
+        if not market:
+            continue
+        parts=list(cells[2].stripped_strings)
+        price=parse_number(cells[1].get_text(strip=True))
+        change=parse_number(parts[0]) if parts else None
+        pct=parse_number(parts[1]) if len(parts)>1 else None
+        if price is None or change is None or pct is None or pct<=0:
+            raise ValueError(f'株探の価格行が不正: code={code}')
+        name=link.find('abbr')
+        name=name.get('title') if name and name.get('title') else link.find('p').get_text(strip=True)
+        stocks.append({'code':code,'name':name,'market':{'東P':'東証P','東S':'東証S','東G':'東証G'}[market],
+                       'price':price,'change_amount':change,'change_pct':pct,'price_date':date,
+                       'source_checked_at':as_of,'is_stop_high':'Ｓ' in link.get_text(),
+                       'volume':parse_number(cells[3].get_text(strip=True).replace('株','')), 'chart':None, 'sector':None})
+    return date,as_of,stocks
+
+def fetch_kabutan_tse():
+    from market_clock import market_context
+    expected=market_context()['session_date']
+    combined={}
+    dates=[]
+    try:
+        for page in range(1,5):
+            response=SESSION.get(KABUTAN_TSE_URL,params={'page':page},timeout=15)
+            response.raise_for_status()
+            date,as_of,stocks=parse_kabutan_tse(response.text)
+            if date!=expected:
+                raise ValueError(f'株探の市場日が古い: expected={expected}, actual={date}, page={page}')
+            dates.append(as_of)
+            for stock in stocks: combined[stock['code']]=stock
+            if len(combined)>=30: break
+        if len(combined)<30:
+            raise ValueError(f'株探の市場上位30件が不足: {len(combined)}')
+        # Mixed market snapshots across pages should be explicit, never silently combined.
+        if len(set(dates))!=1:
+            raise ValueError(f'株探ページ間の基準時刻が不一致: {dates}')
+        record_source('kabutan_mobile','ok',count=len(combined),as_of=min(dates),url=KABUTAN_TSE_URL)
+        return sorted(combined.values(),key=change_pct_float,reverse=True)[:30]
+    except Exception as exc:
+        record_source('kabutan_mobile','error',error=str(exc),url=KABUTAN_TSE_URL)
+        return []
+
+
+def fetch_bulk_with_deadline():
+    """A slow bulk source cannot consume the fallback's entire time budget."""
+    import subprocess
+    try:
+        result = subprocess.run([sys.executable, __file__, '--bulk-only'],
+                                stdout=subprocess.PIPE, text=True, timeout=280, check=True)
+        payload = json.loads(result.stdout)
+        BULK_METADATA.update(payload['metadata'])
+        FETCH_DIAGNOSTICS.extend(payload['diagnostics'])
+        return payload['stocks']
+    except (subprocess.SubprocessError, ValueError, KeyError) as exc:
+        record_source('yfinance_bulk', 'error', error=str(exc), exception=type(exc).__name__)
+        return []
 
 
 def main():
@@ -711,7 +858,10 @@ def main():
         stop_high, near_stop = [], []
         print("[日本株] テスト指定により外部ランキング取得をスキップ", file=sys.stderr)
     else:
-        all_market = fetch_tse_all_market()
+        all_market = [] if os.environ.get('FORCE_RAKUTEN') == '1' or os.environ.get('FORCE_KABUTAN') == '1' else fetch_bulk_with_deadline()
+        if not all_market and os.environ.get('FORCE_RAKUTEN') != '1':
+            source_kind = 'kabutan_mobile'
+            all_market = fetch_kabutan_tse()
         if not all_market:
             source_kind = "rakuten"
             print("[日本株] 全銘柄一括計算失敗 → 楽天証券へ切替", file=sys.stderr)
@@ -721,7 +871,8 @@ def main():
         if not all_market:
             source_kind = "kabutan"
             print("[日本株] 楽天証券取得失敗 → 株探へ切替", file=sys.stderr)
-            stop_high, near_stop = fetch_stop_high_pages()
+            record_source('kabutan', 'skipped', error='日時未検証の旧PCパーサーはランキングに採用しません')
+            stop_high, near_stop = [], []
     print(f"[日本株] S高={len(stop_high)}件 / 上昇率上位={len(near_stop)}件", file=sys.stderr)
 
     # GitHub Actions などで株探が0件になる場合は、更新済みの日経225データに切替。
@@ -731,7 +882,7 @@ def main():
         if fallback:
             now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat()
             output = {
-                "updated_at": now,
+                "updated_at": fallback["source_updated_at"],
                 "source_updated_at": fallback["source_updated_at"],
                 "last_attempt_at": now,
                 "source": "nikkei225_yfinance",
@@ -739,6 +890,8 @@ def main():
                 "scope": "日経225構成銘柄",
                 "fetch_status": "fallback",
                 "fetch_warning": "全市場ランキングの取得に失敗したため、日経225構成銘柄の値上がり率順を表示しています",
+                "session_date": fallback.get('session_date'),
+                "source_attempts": FETCH_DIAGNOSTICS,
                 "is_fallback": True,
                 "stop_high_count": None,
                 "near_stop_count": len(fallback["stocks"]),
@@ -751,7 +904,7 @@ def main():
                 output,
                 lambda d: (
                     len(d.get("all_stocks", []))
-                    if not d.get("is_fallback") and len(d.get("all_stocks", [])) >= TSE_GLOBAL_TOP
+                    if len(d.get("all_stocks", [])) >= RAKUTEN_GLOBAL_TOP
                     else 0
                 ),
                 label="日本株（日経225代替）",
@@ -762,6 +915,9 @@ def main():
                 "all_stocks": len(output["all_stocks"]),
             }))
             return
+        from safe_save import mark_failed
+        mark_failed('data/japan_stocks.json', '全市場・代替取得元の有効データなし', details={'source_attempts':FETCH_DIAGNOSTICS})
+        return
 
     # 2. 株探経由のときのみ、個別ページから業種を取得
     if source_kind == "kabutan":
@@ -770,13 +926,21 @@ def main():
         if near_stop:
             near_stop = enrich_sector_kabutan(near_stop, max_workers=12)
 
+    # Metadata failures are optional; preserve the ranking and use the cached official master.
+    from safe_save import _load_existing
+    master_by_code = {x['code']:x for x in (_load_existing(MASTER_CACHE) or {}).get('stocks',[])}
+    for stock in stop_high + near_stop:
+        metadata=master_by_code.get(stock['code'],{})
+        for field in ('name','sector'):
+            if metadata.get(field): stock[field]=metadata[field]
+
     # 3. yfinance でチャート + 会社情報を取得
     sh_target   = stop_high[:CHART_INFO_MAX_STOP_HIGH]
     near_target = near_stop[:CHART_INFO_MAX_NEAR_STOP]
 
-    if sh_target and source_kind != "tse_bulk":
+    if sh_target:
         sh_target = enrich_yfinance(sh_target, label="S高銘柄 ")
-    if near_target and source_kind != "tse_bulk":
+    if near_target:
         near_target = enrich_yfinance(near_target, max_workers=6, label="上昇率上位 ")
 
     # near_stop の残り（チャートなし）を補完
@@ -786,6 +950,12 @@ def main():
     # 4. 全銘柄を change_pct 降順でマージ
     all_stocks = sh_target + stop_rest + near_target + near_rest
     all_stocks.sort(key=change_pct_float, reverse=True)
+
+    from safe_save import _load_existing
+    prior = {s['code']:s for s in (_load_existing('data/japan_stocks.json') or {}).get('all_stocks', [])}
+    for stock in all_stocks:
+        for field in ('description', 'description_ja', 'industry', 'industry_ja', 'website'):
+            stock[field] = stock.get(field) or prior.get(stock['code'], {}).get(field)
 
     # 5. 翻訳（description → description_ja, industry → industry_ja）
     if HAS_TRANSLATE:
@@ -812,34 +982,42 @@ def main():
     jst = datetime.timezone(datetime.timedelta(hours=9))
     is_tse_bulk = source_kind == "tse_bulk"
     is_rakuten = source_kind == "rakuten"
+    is_mobile = source_kind == "kabutan_mobile"
     output = {
         "updated_at":      datetime.datetime.now(jst).isoformat(),
         "last_attempt_at": datetime.datetime.now(jst).isoformat(),
         "source":          (
             "jpx_yfinance" if is_tse_bulk
             else "rakuten_securities" if is_rakuten
-            else "kabutan"
+            else "kabutan_mobile"
         ),
         "source_label":    (
             "JPX公式上場銘柄一覧 × Yahoo Finance日足"
             if is_tse_bulk else
             "楽天証券 公開ランキング（東証P/S/G）"
             if is_rakuten else
-            "株探 値上がり率ランキング"
+            "株探 東証P/S/Gの値上がり率ランキング（15分遅延）"
         ),
         "source_url":      (
-            JPX_LIST_URL if is_tse_bulk else
+            JPX_LIST_PAGE if is_tse_bulk else
             RAKUTEN_RANK_URL.format(market_id=0) if is_rakuten else
-            LIST_URL.format(page=1)
+            KABUTAN_TSE_URL
         ),
         "scope":           "東証全市場（プライム・スタンダード・グロース）",
         "ranking_definition": (
             "JPX上場内国株式の前日比・値上がり率上位30銘柄"
             if is_tse_bulk else
-            "前日比・値上がり率上位10銘柄"
+            f"前日比・値上がり率上位{len(all_stocks)}銘柄"
         ),
         "ranking_count":   len(all_stocks),
-        "fetch_status":    "ok",
+        "prices_fetched_at": BULK_METADATA.get('prices_fetched_at') if is_tse_bulk else min((s.get('source_checked_at','') for s in all_stocks), default=None),
+        "price_time_precision": "day" if is_tse_bulk else "minute",
+        "as_of": min((s.get("source_checked_at", "") for s in all_stocks), default=None) if is_mobile else None,
+        "fetch_status":    ("partial" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < 1 else "ok") if is_tse_bulk else "fallback",
+        "fetch_warning": ("全市場の取得できた銘柄から算出。取得対象と取得件数を参照してください" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < 1 else "") if is_tse_bulk else ("Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示" if is_mobile else "主取得元に失敗したため、楽天証券の東証P/S/G各10件から全市場トップ10を表示"),
+        "source_attempts": FETCH_DIAGNOSTICS,
+        "coverage": BULK_METADATA if is_tse_bulk else {},
+        "session_date": max((s.get('price_date', '') for s in all_stocks), default=''),
         "is_fallback":     False,
         "stop_high_count": len(stop_high),
         "near_stop_count": len(near_stop),
@@ -854,7 +1032,7 @@ def main():
         output,
         lambda d: (
             len(d.get("all_stocks", []))
-            if len(d.get("all_stocks", [])) >= TSE_GLOBAL_TOP
+            if len(d.get("all_stocks", [])) >= RAKUTEN_GLOBAL_TOP
             else 0
         ),
         label="日本株",
@@ -870,4 +1048,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if '--bulk-only' in sys.argv:
+        stocks = fetch_tse_all_market()
+        print(json.dumps({'stocks':stocks, 'metadata':BULK_METADATA, 'diagnostics':FETCH_DIAGNOSTICS}, ensure_ascii=False, allow_nan=False))
+    else:
+        main()

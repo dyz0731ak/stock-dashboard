@@ -17,7 +17,7 @@ permissions:
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -40,54 +40,66 @@ jobs:
           pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
+      - name: Test collection and freshness logic
+        run: python -m unittest discover -s tests -v
+
       - name: Fetch futures and FX (先物・為替)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_futures.py
+          python scripts/run_fetch.py futures --timeout 90
         continue-on-error: true
 
       - name: Fetch Nikkei 225 heatmap data (日経225ヒートマップ)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_nikkei225.py
+          python scripts/run_fetch.py nikkei225 --timeout 120
         continue-on-error: true
 
-      # 楽天証券の東証P/S/Gを統合。失敗時は株探、さらに失敗時は日経225へ切替
+      # JPX/Yahoo → 日時検証した株探30件 → 楽天P/S/G統合10件 → 日経225限定
       - name: Fetch Japan stocks (TSE Prime/Standard/Growth gainers)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_japan_stocks.py
+          python scripts/run_fetch.py japan_stocks --timeout 420
         continue-on-error: true
 
       - name: Fetch night PTS ranking (ジャパンネクスト夜間PTS)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_pts_ranking.py
+          python scripts/run_fetch.py pts_ranking --timeout 120
         continue-on-error: true
 
       - name: Fetch volume surge stocks (出来高急増)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_volume_stocks.py
+          python scripts/run_fetch.py volume_stocks --timeout 60
         continue-on-error: true
 
       - name: Fetch market-moving news (日本株への影響トピックス)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_market_news.py
+          python scripts/run_fetch.py market_news --timeout 90
         continue-on-error: true
 
       - name: Fetch earnings flash (決算速報・サプライズ決算)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_earnings_flash.py
+          python scripts/run_fetch.py earnings_flash --timeout 120
         continue-on-error: true
 
       - name: Fetch theme stocks ranking (テーマ株ランキング・週間/月間騰落)
         run: |
           cd ${{ github.workspace }}
-          python scripts/fetch_themes.py
+          python scripts/run_fetch.py themes --timeout 90
         continue-on-error: true
+
+      - name: Preserve per-source fetch logs
+        continue-on-error: true
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetch-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 14
 
       - name: Audit data freshness (件数・更新時刻・部分取得失敗)
         run: |
@@ -98,7 +110,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           python scripts/prerender.py
-        continue-on-error: true
+          python scripts/check_site.py
 
       - name: Check if data changed
         id: check-changes
@@ -110,7 +122,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -A
+          git add data/ index.html sitemap.xml themes/ stop-high/ top-gainers/ volume-surge/ earnings/
           git commit -m "chore: update stock data + prerender [$(date -u '+%Y-%m-%d %H:%M UTC')]"
           # リモートの変更を取り込んでからプッシュ（競合時はリモートを優先）
           git fetch origin main

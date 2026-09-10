@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: stock-dashboard-deploy
+  cancel-in-progress: false
+
 permissions:
   contents: read
   pages: write
@@ -71,5 +75,7 @@ jobs:
             .github/**
             .claude/**
             scripts/**
+            tests/**
+            logs/**
             requirements.txt
             *.md

@@ -27,7 +27,7 @@ GA_ID = os.environ.get("GA4_ID", "")
 
 def adsense_head():
     return (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
-            f'?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
+            f'?client={ADSENSE_CLIENT}" data-overlays="collapsed-bottom" crossorigin="anonymous"></script>')
 
 
 def ga_head():
@@ -241,6 +241,7 @@ def build_page(theme, all_themes, updated):
 {ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{CSS}</style>
+<link rel="stylesheet" href="/monitor.css?v=20260910"/>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
@@ -255,7 +256,7 @@ def build_page(theme, all_themes, updated):
 <div class="stat"><div class="k">前日比</div><div class="v {sign_cls(theme.get("day_pct"))}">{pcttxt(theme.get("day_pct"))}</div></div>
 <div class="stat"><div class="k">週間</div><div class="v {sign_cls(theme.get("week_pct"))}">{pcttxt(theme.get("week_pct"))}</div></div>
 <div class="stat"><div class="k">月間</div><div class="v {sign_cls(theme.get("month_pct"))}">{pcttxt(theme.get("month_pct"))}</div></div>
-<div class="stat"><div class="k">勝率</div><div class="v">{esc(round(theme.get("win_rate") or 0))}%</div></div>
+<div class="stat"><div class="k">勝率</div><div class="v">{esc(round(theme["win_rate"])) + "%" if theme.get("win_rate") is not None else "—"}</div></div>
 </div>
 <h2>{esc(name)}関連の主要銘柄</h2>
 {table}
@@ -319,6 +320,7 @@ def build_hub(themes, updated):
 {ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{CSS}</style>
+<link rel="stylesheet" href="/monitor.css?v=20260910"/>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
@@ -348,7 +350,17 @@ def build_hub(themes, updated):
 def main():
     with open(os.path.join(DATA, "themes.json"), encoding="utf-8") as f:
         data = json.load(f)
+    from data_status import is_fresh, status_text
     themes = data.get("themes", [])
+    fresh = is_fresh(data, 8)
+    if not fresh:
+        import copy
+        themes = copy.deepcopy(themes)
+        for th in themes:
+            for key in ('day_pct', 'week_pct', 'month_pct', 'win_rate'):
+                th[key] = None
+            th['spark'] = []
+            th['top'] = []
     updated = (data.get("updated_at") or "")[:10] or datetime.datetime.now(JST).strftime("%Y-%m-%d")
     n = 0
     for th in themes:
@@ -356,12 +368,22 @@ def main():
         if not res:
             continue
         slug, page = res
+        if not fresh:
+            import re
+            page = re.sub(r'<table\b.*?</table>', '<p class="data-notice">' + status_text(data, 8) + '。古い値動きは表示していません。</p>', page, flags=re.S)
+        page = page.replace('<div class="wrap">', '<div class="wrap"><p class="data-notice">' + status_text(data, 8) + '</p>', 1)
         d = os.path.join(OUT_DIR, slug)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(page)
         n += 1
     build_hub(themes, updated)
+    hub_path = os.path.join(OUT_DIR, 'index.html')
+    with open(hub_path, encoding='utf-8') as f:
+        hub = f.read()
+    hub = hub.replace('<div class="wrap">', '<div class="wrap"><p class="data-notice">'+status_text(data,8)+'</p>', 1)
+    with open(hub_path,'w',encoding='utf-8') as f:
+        f.write(hub)
     print(f"  ✓ [テーマページ] ハブ + {n} ページを生成（themes/）")
     return [SLUGS[t["name"]] for t in themes if SLUGS.get(t["name"])]
 

@@ -37,7 +37,7 @@ FIXED_PAGES = [
 
 def adsense_head():
     return (f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
-            f'?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
+            f'?client={ADSENSE_CLIENT}" data-overlays="collapsed-bottom" crossorigin="anonymous"></script>')
 
 
 def ga_head():
@@ -142,25 +142,14 @@ def pct_badge_style(pct):
     return "background:#eef1f5;color:var(--ink-3)"
 
 
-def is_fresh(data, max_hours):
-    if not data or data.get("fetch_status") == "stale":
-        return False
-    try:
-        updated = datetime.datetime.fromisoformat(data["updated_at"].replace("Z", "+00:00"))
-        if updated.tzinfo is None:
-            updated = updated.replace(tzinfo=JST)
-        return (datetime.datetime.now(datetime.timezone.utc) - updated.astimezone(
-            datetime.timezone.utc
-        )).total_seconds() <= max_hours * 3600
-    except Exception:
-        return False
+from data_status import is_fresh, status_text
 
 
 # ─────────────────────────────────────────────
 # 各セクションの HTML 生成
 # ─────────────────────────────────────────────
 def build_idx(futures):
-    if not futures or not futures.get("items"):
+    if not is_fresh(futures, 8) or not futures.get("items"):
         return ""
     out = []
     for it in futures["items"]:
@@ -204,7 +193,7 @@ def build_rank(japan):
 
 
 def build_themes(themes):
-    if not themes or not themes.get("themes"):
+    if not is_fresh(themes, 8) or not themes.get("themes"):
         return ""
     ts = sorted(themes["themes"], key=lambda x: -x.get("week_pct", 0))[:12]
     body = []
@@ -270,7 +259,7 @@ def build_events(events):
 
 
 def build_market_news(news):
-    if not news or not news.get("items"):
+    if not is_fresh(news, 12) or not news.get("items"):
         return ""
     cards = []
     for index, item in enumerate(news["items"][:10]):
@@ -293,7 +282,7 @@ def build_market_news(news):
 
 
 def build_flash(flash):
-    if not flash:
+    if not is_fresh(flash, 36):
         return ""
     items = flash.get("highlights") or [
         item for group in (flash.get("groups") or []) for item in (group.get("items") or [])
@@ -389,7 +378,7 @@ def build_themelinks(themes):
 
 
 def build_heat(nikkei):
-    if not nikkei or not nikkei.get("items"):
+    if not is_fresh(nikkei, 12) or not nikkei.get("items"):
         return ""
     items = sorted([s for s in nikkei["items"] if s.get("market_cap")],
                    key=lambda s: -s["market_cap"])[:60]
@@ -553,6 +542,7 @@ def fixed_page_html(slug, title, desc, lead, updated, content):
 {ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{pt.CSS}</style>
+<link rel="stylesheet" href="/monitor.css?v=20260910"/>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">
@@ -578,19 +568,23 @@ def write_fixed_pages(japan, volume, events, flash):
     def data_date(data):
         return ((data or {}).get("updated_at") or today)[:10]
 
-    all_jp = (japan or {}).get("all_stocks") or []
+    all_jp = ((japan or {}).get("all_stocks") or []) if is_fresh(japan, 36) else []
     top_jp = sorted([s for s in all_jp if as_float(s.get("change_pct")) is not None],
                     key=lambda s: as_float(s.get("change_pct"), -999), reverse=True)
     stop_high = [s for s in top_jp if s.get("is_stop_high")]
     jp_fallback = bool((japan or {}).get("is_fallback"))
     jp_scope = (japan or {}).get("scope") or "国内株・全市場"
     jp_source = (japan or {}).get("source_label") or "ランキング取得元"
-    if jp_fallback:
+    if jp_fallback or not is_fresh(japan, 36):
         stop_lead = "全市場のストップ高データは現在取得確認中です。代替ランキングをストップ高として扱っていません。"
         stop_content = jp_stock_table([], "本日のストップ高は取得確認中です。古いデータや代替データは表示していません。")
     else:
-        stop_lead = f"本日のストップ高は{(japan or {}).get('stop_high_count', len(stop_high))}銘柄。値幅制限に到達した銘柄を急騰率順にまとめています。出典: {jp_source}"
+        stop_lead = f"取得ランキング内のストップ高候補は{len(stop_high)}銘柄。値幅制限に到達した銘柄を急騰率順にまとめています。出典: {jp_source}"
         stop_content = jp_stock_table(stop_high, "本日のストップ高該当銘柄はありません。")
+    if not is_fresh(volume, 36):
+        volume = {**(volume or {}), 'jp_stocks':[], 'jp_count':0}
+    if not is_fresh(flash, 36):
+        flash = {**(flash or {}), 'groups':[], 'highlights':[], 'total':0}
     volume_warning = (volume or {}).get("fetch_warning")
     if not volume_warning and (volume or {}).get("jp_count", 0) == 0:
         volume_warning = "日本株の出来高ランキングは取得確認中です"
@@ -631,6 +625,8 @@ def write_fixed_pages(japan, volume, events, flash):
     written = []
     for slug, _title, _label in FIXED_PAGES:
         title, desc, lead, content = payloads[slug]
+        dataset = {'stop-high':japan, 'top-gainers':japan, 'volume-surge':volume, 'earnings':flash}[slug]
+        lead = status_text(dataset, 36) + '。' + lead
         d = os.path.join(ROOT, slug)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
@@ -741,10 +737,24 @@ def main():
     }
     filled = 0
     for key, content in sections.items():
-        if content:
-            doc = replace_marker(doc, key, content)
-            filled += 1
+        doc = replace_marker(doc, key, content or '<div class="data-notice">取得状態を確認してください。期限切れのデータは表示していません。</div>')
+        filled += 1
 
+    for id_, dataset, hours in [('updIdx',futures,8), ('updRank',japan,36), ('updThemes',themes,8),
+                                ('updFlash',flash,36), ('updMarketNews',market_news,12), ('updHeat',nikkei,12)]:
+        doc = re.sub(r'(<span[^>]*id="' + id_ + r'"[^>]*>).*?(</span>)',
+                     lambda m: m[1] + esc(status_text(dataset, hours)) + m[2], doc, flags=re.S)
+    health = load('health.json')
+    report = ('一部取得に問題あり' if health.get('overall') != 'ok' else '全項目取得済み') + ' ｜ 状態確認 ' + (health.get('checked_at') or '不明')[:16].replace('T', ' ') + ' JST'
+    doc = re.sub(r'(<span id="lastUpdated">).*?(</span>)', lambda m:m[1]+esc(report)+m[2], doc, flags=re.S)
+    pts = load('pts_ranking.json')
+    status_items = []
+    for label, dataset, hours in [('指数・先物',futures,8), ('東証全市場',japan,36), ('夜間PTS',pts,36),
+                                  ('テーマ株',themes,8), ('決算速報',flash,36), ('市場ニュース',market_news,12), ('ヒートマップ',nikkei,12)]:
+        state = 'error' if not is_fresh(dataset, hours) else 'warning' if dataset.get('fetch_status') in ('fallback','partial') else 'ok'
+        status_items.append(f'<div class="feed-status {state}"><span class="status-light"></span><b>{label}</b><span>{esc(status_text(dataset,hours))}</span></div>')
+    doc = re.sub(r'(<div id="feedStatus"[^>]*>).*?(?=</details>)', lambda m:m[1]+''.join(status_items)+'</div>', doc, flags=re.S)
+    doc = re.sub(r'(<span id="systemState"[^>]*>).*?(</span>)', lambda m:m[1]+('一部取得に注意' if health.get('overall')!='ok' else '取得正常')+m[2], doc, flags=re.S)
     doc = move_section_after(doc, "rank", "idx")
     doc = move_section_after(doc, "themes", "rank")
     doc = remove_section(doc, "earn")
@@ -758,6 +768,7 @@ def main():
         flags=re.S,
     )
 
+    doc = re.sub(r"\n{3,}", "\n\n", doc)
     with open(INDEX, "w", encoding="utf-8") as f:
         f.write(doc)
     print(f"  ✓ [プリレンダリング] index.html に {filled} セクションを焼き込み")

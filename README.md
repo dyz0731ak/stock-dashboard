@@ -42,9 +42,12 @@ stock-dashboard/
 ## ローカル実行
 
 ```bash
-cd scripts
-pip install -r requirements.txt
-python fetch_japan_stocks.py
+pip install -r scripts/requirements.txt
+python scripts/run_fetch.py japan_stocks --timeout 420
+python scripts/audit_data_freshness.py
+python scripts/prerender.py
+python scripts/check_site.py
+python -m unittest discover -s tests -v
 ```
 
 ## データソース
@@ -57,3 +60,25 @@ python fetch_japan_stocks.py
 ## ライセンス
 
 MIT
+
+
+## 2026-09 更新停止修正・監視室UI
+
+- 停止原因: JPXの配布ファイルがxlsからxlsxに変更され固定URLが404に。楽天の全市場トップ10を30件必須の保存条件で拒否し、9月3日の値が残っていた。
+- JPX配布ページからxls/xlsxリンクを解決、形式を検出して読み込む。銘柄マスタは1日キャッシュし、主取得失敗時に限り40日未満の検証済みマスタを利用。
+- 東証ランキング: JPX/Yahoo全銘柄計算 → 市場日時を検証した株探モバイル上位30件 → 楽天P/S/G各10件を統合した全市場トップ10 → 日経225限定代替。対象範囲・件数・取得元を明示。95%未満の当日価格網羅率では全銘柄計算を採用せず、欠損があれば一部取得扱い。
+- 取得日と取引日を分離。`fetched_at`/`last_success_at`は成功取得時刻、`last_attempt_at`は実際の取得試行、`session_date`/`as_of`は市場日・取得元の基準時刻。`health.checked_at`は監査時刻。`valid_until`で停止後も旧値の表示を終了。
+- 国内現物の前後場・昼休み・祝日・年末年始と、PTSの17時〜翌6時（土曜早朝含む）を考慮。祝日はjpholiday使用。制度変更時はJPX/Japannext公式の営業日・取引時間と再照合する。
+- Yahooの日足Closeが夜間にNaNとなる場合、同じ応答の`regularMarketPrice`を市場時刻・同一取引日で検証してヒートマップ/テーマの終値を補完。OHLCは捏造しない。補完できない旧値は除外。
+- 各取得処理を別プロセス・時間上限で分離し、タイムアウトや例外でも残りの取得を継続。`logs/*.log`をActions成果物として14日保存。JSONへの失敗状態と前回値の保存を原子的に行う。
+- プリレンダリング失敗・0件で以前のHTMLを残す問題を修正。静的ページにもデータ時刻と状態を記載し、古いランキング・数値を消す。既存URL、SEO・JSON-LD、姉妹サイトリンクは維持。
+- メイン画面はダークネイビー/シアン、上昇赤・下落緑。毎分、各データを独立再確認。広告はAdSense公式パラメータ `data-overlays="collapsed-bottom"` で上部/展開型アンカーを抑制し、下部の通常アンカーに限定。広告管理画面側の全画面広告設定は変更していない。
+
+### 障害確認
+
+1. `data/health.json` の項目別状態・対象取引日・最終成功/試行時刻を確認。
+2. Actionsの `fetch-logs-<run id>` にある当該ソースのHTTPエラー、解析エラー、取得件数、タイムアウトを確認。
+3. `FORCE_RAKUTEN=1 python scripts/run_fetch.py japan_stocks --timeout 120` で10件の代替取得、`FORCE_KABUTAN=1`で30件の代替取得を実データ検証できる。強制指定は検証用で通常のActionsには設定しない。
+4. 本番データで検証後に監査・プリレンダ・check_siteを実行。重大な欠損は公開状態を更新した後でジョブを失敗にする。
+
+公式根拠: [JPX銘柄一覧](https://www.jpx.co.jp/markets/statistics-equities/misc/01.html)、[JPX休日](https://www.jpx.co.jp/corporate/about-jpx/calendar/)、[PTS取引時間](https://www.japannext.co.jp/ja/pts)、[AdSenseアンカー広告](https://support.google.com/adsense/answer/7478225?hl=ja)。

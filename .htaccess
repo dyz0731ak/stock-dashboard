@@ -16,7 +16,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # デプロイ後も古いレイアウト・古いロジック・古いデータが表示されてしまうため。
 # （森レイアウトはロジックを app.js に分離したため js も対象に追加）
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html?|js|json)$">
+  <FilesMatch "\.(html?|js|css|json)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>

@@ -36,6 +36,9 @@ import os
 
 sys.path.insert(0, os.path.dirname(__file__))
 from safe_save import safe_save
+from quote_repair import repair_last_close
+from market_clock import market_context
+from concurrent.futures import ThreadPoolExecutor
 
 JST = datetime.timezone(datetime.timedelta(hours=9))
 OUT = os.path.join(os.path.dirname(__file__), "..", "data", "themes.json")
@@ -90,7 +93,7 @@ def main():
             ts = prev.get("themes_fetched_at")
             if ts:
                 age = (datetime.datetime.now(JST) - datetime.datetime.fromisoformat(ts)).total_seconds()
-                if age < CACHE_HOURS * 3600:
+                if age < CACHE_HOURS * 3600 and os.environ.get("FORCE_REFRESH") != "1":
                     print(f"  ⏭ テーマ: {age/3600:.1f}h前に取得済み（{CACHE_HOURS}hキャッシュ）→ スキップ", file=sys.stderr)
                     return
         except Exception:
@@ -107,10 +110,28 @@ def main():
     df = yf.download(tickers, period="3mo", interval="1d",
                      group_by="ticker", auto_adjust=True, threads=True, progress=False)
 
+    # A daily bar can temporarily have NaN Close overnight while its metadata
+    # contains the dated closing quote. Repair only the missing same-day value.
+    expected = market_context()['session_date']
+    def verified_series(ticker):
+        series = _series(df,ticker)
+        if len(series) and series.index[-1].strftime('%Y-%m-%d') == expected:
+            return ticker,series
+        try:
+            t = yf.Ticker(ticker)
+            hist = t.history(period='3mo',auto_adjust=True,timeout=10)
+            hist = repair_last_close(hist,t.get_history_metadata())
+            return ticker,hist['Close'].dropna()
+        except Exception as exc:
+            print(f'[テーマ株] {ticker} 補完失敗: {exc}',file=sys.stderr)
+            return ticker,series
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        verified = dict(executor.map(verified_series,tickers))
+
     # 各銘柄の指標を計算
     stock_metrics = {}
     for code in code_name:
-        s = _series(df, f"{code}.T")
+        s = verified[f"{code}.T"]
         if len(s) < 6:
             continue
         last = float(s.iloc[-1])
@@ -118,6 +139,7 @@ def main():
         wk = float(s.iloc[-6]) if len(s) >= 6 else float(s.iloc[0])
         mo = float(s.iloc[-22]) if len(s) >= 22 else float(s.iloc[0])
         stock_metrics[code] = {
+            "price_date": s.index[-1].strftime("%Y-%m-%d"),
             "day": (last / prev_c - 1) * 100 if prev_c else 0,
             "week": (last / wk - 1) * 100 if wk else 0,
             "month": (last / mo - 1) * 100 if mo else 0,
@@ -147,6 +169,8 @@ def main():
         )[:4]
         themes_out.append({
             "name": name, "count": n,
+            "expected_count": len(members),
+            "price_date": min(m['price_date'] for _, _, m in ms),
             "day_pct": round(day, 2), "week_pct": round(week, 2),
             "month_pct": round(month, 2), "win_rate": round(win, 1),
             "spark": spark, "top": top,
@@ -161,6 +185,9 @@ def main():
         "updated_at": datetime.datetime.now(JST).isoformat(),
         "themes_fetched_at": datetime.datetime.now(JST).isoformat(),
         "themes": themes_out,
+        "source": "yfinance",
+        "fetch_status": "ok" if len(stock_metrics) == len(code_name) else "partial",
+        "fetch_warning": f"構成{len(code_name)}銘柄中{len(stock_metrics)}銘柄取得" if len(stock_metrics) < len(code_name) else None,
     }
     safe_save(OUT, out, lambda d: len(d.get("themes", [])), label="テーマ株")
 

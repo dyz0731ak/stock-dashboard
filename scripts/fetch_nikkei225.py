@@ -30,6 +30,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
 from safe_save import safe_save
+from quote_repair import repair_last_close
 
 JST = datetime.timezone(datetime.timedelta(hours=9))
 
@@ -321,6 +322,7 @@ def fetch_one(code, name, sector):
     try:
         t = yf.Ticker(ticker)
         hist = t.history(period="5d", interval="1d", auto_adjust=False)
+        hist = repair_last_close(hist, t.get_history_metadata())
         # 市場クローズ直後などで最終足が NaN になることがあるため除去してから使う
         closes = hist["Close"].dropna() if not hist.empty else hist.get("Close")
         if closes is None or len(closes) < 2:
@@ -358,6 +360,7 @@ def fetch_one(code, name, sector):
         return {
             "code": code,
             "ticker": ticker,
+            "price_date": closes.index[-1].strftime('%Y-%m-%d'),
             "name": name,
             "sector": sector,
             "price": round(price, 2),
@@ -386,6 +389,9 @@ def main():
 
     out = {
         "items": results,
+        "source": "yfinance",
+        "fetch_status": "ok" if len(results) == len(N225_DEDUP) else "partial",
+        "fetch_warning": f"{len(N225_DEDUP)}銘柄中{len(results)}銘柄取得" if len(results) < len(N225_DEDUP) else None,
         "updated_at": datetime.datetime.now(JST).isoformat(),
     }
 

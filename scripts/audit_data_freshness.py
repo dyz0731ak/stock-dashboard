@@ -6,6 +6,8 @@ import datetime
 import json
 import os
 import sys
+from data_status import is_fresh
+from market_clock import market_context
 
 
 JST = datetime.timezone(datetime.timedelta(hours=9))
@@ -14,8 +16,8 @@ NOW = datetime.datetime.now(datetime.timezone.utc)
 # name, file, list path, max age hours, minimum count, critical
 DATASETS = [
     ("先物・為替", "futures.json", "items", 8, 3, True),
-    ("日本株ランキング", "japan_stocks.json", "all_stocks", 36, 30, True),
-    ("夜間PTSランキング", "pts_ranking.json", "all_stocks", 120, 10, False),
+    ("日本株ランキング", "japan_stocks.json", "all_stocks", 36, 1, True),
+    ("夜間PTSランキング", "pts_ranking.json", "all_stocks", 36, 1, True),
     ("市場のいま", "market_news.json", "items", 12, 5, True),
     ("日経225", "nikkei225.json", "items", 12, 100, True),
     ("テーマ株", "themes.json", "themes", 36, 3, True),
@@ -44,6 +46,7 @@ def item_count(data, path):
 
 
 def audit():
+    now = datetime.datetime.now(datetime.timezone.utc)
     results = []
     for name, filename, path, max_age, minimum, critical in DATASETS:
         full_path = os.path.join("data", filename)
@@ -64,7 +67,7 @@ def audit():
             continue
 
         updated = parse_time(data.get("updated_at"))
-        age_hours = round((NOW - updated).total_seconds() / 3600, 1) if updated else None
+        age_hours = round((now - updated).total_seconds() / 3600, 1) if updated else None
         count = item_count(data, path)
         fetch_status = data.get("fetch_status", "ok")
         status = "ok"
@@ -72,7 +75,7 @@ def audit():
         if count < minimum:
             status = "error" if critical else "warning"
             messages.append(f"件数不足（{count}/{minimum}）")
-        if age_hours is None or age_hours > max_age:
+        if not is_fresh(data, max_age, now):
             status = "error" if critical else "warning"
             messages.append(f"更新が古い（{age_hours if age_hours is not None else '不明'}時間）")
         if fetch_status == "stale":
@@ -96,6 +99,9 @@ def audit():
             "critical": critical,
             "updated_at": data.get("updated_at"),
             "last_attempt_at": data.get("last_attempt_at"),
+            "fetched_at": data.get("fetched_at") or data.get("updated_at"),
+            "session_date": data.get("session_date"),
+            "valid_until": data.get("valid_until"),
             "age_hours": age_hours,
             "count": count,
             "source": data.get("source"),
@@ -108,6 +114,7 @@ def audit():
     warnings = [r for r in results if r["status"] == "warning"]
     return {
         "checked_at": datetime.datetime.now(JST).isoformat(),
+        "markets": {m:market_context(m, now) for m in ('tse', 'pts')},
         "overall": "error" if errors else ("warning" if warnings else "ok"),
         "critical_errors": len(errors),
         "warnings": len(warnings),
