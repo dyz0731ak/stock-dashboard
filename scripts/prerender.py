@@ -167,20 +167,36 @@ def build_idx(futures):
     return "\n".join(out)
 
 
+def company_label(stock, profiles):
+    code = str(stock.get('code') or '')
+    profile = profiles.get(code, {})
+    summary = '事業内容は企業詳細へ'
+    try:
+        age = datetime.datetime.now(JST) - datetime.datetime.fromisoformat(profile['fetched_at'])
+        if datetime.timedelta(0) <= age < datetime.timedelta(days=30):
+            summary = profile.get('summary') or summary
+    except (KeyError, ValueError, TypeError):
+        pass
+    return (f'<a class="t-name company-trigger" href="https://s.kabutan.jp/stocks/{esc(code)}/" '
+            f'data-company-code="{esc(code)}" data-company-name="{esc(stock.get("name"))}" aria-haspopup="dialog">'
+            f'{esc(stock.get("name"))} <span class="company-hint">詳細 ›</span></a>'
+            f'<div class="t-sec company-summary" data-company-summary="{esc(code)}">{esc(summary)}</div>')
+
+
 def build_rank(japan):
     if not is_fresh(japan, 36) or not japan.get("all_stocks"):
         return ""
     rows = sorted([s for s in japan["all_stocks"] if s.get("change_pct") is not None],
                   key=lambda s: -float(s["change_pct"]))[:30]
     body = []
+    profiles = (load('company_profiles.json') or {}).get('companies', {})
     st_tag = '<span class="st-tag">S高</span>'
     for s in rows:
         pct = float(s["change_pct"])
         st = st_tag if s.get("is_stop_high") else ""
         body.append(
             f'<tr><td class="t-code">{esc(s.get("code"))}</td>'
-            f'<td><div class="t-name">{esc(s.get("name"))}</div>'
-            f'<div class="t-sec">{esc(s.get("sector",""))}</div></td>'
+            f'<td>{company_label(s, profiles)}</td>'
             f'<td><span class="pill-mkt">{esc(s.get("market",""))}</span></td>'
             f'<td class="r num">{fmt(s.get("price"))}円</td>'
             f'<td class="r num {sign_cls(pct)}">{esc(s.get("change_amount",""))}</td>'
@@ -421,12 +437,13 @@ def fixed_table(headers, rows, empty):
 
 def jp_stock_table(stocks, empty):
     rows = []
+    profiles = (load('company_profiles.json') or {}).get('companies', {})
     for i, s in enumerate(stocks[:30]):
         code, name = stock_label(s)
         pct = as_float(s.get("change_pct"), 0)
         status = '<span class="up">S高</span>' if s.get("is_stop_high") else ""
         rows.append(
-            f'<tr><td class="r">{i+1}</td><td><b>{esc(name)}</b><br><span style="color:var(--ink-3);font-size:12px">{esc(s.get("sector",""))}</span></td>'
+            f'<tr><td class="r">{i+1}</td><td>{company_label(s, profiles)}</td>'
             f'<td class="r">{esc(code)}</td><td class="r">{fmt(s.get("price"))}円</td>'
             f'<td class="r {sign_cls(pct)}"><b>{pcttxt(pct)}</b></td><td class="r">{status}</td></tr>'
         )
@@ -542,7 +559,8 @@ def fixed_page_html(slug, title, desc, lead, updated, content):
 {ga_head()}
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>{pt.CSS}</style>
-<link rel="stylesheet" href="/monitor.css?v=20260910"/>
+<link rel="stylesheet" href="/monitor.css?v=20260911-company"/>
+<script defer src="/company-profiles.js?v=20260911"></script>
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner">

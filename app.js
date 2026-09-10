@@ -283,7 +283,7 @@ function renderRankTable(rows) {
     const change = s.change_amount;
     tr.innerHTML = `<td><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
       <td class="t-code">${escHtml(code)}</td>
-      <td><div class="t-name">${escHtml(s.name || code)}</div><div class="t-sec">${escHtml(s.sector || '')}</div></td>
+      <td><a class="t-name company-trigger" href="https://s.kabutan.jp/stocks/${encodeURIComponent(code)}/" data-company-code="${escHtml(code)}" data-company-name="${escHtml(s.name || code)}" aria-haspopup="dialog">${escHtml(s.name || code)} <span class="company-hint">詳細 ›</span></a><div class="t-sec company-summary" data-company-summary="${escHtml(code)}">${escHtml(window.CompanyProfiles?.summary(code) || '事業内容は企業詳細へ')}</div></td>
       <td><span class="pill-mkt">${escHtml(isPts ? (s.market_tse || 'PTS') : (s.market || '—'))}</span></td>
       <td class="r num">${fmt(s.price)}円</td>
       <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, Number.isInteger(Number(change)) ? 0 : 2)}</td>
@@ -303,7 +303,7 @@ function renderRankCharts(rows) {
     const card = el('article', 'rank-chart-card');
     card.innerHTML = `<div class="rank-chart-head">
       <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
-      <div><b>${escHtml(s.name || s.symbol)}</b><small>${escHtml(s.code || s.symbol)}・${escHtml(isPts ? (s.market_tse || '夜間PTS') : (s.market || s.sector || ''))}・${isPts ? '東証' : ''}6か月日足</small></div>
+      <div><a class="company-trigger" href="https://s.kabutan.jp/stocks/${encodeURIComponent(s.code)}/" data-company-code="${escHtml(s.code)}" data-company-name="${escHtml(s.name || s.code)}" aria-haspopup="dialog"><b>${escHtml(s.name || s.symbol)}</b> <span class="company-hint">詳細 ›</span></a><small class="company-summary" data-company-summary="${escHtml(s.code)}">${escHtml(window.CompanyProfiles?.summary(s.code) || '事業内容は企業詳細へ')}</small><small>${escHtml(s.code || s.symbol)}・${escHtml(isPts ? (s.market_tse || '夜間PTS') : (s.market || s.sector || ''))}・${isPts ? '東証' : ''}6か月日足</small></div>
       <div class="rank-chart-price"><b class="num">${fmt(s.price)}円</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
     </div>${miniCandleChart(s.chart)}</article>`;
     grid.appendChild(card);

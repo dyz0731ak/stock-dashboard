@@ -92,6 +92,14 @@ jobs:
           python scripts/run_fetch.py themes --timeout 90
         continue-on-error: true
 
+      - name: Refresh company profiles (企業概要・一言説明)
+        continue-on-error: true
+        timeout-minutes: 3
+        run: |
+          mkdir -p logs
+          python scripts/fetch_company_profiles.py > logs/company_profiles.log 2>&1
+          tail -60 logs/company_profiles.log
+
       - name: Preserve per-source fetch logs
         continue-on-error: true
         if: always()

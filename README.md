@@ -82,3 +82,10 @@ MIT
 4. 本番データで検証後に監査・プリレンダ・check_siteを実行。重大な欠損は公開状態を更新した後でジョブを失敗にする。
 
 公式根拠: [JPX銘柄一覧](https://www.jpx.co.jp/markets/statistics-equities/misc/01.html)、[JPX休日](https://www.jpx.co.jp/corporate/about-jpx/calendar/)、[PTS取引時間](https://www.japannext.co.jp/ja/pts)、[AdSenseアンカー広告](https://support.google.com/adsense/answer/7478225?hl=ja)。
+# 企業の一言説明と詳細
+
+ランキングの企業名から企業詳細を開けます。東証・夜間PTS・ミニチャート・急騰銘柄の固定ページに対応。企業概要、関連テーマ、公式サイト、決算・開示へのリンクを表示します。
+
+`scripts/fetch_company_profiles.py` はランキング掲載銘柄の企業基本情報を株探から取得し、株価とは別に `data/company_profiles.json` へ保存します。新規銘柄は追加取得、取得済みは週1回確認し、失敗時は前回成功時刻と説明を保全します。30日を超えた説明は表示しません。個別企業の取得失敗は他の企業や価格更新を止めず、`logs/company_profiles.log` に記録します。
+
+`scripts/company_summaries.json` に読みやすく整えた一言説明を保持します。取得元の説明が変わった場合は編集済み文言を適用せず、新しい概要に切り替えます。

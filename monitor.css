@@ -36,3 +36,39 @@ body{background-color:var(--bg);background-image:linear-gradient(#365b7210 1px,t
 table.rank .pill-mkt,.rank-no{background:var(--surface-2);color:var(--ink-2)}
 .rank-chart-grid{background:var(--surface-2)}.rank-no.top{background:var(--brand-soft);color:var(--brand)}
 .hot-badge{background:var(--up-soft);color:var(--up)}.hm-tile{border-color:#081423}.hm-tile .hm-nm,.hm-tile .hm-pct{text-shadow:none;color:#f0f5fa}
+/* Business descriptions and accessible native company detail dialog. */
+.company-trigger { color: var(--text, #e3edf5); text-decoration: none; cursor: pointer; }
+.company-trigger:hover { color: #6fdddd; text-decoration: underline; text-underline-offset: 4px; }
+.company-trigger:focus-visible, .company-dialog a:focus-visible, .company-close:focus-visible { outline: 2px solid #65d5da; outline-offset: 4px; border-radius: 3px; }
+.company-hint { font-size: 10px; font-weight: 500; color: #66bfc9; white-space: nowrap; margin-left: 5px; }
+.company-summary { color: #a4b8c9 !important; white-space: normal; line-height: 1.6; max-width: 390px; margin-top: 3px; }
+.company-modal-open { overflow: hidden; }
+.company-dialog { color-scheme: dark; box-sizing: border-box; width: min(680px, calc(100% - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 0; color: #dce8f1; background: #0d1b2c; border: 1px solid #36616e; border-radius: 16px; box-shadow: 0 24px 100px #0008; }
+.company-dialog::backdrop { background: #020912c9; backdrop-filter: blur(3px); }
+.company-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 28px 20px; border-bottom: 1px solid #263e53; background: #112337; }
+.company-eyebrow { color: #60c4cc; font-size: 10px; letter-spacing: .12em; }
+.company-dialog h2 { margin: 8px 0; font-size: 24px; line-height: 1.4; color: #edf6fc; }
+.company-code { font-size: 12px; color: #9bb2c5; }
+.company-close { flex: none; cursor: pointer; border: 1px solid #426072; border-radius: 7px; padding: 8px 11px; background: #132b40; color: #d5e6ee; font: inherit; font-size: 12px; }
+.company-dialog-body { padding: 24px 28px 28px; }
+.company-lead { margin: 0 0 24px; color: #88dce0; font-size: 20px; font-weight: 650; line-height: 1.6; }
+.company-dialog section { margin: 24px 0; }
+.company-dialog h3 { color: #b2c8d8; font-size: 12px; letter-spacing: .03em; margin: 0 0 12px; }
+.company-description { font-size: 15px; line-height: 1.95; margin: 0; }
+.company-themes { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+.company-themes span { padding: 5px 10px; border: 1px solid #294c61; border-radius: 5px; color: #b7d1df; font-size: 12px; }
+.company-dialog small { color: #90a9bb; font-size: 11px; line-height: 1.7; }
+.company-links { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.company-links a { display: flex; justify-content: space-between; padding: 12px; color: #8bdadf; border: 1px solid #35586b; border-radius: 7px; text-decoration: none; font-size: 13px; }
+.company-links a:hover { background: #163649; }
+.company-source { display: grid; gap: 6px; padding-top: 18px; border-top: 1px solid #294052; font-size: 11px; color: #8da7bc; }
+.company-source a { color: #9fc2d2; }
+.company-warning { color: #e5ba79; }
+@media (max-width: 600px) {
+  .company-dialog { width: calc(100% - 20px); max-height: calc(100dvh - 24px); border-radius: 12px; }
+  .company-dialog-head, .company-dialog-body { padding: 20px; }
+  .company-dialog h2 { font-size: 21px; }
+  .company-lead { font-size: 18px; }
+  .company-links { grid-template-columns: 1fr; }
+  .company-summary { min-width: 180px; max-width: 260px; }
+}
