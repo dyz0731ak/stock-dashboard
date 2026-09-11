@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-09-11T08:49:20.027316+09:00",
-  "last_attempt_at": "2026-09-11T00:05:56.942846+00:00",
+  "last_attempt_at": "2026-09-11T00:09:54.312633+00:00",
   "source": "jpx_yfinance",
   "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
   "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
@@ -23666,9 +23666,12 @@
     "source_attempts": [
       {
         "source": "yfinance_bulk",
-        "status": "error",
-        "error": "Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', '/home/runner/work/stock-dashboard/stock-dashboard/scripts/fetch_japan_stocks.py', '--bulk-only']' timed out after 280 seconds",
-        "exception": "TimeoutExpired"
+        "status": "partial",
+        "prices_fetched_at": "2026-09-11T00:07:25.503208+00:00",
+        "universe_count": 3700,
+        "quoted_count": 0,
+        "coverage": 0.0,
+        "session_date": "2026-09-11"
       },
       {
         "source": "kabutan_mobile",
