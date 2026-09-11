@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-09-12T05:49:36.101216+09:00",
-  "last_attempt_at": "2026-09-12T05:49:36.101216+09:00",
+  "last_attempt_at": "2026-09-12T06:05:21.748211+09:00",
   "session_date": "2026-09-11",
   "as_of": "2026-09-12T05:34:00+09:00",
   "source": "kabutan_pts_live",
@@ -9,8 +9,8 @@
   "scope": "ジャパンネクストPTS ナイトタイム・セッション（17:00〜翌06:00）",
   "ranking_definition": "東証終値比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "fetch_status": "ok",
-  "fetch_error": null,
+  "fetch_status": "stale",
+  "fetch_error": "期待セッション=2026-09-11, 取得セッション=2026-09-10",
   "fetch_warning": null,
   "source_attempts": [],
   "all_stocks": [
@@ -23089,5 +23089,8 @@
   "last_success_at": "2026-09-12T05:49:36.101216+09:00",
   "valid_until": "2026-09-12T06:34:00+09:00",
   "market": "pts",
-  "market_state": "open"
+  "market_state": "open",
+  "last_failure": {
+    "source_attempts": []
+  }
 }
