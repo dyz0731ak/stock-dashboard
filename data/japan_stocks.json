@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-09-11T08:49:20.027316+09:00",
-  "last_attempt_at": "2026-09-11T08:49:20.027330+09:00",
+  "last_attempt_at": "2026-09-11T00:05:56.942846+00:00",
   "source": "jpx_yfinance",
   "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
   "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
@@ -10,7 +10,7 @@
   "prices_fetched_at": "2026-09-10T23:45:44.435952+00:00",
   "price_time_precision": "day",
   "as_of": null,
-  "fetch_status": "partial",
+  "fetch_status": "stale",
   "fetch_warning": "全市場の取得できた銘柄から算出。取得対象と取得件数を参照してください",
   "source_attempts": [
     {
@@ -23660,5 +23660,27 @@
   "last_success_at": "2026-09-11T08:49:20.027316+09:00",
   "valid_until": "2026-09-11T09:30:00+09:00",
   "market": "tse",
-  "market_state": "preopen"
+  "market_state": "preopen",
+  "fetch_error": "全市場・代替取得元の有効データなし",
+  "last_failure": {
+    "source_attempts": [
+      {
+        "source": "yfinance_bulk",
+        "status": "error",
+        "error": "Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', '/home/runner/work/stock-dashboard/stock-dashboard/scripts/fetch_japan_stocks.py', '--bulk-only']' timed out after 280 seconds",
+        "exception": "TimeoutExpired"
+      },
+      {
+        "source": "kabutan_mobile",
+        "status": "error",
+        "error": "株探の市場日が古い: expected=2026-09-11, actual=2026-09-10, page=1",
+        "url": "https://s.kabutan.jp/warnings/price_increase/"
+      },
+      {
+        "source": "kabutan",
+        "status": "skipped",
+        "error": "日時未検証の旧PCパーサーはランキングに採用しません"
+      }
+    ]
+  }
 }
