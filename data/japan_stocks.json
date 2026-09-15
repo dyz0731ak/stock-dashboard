@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-09-15T08:50:33.932192+09:00",
-  "last_attempt_at": "2026-09-15T08:50:33.932204+09:00",
+  "last_attempt_at": "2026-09-15T00:04:59.148600+00:00",
   "source": "kabutan_mobile",
   "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
   "source_url": "https://s.kabutan.jp/warnings/price_increase/",
@@ -10,7 +10,7 @@
   "prices_fetched_at": "2026-09-14T16:00:00+09:00",
   "price_time_precision": "minute",
   "as_of": "2026-09-14T16:00:00+09:00",
-  "fetch_status": "fallback",
+  "fetch_status": "stale",
   "fetch_warning": "Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示",
   "source_attempts": [
     {
@@ -22802,5 +22802,30 @@
   "last_success_at": "2026-09-15T08:50:33.932192+09:00",
   "valid_until": "2026-09-15T09:30:00+09:00",
   "market": "tse",
-  "market_state": "preopen"
+  "market_state": "preopen",
+  "fetch_error": "全市場・代替取得元の有効データなし",
+  "last_failure": {
+    "source_attempts": [
+      {
+        "source": "yfinance_bulk",
+        "status": "partial",
+        "prices_fetched_at": "2026-09-15T00:01:05.895767+00:00",
+        "universe_count": 3700,
+        "quoted_count": 0,
+        "coverage": 0.0,
+        "session_date": "2026-09-15"
+      },
+      {
+        "source": "kabutan_mobile",
+        "status": "error",
+        "error": "株探の市場日が古い: expected=2026-09-15, actual=2026-09-14, page=1",
+        "url": "https://s.kabutan.jp/warnings/price_increase/"
+      },
+      {
+        "source": "kabutan",
+        "status": "skipped",
+        "error": "日時未検証の旧PCパーサーはランキングに採用しません"
+      }
+    ]
+  }
 }
