@@ -1,24 +1,23 @@
 {
-  "updated_at": "2026-09-25T05:49:09.951796+09:00",
-  "last_attempt_at": "2026-09-25T06:04:08.289733+09:00",
+  "updated_at": "2026-09-25T06:19:00.366765+09:00",
+  "last_attempt_at": "2026-09-25T06:19:00.366765+09:00",
   "session_date": "2026-09-24",
-  "as_of": "2026-09-25T05:34:00+09:00",
-  "source": "kabutan_pts_live",
-  "source_label": "株探 PTS夜間ランキング（15分遅延・ジャパンネクスト提供値）",
-  "source_url": "https://s.kabutan.jp/warnings/pts_night_price_increase/",
+  "as_of": "2026-09-25T06:00:00+09:00",
+  "source": "japannext",
+  "source_label": "ジャパンネクスト公式CSV（終了セッション）",
+  "source_url": "https://www.japannext.co.jp/ja/statistics/market-movers/turnover-and-market-share",
   "scope": "ジャパンネクストPTS ナイトタイム・セッション（17:00〜翌06:00）",
   "ranking_definition": "東証終値比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "fetch_status": "stale",
-  "fetch_error": "期待セッション=2026-09-24, 取得セッション=2026-09-18",
+  "fetch_status": "ok",
+  "fetch_error": null,
   "fetch_warning": null,
   "source_attempts": [],
   "all_stocks": [
     {
       "code": "2629",
-      "name": "ｉＦｒｅｅＥＴＦ中国グレーターベイエリア",
+      "name": "IFGBA100",
       "market": "夜間PTS",
-      "market_tse": "東Ｅ",
       "price": 6225.0,
       "change_amount": 1518.0,
       "change_pct": 32.25,
@@ -790,7 +789,6 @@
       "code": "7524",
       "name": "マルシェ",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 218.6,
       "change_amount": 47.6,
       "change_pct": 27.84,
@@ -1556,13 +1554,13 @@
           80500
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "4436",
       "name": "ミンカブ・ジ・インフォノイド",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 869.0,
       "change_amount": 169.0,
       "change_pct": 24.14,
@@ -2328,13 +2326,13 @@
           34400
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "9082",
       "name": "大和自動車交通",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 3235.0,
       "change_amount": 441.0,
       "change_pct": 15.78,
@@ -3100,13 +3098,13 @@
           60300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "4967",
       "name": "小林製薬",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 6700.0,
       "change_amount": 815.0,
       "change_pct": 13.85,
@@ -3872,13 +3870,13 @@
           190500
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "410A",
       "name": "GMOコマース",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 1265.0,
       "change_amount": 137.0,
       "change_pct": 12.15,
@@ -4644,13 +4642,13 @@
           28100
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "3905",
       "name": "データセクション",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 2016.8,
       "change_amount": 209.8,
       "change_pct": 11.61,
@@ -5416,13 +5414,13 @@
           14670200
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "5129",
       "name": "FIXER",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 283.9,
       "change_amount": 26.9,
       "change_pct": 10.47,
@@ -6188,13 +6186,13 @@
           63700
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "2530",
-      "name": "ＭＡＸＩＳ　ＨｕａＡｎ中国株式（上海１８０Ａ株）",
+      "name": "MXSSE180",
       "market": "夜間PTS",
-      "market_tse": "東Ｅ",
       "price": 19000.0,
       "change_amount": 1660.0,
       "change_pct": 9.57,
@@ -6964,9 +6962,8 @@
     },
     {
       "code": "627A",
-      "name": "ａｋｉｐｐａ",
+      "name": "AKIPPA",
       "market": "夜間PTS",
-      "market_tse": "東S",
       "price": 1419.0,
       "change_amount": 82.0,
       "change_pct": 6.13,
@@ -7006,7 +7003,6 @@
       "code": "4716",
       "name": "日本オラクル",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 9664.1,
       "change_amount": 519.1,
       "change_pct": 5.68,
@@ -7772,13 +7768,13 @@
           286300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "2134",
       "name": "北浜キャピタルパートナーズ",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 17.9,
       "change_amount": 0.9,
       "change_pct": 5.29,
@@ -8544,13 +8540,13 @@
           3820000
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "5253",
       "name": "カバー",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 1695.0,
       "change_amount": 80.0,
       "change_pct": 4.95,
@@ -9316,13 +9312,13 @@
           609000
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "4073",
       "name": "ジィ・シィ企画",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 680.0,
       "change_amount": 31.0,
       "change_pct": 4.78,
@@ -10088,13 +10084,13 @@
           628400
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "5541",
       "name": "大平洋金属",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 2785.0,
       "change_amount": 125.0,
       "change_pct": 4.7,
@@ -10860,13 +10856,13 @@
           135600
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "2628",
-      "name": "ｉＦｒｅｅＥＴＦ　中国科創板　５０（ＳＴＡＲ５０）",
+      "name": "IFSTAR50",
       "market": "夜間PTS",
-      "market_tse": "東Ｅ",
       "price": 4444.0,
       "change_amount": 195.0,
       "change_pct": 4.59,
@@ -11638,7 +11634,6 @@
       "code": "9227",
       "name": "マイクロ波化学",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 866.0,
       "change_amount": 36.0,
       "change_pct": 4.34,
@@ -12404,13 +12399,13 @@
           227700
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     },
     {
       "code": "4813",
       "name": "ACCESS",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 435.0,
       "change_amount": 17.0,
       "change_pct": 4.07,
@@ -13176,13 +13171,13 @@
           590600
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "4565",
       "name": "ネクセラファーマ",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 1318.0,
       "change_amount": 51.0,
       "change_pct": 4.03,
@@ -13948,13 +13943,13 @@
           974100
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "9849",
       "name": "共同紙販ホールディングス",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 4720.0,
       "change_amount": 180.0,
       "change_pct": 3.96,
@@ -14720,13 +14715,13 @@
           300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "5032",
       "name": "ANYCOLOR",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 3117.0,
       "change_amount": 107.0,
       "change_pct": 3.55,
@@ -15492,13 +15487,13 @@
           630200
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "7856",
       "name": "萩原工業",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 2072.0,
       "change_amount": 70.0,
       "change_pct": 3.5,
@@ -16264,13 +16259,13 @@
           110800
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "9405",
       "name": "朝日放送グループホールディングス",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 900.4,
       "change_amount": 30.4,
       "change_pct": 3.49,
@@ -17036,13 +17031,13 @@
           200300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "7979",
       "name": "松風",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 2341.0,
       "change_amount": 79.0,
       "change_pct": 3.49,
@@ -17808,13 +17803,13 @@
           65900
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "9413",
       "name": "テレビ東京ホールディングス",
       "market": "夜間PTS",
-      "market_tse": "東証P",
       "price": 3529.0,
       "change_amount": 119.0,
       "change_pct": 3.49,
@@ -18580,13 +18575,13 @@
           97300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証P"
     },
     {
       "code": "4406",
       "name": "新日本理化",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 243.0,
       "change_amount": 8.0,
       "change_pct": 3.4,
@@ -19352,13 +19347,13 @@
           166600
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "1671",
-      "name": "ＷＴＩ原油価格連動型上場投信",
+      "name": "WTI ETF",
       "market": "夜間PTS",
-      "market_tse": "東Ｅ",
       "price": 6280.0,
       "change_amount": 205.0,
       "change_pct": 3.37,
@@ -20130,7 +20125,6 @@
       "code": "2780",
       "name": "コメ兵ホールディングス",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 4620.0,
       "change_amount": 150.0,
       "change_pct": 3.36,
@@ -20896,13 +20890,13 @@
           47400
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "9973",
       "name": "KOZOホールディングス",
       "market": "夜間PTS",
-      "market_tse": "東証S",
       "price": 19.6,
       "change_amount": 0.6,
       "change_pct": 3.16,
@@ -21668,13 +21662,13 @@
           424100
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証S"
     },
     {
       "code": "4052",
       "name": "フィーチャ",
       "market": "夜間PTS",
-      "market_tse": "東証G",
       "price": 1170.0,
       "change_amount": 35.0,
       "change_pct": 3.08,
@@ -22440,15 +22434,13 @@
           832300
         ]
       },
-      "session_date": "2026-09-24"
+      "session_date": "2026-09-24",
+      "market_tse": "東証G"
     }
   ],
-  "fetched_at": "2026-09-25T05:49:09.951796+09:00",
-  "last_success_at": "2026-09-25T05:49:09.951796+09:00",
-  "valid_until": "2026-09-25T06:34:00+09:00",
+  "fetched_at": "2026-09-25T06:19:00.366765+09:00",
+  "last_success_at": "2026-09-25T06:19:00.366765+09:00",
+  "valid_until": "2026-09-25T17:30:00+09:00",
   "market": "pts",
-  "market_state": "open",
-  "last_failure": {
-    "source_attempts": []
-  }
+  "market_state": "closed"
 }
