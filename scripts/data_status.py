@@ -3,7 +3,7 @@ import datetime as dt
 import os
 from market_clock import JST, parse_time, market_context, session_valid_until
 
-TTL = {'futures.json':8, 'japan_stocks.json':1, 'pts_ranking.json':1,
+TTL = {'market_indices.json':8, 'tse_indices.json':8, 'japan_stocks.json':1, 'pts_ranking.json':1,
        'market_news.json':12, 'nikkei225.json':12, 'themes.json':8,
        'earnings_flash.json':36, 'volume_stocks.json':36}
 

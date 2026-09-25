@@ -43,10 +43,14 @@ jobs:
       - name: Test collection and freshness logic
         run: python -m unittest discover -s tests -v
 
-      - name: Fetch futures and FX (先物・為替)
+      - name: Fetch cash indices, FX and spot gold (現物指数・為替・金スポット)
         run: |
           cd ${{ github.workspace }}
-          python scripts/run_fetch.py futures --timeout 90
+          python scripts/run_fetch.py market_indices --timeout 90
+        continue-on-error: true
+
+      - name: Fetch TSE market segment indices (東証プライム・スタンダード・グロース)
+        run: python scripts/run_fetch.py tse_indices --timeout 45
         continue-on-error: true
 
       - name: Fetch Nikkei 225 heatmap data (日経225ヒートマップ)

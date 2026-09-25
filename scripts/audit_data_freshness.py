@@ -15,7 +15,8 @@ NOW = datetime.datetime.now(datetime.timezone.utc)
 
 # name, file, list path, max age hours, minimum count, critical
 DATASETS = [
-    ("先物・為替", "futures.json", "items", 8, 3, True),
+    ("主要マーケット指標", "market_indices.json", "items", 8, 6, True),
+    ("東証市場別指数", "tse_indices.json", "items", 8, 3, True),
     ("日本株ランキング", "japan_stocks.json", "all_stocks", 36, 1, True),
     ("夜間PTSランキング", "pts_ranking.json", "all_stocks", 36, 1, True),
     ("市場のいま", "market_news.json", "items", 12, 5, True),

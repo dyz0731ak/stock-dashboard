@@ -8,15 +8,6 @@ body{background-color:var(--bg);background-image:linear-gradient(#365b7210 1px,t
 .command-intro{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
 .command-intro h1{font-size:25px;letter-spacing:.04em;font-weight:700;margin:4px 0}
 .command-kicker{font:11px var(--mono);color:var(--brand);letter-spacing:.2em}.command-note{font-size:11px;color:var(--ink-3);line-height:1.7}
-.status-console{background:#0b1727;border:1px solid var(--border);border-top:1px solid #3b8695;border-radius:8px;padding:14px 16px;margin-bottom:26px}
-.status-console summary{display:flex;align-items:center;gap:16px;flex-wrap:wrap;cursor:pointer;font-size:12px;list-style:none}
-.status-console summary::after{content:'取得詳細 ⌄';margin-left:auto;color:var(--ink-3);font-size:11px}
-#systemState{display:flex;align-items:center;gap:7px;font-weight:700}#systemState::before,.status-light{content:'';display:inline-block;width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:var(--brand)}
-#systemState[data-state=error]::before,.feed-status.error .status-light{background:var(--warn)}
-#systemState[data-state=warning]::before,.feed-status.warning .status-light{background:var(--warn)}
-#marketState,#healthChecked{color:var(--ink-3);font-size:11px}
-#feedStatus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px;border-top:1px solid var(--border);padding-top:14px;margin-top:14px}
-.feed-status{display:grid;grid-template-columns:6px 85px 1fr;gap:8px;align-items:center;font-size:11px;color:var(--ink-3)}.feed-status b{font-size:11px;color:var(--ink-2)}.feed-status small{grid-column:3}.feed-status.error span:last-of-type{color:var(--warn)}
 .section{margin-bottom:28px;min-width:0}.section-head{flex-wrap:wrap;gap:8px 12px}.section-head h2{font-size:15px;letter-spacing:.02em;border-left-width:2px}.section-head .upd{color:var(--ink-3);font-size:10px;font-variant-numeric:tabular-nums}
 .panel,.idx-card{border-color:var(--border);box-shadow:inset 0 1px 0 #ffffff03,0 6px 18px #0001}
 .idx-card{padding:16px 15px;position:relative;min-height:130px;background:linear-gradient(135deg,#14253a,var(--surface))}.idx-card .price{font-size:27px;color:var(--ink);letter-spacing:-.035em}.idx-card .spark{opacity:.5}.idx-card .change{font-size:12px}.idx-card .price-date{font-size:10px;color:var(--ink-3);margin-top:4px}
@@ -29,7 +20,7 @@ body{background-color:var(--bg);background-image:linear-gradient(#365b7210 1px,t
 .monitor-ad{margin:26px 0;padding:12px;border:1px dashed var(--border);border-radius:6px;min-height:90px;max-width:100%;overflow:hidden;background:#0b1624}.monitor-ad-label{font-size:10px;letter-spacing:.12em;color:var(--ink-3);display:block;margin-bottom:8px}.monitor-ad .adsbygoogle{position:static!important;max-width:100%}
 :focus-visible{outline:2px solid var(--brand);outline-offset:3px}button{touch-action:manipulation}.heatmap{isolation:isolate}.footer{background:#0a1422;border-color:var(--border)}
 @media(min-width:1100px){.flash-list{grid-template-columns:repeat(3,minmax(0,1fr))}.market-news-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){.brand-role{display:none}.topbar-inner{padding:0 14px;gap:12px}.topbar-meta{font-size:10px;gap:8px}.topbar-meta .live-dot{display:none}.wrap{padding:16px 12px}.command-intro{align-items:start;flex-direction:column;gap:6px}.command-intro h1{font-size:21px}.command-note{font-size:10px}.status-console{padding:12px;margin-bottom:22px}.status-console summary{gap:8px 12px}#feedStatus{grid-template-columns:1fr}.feed-status{grid-template-columns:6px 75px 1fr}.section-head .upd{flex-basis:100%;margin-left:11px}.idx-card{padding:13px 11px;min-height:120px}.idx-card .price{font-size:24px}.rank{min-width:710px}.rank-chart-grid{min-width:0}.rank-chart-card{min-width:0}.section{scroll-margin-top:110px}#marketState{flex-basis:100%}.nav a{padding:11px 12px}.monitor-ad{margin:20px 0}}
+@media(max-width:760px){.brand-role{display:none}.topbar-inner{padding:0 14px;gap:12px}.topbar-meta{font-size:10px;gap:8px}.topbar-meta .live-dot{display:none}.wrap{padding:16px 12px}.command-intro{align-items:start;flex-direction:column;gap:6px}.command-intro h1{font-size:21px}.command-note{font-size:10px}.section-head .upd{flex-basis:100%;margin-left:11px}.idx-card{padding:13px 11px;min-height:120px}.idx-card .price{font-size:24px}.rank{min-width:710px}.rank-chart-grid{min-width:0}.rank-chart-card{min-width:0}.section{scroll-margin-top:110px}.nav a{padding:11px 12px}.monitor-ad{margin:20px 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Match the existing table selector specificity. */
@@ -72,3 +63,15 @@ table.rank .pill-mkt,.rank-no{background:var(--surface-2);color:var(--ink-2)}
   .company-links { grid-template-columns: 1fr; }
   .company-summary { min-width: 180px; max-width: 260px; }
 }
+
+/* Cash index cards: three domestic markets above six global indicators. */
+.global-index-heading{margin-top:24px}
+.tse-grid .idx-card{min-height:126px;background:linear-gradient(135deg,#143039,#102032);border-top-color:#387b86}
+.idx-card .head{gap:8px}.idx-card .pct-badge,.spot-badge{flex-shrink:0}
+.idx-card .price{margin:7px 0 3px}.idx-card .index-unit{font-size:10px;font-weight:400;letter-spacing:0;color:var(--ink-3);margin-left:8px;white-space:nowrap}
+.idx-card .index-source{display:inline-block;position:relative;z-index:1;margin-top:4px;font-size:9px;color:var(--ink-3);text-decoration:none}
+.idx-card .index-source:hover{color:var(--brand);text-decoration:underline}
+.idx-card .change-unavailable{color:var(--ink-3);font-weight:400}.spot-badge{color:var(--brand);background:var(--brand-soft);padding:2px 7px;border-radius:6px;font-size:11px}
+.index-unavailable .price{color:var(--ink-3)}.index-unavailable>.index-unit{margin:0}
+@media(min-width:761px){.tse-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.tse-grid{grid-template-columns:1fr}.tse-grid .idx-card{min-height:115px}.idx-card .price{font-size:25px}.idx-card .index-unit{font-size:9px}}

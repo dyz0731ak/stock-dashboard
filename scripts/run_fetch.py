@@ -9,7 +9,7 @@ import signal
 import sys
 from safe_save import mark_failed, _load_existing
 
-JOBS = {'futures':'futures', 'nikkei225':'nikkei225', 'japan_stocks':'japan_stocks',
+JOBS = {'market_indices':'market_indices', 'tse_indices':'tse_indices', 'nikkei225':'nikkei225', 'japan_stocks':'japan_stocks',
         'pts_ranking':'pts_ranking', 'volume_stocks':'volume_stocks',
         'market_news':'market_news', 'earnings_flash':'earnings_flash', 'themes':'themes'}
 

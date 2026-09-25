@@ -143,28 +143,41 @@ def pct_badge_style(pct):
 
 
 from data_status import is_fresh, status_text
+from market_index_specs import MARKET_INDICES, TSE_INDICES
+from market_clock import parse_time
 
 
 # ─────────────────────────────────────────────
 # 各セクションの HTML 生成
 # ─────────────────────────────────────────────
-def build_idx(futures):
-    if not is_fresh(futures, 8) or not futures.get("items"):
-        return ""
+def build_idx(data, specs=None):
+    specs = MARKET_INDICES if specs is None else specs
     out = []
-    for it in futures["items"]:
-        pct = it.get("pct", 0)
-        cls = sign_cls(pct)
-        ch = it.get("change", 0)
-        arrow = "▲" if (ch or 0) > 0 else "▼" if (ch or 0) < 0 else ""
-        out.append(
-            f'<div class="idx-card"><div class="head">'
-            f'<span class="label">{esc(it.get("label"))}</span>'
-            f'<span class="pct-badge" style="{pct_badge_style(pct)}">{pcttxt(pct)}</span></div>'
-            f'<div class="price num {cls}">{fmt(it.get("price"), it.get("decimals", 0))}</div>'
-            f'<div class="change num {sign_cls(ch)}">{arrow} {fmt(abs(ch or 0), it.get("decimals", 0))}</div></div>'
-        )
-    return "\n".join(out)
+    for spec in specs:
+        item = next((row for row in (data or {}).get('items', [])
+                     if all(row.get(key) == spec[key] for key in ('id', 'ticker', 'instrument_type'))), None)
+        label, unit = esc(spec['label']), esc(spec['unit'])
+        if not is_fresh(data, 8) or not is_fresh(item, 8) or not isinstance(item.get('price'), (int, float)) or item['price'] <= 0:
+            out.append(f'<div class="idx-card index-unavailable"><div class="head"><span class="label">{label}</span></div><div class="price num">—</div><div class="index-unit">{unit}</div><div class="price-date">取得待ち・期限切れ</div></div>')
+            continue
+        pct, change = item.get('pct'), item.get('change')
+        decimals = spec['decimals']
+        if pct is not None and change is not None:
+            badge = f'<span class="pct-badge" style="{pct_badge_style(pct)}">{pcttxt(pct)}</span>'
+            arrow = '▲' if change > 0 else '▼' if change < 0 else ''
+            change_html = f'<div class="change num {sign_cls(change)}">前日比 {arrow} {fmt(abs(change), decimals)}</div>'
+        else:
+            badge = '<span class="spot-badge">スポット</span>'
+            change_html = '<div class="change change-unavailable">前日比 —</div>'
+        stamp = parse_time(item.get('as_of'))
+        as_of = stamp.astimezone(JST).strftime('%m/%d %H:%M') + ' JST' if stamp else '不明'
+        source = str(item.get('source_url') or '')
+        source = source if source.startswith(('https://', 'http://')) else ''
+        out.append(f'<div class="idx-card" data-index="{spec["id"]}"><div class="head"><span class="label">{label}</span>{badge}</div>'
+                   f'<div class="price num">{fmt(item["price"], decimals)}<span class="index-unit">{unit}</span></div>'
+                   f'{change_html}<div class="price-date">基準 {as_of}</div>'
+                   f'<a class="index-source" href="{esc(source)}" target="_blank" rel="noopener noreferrer">{esc(item.get("source_label"))}</a></div>')
+    return '\n'.join(out)
 
 
 def company_label(stock, profiles):
@@ -732,7 +745,8 @@ def remove_section(html_text, section_id):
 
 
 def main():
-    futures = load("futures.json")
+    indices = load("market_indices.json")
+    tse_indices = load("tse_indices.json")
     japan = load("japan_stocks.json")
     themes = load("themes.json")
     volume = load("volume_stocks.json")
@@ -745,7 +759,8 @@ def main():
         doc = f.read()
 
     sections = {
-        "idx": build_idx(futures),
+        "idx": build_idx(indices),
+        "tse": build_idx(tse_indices, TSE_INDICES),
         "flash": build_flash(flash),
         "rank": build_rank(japan),
         "themes": build_themes(themes),
@@ -758,21 +773,13 @@ def main():
         doc = replace_marker(doc, key, content or '<div class="data-notice">取得状態を確認してください。期限切れのデータは表示していません。</div>')
         filled += 1
 
-    for id_, dataset, hours in [('updIdx',futures,8), ('updRank',japan,36), ('updThemes',themes,8),
+    for id_, dataset, hours in [('updIdx',indices,8), ('updTse',tse_indices,8), ('updRank',japan,36), ('updThemes',themes,8),
                                 ('updFlash',flash,36), ('updMarketNews',market_news,12), ('updHeat',nikkei,12)]:
         doc = re.sub(r'(<span[^>]*id="' + id_ + r'"[^>]*>).*?(</span>)',
                      lambda m: m[1] + esc(status_text(dataset, hours)) + m[2], doc, flags=re.S)
     health = load('health.json')
     report = ('一部取得に問題あり' if health.get('overall') != 'ok' else '全項目取得済み') + ' ｜ 状態確認 ' + (health.get('checked_at') or '不明')[:16].replace('T', ' ') + ' JST'
     doc = re.sub(r'(<span id="lastUpdated">).*?(</span>)', lambda m:m[1]+esc(report)+m[2], doc, flags=re.S)
-    pts = load('pts_ranking.json')
-    status_items = []
-    for label, dataset, hours in [('指数・先物',futures,8), ('東証全市場',japan,36), ('夜間PTS',pts,36),
-                                  ('テーマ株',themes,8), ('決算速報',flash,36), ('市場ニュース',market_news,12), ('ヒートマップ',nikkei,12)]:
-        state = 'error' if not is_fresh(dataset, hours) else 'warning' if dataset.get('fetch_status') in ('fallback','partial') else 'ok'
-        status_items.append(f'<div class="feed-status {state}"><span class="status-light"></span><b>{label}</b><span>{esc(status_text(dataset,hours))}</span></div>')
-    doc = re.sub(r'(<div id="feedStatus"[^>]*>).*?(?=</details>)', lambda m:m[1]+''.join(status_items)+'</div>', doc, flags=re.S)
-    doc = re.sub(r'(<span id="systemState"[^>]*>).*?(</span>)', lambda m:m[1]+('一部取得に注意' if health.get('overall')!='ok' else '取得正常')+m[2], doc, flags=re.S)
     doc = move_section_after(doc, "rank", "idx")
     doc = move_section_after(doc, "themes", "rank")
     doc = remove_section(doc, "earn")
