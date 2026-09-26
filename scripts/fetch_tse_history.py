@@ -4,6 +4,7 @@ Long-range source bars are extended only with complete groups of real daily
 OHLC. Never turn closing prices or a different index into candlesticks.
 """
 import datetime as dt
+import argparse
 import json
 import math
 from collections import defaultdict
@@ -74,10 +75,10 @@ def extend_bars(old, daily, interval):
     return result
 
 
-def collect(spec, snapshot, now):
+def collect(spec, snapshot, now, force=False):
     old = _load_existing(str(ROOT/f'{spec["id"]}-36M.json')) or {}
     fetched = parse_time(old.get('fetched_at'))
-    if fetched and dt.timedelta(0)<=now-fetched<dt.timedelta(hours=1) and all((ROOT/f'{spec["id"]}-{months}M.json').exists() for months in PERIODS):
+    if not force and fetched and dt.timedelta(0)<=now-fetched<dt.timedelta(hours=1) and all((ROOT/f'{spec["id"]}-{months}M.json').exists() for months in PERIODS):
         return dict(id=spec['id'],status='cached')
     try:
         code = CODES[spec['id']]
@@ -120,6 +121,9 @@ def collect(spec, snapshot, now):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--force',action='store_true',help='Refresh the source even within the hourly cache window')
+    args = parser.parse_args()
     now = dt.datetime.now(JST)
     try:
         response = get('https://www.jpx.co.jp/market/indices/indices_stock_price3.txt')
@@ -128,7 +132,7 @@ def main():
         print(json.dumps(dict(event='tse_history_failed',error=str(exc)),ensure_ascii=False))
         return 1
     with ThreadPoolExecutor(max_workers=2) as pool:
-        results = list(pool.map(lambda spec:collect(spec,snapshot,now),TSE_INDICES))
+        results = list(pool.map(lambda spec:collect(spec,snapshot,now,args.force),TSE_INDICES))
     print(json.dumps(dict(event='tse_history_finished',results=results),ensure_ascii=False))
     return 1 if any(r['status'] in ('error','retained') for r in results) else 0
 
