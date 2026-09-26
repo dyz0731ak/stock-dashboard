@@ -24,9 +24,16 @@ function pctBadge(pct) {
 }
 
 async function getJSON(path) {
-  const r = await fetch(path + '?_=' + Date.now(), { signal: AbortSignal.timeout(20000), cache: 'no-store' });
-  if (!r.ok) throw new Error(path + ' ' + r.status);
-  return r.json();
+  for(let attempt=0;attempt<2;attempt++) {
+    try {
+      const r = await fetch(path + '?_=' + Date.now(), { signal: AbortSignal.timeout(10000), cache: 'no-store' });
+      if (!r.ok) throw new Error(path + ' ' + r.status);
+      return await r.json();
+    } catch(error) {
+      if(attempt)throw error;
+      await new Promise(resolve=>setTimeout(resolve,500));
+    }
+  }
 }
 
 function timeAgo(iso) {
@@ -95,8 +102,10 @@ function renderIndices(data, group='market') {
   const grid = $(tse ? '#tseGrid' : '#idxGrid');
   grid.innerHTML = specs.map(([id,ticker,label,decimals,unit,type]) => {
     const it = data?.items?.find(row=>row.id===id && row.ticker===ticker && row.instrument_type===type);
-    const fresh = isFresh(data,8) && isFresh(it,8) && Number.isFinite(it.price) && it.price>0;
-    if (!fresh) return `<div class="idx-card index-unavailable"><div class="head"><span class="label">${label}</span></div><div class="price num">—</div><div class="index-unit">${unit}</div><div class="price-date">取得待ち・期限切れ</div></div>`;
+    const cached = it?.cache_status === 'previous' && ageHours(it.fetched_at)>=0 && ageHours(it.fetched_at)<=24 && Date.now()<=Date.parse(it.cache_until);
+    const fresh = ((isFresh(data,8) && isFresh(it,8)) || cached) && Number.isFinite(it?.price) && it.price>0;
+    const chartButton = tse ? '' : `<button class="index-chart-button" type="button" data-market-chart="${id}" aria-label="${label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>`;
+    if (!fresh) return `<div class="idx-card index-unavailable"><div class="head"><span class="label">${label}</span></div><div class="price num">—</div><div class="index-unit">${unit}</div><div class="price-date">取得待ち・期限切れ</div>${chartButton}</div>`;
     const hasChange = Number.isFinite(it.pct) && Number.isFinite(it.change);
     const badge = hasChange ? `<span class="pct-badge" ${pctBadge(it.pct)}>${pctTxt(it.pct)}</span>` : '<span class="spot-badge">スポット</span>';
     const change = hasChange ? `<div class="change num ${signCls(it.change)}">前日比 ${it.change>0?'▲':it.change<0?'▼':''} ${fmt(Math.abs(it.change),decimals)}</div>` : '<div class="change change-unavailable">前日比 —</div>';
@@ -105,8 +114,8 @@ function renderIndices(data, group='market') {
       ${sparkline(it.chart,it.pct>0)}
       <div class="head"><span class="label">${label}</span>${badge}</div>
       <div class="price num">${fmt(it.price,decimals)}<span class="index-unit">${unit}</span></div>
-      ${change}<div class="price-date">基準 ${escHtml(clock(it.as_of))} JST</div>
-      <a class="index-source" href="${escHtml(source)}" target="_blank" rel="noopener noreferrer">${escHtml(it.source_label)}</a>
+      ${change}<div class="price-date">${cached ? '<span class="cached-quote">前回取得値</span> ' : ''}基準 ${escHtml(clock(it.as_of))} JST</div>
+      <a class="index-source" href="${escHtml(source)}" target="_blank" rel="noopener noreferrer">${escHtml(it.source_label)}</a>${chartButton}
     </div>`;
   }).join('');
   $(tse ? '#updTse' : '#updIdx').textContent = updateLabel(data,8);
@@ -136,6 +145,7 @@ function earningsReferenceLinks(it) {
   const articleUrl = safeExternalUrl(it.article_url) || (!tdnetDocumentUrl(original) ? original : '');
   const candidates = [
     { url: documentUrl, label: '決算短信・適時開示PDF', primary: true },
+    ...(it.documents || []).map(doc=>({url:safeExternalUrl(doc.url),label:doc.title,primary:true})),
     { url: articleUrl, label: '決算速報・解説を読む' },
     { url: safeExternalUrl(it.ir_url) || (code ? `https://irbank.net/${code}/ir` : ''), label: '過去の決算資料' },
     { url: safeExternalUrl(it.news_url) || (code ? `https://s.kabutan.jp/stocks/${code}/news/?news_category_id=3` : ''), label: '関連する決算記事' },
@@ -150,15 +160,16 @@ function renderFlash() {
   if (!d) { body.innerHTML = '<div class="skeleton">データなし</div>'; return; }
 
   const shown = Math.min(12, (d.highlights || []).length || d.total || 0);
-  $('#flashSub').textContent = `${d.article_date} 発表分 ・ 重要度上位${shown}件`;
+  $('#flashSub').textContent = `${d.article_date} 発表分 ・ 重要度上位${shown}件${d.checked_date && d.checked_date!==d.article_date ? '（本日の開示も確認済み）' : ''}`;
   $('#updFlash').textContent = updateLabel(d, 36);
 
   body.innerHTML = '';
   const rows = d.highlights || (d.groups || []).flatMap(g => g.items || []);
   if (!rows.length) {
-    body.innerHTML = '<div class="skeleton">重要決算を確認中です</div>';
+    body.innerHTML = `<div class="skeleton">${escHtml(d.empty_message || '重要決算を確認中です')}</div>`;
     return;
   }
+  if (d.cache_status==='previous') body.append(el('p','data-notice',escHtml(d.fetch_warning)));
   const list = el('div', 'flash-list');
   rows.slice(0, 12).forEach(it => {
     const referenceLinks = earningsReferenceLinks(it);
@@ -182,9 +193,11 @@ function renderFlash() {
         <span class="flash-published">${escHtml(it.published_label || `${d.article_date} ${it.time || ''}発表`)}</span>
         <span class="impact-label">${escHtml(it.impact_label || '注目決算')}</span>
       </div>
+      <div class="flash-business">${escHtml(it.company_summary || '事業説明を取得できませんでした')}</div>
       <div class="nar">${escHtml(it.narrative || '')}</div>
+      <div class="flash-numbers">${(it.key_numbers || []).map(n=>`<div><span>${escHtml(n.label)}</span><strong>${escHtml(n.value)}</strong><small>${escHtml(n.comparison)}</small></div>`).join('')}</div>
       <div class="chips">${chips}</div>
-      <div class="impact-summary">${escHtml(it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。')}</div>
+      <div class="impact-summary"><strong>注目理由：</strong>${escHtml(it.impact_summary || '通期計画への進捗と今後の見通しを確認したい決算です。')}</div>
       <div class="flash-chart-toggle">詳細・根拠を見る</div>
       <div class="flash-detail-panel" hidden>
         <div class="flash-reference">
@@ -192,12 +205,8 @@ function renderFlash() {
           <div class="flash-detail-note">表示内容は決算短信・適時開示をもとに整理しています。数値や会社予想は原資料でもご確認ください。</div>
           <div class="flash-detail-links">${referenceButtons}</div>
         </div>
-        <div class="flash-chart-panel">
-        <div class="flash-chart-head">
-          <span class="flash-chart-title">3か月日足（約65営業日）</span>
-        </div>
-        ${miniCandleChart(it.chart, 65, '直近約3か月の日足チャート')}
-        </div>
+        ${it.company_explanation ? `<p class="flash-explanation">${escHtml(it.company_explanation)}</p>` : ''}
+        <p class="flash-detail-note">${escHtml(it.consensus_status || '')}</p>
       </div>`;
     const setOpen = open => {
       item.classList.toggle('open', open);
@@ -621,10 +630,16 @@ async function boot() {
     } catch (error) {
       console.error(JSON.stringify({event:'feed_load_failed',dataset:file,time:new Date().toISOString(),error:String(error)}));
       data = {...loadedFeeds[key], fetch_status:'stale', fetch_error:String(error)};
+      if(key==='market_indices') data.items=(data.items||[]).map(row=>{
+        const fetched=Date.parse(row.fetched_at);
+        return {...row,cache_status:'previous',cache_until:Number.isFinite(fetched)?new Date(fetched+24*3600000).toISOString():null};
+      });
+      if(key==='flash' && isFresh(loadedFeeds[key],hours)) data={...loadedFeeds[key],fetch_status:'fallback',cache_status:'previous',fetch_warning:'通信に失敗したため前回取得済みの開示を表示しています。'};
       loadedFeeds[key] = data;
       if (key==='market_indices' || key==='tse_indices') render(data);
       else if (key==='japan') { rankData=data; renderRank(); }
       else if (key==='pts') { ptsRankData=data; renderRank(); }
+      else if (key==='flash' && isFresh(data,hours)) render(data);
       else if (body) { if(key==='heat') heatData=null; $('#'+body).innerHTML=dataNotice(data,hours); }
       if (upd && (key!=='japan' || rankMarket==='tse')) $('#'+upd).textContent='取得失敗';
     }

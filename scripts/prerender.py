@@ -77,6 +77,7 @@ def flash_reference_links(item):
         article_url = original
     candidates = [
         (document_url, "決算短信・適時開示PDF", True),
+        *[(doc.get('url',''),doc.get('title','適時開示PDF'),True) for doc in item.get('documents',[])],
         (article_url, "決算速報・解説を読む", False),
         (
             str(item.get("ir_url") or "")
@@ -157,8 +158,15 @@ def build_idx(data, specs=None):
         item = next((row for row in (data or {}).get('items', [])
                      if all(row.get(key) == spec[key] for key in ('id', 'ticker', 'instrument_type'))), None)
         label, unit = esc(spec['label']), esc(spec['unit'])
-        if not is_fresh(data, 8) or not is_fresh(item, 8) or not isinstance(item.get('price'), (int, float)) or item['price'] <= 0:
-            out.append(f'<div class="idx-card index-unavailable"><div class="head"><span class="label">{label}</span></div><div class="price num">—</div><div class="index-unit">{unit}</div><div class="price-date">取得待ち・期限切れ</div></div>')
+        button = (f'<button class="index-chart-button" type="button" data-market-chart="{spec["id"]}" '
+                  f'aria-label="{label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>') if spec in MARKET_INDICES else ''
+        fetched = parse_time((item or {}).get('fetched_at'))
+        cache_until = parse_time((item or {}).get('cache_until'))
+        now = datetime.datetime.now(JST)
+        cached = bool(item and item.get('cache_status')=='previous' and fetched and cache_until and
+                      datetime.timedelta(0)<=now-fetched<=datetime.timedelta(hours=24) and now<=cache_until)
+        if not item or not ((is_fresh(data, 8) and is_fresh(item, 8)) or cached) or not isinstance(item.get('price'), (int, float)) or item['price'] <= 0:
+            out.append(f'<div class="idx-card index-unavailable"><div class="head"><span class="label">{label}</span></div><div class="price num">—</div><div class="index-unit">{unit}</div><div class="price-date">取得待ち・期限切れ</div>{button}</div>')
             continue
         pct, change = item.get('pct'), item.get('change')
         decimals = spec['decimals']
@@ -173,10 +181,11 @@ def build_idx(data, specs=None):
         as_of = stamp.astimezone(JST).strftime('%m/%d %H:%M') + ' JST' if stamp else '不明'
         source = str(item.get('source_url') or '')
         source = source if source.startswith(('https://', 'http://')) else ''
+        cached_label = '<span class="cached-quote">前回取得値</span> ' if cached else ''
         out.append(f'<div class="idx-card" data-index="{spec["id"]}"><div class="head"><span class="label">{label}</span>{badge}</div>'
                    f'<div class="price num">{fmt(item["price"], decimals)}<span class="index-unit">{unit}</span></div>'
-                   f'{change_html}<div class="price-date">基準 {as_of}</div>'
-                   f'<a class="index-source" href="{esc(source)}" target="_blank" rel="noopener noreferrer">{esc(item.get("source_label"))}</a></div>')
+                   f'{change_html}<div class="price-date">{cached_label}基準 {as_of}</div>'
+                   f'<a class="index-source" href="{esc(source)}" target="_blank" rel="noopener noreferrer">{esc(item.get("source_label"))}</a>{button}</div>')
     return '\n'.join(out)
 
 
@@ -317,7 +326,7 @@ def build_flash(flash):
         item for group in (flash.get("groups") or []) for item in (group.get("items") or [])
     ]
     if not items:
-        return '<div class="skeleton">重要決算を確認中です</div>'
+        return '<div class="skeleton">'+esc(flash.get('empty_message') or '重要決算を確認中です')+'</div>'
     out = ['<div class="flash-list">']
     for it in items[:12]:
         reference_buttons = []
@@ -334,6 +343,7 @@ def build_flash(flash):
             chips.append(
                 f'<span class="chip {cls}">{esc(chip.get("label"))} {esc(chip.get("value"))}</span>'
             )
+        numbers = ''.join(f'<div><span>{esc(n.get("label"))}</span><strong>{esc(n.get("value"))}</strong><small>{esc(n.get("comparison"))}</small></div>' for n in it.get('key_numbers',[]))
         out.append(
             f'<article class="flash-item {esc(it.get("impact_zone") or "decision")}" '
             f'tabindex="0" role="button" aria-expanded="false">'
@@ -341,18 +351,19 @@ def build_flash(flash):
             f'<span class="code">{esc(it.get("code"))}</span>'
             f'<span class="flash-published">{esc(it.get("published_label") or "")}</span>'
             f'<span class="impact-label">{esc(it.get("impact_label") or "注目決算")}</span></div>'
+            f'<div class="flash-business">{esc(it.get("company_summary") or "事業説明を取得できませんでした")}</div>'
             f'<div class="nar">{esc(it.get("narrative"))}</div>'
+            f'<div class="flash-numbers">{numbers}</div>'
             f'<div class="chips">{"".join(chips)}</div>'
-            f'<div class="impact-summary">{esc(it.get("impact_summary") or "通期計画への進捗と今後の見通しを確認したい決算です。")}</div>'
+            f'<div class="impact-summary"><strong>注目理由：</strong>{esc(it.get("impact_summary") or "通期計画への進捗と今後の見通しを確認したい決算です。")}</div>'
             f'<div class="flash-chart-toggle">詳細・根拠を見る</div>'
             f'<div class="flash-detail-panel" hidden><div class="flash-reference">'
             f'<div class="flash-detail-title">根拠資料・関連記事</div>'
             f'<div class="flash-detail-note">表示内容は決算短信・適時開示をもとに整理しています。'
             f'数値や会社予想は原資料でもご確認ください。</div>'
             f'<div class="flash-detail-links">{"".join(reference_buttons)}</div>'
-            f'</div><div class="flash-chart-panel"><div class="flash-chart-head">'
-            f'<span class="flash-chart-title">3か月日足（約65営業日）</span>'
-            f'</div><div class="mini-nochart">チャートを読み込み中</div></div></div>'
+            f'</div><p class="flash-explanation">{esc(it.get("company_explanation") or "")}</p>'
+            f'<p class="flash-detail-note">{esc(it.get("consensus_status") or "")}</p></div>'
             f'</article>'
         )
     out.append("</div>")
@@ -518,9 +529,9 @@ def earnings_table(events, flash):
             name = it.get("name") or ""
             chips = " / ".join(f'{c.get("label","")} {c.get("value","")}' for c in (it.get("chips") or []))
             rows.append(
-                f'<tr><td>{esc(label)}</td><td class="r">{esc(it.get("time",""))}</td>'
-                f'<td><b>{esc(name)}</b></td><td class="r">{esc(code)}</td>'
-                f'<td>{esc(it.get("narrative") or chips)}</td></tr>'
+                f'<tr><td>{esc(it.get("impact_label") or label)}</td><td class="r">{esc(it.get("published_label") or it.get("time",""))}</td>'
+                f'<td><b>{esc(name)}</b><br><small>{esc(it.get("company_summary") or "")}</small></td><td class="r">{esc(code)}</td>'
+                f'<td>{esc(it.get("narrative") or chips)}<br>{esc(" / ".join(n["label"]+" "+n["value"] for n in it.get("key_numbers",[])))}<br>{esc(it.get("impact_summary") or "")}</td></tr>'
             )
     if not rows:
         for it in ((events or {}).get("jp_earnings") or [])[:30]:

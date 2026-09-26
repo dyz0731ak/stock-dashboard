@@ -4,6 +4,9 @@ import json
 import math
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import quote
+import pandas as pd
+from market_http import get
 from zoneinfo import ZoneInfo
 
 import requests
@@ -11,7 +14,7 @@ import yfinance as yf
 
 from market_clock import JST, parse_time, session_valid_until
 from market_index_specs import MARKET_INDICES
-from safe_save import safe_save
+from safe_save import safe_save, _load_existing
 
 
 def number(value):
@@ -29,12 +32,18 @@ def quote_time(value, now, max_age):
 
 
 def parse_yahoo(spec, history, metadata, now):
-    if metadata.get('symbol') != spec['ticker']:
+    symbol = metadata.get('symbol')
+    aliases = {'JPY=X': {'JPY=X', 'USDJPY=X'}}
+    if symbol not in aliases.get(spec['ticker'], {spec['ticker']}):
         raise ValueError('unexpected symbol; refuse an index substitute')
     if metadata.get('instrumentType') != spec['instrument_type']:
         raise ValueError('unexpected instrument type; cash/FX quotes only')
-    stamp = quote_time(dt.datetime.fromtimestamp(metadata['regularMarketTime'], dt.timezone.utc).isoformat(),
-                       now, dt.timedelta(days=4))
+    raw_time = metadata['regularMarketTime']
+    if hasattr(raw_time, 'isoformat'):
+        raw_time = raw_time.isoformat()
+    elif isinstance(raw_time, (int, float)):
+        raw_time = dt.datetime.fromtimestamp(raw_time, dt.timezone.utc).isoformat()
+    stamp = quote_time(raw_time, now, dt.timedelta(days=10 if spec['id']=='nk225' else 4))
     zone = ZoneInfo(metadata['exchangeTimezoneName'])
     market_day = stamp.astimezone(zone).date().isoformat()
     current = number(metadata['regularMarketPrice'])
@@ -70,7 +79,7 @@ def parse_yahoo(spec, history, metadata, now):
 def parse_gold(payload, now):
     if payload.get('symbol') != 'XAU' or payload.get('currency') != 'USD':
         raise ValueError('expected USD gold spot quote')
-    max_age = dt.timedelta(hours=72 if now.weekday() in (5, 6) else 3)
+    max_age = dt.timedelta(hours=72 if now.weekday() in (5, 6) or (now.weekday()==0 and now.hour<9) else 3)
     stamp = quote_time(payload.get('updatedAt'), now, max_age)
     price = number(payload['price'])
     if price <= 0:
@@ -83,32 +92,74 @@ def parse_gold(payload, now):
                 source_label='Gold API', source_url='https://gold-api.com/')
 
 
+def raw_yahoo(spec):
+    errors = []
+    for host in ('query1.finance.yahoo.com', 'query2.finance.yahoo.com'):
+        try:
+            url = f'https://{host}/v8/finance/chart/{quote(spec["ticker"], safe="")}?range=1mo&interval=1d'
+            payload = get(url).json()['chart']
+            if payload.get('error'):
+                raise ValueError(str(payload['error']))
+            result = payload['result'][0]
+            meta = result['meta']
+            rows = result['indicators']['quote'][0]
+            history = pd.DataFrame(rows, index=pd.to_datetime(result['timestamp'], unit='s', utc=True).tz_convert(meta['exchangeTimezoneName']))
+            history = history.rename(columns={key:key.capitalize() for key in rows})
+            item = parse_yahoo(spec, history, meta, dt.datetime.now(JST))
+            item['source_endpoint'] = host
+            return item
+        except (requests.RequestException, ValueError, KeyError, TypeError, IndexError) as exc:
+            errors.append(f'{host}: {exc}')
+    # Independent library path supports both epoch and pandas Timestamp metadata.
+    try:
+        ticker = yf.Ticker(spec['ticker'])
+        history = ticker.history(period='1mo', interval='1d', auto_adjust=False, timeout=8)
+        return parse_yahoo(spec, history, ticker.history_metadata, dt.datetime.now(JST))
+    except Exception as exc:
+        raise ValueError('; '.join(errors)+f'; yfinance: {exc}') from exc
+
+
 def fetch_one(spec):
-    now = dt.datetime.now(JST)
     try:
         if spec['id'] == 'gold':
-            response = requests.get('https://api.gold-api.com/price/XAU', timeout=15)
-            response.raise_for_status()
-            item = parse_gold(response.json(), now)
+            item = parse_gold(get('https://api.gold-api.com/price/XAU').json(), dt.datetime.now(JST))
         else:
-            ticker = yf.Ticker(spec['ticker'])
-            history = ticker.history(period='6mo', interval='1d', auto_adjust=False, timeout=15)
-            item = parse_yahoo(spec, history, ticker.history_metadata, now)
-        print(f"{spec['ticker']}: {item['price']} as_of={item['as_of']}", file=sys.stderr)
+            item = raw_yahoo(spec)
+        print(json.dumps(dict(event='quote_ok', id=spec['id'], price=item['price'], as_of=item['as_of'],
+                              endpoint=item.get('source_endpoint')), ensure_ascii=False), file=sys.stderr)
         return item, None
     except Exception as exc:
         print(f"{spec['ticker']}: {exc}", file=sys.stderr)
         return None, dict(id=spec['id'], error=str(exc))
 
 
+def merge_cached(collected, previous, now):
+    items, failures = [], []
+    for spec, (item, error) in zip(MARKET_INDICES, collected):
+        if item:
+            items.append(item)
+            continue
+        failures.append(error)
+        old = next((row for row in previous.get('items', []) if all(row.get(k)==spec[k] for k in ('id','ticker','instrument_type'))), None)
+        if not old:
+            continue
+        fetched = parse_time(old.get('fetched_at'))
+        if not fetched or not -dt.timedelta(minutes=5) <= now-fetched <= dt.timedelta(hours=24):
+            continue
+        cached = dict(old, cache_status='previous', cache_until=(fetched+dt.timedelta(hours=24)).isoformat(),
+                      last_attempt_at=now.isoformat(), fetch_error=error['error'])
+        items.append(cached)
+    return items, failures
+
+
 def main():
-    with ThreadPoolExecutor(max_workers=3) as pool:
+    with ThreadPoolExecutor(max_workers=2) as pool:
         collected = list(pool.map(fetch_one, MARKET_INDICES))
-    items = [item for item, _ in collected if item]
-    failures = [error for _, error in collected if error]
+    previous = _load_existing('data/market_indices.json') or {}
+    items, failures = merge_cached(collected, previous, dt.datetime.now(JST))
     out = dict(items=items, failures=failures, source='Yahoo Finance / Gold API',
                fetch_status='partial' if failures else 'ok',
-               fetch_warning=f'6指標中{len(items)}指標取得' if failures else None,
+               fetch_warning=f'取得失敗{len(failures)}指標。取得済みの実値は基準時刻付きで保持' if failures else None,
                updated_at=dt.datetime.now(JST).isoformat())
     saved = safe_save('data/market_indices.json', out, lambda data: len(data['items']), label='主要マーケット指標')
     print(json.dumps(dict(saved=saved, count=len(items))))

@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 """
-本日の決算速報 / マルチソース取得スクリプト
-
-データソース:
-  1) irbank.net/news          — 数値データ完備の決算速報（売上・利益・増減率）
-  2) kabutan.jp/news/?category=4 — 株探の決算速報ニュース（修正/決算の見出し付き）
-  3) ke.kabupro.jp/hist/today.htm — 当日の決算関連適時開示の全件
-
-3ソースを統合し、当日（JST）の決算関連情報のみを対象に
-銘柄コードで重複排除しつつ、サプライズ性の高い順にグルーピングして出力する。
+決算速報のCLI入口。現在の取得・選定処理は tdnet_earnings.main に委譲する。
+TDnet公式の日付別一覧とXBRL/PDFを使い、実数値で確認できるサプライズを選定する。
+以下の旧ソース用パーサーは既存データ互換性の回帰テストのため保持している。
 
 出力: data/earnings_flash.json
 """
@@ -1134,139 +1128,10 @@ def retain_same_day_quality(
 # ─────────────────────────────────────────────────
 
 def main() -> int:
-    now = datetime.datetime.now(JST)
-    print(f"[決算速報] {now.isoformat()} 実行開始", file=sys.stderr)
-    out_path = os.path.normpath(
-        os.path.join(os.path.dirname(__file__), "..", "data", "earnings_flash.json")
-    )
-
-    ir_items, ir_date = fetch_irbank()
-    time.sleep(0.4)
-    ku_items, ku_md = fetch_kabutan()
-    time.sleep(0.4)
-    kp_items, kp_date = fetch_kabupro()
-    kp_rich_count = enrich_kabupro_metrics(kp_items)
-
-    # IRBANK/株探がGitHub ActionsのIPを拒否しても、原資料PDFから十分な
-    # 数値を補完できた日は最新日に進める。見出しだけしかない場合は従来通り温存。
-    if not ir_items and not ku_items and kp_rich_count < 3:
-        safe_save(
-            out_path,
-            {
-                "updated_at": now.isoformat(),
-                "total": 0,
-                "fetch_error": "数値・要点付きの決算情報を取得できなかったため、前回の高品質データを維持しています",
-            },
-            lambda d: d.get("total", 0),
-            label="決算速報",
-        )
-        return 0
-
-    # 決算プロ単独フォールバック時は、数値抽出できた高品質項目だけを採用する。
-    kp_for_merge = (
-        [item for item in kp_items if item.get("metrics")]
-        if not ir_items and not ku_items
-        else kp_items
-    )
-    merged = merge_items(ir_items, ku_items, kp_for_merge)
-
-    # 表示用の article_date: irbankの最新日を優先（最も信頼できる日付）
-    article_date = ir_date or kp_date
-    if not article_date and ku_md:
-        # kabutanのMM/DDをそのまま使う（年は今年）
-        article_date = f"{now.year}-{ku_md.replace('/', '-')}"
-
-    important = [it for it in merged if it.get("category") != "その他開示"]
-    retained_same_day = 0
-    if not ir_items and not ku_items:
-        existing_data = None
-        try:
-            with open(out_path, encoding="utf-8") as existing_file:
-                existing_data = json.load(existing_file)
-        except (OSError, ValueError):
-            pass
-        important, retained_same_day = retain_same_day_quality(
-            important, existing_data, article_date
-        )
-    important.sort(
-        key=lambda it: (int(it.get("impact_score") or 0), it.get("time", "")),
-        reverse=True,
-    )
-    enrich_highlight_charts(important[:12])
-    groups = group_items(important)
-    total = len(important)
-
-    for item in important:
-        item["published_date"] = article_date
-        item["published_time"] = item.get("time", "")
-        try:
-            published = datetime.date.fromisoformat(article_date)
-            date_label = f"{published.month}/{published.day}"
-        except (TypeError, ValueError):
-            date_label = article_date or "日付不明"
-        item["published_label"] = (
-            f"{date_label} {item['published_time']}発表"
-            if item["published_time"] else f"{date_label}発表"
-        )
-
-    data: dict[str, Any] = {
-        "updated_at": now.isoformat(),
-        "article_date": article_date,
-        "sources": [
-            source for source, available in (
-                ("irbank", bool(ir_items) or retained_same_day > 0),
-                ("kabutan", bool(ku_items) or retained_same_day > 0),
-                ("kabupro_pdf", kp_rich_count),
-            )
-            if available
-        ],
-        "source_counts": {
-            "irbank": len(ir_items),
-            "kabutan": len(ku_items),
-            "kabupro": len(kp_items),
-            "kabupro_pdf_metrics": kp_rich_count,
-        },
-        "source_dates": {
-            "irbank": ir_date,
-            "kabutan": ku_md,
-            "kabupro": kp_date,
-        },
-        "groups": groups,
-        "highlights": important[:12],
-        "total": total,
-        "selection_note": "業績修正・増減益・黒字転換など、市場への影響が大きい決算を優先。主要ニュースサイトが取得できない場合は原資料PDFの数値で補完",
-    }
-    if not ir_items or not ku_items:
-        data["fetch_status"] = "fallback"
-        unavailable = []
-        if not ir_items:
-            unavailable.append("IRBANK")
-        if not ku_items:
-            unavailable.append("株探")
-        data["fetch_warning"] = (
-            f"{'・'.join(unavailable)}を取得できないため、当日の原資料PDFから"
-            f"数値抽出した{kp_rich_count}件を中心に選定"
-            + (
-                f"。同日取得済みの高品質項目{retained_same_day}件も保持"
-                if retained_same_day else ""
-            )
-        )
-    else:
-        data["fetch_status"] = "ok"
-
-    print(
-        f"[決算速報] 統合結果 total={total} groups={len(groups)} "
-        f"(ir={len(ir_items)}, kabutan={len(ku_items)}, kabupro={len(kp_items)})",
-        file=sys.stderr,
-    )
-
-    safe_save(
-        out_path,
-        data,
-        lambda d: d.get("total", 0),
-        label="決算速報",
-    )
-    return 0
+    # Legacy parsing helpers above are retained for compatibility and regression tests.
+    # Production collection uses the official, dated TDnet list and XBRL/PDF cache.
+    from tdnet_earnings import main as tdnet_main
+    return tdnet_main()
 
 
 if __name__ == "__main__":

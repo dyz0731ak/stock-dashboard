@@ -46,11 +46,15 @@ jobs:
       - name: Fetch cash indices, FX and spot gold (現物指数・為替・金スポット)
         run: |
           cd ${{ github.workspace }}
-          python scripts/run_fetch.py market_indices --timeout 90
+          python scripts/run_fetch.py market_indices --timeout 180
         continue-on-error: true
 
       - name: Fetch TSE market segment indices (東証プライム・スタンダード・グロース)
         run: python scripts/run_fetch.py tse_indices --timeout 45
+        continue-on-error: true
+
+      - name: Cache market OHLC history (クリック時に銘柄・期間別に読込)
+        run: timeout 180 python scripts/fetch_market_history.py
         continue-on-error: true
 
       - name: Fetch Nikkei 225 heatmap data (日経225ヒートマップ)
@@ -87,7 +91,7 @@ jobs:
       - name: Fetch earnings flash (決算速報・サプライズ決算)
         run: |
           cd ${{ github.workspace }}
-          python scripts/run_fetch.py earnings_flash --timeout 120
+          python scripts/run_fetch.py earnings_flash --timeout 240
         continue-on-error: true
 
       - name: Fetch theme stocks ranking (テーマ株ランキング・週間/月間騰落)

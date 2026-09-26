@@ -55,7 +55,7 @@ python -m unittest discover -s tests -v
 - **日本株母集団**: [JPX 上場銘柄一覧](https://www.jpx.co.jp/markets/statistics-equities/misc/01.html)
 - **株価・日足**: Yahoo Finance（yfinance）
 - **夜間PTS**: 進行中セッションは株探PTS夜間ランキング（ジャパンネクスト提供値）、終了後はジャパンネクスト公式CSV
-- **日本株決算**: IRBANK・株探・決算プロ。前二者を取得できない場合は、決算プロ掲載の原資料PDFから売上・利益・増減率を補完
+- **日本株決算**: TDnetの日付付き一覧と原資料XBRL/PDF。規模を問わず利益変動・会社予想修正・増減配・自社株買いを選別。前年同期比と前回会社予想比を区別し、未取得の市場コンセンサスは推定しない。開示のない日は直近の発表日を明記して表示。
 
 ## ライセンス
 
@@ -101,3 +101,10 @@ MIT
 - 東証の値は取引日・市場時刻で検証。米国市場は休場を挟むため最大4日以内の基準時刻を許容し、カードに時刻を明記。全データは再取得から最大8時間で失効する。
 
 追加検証: `python -m unittest discover -s tests -v`、`python scripts/prerender.py`、`python scripts/check_site.py`。
+
+### 指標とチャートの取得
+
+- Yahoo Finance生API→別ホスト→yfinanceの順。タイムアウト、HTTP 429/5xxの限定再試行、最大2並列。前回実値は取得時刻を変えず最大24時間保持し、「前回取得値」を表示。
+- `fetch_market_history.py` は現物5指標のOHLCを1時間キャッシュし、銘柄×1/3/6/12/36ヶ月の静的JSONを生成。画面ではカードクリック・期間切替時だけ取得する。欠損OHLCを合成しない。
+- 金チャートのみTradingView / ICEのXAU/USDスポットをオンデマンド埋め込み。カードのGold API価格とは取得元と時刻が異なる。
+- 決算原資料の解析結果は `data/tdnet_cache.json` に8日保持。取得・解析失敗は6時間後に再試行。1件でも確認できた重要開示は掲載し、正常に確認できた0件と通信失敗を区別する。
