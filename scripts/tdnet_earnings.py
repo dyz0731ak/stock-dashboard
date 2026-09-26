@@ -22,6 +22,7 @@ from market_http import get
 from safe_save import _load_existing, _write_json_atomic, safe_save, mark_failed
 from data_status import is_fresh
 from fetch_company_profiles import collect_one, needs_refresh
+from earnings_amounts import format_yen, normalize_earnings
 
 BASE = 'https://www.release.tdnet.info/inbs/'
 DATA = Path(__file__).resolve().parents[1] / 'data'
@@ -190,10 +191,8 @@ def parse_pdf_comparisons(text, title):
 
 
 def describe_number(row, value):
-    if row['unit'] == '百万円':
-        return f'{value/1e6:,.0f}百万円'
-    if row['unit'] == '円' and row['label']=='取得上限額':
-        return f'{value/1e8:g}億円'
+    if row['unit'] == '百万円' or (row['unit']=='円' and row['label']=='取得上限額'):
+        return format_yen(value)
     return f'{value:,.2f}'.rstrip('0').rstrip('.')+row['unit']
 
 
@@ -279,7 +278,7 @@ def main():
             previous.update(fetch_status='fallback',cache_status='previous',last_attempt_at=now.isoformat(),
                             fetch_warning='TDnetの更新確認に失敗したため、前回取得済みの開示を掲載しています。発表日時をご確認ください。',
                             fetch_error=str(exc))
-            _write_json_atomic(outpath,previous)
+            _write_json_atomic(outpath,normalize_earnings(previous))
             return 0
         mark_failed(outpath,f'TDnet一覧取得失敗: {exc}')
         return 1
@@ -318,7 +317,7 @@ def main():
         result = cache[row['document_url']]
         if result.get('errors'):
             failures.append(dict(code=row['code'], url=row['document_url'], errors=result['errors']))
-        item = result.get('item')
+        item = normalize_earnings(result.get('item'))
         if not item:
             continue
         # Keep separate announcements auditable; show the strongest per company.
@@ -363,7 +362,7 @@ def main():
                 selection_note='時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。',
                 empty_message='対象日の重要開示はありません（TDnet確認済み）。')
     # A successful list with no significant releases is a valid result, not a fetch failure.
-    safe_save(outpath,data,lambda d:1,label='決算速報・TDnet')
+    safe_save(outpath,normalize_earnings(data),lambda d:1,label='決算速報・TDnet')
     print(json.dumps(dict(event='tdnet_finished',checked_date=today,article_date=article_date,
                           candidates=len(rows),selected=len(highlights),failures=failures),ensure_ascii=False))
     return 0

@@ -57,6 +57,10 @@ jobs:
         run: timeout 180 python scripts/fetch_market_history.py
         continue-on-error: true
 
+      - name: Cache TSE segment OHLC history (プライム・スタンダード・グロース)
+        run: timeout 180 python scripts/fetch_tse_history.py
+        continue-on-error: true
+
       - name: Fetch Nikkei 225 heatmap data (日経225ヒートマップ)
         run: |
           cd ${{ github.workspace }}

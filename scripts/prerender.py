@@ -146,6 +146,7 @@ def pct_badge_style(pct):
 from data_status import is_fresh, status_text
 from market_index_specs import MARKET_INDICES, TSE_INDICES
 from market_clock import parse_time
+from earnings_amounts import normalize_earnings
 
 
 # ─────────────────────────────────────────────
@@ -159,7 +160,7 @@ def build_idx(data, specs=None):
                      if all(row.get(key) == spec[key] for key in ('id', 'ticker', 'instrument_type'))), None)
         label, unit = esc(spec['label']), esc(spec['unit'])
         button = (f'<button class="index-chart-button" type="button" data-market-chart="{spec["id"]}" '
-                  f'aria-label="{label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>') if spec in MARKET_INDICES else ''
+                  f'aria-label="{label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>')
         fetched = parse_time((item or {}).get('fetched_at'))
         cache_until = parse_time((item or {}).get('cache_until'))
         now = datetime.datetime.now(JST)
@@ -320,6 +321,7 @@ def build_market_news(news):
 
 
 def build_flash(flash):
+    flash = normalize_earnings(flash)
     if not is_fresh(flash, 36):
         return ""
     items = flash.get("highlights") or [
@@ -763,7 +765,7 @@ def main():
     volume = load("volume_stocks.json")
     events = {}
     market_news = load("market_news.json")
-    flash = load("earnings_flash.json")
+    flash = normalize_earnings(load("earnings_flash.json"))
     nikkei = load("nikkei225.json")
 
     with open(INDEX, encoding="utf-8") as f:

@@ -104,7 +104,7 @@ function renderIndices(data, group='market') {
     const it = data?.items?.find(row=>row.id===id && row.ticker===ticker && row.instrument_type===type);
     const cached = it?.cache_status === 'previous' && ageHours(it.fetched_at)>=0 && ageHours(it.fetched_at)<=24 && Date.now()<=Date.parse(it.cache_until);
     const fresh = ((isFresh(data,8) && isFresh(it,8)) || cached) && Number.isFinite(it?.price) && it.price>0;
-    const chartButton = tse ? '' : `<button class="index-chart-button" type="button" data-market-chart="${id}" aria-label="${label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>`;
+    const chartButton = `<button class="index-chart-button" type="button" data-market-chart="${id}" aria-label="${label}のローソク足チャートを開く" aria-haspopup="dialog"><span>ローソク足 ›</span></button>`;
     if (!fresh) return `<div class="idx-card index-unavailable"><div class="head"><span class="label">${label}</span></div><div class="price num">—</div><div class="index-unit">${unit}</div><div class="price-date">取得待ち・期限切れ</div>${chartButton}</div>`;
     const hasChange = Number.isFinite(it.pct) && Number.isFinite(it.change);
     const badge = hasChange ? `<span class="pct-badge" ${pctBadge(it.pct)}>${pctTxt(it.pct)}</span>` : '<span class="spot-badge">スポット</span>';

@@ -8,6 +8,9 @@
     usdjpy: ['FX_IDC:USDJPY', 'USD/JPY'],
     sox: ['NASDAQ:SOX', 'SOX指数'],
     gold: ['FX_IDC:XAUUSD', '金スポット（XAU/USD）'],
+    'tse-prime': ['TsePrimeMarketIndex', '東証プライム市場指数'],
+    'tse-standard': ['TseStandardMarketIndex', '東証スタンダード市場指数'],
+    'tse-growth': ['TseGrowthMarketIndex', '東証グロース市場指数'],
   };
   const periods = [['1M','1ヶ月'], ['3M','3ヶ月'], ['6M','6ヶ月'], ['12M','1年'], ['36M','3年']];
   let dialog, host, timer, opener, active, request, generation=0;
@@ -23,9 +26,9 @@
     const [symbol, name] = instruments[active];
     dialog.querySelectorAll('[data-range]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.range===range)));
     const status = dialog.querySelector('.market-chart-status');
-    status.textContent = '日足ローソク足を読み込み中…';
+    status.textContent = 'ローソク足を読み込み中…';
     if(active!=='gold') {
-      dialog.querySelector('.market-chart-note').textContent='実際の始値・高値・安値・終値による日足。休日や欠損した足は補間しません。足に触れるか、チャート内で左右キーを押すと四本値を確認できます。';
+      dialog.querySelector('.market-chart-note').textContent='実際の始値・高値・安値・終値によるローソク足。休日や欠損した足は補間しません。足に触れるか、チャート内で左右キーを押すと四本値を確認できます。';
       loadHistory(active,range,generation);
       return;
     }
@@ -85,12 +88,15 @@
       if(bars.some(b=>!/^\d{4}-\d{2}-\d{2}$/.test(b.t) || ![b.o,b.h,b.l,b.c].every(v=>Number.isFinite(v)&&v>0) || b.h<Math.max(b.o,b.c) || b.l>Math.min(b.o,b.c)))throw new Error('四本値を検証できません');
       if(Date.now()-Date.parse(d.fetched_at)>7*86400000)throw new Error('履歴データの更新を確認できません');
       const stale=Date.now()-Date.parse(d.fetched_at)>8*3600000;
-      status.textContent=`${periods.find(p=>p[0]===range)[1]} ｜ 日足 ${bars.length}本 ｜ ${bars[0].t} ～ ${bars.at(-1).t}${stale?' ｜ 前回取得データ':''}`;
-      draw(bars,instruments[id][1],id==='usdjpy'?3:2);
+      const interval={'1d':'日足','1wk':'週足','1mo':'月足'}[d.interval||'1d'];
+      if(!interval)throw new Error('足種別が不明です');
+      status.textContent=`${periods.find(p=>p[0]===range)[1]} ｜ ${interval} ${bars.length}本 ｜ ${bars[0].t} ～ ${d.as_of||bars.at(-1).t}${stale?' ｜ 前回取得データ':''}`;
+      if(d.note)dialog.querySelector('.market-chart-note').textContent=d.note+' 足に触れるか左右キーで四本値を確認できます。';
+      draw(bars,instruments[id][1],id==='usdjpy'?3:2,interval);
       const source=document.createElement('a');
-      source.href='https://finance.yahoo.com/quote/'+encodeURIComponent(d.ticker)+'/history/';
+      source.href=/^https:\/\//.test(d.source_url||'')?d.source_url:'https://finance.yahoo.com/quote/'+encodeURIComponent(d.ticker)+'/history/';
       source.target='_blank';source.rel='noopener noreferrer';source.className='market-history-source';
-      source.textContent=`Yahoo Finance ｜ 取得 ${new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(d.fetched_at))} JST`;
+      source.textContent=`${d.source_label||'Yahoo Finance'} ｜ 取得 ${new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(d.fetched_at))} JST`;
       host.append(source);
     } catch(error) {
       if(version!==generation)return;
@@ -98,7 +104,7 @@
       cache.delete(key);
     }
   }
-  function draw(bars,name,decimals) {
+  function draw(bars,name,decimals,interval='日足') {
     const W=Math.max(320,Math.round(host.clientWidth)),H=Math.max(240,Math.round(host.clientHeight-65)),L=12,R=86,T=18,B=30,plot=W-L-R;
     const low=Math.min(...bars.map(b=>b.l)),high=Math.max(...bars.map(b=>b.h));
     const pad=(high-low)*.07 || high*.01, min=low-pad,max=high+pad;
@@ -119,7 +125,7 @@
     const readout=document.createElement('p');readout.className='market-ohlc';
     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('preserveAspectRatio','none');
-    svg.setAttribute('role','img');svg.setAttribute('aria-label',name+'の日足ローソク足チャート');svg.setAttribute('tabindex','0');
+    svg.setAttribute('role','img');svg.setAttribute('aria-label',name+'の'+interval+'ローソク足チャート');svg.setAttribute('tabindex','0');
     svg.innerHTML=content+'<path class="chart-crosshair" stroke="#93aabe" stroke-dasharray="3 4"/>';
     let current=bars.length-1;
     const select=i=>{
