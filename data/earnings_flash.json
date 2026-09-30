@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T16:18:33.516253+09:00",
+  "updated_at": "2026-09-30T16:32:30.876728+09:00",
   "article_date": "2026-09-30",
   "checked_date": "2026-09-30",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 28,
-    "selected": 17,
-    "document_failures": 5
+    "tdnet_candidates": 31,
+    "selected": 18,
+    "document_failures": 6
   },
   "source_failures": [
+    {
+      "code": "6594",
+      "url": "https://www.release.tdnet.info/inbs/140120260930543360.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "6908",
       "url": "https://www.release.tdnet.info/inbs/140120260930543303.pdf",
@@ -49,6 +56,106 @@
     }
   ],
   "highlights": [
+    {
+      "code": "6594",
+      "name": "ニデック",
+      "title": "2026年3月期 第3四半期決算短信〔IFRS〕(連結)",
+      "time": "16:30",
+      "published_date": "2026-09-30",
+      "document_url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220260929542486.zip",
+      "narrative": "2026年3月期 第3四半期決算短信〔IFRS〕(連結) / 2026年3月期決算短信〔IFRS〕(連結)",
+      "key_numbers": [
+        {
+          "label": "通期 純利益",
+          "value": "-5,646.24億円",
+          "comparison": "846.72億円 → -5,646.24億円（前年同期比）"
+        },
+        {
+          "label": "通期 営業利益",
+          "value": "-56.76億円",
+          "comparison": "59.44億円 → -56.76億円（前年同期比）"
+        },
+        {
+          "label": "通期 経常利益",
+          "value": "1,200.3億円",
+          "comparison": "566.57億円 → 1,200.3億円（前年同期比）"
+        },
+        {
+          "label": "通期 売上高",
+          "value": "2,734.52億円",
+          "comparison": "2,533.98億円 → 2,734.52億円（前年同期比）"
+        },
+        {
+          "label": "第3四半期累計 純利益",
+          "value": "391.17億円",
+          "comparison": "1,273.85億円 → 391.17億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 39117000000.0,
+          "previous": 127385000000.0,
+          "pct": -69.29,
+          "basis": "前年同期比",
+          "period": "第3四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParentIFRS",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "大幅減益 -69.3%",
+          "direction": "down"
+        },
+        {
+          "label": "純利益",
+          "value": "赤字転落",
+          "direction": "down"
+        },
+        {
+          "label": "営業利益",
+          "value": "赤字転落",
+          "direction": "down"
+        },
+        {
+          "label": "経常利益",
+          "value": "大幅増益 +111.8%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "negative",
+      "impact_label": "大幅減益 -69.3%",
+      "impact_summary": "第3四半期累計純利益が大幅減益 -69.3%（前年同期比）。通期純利益が赤字転落（前年同期比）。通期営業利益が赤字転落（前年同期比）。通期経常利益が大幅増益 +111.8%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "09/30 16:30発表",
+      "published_time": "16:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+          "title": "2026年3月期 第3四半期決算短信〔IFRS〕(連結)",
+          "time": "16:30"
+        },
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120260930543478.pdf",
+          "title": "2026年3月期決算短信〔IFRS〕(連結)",
+          "time": "16:30"
+        }
+      ],
+      "company_summary": "精密小型モーター大手",
+      "company_summary_source": "https://s.kabutan.jp/stocks/6594/"
+    },
     {
       "code": "2130",
       "name": "メンバーズ",
@@ -1263,120 +1370,115 @@
       ],
       "company_summary": "祖業は印刷。産業資材、ディバイス、メディカルテクノロジーの3事業へ",
       "company_summary_source": "https://s.kabutan.jp/stocks/7915/"
-    },
-    {
-      "code": "8358",
-      "name": "スルガ銀",
-      "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-      "time": "15:30",
-      "published_date": "2026-09-30",
-      "document_url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220260930543278.zip",
-      "narrative": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 純利益",
-          "value": "440億円",
-          "comparison": "320億円 → 440億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 経常利益",
-          "value": "560億円",
-          "comparison": "475億円 → 560億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 1株配当",
-          "value": "80円",
-          "comparison": "60円 → 80円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 44000000000.0,
-          "previous": 32000000000.0,
-          "pct": 37.5,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "経常利益",
-          "current": 56000000000.0,
-          "previous": 47500000000.0,
-          "pct": 17.89,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "1株配当",
-          "current": 80.0,
-          "previous": 60.0,
-          "pct": 33.33,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": false,
-          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "DividendPerShare",
-          "unit": "円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "上方修正 +37.5%",
-          "direction": "up"
-        },
-        {
-          "label": "経常利益",
-          "value": "上方修正 +17.9%",
-          "direction": "up"
-        },
-        {
-          "label": "1株配当",
-          "value": "増配 +33.3%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "上方修正 +37.5%",
-      "impact_summary": "通期純利益が上方修正 +37.5%（前回会社予想比）。通期経常利益が上方修正 +17.9%（前回会社予想比）。通期1株配当が増配 +33.3%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "09/30 15:30発表",
-      "published_time": "15:30",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "2027年3月期第2四半期(累計)(以下、「当中間期」といいます)の個別業績については、本業であるローンビジネスの新規実行及び金利上昇の織り込みが順調に推移したこと等により、前回発表予想を上回るコア業務粗利益が見込まれます。また、費用については、第1四半期に実施した一棟収益不動産ローンの不動産担保評価方法の変更に伴う貸倒引当金の戻入益が想定を上回ったことに加え、これまでに実施した予防的引当の影響等により、実質与信費用が前回発表予想を下回る見通しであり、業績予想を上方修正するものです。 また、2027年3月期通期(以下、「当期」といいます)の個別業績についても、当中間期までの好調な業績推移に加え、今後の金融経済環境や業績動向等を勘案し、業績予想を上方修正することといたしました。 なお、税負担率については、当中間期が15%程度、当期が20%程度を見込んでおります。 連結業績予想の修正は、主に個別業績予想の修正によるものです。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-          "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-          "time": "15:30"
-        }
-      ],
-      "company_summary": "静岡・神奈川が地盤。個人ローンが主力",
-      "company_summary_source": "https://s.kabutan.jp/stocks/8358/"
     }
   ],
-  "total": 17,
+  "total": 18,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "6594",
+          "name": "ニデック",
+          "title": "2026年3月期 第3四半期決算短信〔IFRS〕(連結)",
+          "time": "16:30",
+          "published_date": "2026-09-30",
+          "document_url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220260929542486.zip",
+          "narrative": "2026年3月期 第3四半期決算短信〔IFRS〕(連結) / 2026年3月期決算短信〔IFRS〕(連結)",
+          "key_numbers": [
+            {
+              "label": "通期 純利益",
+              "value": "-5,646.24億円",
+              "comparison": "846.72億円 → -5,646.24億円（前年同期比）"
+            },
+            {
+              "label": "通期 営業利益",
+              "value": "-56.76億円",
+              "comparison": "59.44億円 → -56.76億円（前年同期比）"
+            },
+            {
+              "label": "通期 経常利益",
+              "value": "1,200.3億円",
+              "comparison": "566.57億円 → 1,200.3億円（前年同期比）"
+            },
+            {
+              "label": "通期 売上高",
+              "value": "2,734.52億円",
+              "comparison": "2,533.98億円 → 2,734.52億円（前年同期比）"
+            },
+            {
+              "label": "第3四半期累計 純利益",
+              "value": "391.17億円",
+              "comparison": "1,273.85億円 → 391.17億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 39117000000.0,
+              "previous": 127385000000.0,
+              "pct": -69.29,
+              "basis": "前年同期比",
+              "period": "第3四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParentIFRS",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "大幅減益 -69.3%",
+              "direction": "down"
+            },
+            {
+              "label": "純利益",
+              "value": "赤字転落",
+              "direction": "down"
+            },
+            {
+              "label": "営業利益",
+              "value": "赤字転落",
+              "direction": "down"
+            },
+            {
+              "label": "経常利益",
+              "value": "大幅増益 +111.8%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "negative",
+          "impact_label": "大幅減益 -69.3%",
+          "impact_summary": "第3四半期累計純利益が大幅減益 -69.3%（前年同期比）。通期純利益が赤字転落（前年同期比）。通期営業利益が赤字転落（前年同期比）。通期経常利益が大幅増益 +111.8%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "09/30 16:30発表",
+          "published_time": "16:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120260929542486.pdf",
+              "title": "2026年3月期 第3四半期決算短信〔IFRS〕(連結)",
+              "time": "16:30"
+            },
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120260930543478.pdf",
+              "title": "2026年3月期決算短信〔IFRS〕(連結)",
+              "time": "16:30"
+            }
+          ],
+          "company_summary": "精密小型モーター大手",
+          "company_summary_source": "https://s.kabutan.jp/stocks/6594/"
+        },
         {
           "code": "2130",
           "name": "メンバーズ",
@@ -2591,111 +2693,6 @@
           ],
           "company_summary": "祖業は印刷。産業資材、ディバイス、メディカルテクノロジーの3事業へ",
           "company_summary_source": "https://s.kabutan.jp/stocks/7915/"
-        },
-        {
-          "code": "8358",
-          "name": "スルガ銀",
-          "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-          "time": "15:30",
-          "published_date": "2026-09-30",
-          "document_url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220260930543278.zip",
-          "narrative": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 純利益",
-              "value": "440億円",
-              "comparison": "320億円 → 440億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 経常利益",
-              "value": "560億円",
-              "comparison": "475億円 → 560億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 1株配当",
-              "value": "80円",
-              "comparison": "60円 → 80円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 44000000000.0,
-              "previous": 32000000000.0,
-              "pct": 37.5,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "経常利益",
-              "current": 56000000000.0,
-              "previous": 47500000000.0,
-              "pct": 17.89,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "1株配当",
-              "current": 80.0,
-              "previous": 60.0,
-              "pct": 33.33,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": false,
-              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "DividendPerShare",
-              "unit": "円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "上方修正 +37.5%",
-              "direction": "up"
-            },
-            {
-              "label": "経常利益",
-              "value": "上方修正 +17.9%",
-              "direction": "up"
-            },
-            {
-              "label": "1株配当",
-              "value": "増配 +33.3%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "上方修正 +37.5%",
-          "impact_summary": "通期純利益が上方修正 +37.5%（前回会社予想比）。通期経常利益が上方修正 +17.9%（前回会社予想比）。通期1株配当が増配 +33.3%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "09/30 15:30発表",
-          "published_time": "15:30",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "2027年3月期第2四半期(累計)(以下、「当中間期」といいます)の個別業績については、本業であるローンビジネスの新規実行及び金利上昇の織り込みが順調に推移したこと等により、前回発表予想を上回るコア業務粗利益が見込まれます。また、費用については、第1四半期に実施した一棟収益不動産ローンの不動産担保評価方法の変更に伴う貸倒引当金の戻入益が想定を上回ったことに加え、これまでに実施した予防的引当の影響等により、実質与信費用が前回発表予想を下回る見通しであり、業績予想を上方修正するものです。 また、2027年3月期通期(以下、「当期」といいます)の個別業績についても、当中間期までの好調な業績推移に加え、今後の金融経済環境や業績動向等を勘案し、業績予想を上方修正することといたしました。 なお、税負担率については、当中間期が15%程度、当期が20%程度を見込んでおります。 連結業績予想の修正は、主に個別業績予想の修正によるものです。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120260930543278.pdf",
-              "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
-              "time": "15:30"
-            }
-          ],
-          "company_summary": "静岡・神奈川が地盤。個人ローンが主力",
-          "company_summary_source": "https://s.kabutan.jp/stocks/8358/"
         }
       ]
     }
@@ -2703,8 +2700,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-09-30T07:18:34.622816+00:00",
-  "fetched_at": "2026-09-30T16:18:33.516253+09:00",
-  "last_success_at": "2026-09-30T16:18:33.516253+09:00",
-  "valid_until": "2026-10-02T04:18:33.516253+09:00"
+  "last_attempt_at": "2026-09-30T07:32:32.800862+00:00",
+  "fetched_at": "2026-09-30T16:32:30.876728+09:00",
+  "last_success_at": "2026-09-30T16:32:30.876728+09:00",
+  "valid_until": "2026-10-02T04:32:30.876728+09:00"
 }
