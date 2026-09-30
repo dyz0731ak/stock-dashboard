@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T17:49:39.496130+09:00",
+  "updated_at": "2026-09-30T18:05:34.907566+09:00",
   "article_date": "2026-09-30",
   "checked_date": "2026-09-30",
   "sources": [
@@ -7,11 +7,25 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 32,
-    "selected": 18,
-    "document_failures": 6
+    "tdnet_candidates": 35,
+    "selected": 19,
+    "document_failures": 8
   },
   "source_failures": [
+    {
+      "code": "4069",
+      "url": "https://www.release.tdnet.info/inbs/140120260930543646.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "4069",
+      "url": "https://www.release.tdnet.info/inbs/140120260930543654.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "6594",
       "url": "https://www.release.tdnet.info/inbs/140120260930543360.pdf",
@@ -56,6 +70,122 @@
     }
   ],
   "highlights": [
+    {
+      "code": "4069",
+      "name": "BlueMeme",
+      "title": "2026年3月期 決算短信〔日本基準〕(連結)",
+      "time": "18:00",
+      "published_date": "2026-09-30",
+      "document_url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220260930543649.zip",
+      "narrative": "2026年3月期 決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "通期 純利益",
+          "value": "2,400万円",
+          "comparison": "-1,000万円 → 2,400万円（前年同期比）"
+        },
+        {
+          "label": "通期 経常利益",
+          "value": "5,100万円",
+          "comparison": "2,900万円 → 5,100万円（前年同期比）"
+        },
+        {
+          "label": "通期 売上高",
+          "value": "32.98億円",
+          "comparison": "23.65億円 → 32.98億円（前年同期比）"
+        },
+        {
+          "label": "通期 営業利益",
+          "value": "4,700万円",
+          "comparison": "3,900万円 → 4,700万円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 24000000.0,
+          "previous": -10000000.0,
+          "pct": 340.0,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 51000000.0,
+          "previous": 29000000.0,
+          "pct": 75.86,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 3298000000.0,
+          "previous": 2365000000.0,
+          "pct": 39.45,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        },
+        {
+          "label": "営業利益",
+          "current": 47000000.0,
+          "previous": 39000000.0,
+          "pct": 20.51,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "大幅増益 +75.9%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "黒字転換",
+      "impact_summary": "通期純利益が黒字転換（前年同期比）。通期経常利益が大幅増益 +75.9%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "09/30 18:00発表",
+      "published_time": "18:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+          "title": "2026年3月期 決算短信〔日本基準〕(連結)",
+          "time": "18:00"
+        }
+      ],
+      "company_summary": "ローコード、アジャイル手法で次世代システム託開発やコンサルティング、教育サービスを提供",
+      "company_summary_source": "https://s.kabutan.jp/stocks/4069/"
+    },
     {
       "code": "6594",
       "name": "ニデック",
@@ -1310,75 +1440,131 @@
       ],
       "company_summary": "住宅建材中堅。エクステリアに注力",
       "company_summary_source": "https://s.kabutan.jp/stocks/5900/"
-    },
-    {
-      "code": "7915",
-      "name": "NISSHA",
-      "title": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-      "time": "15:30",
-      "published_date": "2026-09-30",
-      "document_url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220260929541752.zip",
-      "narrative": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "-54.73億円",
-          "comparison": "2,000万円 → -54.73億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": -5473000000.0,
-          "previous": 20000000.0,
-          "pct": -27465.0,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParentIFRS",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "赤字転落",
-          "direction": "down"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "negative",
-      "impact_label": "赤字転落",
-      "impact_summary": "第2四半期累計純利益が赤字転落（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "09/30 15:30発表",
-      "published_time": "15:30",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-          "title": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "time": "15:30"
-        }
-      ],
-      "company_summary": "祖業は印刷。産業資材、ディバイス、メディカルテクノロジーの3事業へ",
-      "company_summary_source": "https://s.kabutan.jp/stocks/7915/"
     }
   ],
-  "total": 18,
+  "total": 19,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "4069",
+          "name": "BlueMeme",
+          "title": "2026年3月期 決算短信〔日本基準〕(連結)",
+          "time": "18:00",
+          "published_date": "2026-09-30",
+          "document_url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220260930543649.zip",
+          "narrative": "2026年3月期 決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "通期 純利益",
+              "value": "2,400万円",
+              "comparison": "-1,000万円 → 2,400万円（前年同期比）"
+            },
+            {
+              "label": "通期 経常利益",
+              "value": "5,100万円",
+              "comparison": "2,900万円 → 5,100万円（前年同期比）"
+            },
+            {
+              "label": "通期 売上高",
+              "value": "32.98億円",
+              "comparison": "23.65億円 → 32.98億円（前年同期比）"
+            },
+            {
+              "label": "通期 営業利益",
+              "value": "4,700万円",
+              "comparison": "3,900万円 → 4,700万円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 24000000.0,
+              "previous": -10000000.0,
+              "pct": 340.0,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 51000000.0,
+              "previous": 29000000.0,
+              "pct": 75.86,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 3298000000.0,
+              "previous": 2365000000.0,
+              "pct": 39.45,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            },
+            {
+              "label": "営業利益",
+              "current": 47000000.0,
+              "previous": 39000000.0,
+              "pct": 20.51,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "大幅増益 +75.9%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "黒字転換",
+          "impact_summary": "通期純利益が黒字転換（前年同期比）。通期経常利益が大幅増益 +75.9%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "09/30 18:00発表",
+          "published_time": "18:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120260930543649.pdf",
+              "title": "2026年3月期 決算短信〔日本基準〕(連結)",
+              "time": "18:00"
+            }
+          ],
+          "company_summary": "ローコード、アジャイル手法で次世代システム託開発やコンサルティング、教育サービスを提供",
+          "company_summary_source": "https://s.kabutan.jp/stocks/4069/"
+        },
         {
           "code": "6594",
           "name": "ニデック",
@@ -2633,66 +2819,6 @@
           ],
           "company_summary": "住宅建材中堅。エクステリアに注力",
           "company_summary_source": "https://s.kabutan.jp/stocks/5900/"
-        },
-        {
-          "code": "7915",
-          "name": "NISSHA",
-          "title": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "time": "15:30",
-          "published_date": "2026-09-30",
-          "document_url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220260929541752.zip",
-          "narrative": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "-54.73億円",
-              "comparison": "2,000万円 → -54.73億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": -5473000000.0,
-              "previous": 20000000.0,
-              "pct": -27465.0,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParentIFRS",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "赤字転落",
-              "direction": "down"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "negative",
-          "impact_label": "赤字転落",
-          "impact_summary": "第2四半期累計純利益が赤字転落（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "09/30 15:30発表",
-          "published_time": "15:30",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120260929541752.pdf",
-              "title": "2026年12月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-              "time": "15:30"
-            }
-          ],
-          "company_summary": "祖業は印刷。産業資材、ディバイス、メディカルテクノロジーの3事業へ",
-          "company_summary_source": "https://s.kabutan.jp/stocks/7915/"
         }
       ]
     }
@@ -2700,8 +2826,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-09-30T08:49:40.532772+00:00",
-  "fetched_at": "2026-09-30T17:49:39.496130+09:00",
-  "last_success_at": "2026-09-30T17:49:39.496130+09:00",
-  "valid_until": "2026-10-02T05:49:39.496130+09:00"
+  "last_attempt_at": "2026-09-30T09:05:37.893768+00:00",
+  "fetched_at": "2026-09-30T18:05:34.907566+09:00",
+  "last_success_at": "2026-09-30T18:05:34.907566+09:00",
+  "valid_until": "2026-10-02T06:05:34.907566+09:00"
 }
