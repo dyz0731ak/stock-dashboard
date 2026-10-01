@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ── Primary SEO ── -->
-<title>日本株のストップ高・急騰銘柄・決算速報を定期更新 | 投資の砦</title>
+<title>投資の砦｜日本株のストップ高・急騰銘柄・決算速報を定期更新</title>
 <meta name="description" content="日本株のストップ高・急騰銘柄・決算速報・テーマ株・市場ニュース・日経225ヒートマップを約15分間隔で定期更新。重要ニュースが日本株へ与える影響も整理する無料ダッシュボード「投資の砦」。"/>
 <meta name="keywords" content="日本株,ストップ高,急騰銘柄,決算速報,テーマ株,市場ニュース,投資の砦,日経225,株式投資"/>
 <meta name="author" content="投資の砦"/>
@@ -16,7 +16,7 @@
 <!-- ── Open Graph (SNS シェア) ── -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://dashboard.stock-overflow24.com/"/>
-<meta property="og:title" content="日本株のストップ高・急騰銘柄・決算速報を定期更新 | 投資の砦"/>
+<meta property="og:title" content="投資の砦｜日本株のストップ高・急騰銘柄・決算速報を定期更新"/>
 <meta property="og:description" content="日本株の急騰ランキング・決算速報・テーマ株・市場ニュース・日経225ヒートマップを約15分間隔で更新。重要ニュースの日本株への影響も整理。"/>
 <meta property="og:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
 <meta property="og:image:width" content="1200"/>
@@ -26,7 +26,7 @@
 
 <!-- ── Twitter Card ── -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="日本株のストップ高・急騰銘柄・決算速報を定期更新 | 投資の砦"/>
+<meta name="twitter:title" content="投資の砦｜日本株のストップ高・急騰銘柄・決算速報を定期更新"/>
 <meta name="twitter:description" content="日本株の急騰ランキング・決算速報・テーマ株・日経225ヒートマップを約15分間隔で更新。海外市場は日本株への影響が分かる情報に厳選。"/>
 <meta name="twitter:image" content="https://dashboard.stock-overflow24.com/ogp.png"/>
 
@@ -47,7 +47,7 @@
       "@type": "WebSite",
       "@id": "https://dashboard.stock-overflow24.com/#website",
       "name": "投資の砦",
-      "alternateName": "Toushi no Toride",
+      "alternateName": ["投資の砦 日本株ダッシュボード", "とうしのとりで", "Toushi no Toride"],
       "url": "https://dashboard.stock-overflow24.com/",
       "description": "日本株のストップ高・急騰銘柄・出来高急増・決算速報・テーマ株を約15分間隔で定期更新する無料ダッシュボード。",
       "inLanguage": "ja",
@@ -145,6 +145,7 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(90deg,var(--brand) 0 72%,#68c39a 72% 100%);
 }
 .brand-word span{color:var(--brand);font-size:1.08em}
+.brand-heading{margin:0;font:inherit;display:inline-flex}
 .brand-role{font-size:11px;color:var(--ink-3);font-weight:600;white-space:nowrap}
 .topbar-meta{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ink-3)}
 .live-dot{display:inline-flex;align-items:center;gap:6px}
@@ -376,15 +377,15 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
   .flash-detail-links{grid-template-columns:1fr}
 }
 </style>
-<link rel="stylesheet" href="monitor.css?v=20260927-tse"/>
+<link rel="stylesheet" href="monitor.css?v=20261001-brand"/>
 </head>
 <body>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a href="#" class="brand">
+    <h1 class="brand-heading"><a href="/" class="brand">
       <span class="brand-word">投資の<span>砦</span></span>
-    </a>
+    </a></h1>
     <span class="brand-role">日本株の急騰・決算を追う定期更新ダッシュボード</span>
     <div class="topbar-meta">
       <span class="live-dot">定期取得</span>
@@ -405,7 +406,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);margin-top:3
 </nav>
 
 <main class="wrap">
-  <div class="command-intro"><div><span class="command-kicker">MARKET OPERATIONS / TOKYO</span><h1>日本株マーケット監視室</h1></div><p class="command-note">急騰・決算・市場の変化を、ひとつの画面に。<br>約15分間隔で取得・画面は毎分確認 / 表示時刻は日本時間</p></div>
+  <div class="command-intro"><div><span class="command-kicker">MARKET OPERATIONS / TOKYO</span><h2 class="command-title">日本株マーケット監視室</h2></div><p class="command-note">急騰・決算・市場の変化を、ひとつの画面に。<br>約15分間隔で取得・画面は毎分確認 / 表示時刻は日本時間</p></div>
 
   <!-- ===== 現物指数・為替・金スポット ===== -->
   <section class="section" id="idx">
