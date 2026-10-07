@@ -27,6 +27,8 @@ jobs:
         with:
           # PATを使うことでこのワークフローからのpushがdeploy.ymlを起動できる
           token: ${{ secrets.CRON_TRIGGER_TOKEN }}
+          # 順番待ちの間に前の実行がpushするので、起動時のSHAではなく最新mainから生成する
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -144,10 +146,15 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add data/ index.html sitemap.xml themes/ stop-high/ top-gainers/ volume-surge/ earnings/
           git commit -m "chore: update stock data + prerender [$(date -u '+%Y-%m-%d %H:%M UTC')]"
-          # リモートの変更を取り込んでからプッシュ（競合時はリモートを優先）
-          git fetch origin main
-          git rebase origin/main || (git rebase --abort && echo "rebase skipped")
-          git push origin main
+          # 生成物は今回の取得結果が最新なので、競合時は今回の版を採用する
+          # （rebase では -X theirs が「いま再適用している自分のコミット」側）
+          for i in 1 2 3; do
+            git fetch origin main
+            if git rebase -X theirs origin/main && git push origin main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            echo "push retry $i"; sleep $((i * 10))
+          done
+          exit 1
 
       - name: No changes detected
         if: steps.check-changes.outputs.changed != 'true'
