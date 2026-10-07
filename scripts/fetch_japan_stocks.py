@@ -183,25 +183,26 @@ def fetch_tse_all_market():
     BULK_METADATA["prices_fetched_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
     print(f"  東証全市場を一括計算: {len(master)}銘柄", file=sys.stderr)
     by_code = {s["code"]: s for s in master}
-    candidates = []
-    chunk_size = 400
-    for start in range(0, len(master), chunk_size):
-        chunk = master[start:start + chunk_size]
-        tickers = [f"{s['code']}.T" for s in chunk]
+    found = {}
+    started = time.monotonic()
+
+    def download(tickers, threads):
+        """yfinance日足を一括取得し {code: 候補} を返す。失敗時は空。"""
+        rows = {}
         try:
             data = yf.download(
                 tickers,
                 period="5d",
                 interval="1d",
                 group_by="ticker",
-                threads=12,
+                threads=threads,
                 timeout=15,
                 progress=False,
                 auto_adjust=False,
             )
         except Exception as e:
-            print(f"  一括株価 {start}件目で失敗: {e}", file=sys.stderr)
-            continue
+            print(f"  一括株価 {tickers[0]}〜 {len(tickers)}件で失敗: {e}", file=sys.stderr)
+            return rows
 
         for ticker in tickers:
             code = ticker[:-2]
@@ -218,7 +219,7 @@ def fetch_tse_all_market():
                 change = last - prev
                 meta = by_code[code]
                 chart_frame = frame.tail(CHART_TRADING_DAYS)
-                candidates.append({
+                rows[code] = {
                     **meta,
                     "price": round(last, 2),
                     "stop_high_price": (
@@ -247,22 +248,44 @@ def fetch_tse_all_market():
                             for v in chart_frame["Volume"]
                         ],
                     },
-                })
+                }
             except Exception as exc:
                 record_source('yfinance_row', 'error', code=code, error=str(exc), exception=type(exc).__name__)
                 continue
+        return rows
+
+    chunk_size = 400
+    for start in range(0, len(master), chunk_size):
+        chunk = master[start:start + chunk_size]
+        found.update(download([f"{s['code']}.T" for s in chunk], threads=12))
         print(
             f"    一括株価 {min(start + chunk_size, len(master))}/{len(master)}",
             file=sys.stderr,
         )
+
+    # Yahooは一括取得で毎回1〜5%ほど取りこぼす（タイムアウト・間引き）。
+    # 欠けた銘柄と当日分が無い銘柄だけを、間を置いて少ない並列数でもう一度取りに行く。
+    from market_clock import market_context
+    latest_date = market_context()['session_date']
+    missing = [s["code"] for s in master if found.get(s["code"], {}).get("price_date") != latest_date]
+    # 呼び出し元の打ち切り（280秒）に掛からないよう、1回目が長引いた時は再取得しない
+    if missing and len(missing) <= 800 and time.monotonic() - started < 170:
+        time.sleep(3)
+        recovered = 0
+        for start in range(0, len(missing), 200):
+            for code, row in download([f"{c}.T" for c in missing[start:start + 200]], threads=4).items():
+                if row["price_date"] == latest_date or code not in found:
+                    recovered += row["price_date"] == latest_date
+                    found[code] = row
+        record_source('yfinance_retry', 'ok', retried=len(missing), recovered=recovered)
+        print(f"  取りこぼし再取得: {len(missing)}件中 {recovered}件を回復", file=sys.stderr)
+    candidates = list(found.values())
 
     if len(candidates) < 2500:
         print(f"  東証全市場の有効株価が不足: {len(candidates)}件", file=sys.stderr)
         return []
 
     # 売買停止・上場廃止などの古い最終値をランキングへ混ぜない。
-    from market_clock import market_context
-    latest_date = market_context()['session_date']
     current = [s for s in candidates if s["price_date"] == latest_date]
     coverage = len(current) / len(master)
     BULK_METADATA.update(universe_count=len(master), quoted_count=len(current), coverage=round(coverage, 4))
