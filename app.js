@@ -248,13 +248,67 @@ let rankData = null;
 let ptsRankData = null;
 let rankMarket = 'tse';
 let rankView = 'table';
+let rankIndexFilter = 'all';
+let indexMemberships = null;
+let indexLoadState = 'loading';
+let indexLastAttempt = 0;
+let indexLoading = false;
+
+async function loadIndexMemberships() {
+  if (indexLoading || Date.now() - indexLastAttempt < (indexMemberships ? 3600000 : 60000)) return;
+  indexLoading = true;
+  indexLastAttempt = Date.now();
+  try {
+    const next = window.IndexMemberships.create(await getJSON('data/index_memberships.json'));
+    indexMemberships = next;
+    indexLoadState = 'ready';
+  } catch (error) {
+    indexLoadState = 'error';
+    console.error('index_memberships_load_failed', error);
+  } finally {
+    indexLoading = false;
+    renderRank();
+  }
+}
+
+function indexBadges(code) {
+  if (!indexMemberships) return '<span class="index-unknown">確認中</span>';
+  const tags = indexMemberships.memberships(code);
+  if (!tags.length) return '<span class="index-none" aria-label="対象指数なし">—</span>';
+  return '<div class="index-badges">' + tags.map(key =>
+    `<button type="button" class="index-badge index-${key}" data-index-filter="${key}" aria-pressed="${rankIndexFilter === key}" aria-label="${window.IndexMemberships.labels[key]}で絞り込む">${window.IndexMemberships.labels[key]}</button>`
+  ).join('') + '</div>';
+}
+
+function renderIndexControls() {
+  const select = $('#rankIndexFilter');
+  select.disabled = !indexMemberships;
+  select.value = rankIndexFilter;
+  $('#rankIndexCount').textContent = '';
+  $('#rankIndexNote').textContent = indexMemberships
+    ? indexMemberships.basisNote + (indexLoadState === 'error' ? ' 更新確認に失敗したため前回確認済みの指数区分を表示。' : '')
+    : (indexLoadState === 'error' ? '指数情報を取得できません。ランキングは通常表示しています。' : '指数情報を確認中です。');
+}
+
+$('#rankIndexFilter').addEventListener('change', event => {
+  rankIndexFilter = event.target.value;
+  renderRank();
+});
+$('#rankBody').addEventListener('click', event => {
+  const badge = event.target.closest('[data-index-filter]');
+  if (!badge || !indexMemberships) return;
+  rankIndexFilter = badge.dataset.indexFilter;
+  renderRank();
+  $('#rankIndexFilter').focus({preventScroll: true});
+});
 
 function rankRows() {
   const data = rankMarket === 'pts' ? ptsRankData : rankData;
   return [...(data?.all_stocks || [])]
     .filter(s => s.change_pct != null)
     .sort((a, b) => Number(b.change_pct) - Number(a.change_pct))
-    .slice(0, 30);
+    .slice(0, 30)
+    .map((row, index) => ({...row, rankingPosition: index + 1}));
 }
 
 function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月の日足チャート') {
@@ -298,17 +352,18 @@ function miniCandleChart(chart, maxPoints = 130, ariaLabel = '直近約6か月�
 function renderRankTable(rows) {
   const isPts = rankMarket === 'pts';
   const t = el('table', 'rank');
-  t.innerHTML = `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="r">${isPts ? 'PTS価格' : '株価'}</th><th class="r">${isPts ? '東証終値比' : '前日比'}</th><th class="r">騰落率</th><th class="r">${isPts ? '出来高' : '状態'}</th></tr></thead>`;
+  t.innerHTML = `<thead><tr><th class="rank-col">順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="index-col">指数</th><th class="r">${isPts ? 'PTS価格' : '株価'}</th><th class="r">${isPts ? '東証終値比' : '前日比'}</th><th class="r">騰落率</th><th class="r">${isPts ? '出来高' : '状態'}</th></tr></thead>`;
   const tb = el('tbody');
   rows.forEach((s, i) => {
     const pct = Number(s.change_pct);
     const tr = el('tr');
     const code = s.code;
     const change = s.change_amount;
-    tr.innerHTML = `<td><span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
+    tr.innerHTML = `<td><span class="rank-no ${s.rankingPosition <= 3 ? 'top' : ''}">${s.rankingPosition}</span></td>
       <td class="t-code">${escHtml(code)}</td>
       <td><a class="t-name company-trigger" href="https://s.kabutan.jp/stocks/${encodeURIComponent(code)}/" data-company-code="${escHtml(code)}" data-company-name="${escHtml(s.name || code)}" aria-haspopup="dialog">${escHtml(s.name || code)} <span class="company-hint">詳細 ›</span></a><div class="t-sec company-summary" data-company-summary="${escHtml(code)}">${escHtml(window.CompanyProfiles?.summary(code) || '事業内容は企業詳細へ')}</div></td>
       <td><span class="pill-mkt">${escHtml(isPts ? (s.market_tse || 'PTS') : (s.market || '—'))}</span></td>
+      <td class="index-col">${indexBadges(code)}</td>
       <td class="r num">${fmt(s.price)}円</td>
       <td class="r num ${signCls(change)}">${change == null ? '—' : (Number(change) > 0 ? '+' : '') + fmt(change, Number.isInteger(Number(change)) ? 0 : 2)}</td>
       <td class="r num ${signCls(pct)}"><b>${pctTxt(pct)}</b></td>
@@ -326,16 +381,17 @@ function renderRankCharts(rows) {
     const pct = Number(s.change_pct);
     const card = el('article', 'rank-chart-card');
     card.innerHTML = `<div class="rank-chart-head">
-      <span class="rank-no ${i < 3 ? 'top' : ''}">${i + 1}</span>
+      <span class="rank-no ${s.rankingPosition <= 3 ? 'top' : ''}">${s.rankingPosition}</span>
       <div><a class="company-trigger" href="https://s.kabutan.jp/stocks/${encodeURIComponent(s.code)}/" data-company-code="${escHtml(s.code)}" data-company-name="${escHtml(s.name || s.code)}" aria-haspopup="dialog"><b>${escHtml(s.name || s.symbol)}</b> <span class="company-hint">詳細 ›</span></a><small class="company-summary" data-company-summary="${escHtml(s.code)}">${escHtml(window.CompanyProfiles?.summary(s.code) || '事業内容は企業詳細へ')}</small><small>${escHtml(s.code || s.symbol)}・${escHtml(isPts ? (s.market_tse || '夜間PTS') : (s.market || s.sector || ''))}・${isPts ? '東証' : ''}6か月日足</small></div>
       <div class="rank-chart-price"><b class="num">${fmt(s.price)}円</b><span class="num ${signCls(pct)}">${pctTxt(pct)}</span></div>
-    </div>${miniCandleChart(s.chart)}</article>`;
+    </div><div class="rank-chart-indices">${indexBadges(s.code)}</div>${miniCandleChart(s.chart)}</article>`;
     grid.appendChild(card);
   });
   return grid;
 }
 
 function renderRank() {
+  renderIndexControls();
   const jp = rankData;
   const pts = ptsRankData;
   const data = rankMarket === 'pts' ? pts : jp;
@@ -378,7 +434,13 @@ function renderRank() {
     renderRank();
   });
 
-  const rows = rankRows();
+  const baseRows = rankRows();
+  const rows = indexMemberships ? indexMemberships.filter(baseRows, rankIndexFilter) : baseRows;
+  $('#rankIndexCount').textContent = `表示 ${rows.length} / ${baseRows.length}件`;
+  if (!rows.length) {
+    body.innerHTML = '<div class="rank-empty">現在のランキングに該当する銘柄はありません。</div>';
+    return;
+  }
   body.appendChild(
     rankView === 'chart' ? renderRankCharts(rows)
       : renderRankTable(rows)
@@ -618,6 +680,7 @@ function renderStatus() {
 async function boot() {
   if (refreshing) return;
   refreshing = true;
+  void loadIndexMemberships(); // Independent failure cannot block price feeds.
   await Promise.allSettled(feeds.map(async ([key,file,label,body,upd,hours,render])=> {
     let data;
     try {

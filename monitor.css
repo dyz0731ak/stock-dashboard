@@ -119,3 +119,23 @@ body.market-chart-open { overflow:hidden; }
 .market-ohlc { font-size:12px; color:#c9d9e8; min-height:24px; margin:6px 0; font-variant-numeric:tabular-nums; }
 .market-history-source { display:block; text-align:right; margin-top:6px; color:#75b6f4; font-size:12px; }
 .market-chart-dialog { margin:auto; }
+
+/* Index membership: restrained text labels, shared by tables and mini charts. */
+.rank-index-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 8px;font-size:12px;color:var(--ink-2)}
+.rank-index-toolbar label{font-weight:600;letter-spacing:.02em}
+#rankIndexFilter{color-scheme:dark;max-width:100%;min-height:34px;padding:5px 28px 5px 10px;border:1px solid #3a5064;border-radius:5px;background:var(--surface-2);color:var(--ink);font:inherit}
+#rankIndexFilter:disabled{opacity:.6}
+#rankIndexCount{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:11px}
+.rank-index-note{margin:0 0 12px;font-size:10px;line-height:1.7;color:var(--ink-3);overflow-wrap:anywhere}
+#rankBody .index-col{min-width:104px;width:128px}
+.index-badges{display:flex;flex-wrap:wrap;gap:4px;max-width:160px}
+.index-badge{display:inline-block;white-space:nowrap;cursor:pointer;font:500 10px/1.5 var(--sans);padding:2px 6px;border:1px solid #354b60;border-radius:3px;background:#172638;color:#b8c9d8}
+.index-badge.index-transition{background:#2b2a25;border-color:#6c6048;color:#d8c39c}
+.index-badge.index-topix_new{background:#1b3032;border-color:#3d5e5f;color:#b0ceca}
+.index-badge:hover,.index-badge[aria-pressed="true"]{border-color:#89a4b8;color:#e4edf4}
+.index-badge:focus-visible,#rankIndexFilter:focus-visible{outline:2px solid #82b5c2;outline-offset:3px}
+.index-unknown,.index-none{font-size:10px;color:var(--ink-3)}
+.rank-chart-indices{padding:7px 11px;border-bottom:1px solid #252b37;min-height:32px}
+.rank-chart-indices .index-badges{max-width:none}
+.rank-empty{padding:30px 16px;text-align:center;color:var(--ink-2);font-size:13px}
+@media(max-width:760px){#rankBody table.rank{min-width:880px}.rank-index-toolbar{gap:8px}.rank-index-note{font-size:10px}.index-badge{padding:4px 6px}.rank-chart-head{height:auto;min-height:64px}.rank-chart-head .company-summary{min-width:0;overflow-wrap:anywhere}}

@@ -17,6 +17,7 @@ import os
 import re
 import html
 import datetime
+from index_memberships import load_memberships, memberships, LABELS
 
 JST = datetime.timezone(datetime.timedelta(hours=9))
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -214,19 +215,30 @@ def build_rank(japan):
     body = []
     profiles = (load('company_profiles.json') or {}).get('companies', {})
     st_tag = '<span class="st-tag">S高</span>'
-    for s in rows:
+    try:
+        indices = load_memberships()
+    except (OSError, ValueError, KeyError, TypeError):
+        indices = None
+    for position, s in enumerate(rows, 1):
+        badges = ('<span class="index-unknown">確認中</span>' if indices is None else
+                  '<div class="index-badges">' + ''.join(
+                      f'<button type="button" class="index-badge index-{key}" data-index-filter="{key}" aria-pressed="false" aria-label="{LABELS[key]}で絞り込む">{LABELS[key]}</button>'
+                      for key in memberships(indices, s.get('code'))) + '</div>')
+        if indices is not None and not memberships(indices, s.get('code')):
+            badges = '<span class="index-none" aria-label="対象指数なし">—</span>'
         pct = float(s["change_pct"])
         st = st_tag if s.get("is_stop_high") else ""
         body.append(
-            f'<tr><td class="t-code">{esc(s.get("code"))}</td>'
+            f'<tr><td><span class="rank-no">{position}</span></td><td class="t-code">{esc(s.get("code"))}</td>'
             f'<td>{company_label(s, profiles)}</td>'
             f'<td><span class="pill-mkt">{esc(s.get("market",""))}</span></td>'
+            f'<td class="index-col">{badges}</td>'
             f'<td class="r num">{fmt(s.get("price"))}円</td>'
             f'<td class="r num {sign_cls(pct)}">{esc(s.get("change_amount",""))}</td>'
             f'<td class="r num {sign_cls(pct)}"><b>{pcttxt(pct)}</b></td>'
             f'<td class="r">{st}</td></tr>'
         )
-    return ('<table class="rank"><thead><tr><th>コード</th><th>銘柄</th><th>市場</th>'
+    return ('<table class="rank"><thead><tr><th>順位</th><th>コード</th><th>銘柄</th><th>市場</th><th class="index-col">指数</th>'
             '<th class="r">株価</th><th class="r">前日比</th><th class="r">騰落率</th>'
             '<th class="r">状態</th></tr></thead><tbody>' + "".join(body) + "</tbody></table>")
 
@@ -770,6 +782,12 @@ def main():
 
     with open(INDEX, encoding="utf-8") as f:
         doc = f.read()
+    try:
+        index_note = load_memberships()['basis_note']
+    except (OSError, ValueError, KeyError, TypeError):
+        index_note = '指数情報を取得できません。ランキングは通常表示しています。'
+    doc = re.sub(r'(<p id="rankIndexNote"[^>]*>).*?(</p>)',
+                 lambda m: m[1] + esc(index_note) + m[2], doc, flags=re.S)
 
     sections = {
         "idx": build_idx(indices),

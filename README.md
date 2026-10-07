@@ -110,3 +110,42 @@ MIT
 - `fetch_tse_history.py` はStockWeatherの全市場指数（0500/0501/0502）の実OHLCを取得し、JPXの指数名と時間外の最新四本値で照合。1・3ヶ月は日足、6ヶ月・1年は週足、3年は月足。提供元の長期足に続く部分は全営業日が揃った日足から集計し、不足区間は補間しない。1時間キャッシュ・限定リトライ・失敗時の前回データ保持に対応。画面の初期表示は1年、クリックした指数・期間のJSONだけ読み込む。
 - 決算原資料の解析結果は `data/tdnet_cache.json` に8日保持。取得・解析失敗は6時間後に再試行。1件でも確認できた重要開示は掲載し、正常に確認できた0件と通信失敗を区別する。
 - 決算の総額は `earnings_amounts.py` で統一。絶対額1億円以上は億円、未満は万円。実績・前回予想・修正後予想・比較文・キャッシュ済み文章にも適用し、1株配当やEPSだけ円を維持する。原資料の数値・単位は解析用に保存するが、百万円表記は画面へ出さない。
+
+## TOPIX改革フィルター（2026-10-07公表版）
+
+`index.html` の市場カラムの右に指数カラムを表示。東証／夜間PTSの現在の上位30件へ、TOPIX改革セレクトまたは文字バッジのクリックで条件を追加する。順位・並び順・株価は元ランキングのまま。市場・一覧／ミニチャート切替や毎分の株価更新でも条件を維持し、0件は該当なしと表示する。指数マスタ取得失敗時はフィルターを無効にして通常ランキングを表示し、取得済みマスタがある場合は基準日を維持して使用する。
+
+### データと責務
+
+- `data/index_memberships.json`: `securities[証券コード]` に `topix` / `topix_new` / `transition` / `nikkei225` の配列を保持。英字を含む4桁コードにも対応。同一銘柄は複数ラベルを持てる。銘柄名や市場区分から推定しない。
+- `schema_version` は形式、`version` は公表版。`published_at` / `effective_at` / `reevaluation_at` と出典URL・原本SHA-256・区分別件数を記録。過去版はGit履歴に保持する。
+- 今回のTOPIXは **2026-10-07公表の2026-10-30構成予定**。`topix` 1,669銘柄には `transition` 683銘柄、`topix_new` 35銘柄も含む。新規採用は実施前から改革情報として表示し、基準日と構成予定日を画面に明記する。「移行措置」を現在のTOPIX除外済みとは扱わない。
+- 日経225は日経公式の2026-10-07更新一覧の225銘柄。ヒートマップの株価取得成否や既存の収集用リストから所属を推定せず、独立して保持。
+- `index-memberships.js`: 純粋なコード正規化・所属判定・配列の交差抽出。`IndexMemberships.create(data).filter(rows, 'transition', row => row.code)` を出来高／決算／増配等にも再利用できる。既存の並べ替え・上位件数制限・絞り込みの後に適用する。
+- `scripts/index_memberships.py`: 同じJSONを検証し、プリレンダリングと将来のPython側フィルターで使用。件数不一致や不正コードは採用しない。
+- 既存の株価取得スクリプト・取得周期・JSON形式・株価鮮度判定は変更しない。ブラウザのマスタ確認は成功時1時間ごと、未取得時1分ごと。SSGにも同じ指数カラムを焼き込む。
+
+公式資料: [JPX 2026-10-07発表](https://www.jpx.co.jp/news/6030/20261007-01.html)、[TOPIX選定結果・構成銘柄一覧](https://www.jpx.co.jp/news/6030/t13vrt00000262wd-att/topix_j.pdf)、[日経225構成銘柄](https://indexes.nikkei.co.jp/nkave/index/component?idx=nk225)。
+
+### 対象変更時の更新
+
+更新先は `data/index_memberships.json`。公式発表の新規・移行措置・構成銘柄、件数、公表日・適用日・出典を一緒に更新する。画面と判定処理の編集は不要。旧版と新版のコード差分をレビューしてから公開する。
+
+現行形式のJPX PDFは `scripts/update_index_memberships.py` で取り込める。Popplerの `pdftotext` が必要。引数の件数は必ず新しい公式発表に合わせる。セクション・連番・重複・部分集合・件数を検証し、不一致なら元データを保持して終了する。将来PDF形式が変わった場合は `parse_topix_selection()` を新形式に合わせ、推定で補完しない。
+
+```bash
+python scripts/update_index_memberships.py \
+  --pdf /path/to/topix_j.pdf \
+  --published 2026-10-07 --effective 2026-10-30 --reevaluation 2027-10 \
+  --announcement-url https://www.jpx.co.jp/news/6030/20261007-01.html \
+  --document-url https://www.jpx.co.jp/news/6030/t13vrt00000262wd-att/topix_j.pdf \
+  --new-count 35 --transition-count 683 --topix-count 1669
+python -m unittest discover -s tests -v
+node --test tests/index-memberships.test.cjs
+python scripts/prerender.py
+python scripts/check_site.py
+```
+
+日経225の入替は同JSONの `nikkei225` 所属・件数・`sources.nikkei.as_of`・出典・`basis_note` を公式一覧で更新する。上記JPX取込は日経225の所属を保持する。再評価時の移行措置解除も旧フラグの追加更新ではなく、その公表版の全区分を入れ替える。
+
+ブラウザ検証はローカルHTTPサーバーを起動し、PlaywrightとChromeが利用可能な環境で `node tests/index-ranking.browser.cjs http://127.0.0.1:8765`。東証・PTSの5条件、クリック、順位、価格、ミニチャート、詳細、更新時維持、0件、マスタ不正、株価失効、31位混入防止、1440/768/390/320pxを確認する。テスト用時刻補正はブラウザ応答内だけで行い、保存データを変更しない。
