@@ -268,17 +268,24 @@ def fetch_tse_all_market():
     from market_clock import market_context
     latest_date = market_context()['session_date']
     missing = [s["code"] for s in master if found.get(s["code"], {}).get("price_date") != latest_date]
-    # 呼び出し元の打ち切り（280秒）に掛からないよう、1回目が長引いた時は再取得しない
-    if missing and len(missing) <= 800 and time.monotonic() - started < 170:
+    # 呼び出し元の打ち切り（280秒）に掛からないよう、200件ごとに残り時間を確かめて再取得する
+    first_pass = round(time.monotonic() - started, 1)
+    retried = recovered = 0
+    if missing and len(missing) <= 800:
         time.sleep(3)
-        recovered = 0
         for start in range(0, len(missing), 200):
-            for code, row in download([f"{c}.T" for c in missing[start:start + 200]], threads=4).items():
+            if time.monotonic() - started > 235:
+                break
+            batch = missing[start:start + 200]
+            retried += len(batch)
+            for code, row in download([f"{c}.T" for c in batch], threads=4).items():
                 if row["price_date"] == latest_date or code not in found:
                     recovered += row["price_date"] == latest_date
                     found[code] = row
-        record_source('yfinance_retry', 'ok', retried=len(missing), recovered=recovered)
-        print(f"  取りこぼし再取得: {len(missing)}件中 {recovered}件を回復", file=sys.stderr)
+    record_source('yfinance_retry', 'ok', missing=len(missing), retried=retried, recovered=recovered,
+                  first_pass_seconds=first_pass, total_seconds=round(time.monotonic() - started, 1))
+    print(f"  取りこぼし再取得: {len(missing)}件中 {retried}件を再取得・{recovered}件を回復"
+          f"（1回目 {first_pass}秒）", file=sys.stderr)
     candidates = list(found.values())
 
     if len(candidates) < 2500:

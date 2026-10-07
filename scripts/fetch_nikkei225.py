@@ -26,6 +26,7 @@ import datetime
 import sys
 import os
 import math
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -383,6 +384,16 @@ def main():
             r = fut.result()
             if r:
                 results.append(r)
+
+    # Yahooはまれに1〜数銘柄を返さないので、欠けた銘柄だけ少ない並列数でもう一度取りに行く
+    got = {r["code"] for r in results}
+    missing = [m for m in N225_DEDUP if m[0] not in got]
+    if missing:
+        time.sleep(2)
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            retried = [r for r in ex.map(lambda m: fetch_one(*m), missing) if r]
+        results.extend(retried)
+        print(f"  取りこぼし再取得: {len(missing)}件中 {len(retried)}件を回復", file=sys.stderr)
 
     # 市場キャップ降順でソート（後段で扱いやすく）
     results.sort(key=lambda x: -(x.get("market_cap") or 0))
