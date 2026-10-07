@@ -10,43 +10,16 @@ concurrency:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# GitHub Pages は「main ブランチから配信（legacy）」設定のため、push 時に GitHub 側の
+# pages-build-deployment が自動で公開する。以前ここにあった actions/deploy-pages ジョブは
+# 2026-10-06 に環境待ちで28時間止まり、同じ concurrency の後続デプロイを全てキャンセルさせたので削除。
 jobs:
-  # GitHub Pages へのデプロイ
-  deploy-pages:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Inject GA4 tag
-        env:
-          GA4_ID: ${{ secrets.GA4_ID }}
-        run: |
-          if [ -n "$GA4_ID" ]; then python3 scripts/inject_ga.py "$GA4_ID"; fi
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
   # ConoHa WING へのFTPデプロイ
   deploy-conoha:
     runs-on: ubuntu-latest
+    # 通常30秒。止まっても後続のデプロイを塞がないよう打ち切る
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

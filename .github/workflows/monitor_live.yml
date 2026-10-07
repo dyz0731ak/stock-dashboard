@@ -1,0 +1,72 @@
+name: Monitor Live Site
+
+# 本番サイトの鮮度監視＋止まったデプロイの自動解除。
+# 異常時は Issue を1件だけ作成（メール通知）、以降は本文を更新し、復旧したら自動でクローズする。
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: live-monitor
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: write
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      ISSUE_TITLE: '[自動監視] 本番サイトのデータ更新に異常があります'
+    steps:
+      - uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+      # 2026-10-06: Deploy の1本が環境待ちで28時間止まり、後続デプロイが全てキャンセルされた。
+      # 通常30秒で終わるので、20分以上終わらないデプロイは止まっているとみなして解除する。
+      - name: Cancel stuck deploy runs
+        run: |
+          cutoff=$(date -u -d '20 minutes ago' +%Y-%m-%dT%H:%M:%SZ)
+          for s in queued waiting in_progress pending requested; do
+            gh run list --workflow deploy.yml --status "$s" -L 20 --json databaseId,createdAt \
+              -q ".[] | select(.createdAt < \"$cutoff\") | .databaseId"
+          done | sort -u | while read -r id; do
+            echo "::warning::止まっているデプロイ $id をキャンセルします"
+            gh run cancel "$id" || true
+          done
+
+      - name: Check live site freshness
+        id: check
+        run: |
+          set +e
+          python scripts/monitor_live.py > report.md
+          echo "failed=$([ $? -ne 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          cat report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open or update alert issue
+        if: steps.check.outputs.failed == 'true'
+        run: |
+          printf '\n\n---\n[監視ログ](%s/%s/actions/runs/%s)\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> report.md
+          num=$(gh issue list --state open --search "in:title \"$ISSUE_TITLE\"" --json number -q '.[0].number')
+          if [ -n "$num" ]; then
+            gh issue edit "$num" --body-file report.md
+          else
+            gh issue create --title "$ISSUE_TITLE" --body-file report.md --assignee "${{ github.repository_owner }}"
+          fi
+          echo "::error::本番サイトに異常あり（Issueを参照）"
+
+      - name: Close alert issue when recovered
+        if: steps.check.outputs.failed == 'false'
+        run: |
+          num=$(gh issue list --state open --search "in:title \"$ISSUE_TITLE\"" --json number -q '.[0].number')
+          if [ -n "$num" ]; then
+            gh issue close "$num" --comment "復旧を確認しました。$(head -1 report.md)"
+          fi

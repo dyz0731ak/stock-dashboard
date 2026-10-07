@@ -54,12 +54,91 @@ SECTOR_JP = {
 #  日本株 出来高急増
 # ──────────────────────────────────────────────
 
+KABUTAN_MOBILE_VOLUME_URL = "https://s.kabutan.jp/warnings/volume_ranking/"
+# PC版と同じ全角表記に揃える（既存データ・表示との互換）
+MOBILE_MARKET_LABELS = {"東P": "東Ｐ", "東S": "東Ｓ", "東G": "東Ｇ", "東E": "東Ｅ"}
+
+
+def _num(text: str):
+    text = (text or "").replace(",", "").replace("株", "").strip()
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+
+def _volume_row(code, name, market, price, change_a, change_p, vol_today):
+    return {
+        "code": code, "name": name, "market": market,
+        "price": price, "change_amount": round(change_a, 2),
+        "change_pct": round(change_p, 2),
+        "volume_today": vol_today, "volume_yesterday": 0,
+        "volume_ratio": 0.0,
+        "sector": "", "industry": "", "industry_ja": "",
+        "description": None, "description_ja": None,
+        "website": None, "chart": None,
+    }
+
+
+def scrape_jp_volume_ranking_mobile(top_n: int = 60) -> list[dict]:
+    """
+    s.kabutan.jp（スマホ版）の出来高ランキング。
+    PC版 kabutan.jp は GitHub Actions の IP から0件になるため、こちらを主系にする。
+    """
+    results = []
+    for page in range(1, 6):
+        resp = requests.get(KABUTAN_MOBILE_VOLUME_URL, params={"page": page},
+                            headers=HEADERS, timeout=20)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        added = 0
+        for row in soup.select("table tbody tr"):
+            cells = row.find_all(["th", "td"], recursive=False)
+            if len(cells) < 4:
+                continue
+            link = cells[0].find("a", href=re.compile(r"^/stocks/[0-9A-Z]+/"))
+            if not link:
+                continue
+            code = re.search(r"/stocks/([0-9A-Z]+)/", link["href"])[1]
+            strings = list(link.stripped_strings)
+            market = next((MOBILE_MARKET_LABELS[s] for s in strings if s in MOBILE_MARKET_LABELS), None)
+            if not market:
+                continue
+            abbr = link.find("abbr")
+            name = abbr.get("title") if abbr and abbr.get("title") else (strings[0] if strings else code)
+            parts = list(cells[2].stripped_strings)
+            price = _num(cells[1].get_text(strip=True))
+            change_a = _num(parts[0]) if parts else None
+            change_p = _num(parts[1]) if len(parts) > 1 else None
+            volume = _num(cells[3].get_text(strip=True))
+            if price is None or volume is None:
+                continue
+            results.append(_volume_row(code, name, market, price, change_a or 0.0,
+                                       change_p or 0.0, int(volume)))
+            added += 1
+            if len(results) >= top_n:
+                return results
+        if added == 0:
+            break
+        time.sleep(0.3)
+    return results
+
+
 def scrape_jp_volume_ranking(top_n: int = 60) -> list[dict]:
     """
-    kabutan volume_ranking から上位 top_n 銘柄を取得。
+    kabutan 出来高ランキングから上位 top_n 銘柄を取得（スマホ版→PC版の順）。
     戻り値: [{ code, name, market, price, change_amount, change_pct, volume_today }, ...]
     """
-    print("  kabutan 出来高ランキング取得中...", file=sys.stderr)
+    print("  kabutan(スマホ版) 出来高ランキング取得中...", file=sys.stderr)
+    try:
+        results = scrape_jp_volume_ranking_mobile(top_n)
+        print(f"  kabutan(スマホ版) 出来高ランキング: {len(results)}件", file=sys.stderr)
+        if results:
+            return results
+    except Exception as e:
+        print(f"  kabutan(スマホ版) 取得エラー: {e}", file=sys.stderr)
+
+    print("  kabutan(PC版) 出来高ランキング取得中...", file=sys.stderr)
     results = []
     page = 1
     MAX_PAGES = 5
