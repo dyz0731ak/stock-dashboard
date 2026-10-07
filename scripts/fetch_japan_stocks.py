@@ -772,6 +772,10 @@ def load_nikkei225_fallback():
     }
 
 
+# 当日売買が無い銘柄（低流動性・売買停止）は値上がりランキングに入り得ないため、
+# 通常の引け後でも98.5〜99.8%。97%以上なら全市場ランキングとして欠けはない扱い。
+FULL_COVERAGE = 0.97
+
 KABUTAN_TSE_URL = 'https://s.kabutan.jp/warnings/price_increase/'
 
 def parse_kabutan_tse(html):
@@ -1013,8 +1017,8 @@ def main():
         "prices_fetched_at": BULK_METADATA.get('prices_fetched_at') if is_tse_bulk else min((s.get('source_checked_at','') for s in all_stocks), default=None),
         "price_time_precision": "day" if is_tse_bulk else "minute",
         "as_of": min((s.get("source_checked_at", "") for s in all_stocks), default=None) if is_mobile else None,
-        "fetch_status":    ("partial" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < 1 else "ok") if is_tse_bulk else "fallback",
-        "fetch_warning": ("全市場の取得できた銘柄から算出。取得対象と取得件数を参照してください" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < 1 else "") if is_tse_bulk else ("Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示" if is_mobile else "主取得元に失敗したため、楽天証券の東証P/S/G各10件から全市場トップ10を表示"),
+        "fetch_status":    ("partial" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < FULL_COVERAGE else "ok") if is_tse_bulk else "fallback",
+        "fetch_warning": (f"当日売買のあった銘柄が全体の{BULK_METADATA.get('coverage', 0):.0%}にとどまるため一部銘柄から算出" if is_tse_bulk and BULK_METADATA.get('coverage', 0) < FULL_COVERAGE else "") if is_tse_bulk else ("Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示" if is_mobile else "主取得元に失敗したため、楽天証券の東証P/S/G各10件から全市場トップ10を表示"),
         "source_attempts": FETCH_DIAGNOSTICS,
         "coverage": BULK_METADATA if is_tse_bulk else {},
         "session_date": max((s.get('price_date', '') for s in all_stocks), default=''),

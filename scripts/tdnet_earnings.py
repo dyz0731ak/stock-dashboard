@@ -26,7 +26,7 @@ from earnings_amounts import format_yen, normalize_earnings
 
 BASE = 'https://www.release.tdnet.info/inbs/'
 DATA = Path(__file__).resolve().parents[1] / 'data'
-CACHE_VERSION = 2
+CACHE_VERSION = 3
 TAGS = {
     'NetSales': '売上高', 'RevenueIFRS': '売上収益', 'Revenue': '売上収益',
     'OrdinaryRevenuesBK': '経常収益', 'OperatingIncome': '営業利益',
@@ -174,19 +174,33 @@ def parse_pdf_comparisons(text, title):
     if 'IFRS' in title or '米国' in title:
         return []  # Unknown layouts must not silently shift the profit columns.
     labels = ['経常収益','経常利益','純利益'] if '経常収益' in text and '売上高' not in text else ['売上高','営業利益','経常利益','純利益']
-    old, new, basis = None, None, '前回会社予想比'
-    for line in text.splitlines():
-        match = re.search(r'(前回発表予想|今回修正予想|今回発表予想)\s*(?:[\(（]?[AB][\)）]?)?\s*(.*)', line)
-        if match:
-            values = re.findall(r'(?<![\d.])-?[\d,]+(?:\.\d+)?',match[2])
-            if len(values)==len(labels)+1:  # Financial amounts plus EPS; reject different layouts.
-                parsed = [float(v.replace(',',''))*1e6 for v in values[:len(labels)]]
-                if match[1]=='前回発表予想': old=parsed
-                else:new=parsed
+    # 1株利益の「277円20銭」は数値2個に割れて列数判定を壊すので小数に直す
+    text = re.sub(r'(\d+)\s*円\s*(\d+)\s*銭', r'\1.\2', text)
+    scale = 1e3 if re.search(r'単位\s*[:：]?\s*千円', text) else 1e6
+    old_label = r'前回(?:発表|公表)(?:予想|数値)|前回予想'
+    new_label = r'今回(?:修正|発表|公表)(?:予想|数値)|今回実績|実績値|今回発表実績'
+    old, new, actual = None, None, False
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        match = re.search(rf'({old_label}|{new_label})\s*(?:[\(（]?[AB][\)）]?)?\s*(.*)', line)
+        if not match:
+            continue
+        values = re.findall(r'(?<![\d.])-?[\d,]+(?:\.\d+)?', match[2])
+        if not values and i+1 < len(lines):  # 表の見出しと数値が別行に組まれた資料
+            values = re.findall(r'(?<![\d.])-?[\d,]+(?:\.\d+)?', lines[i+1])
+        # 金額4列＋1株利益（「－」で空欄の場合もある）。それ以外の列構成は誤読を避けて捨てる
+        if len(values) not in (len(labels), len(labels)+1):
+            continue
+        parsed = [float(v.replace(',',''))*scale for v in values[:len(labels)]]
+        if re.fullmatch(old_label, match[1]):
+            old = parsed
+        else:
+            new, actual = parsed, '実績' in match[1]
     if old is None or new is None:
         return []
+    basis = '会社予想との差異' if actual else '前回会社予想比'
     return [dict(label=label,current=b,previous=a,pct=round((b-a)/abs(a)*100,2) if a else None,
-                 basis=basis,period='会社予想',unit='百万円',source_format='PDF')
+                 basis=basis,period='実績' if actual else '会社予想',unit='百万円',source_format='PDF')
             for label,a,b in zip(labels,old,new)]
 
 
@@ -211,6 +225,8 @@ def select_impact(row, comparisons, buyback):
             change, score = ('増配' if new>old else '減配'), 70 + min(abs(pct or 0), 20)
         elif c['basis']=='前回会社予想比' and pct is not None and abs(pct)>=5 and '利益' in c['label']:
             change, score = ('上方修正' if new>old else '下方修正'), 65+min(abs(pct),30)
+        elif c['basis']=='会社予想との差異' and pct is not None and abs(pct)>=10 and '利益' in c['label']:
+            change, score = ('予想超過' if new>old else '予想未達'), 60+min(abs(pct)/2,30)
         elif c['basis']=='前年同期比' and pct is not None and abs(pct)>=30 and '利益' in c['label']:
             change, score = ('大幅増益' if new>old else '大幅減益'), 65+min(abs(pct)/2,30)
         if change:
