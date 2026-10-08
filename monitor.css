@@ -138,4 +138,10 @@ body.market-chart-open { overflow:hidden; }
 .rank-chart-indices{padding:7px 11px;border-bottom:1px solid #252b37;min-height:32px}
 .rank-chart-indices .index-badges{max-width:none}
 .rank-empty{padding:30px 16px;text-align:center;color:var(--ink-2);font-size:13px}
-@media(max-width:760px){#rankBody table.rank{min-width:880px}.rank-index-toolbar{gap:8px}.rank-index-note{font-size:10px}.index-badge{padding:4px 6px}.rank-chart-head{height:auto;min-height:64px}.rank-chart-head .company-summary{min-width:0;overflow-wrap:anywhere}}
+@media(max-width:760px){#rankBody table.rank{min-width:880px}.rank-index-toolbar{gap:8px}.rank-index-note{font-size:10px}.index-badge{padding:4px 6px}}
+
+/* Reserve the full text width on narrow cards; price moves below the description. */
+@media(max-width:480px){
+  .rank-chart-head{grid-template-columns:22px minmax(0,1fr);row-gap:7px}
+  .rank-chart-head .rank-chart-price{grid-column:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;text-align:left}
+}
