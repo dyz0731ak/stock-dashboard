@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-10T01:50:44.276865+09:00",
-  "last_attempt_at": "2026-10-10T01:50:44.276883+09:00",
+  "updated_at": "2026-10-10T02:05:57.712767+09:00",
+  "last_attempt_at": "2026-10-10T02:05:57.712782+09:00",
   "source": "kabutan_mobile",
   "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
   "source_url": "https://s.kabutan.jp/warnings/price_increase/",
@@ -14,22 +14,10 @@
   "fetch_warning": "Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示",
   "source_attempts": [
     {
-      "source": "yfinance_retry",
-      "status": "ok",
-      "missing": 3695,
-      "retried": 0,
-      "recovered": 0,
-      "first_pass_seconds": 276.7,
-      "total_seconds": 276.7
-    },
-    {
       "source": "yfinance_bulk",
-      "status": "partial",
-      "prices_fetched_at": "2026-10-09T16:46:05.130131+00:00",
-      "universe_count": 3695,
-      "quoted_count": 0,
-      "coverage": 0.0,
-      "session_date": "2026-10-09"
+      "status": "error",
+      "error": "Command '['/opt/hostedtoolcache/Python/3.11.17/x64/bin/python', '/home/runner/work/stock-dashboard/stock-dashboard/scripts/fetch_japan_stocks.py', '--bulk-only']' timed out after 280 seconds",
+      "exception": "TimeoutExpired"
     },
     {
       "source": "kabutan_mobile",
@@ -3878,76 +3866,22 @@
       "volume": 1975200.0,
       "chart": {
         "dates": [
-          "2026-09-25",
-          "2026-09-28",
-          "2026-09-29",
-          "2026-09-30",
-          "2026-10-01",
-          "2026-10-02",
-          "2026-10-05",
-          "2026-10-06",
-          "2026-10-07",
-          "2026-10-08"
+          "2026-10-09"
         ],
         "opens": [
-          2230.0,
-          2261.0,
-          2861.0,
-          3815.0,
-          2960.0,
-          3060.0,
-          3220.0,
-          2890.0,
-          2670.0,
-          2558.0
-        ],
-        "highs": [
-          2530.0,
-          2611.0,
-          3115.0,
-          3815.0,
-          3235.0,
-          3295.0,
-          3270.0,
-          2939.0,
-          2828.0,
-          2696.0
-        ],
-        "lows": [
-          2095.0,
-          2246.0,
-          2770.0,
-          2995.0,
-          2694.0,
-          2770.0,
-          2756.0,
-          2630.0,
-          2600.0,
-          2480.0
-        ],
-        "closes": [
-          2111.0,
-          2611.0,
-          3115.0,
-          3030.0,
-          2811.0,
-          3150.0,
-          2756.0,
-          2720.0,
-          2608.0,
           2490.0
         ],
+        "highs": [
+          2990.0
+        ],
+        "lows": [
+          2451.0
+        ],
+        "closes": [
+          2990.0
+        ],
         "volumes": [
-          8512700,
-          2721900,
-          1858700,
-          5142100,
-          6545300,
-          8150000,
-          2448200,
-          1049300,
-          501200,
-          395900
+          1975200
         ]
       },
       "sector": "情報・通信業",
@@ -21893,8 +21827,8 @@
     "医薬品",
     "機械"
   ],
-  "fetched_at": "2026-10-10T01:50:44.276865+09:00",
-  "last_success_at": "2026-10-10T01:50:44.276865+09:00",
+  "fetched_at": "2026-10-10T02:05:57.712767+09:00",
+  "last_success_at": "2026-10-10T02:05:57.712767+09:00",
   "valid_until": "2026-10-13T09:30:00+09:00",
   "market": "tse",
   "market_state": "holiday"
