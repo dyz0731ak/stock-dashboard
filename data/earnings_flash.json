@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T16:20:02.818573+09:00",
+  "updated_at": "2026-10-09T16:35:36.441346+09:00",
   "article_date": "2026-10-09",
   "checked_date": "2026-10-09",
   "sources": [
@@ -7,11 +7,25 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 92,
-    "selected": 51,
-    "document_failures": 10
+    "tdnet_candidates": 96,
+    "selected": 53,
+    "document_failures": 12
   },
   "source_failures": [
+    {
+      "code": "2735",
+      "url": "https://www.release.tdnet.info/inbs/140120261009548329.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "9972",
+      "url": "https://www.release.tdnet.info/inbs/140120261008548205.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "3046",
       "url": "https://www.release.tdnet.info/inbs/140120261009548583.pdf",
@@ -84,6 +98,127 @@
     }
   ],
   "highlights": [
+    {
+      "code": "9972",
+      "name": "アルテック",
+      "title": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+      "time": "16:30",
+      "published_date": "2026-10-09",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261008548174.zip",
+      "narrative": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第3四半期累計 営業利益",
+          "value": "5.86億円",
+          "comparison": "-1.04億円 → 5.86億円（前年同期比）"
+        },
+        {
+          "label": "第3四半期累計 経常利益",
+          "value": "4.79億円",
+          "comparison": "-1.42億円 → 4.79億円（前年同期比）"
+        },
+        {
+          "label": "第3四半期累計 純利益",
+          "value": "3.93億円",
+          "comparison": "1.14億円 → 3.93億円（前年同期比）"
+        },
+        {
+          "label": "第3四半期累計 売上高",
+          "value": "118.93億円",
+          "comparison": "123.07億円 → 118.93億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "営業利益",
+          "current": 586000000.0,
+          "previous": -104000000.0,
+          "pct": 663.46,
+          "basis": "前年同期比",
+          "period": "第3四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 479000000.0,
+          "previous": -142000000.0,
+          "pct": 437.32,
+          "basis": "前年同期比",
+          "period": "第3四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 393000000.0,
+          "previous": 114000000.0,
+          "pct": 244.74,
+          "basis": "前年同期比",
+          "period": "第3四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 11893000000.0,
+          "previous": 12307000000.0,
+          "pct": -3.36,
+          "basis": "前年同期比",
+          "period": "第3四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "大幅増益 +244.7%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "黒字転換",
+      "impact_summary": "第3四半期累計営業利益が黒字転換（前年同期比）。第3四半期累計経常利益が黒字転換（前年同期比）。第3四半期累計純利益が大幅増益 +244.7%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/09 16:30発表",
+      "published_time": "16:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+          "title": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+          "time": "16:30"
+        }
+      ],
+      "company_summary": "特殊産業機械の商社。包装、印刷関連が主力",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9972/"
+    },
     {
       "code": "3063",
       "name": "jGroup",
@@ -1403,128 +1538,136 @@
       ],
       "company_summary": "静岡・浜松・愛知から関東に進出",
       "company_summary_source": "https://s.kabutan.jp/stocks/2999/"
-    },
-    {
-      "code": "3192",
-      "name": "白鳩",
-      "title": "業績予想の修正に関するお知らせ",
-      "time": "15:30",
-      "published_date": "2026-10-09",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-      "xbrl_url": "",
-      "narrative": "業績予想の修正に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "会社予想 売上高",
-          "value": "62.3億円",
-          "comparison": "67.5億円 → 62.3億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 営業利益",
-          "value": "-1億円",
-          "comparison": "5,000万円 → -1億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 経常利益",
-          "value": "-1.3億円",
-          "comparison": "2,000万円 → -1.3億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 純利益",
-          "value": "-1.35億円",
-          "comparison": "1,400万円 → -1.35億円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "売上高",
-          "current": 6230000000.0,
-          "previous": 6750000000.0,
-          "pct": -7.7,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "営業利益",
-          "current": -100000000.0,
-          "previous": 50000000.0,
-          "pct": -300.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "経常利益",
-          "current": -130000000.0,
-          "previous": 20000000.0,
-          "pct": -750.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "純利益",
-          "current": -135000000.0,
-          "previous": 14000000.0,
-          "pct": -1064.29,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        }
-      ],
-      "chips": [
-        {
-          "label": "営業利益",
-          "value": "赤字転落",
-          "direction": "down"
-        },
-        {
-          "label": "経常利益",
-          "value": "赤字転落",
-          "direction": "down"
-        },
-        {
-          "label": "純利益",
-          "value": "赤字転落",
-          "direction": "down"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "negative",
-      "impact_label": "赤字転落",
-      "impact_summary": "会社予想営業利益が赤字転落（前回会社予想比）。会社予想経常利益が赤字転落（前回会社予想比）。会社予想純利益が赤字転落（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "10/09 15:30発表",
-      "published_time": "15:30",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "15:30"
-        }
-      ],
-      "company_summary": "レディスを中心とした下着をネットモール出店",
-      "company_summary_source": "https://s.kabutan.jp/stocks/3192/"
     }
   ],
-  "total": 51,
+  "total": 53,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "9972",
+          "name": "アルテック",
+          "title": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+          "time": "16:30",
+          "published_date": "2026-10-09",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261008548174.zip",
+          "narrative": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第3四半期累計 営業利益",
+              "value": "5.86億円",
+              "comparison": "-1.04億円 → 5.86億円（前年同期比）"
+            },
+            {
+              "label": "第3四半期累計 経常利益",
+              "value": "4.79億円",
+              "comparison": "-1.42億円 → 4.79億円（前年同期比）"
+            },
+            {
+              "label": "第3四半期累計 純利益",
+              "value": "3.93億円",
+              "comparison": "1.14億円 → 3.93億円（前年同期比）"
+            },
+            {
+              "label": "第3四半期累計 売上高",
+              "value": "118.93億円",
+              "comparison": "123.07億円 → 118.93億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "営業利益",
+              "current": 586000000.0,
+              "previous": -104000000.0,
+              "pct": 663.46,
+              "basis": "前年同期比",
+              "period": "第3四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 479000000.0,
+              "previous": -142000000.0,
+              "pct": 437.32,
+              "basis": "前年同期比",
+              "period": "第3四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 393000000.0,
+              "previous": 114000000.0,
+              "pct": 244.74,
+              "basis": "前年同期比",
+              "period": "第3四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 11893000000.0,
+              "previous": 12307000000.0,
+              "pct": -3.36,
+              "basis": "前年同期比",
+              "period": "第3四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "大幅増益 +244.7%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "黒字転換",
+          "impact_summary": "第3四半期累計営業利益が黒字転換（前年同期比）。第3四半期累計経常利益が黒字転換（前年同期比）。第3四半期累計純利益が大幅増益 +244.7%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/09 16:30発表",
+          "published_time": "16:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261008548174.pdf",
+              "title": "2026年11月期  第3四半期決算短信〔日本基準〕(連結)",
+              "time": "16:30"
+            }
+          ],
+          "company_summary": "特殊産業機械の商社。包装、印刷関連が主力",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9972/"
+        },
         {
           "code": "3063",
           "name": "jGroup",
@@ -2844,119 +2987,6 @@
           ],
           "company_summary": "静岡・浜松・愛知から関東に進出",
           "company_summary_source": "https://s.kabutan.jp/stocks/2999/"
-        },
-        {
-          "code": "3192",
-          "name": "白鳩",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "15:30",
-          "published_date": "2026-10-09",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-          "xbrl_url": "",
-          "narrative": "業績予想の修正に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "会社予想 売上高",
-              "value": "62.3億円",
-              "comparison": "67.5億円 → 62.3億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 営業利益",
-              "value": "-1億円",
-              "comparison": "5,000万円 → -1億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 経常利益",
-              "value": "-1.3億円",
-              "comparison": "2,000万円 → -1.3億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 純利益",
-              "value": "-1.35億円",
-              "comparison": "1,400万円 → -1.35億円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "売上高",
-              "current": 6230000000.0,
-              "previous": 6750000000.0,
-              "pct": -7.7,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "営業利益",
-              "current": -100000000.0,
-              "previous": 50000000.0,
-              "pct": -300.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "経常利益",
-              "current": -130000000.0,
-              "previous": 20000000.0,
-              "pct": -750.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "純利益",
-              "current": -135000000.0,
-              "previous": 14000000.0,
-              "pct": -1064.29,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            }
-          ],
-          "chips": [
-            {
-              "label": "営業利益",
-              "value": "赤字転落",
-              "direction": "down"
-            },
-            {
-              "label": "経常利益",
-              "value": "赤字転落",
-              "direction": "down"
-            },
-            {
-              "label": "純利益",
-              "value": "赤字転落",
-              "direction": "down"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "negative",
-          "impact_label": "赤字転落",
-          "impact_summary": "会社予想営業利益が赤字転落（前回会社予想比）。会社予想経常利益が赤字転落（前回会社予想比）。会社予想純利益が赤字転落（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "10/09 15:30発表",
-          "published_time": "15:30",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261009548375.pdf",
-              "title": "業績予想の修正に関するお知らせ",
-              "time": "15:30"
-            }
-          ],
-          "company_summary": "レディスを中心とした下着をネットモール出店",
-          "company_summary_source": "https://s.kabutan.jp/stocks/3192/"
         }
       ]
     }
@@ -2964,8 +2994,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-09T07:20:04.120571+00:00",
-  "fetched_at": "2026-10-09T16:20:02.818573+09:00",
-  "last_success_at": "2026-10-09T16:20:02.818573+09:00",
-  "valid_until": "2026-10-11T04:20:02.818573+09:00"
+  "last_attempt_at": "2026-10-09T07:35:38.649960+00:00",
+  "fetched_at": "2026-10-09T16:35:36.441346+09:00",
+  "last_success_at": "2026-10-09T16:35:36.441346+09:00",
+  "valid_until": "2026-10-11T04:35:36.441346+09:00"
 }
