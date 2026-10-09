@@ -7,10 +7,10 @@
       "decimals": 2,
       "unit": "円",
       "instrument_type": "INDEX",
-      "price": 69026.63,
+      "price": 69015.8,
       "prev_close": 69042.1094,
-      "change": -15.4794,
-      "pct": -0.022,
+      "change": -26.3094,
+      "pct": -0.038,
       "chart": [
         {
           "t": "2026-09-09",
@@ -90,13 +90,13 @@
         },
         {
           "t": "2026-10-09",
-          "c": 69026.63
+          "c": 69015.8
         }
       ],
       "price_date": "2026-10-09",
-      "as_of": "2026-10-09T05:45:55+00:00",
-      "fetched_at": "2026-10-09T15:00:57.683274+09:00",
-      "valid_until": "2026-10-09T06:45:55+00:00",
+      "as_of": "2026-10-09T06:00:30+00:00",
+      "fetched_at": "2026-10-09T15:15:32.828441+09:00",
+      "valid_until": "2026-10-09T07:00:30+00:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -204,8 +204,8 @@
       ],
       "price_date": "2026-10-08",
       "as_of": "2026-10-08T20:46:52+00:00",
-      "fetched_at": "2026-10-09T15:00:57.726860+09:00",
-      "valid_until": "2026-10-09T23:00:57.726860+09:00",
+      "fetched_at": "2026-10-09T15:15:32.865801+09:00",
+      "valid_until": "2026-10-09T23:15:32.865801+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -313,8 +313,8 @@
       ],
       "price_date": "2026-10-08",
       "as_of": "2026-10-08T21:15:59+00:00",
-      "fetched_at": "2026-10-09T15:00:57.829431+09:00",
-      "valid_until": "2026-10-09T23:00:57.829431+09:00",
+      "fetched_at": "2026-10-09T15:15:32.956400+09:00",
+      "valid_until": "2026-10-09T23:15:32.956400+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -326,10 +326,10 @@
       "decimals": 3,
       "unit": "円 / 米ドル",
       "instrument_type": "CURRENCY",
-      "price": 158.161,
+      "price": 158.163,
       "prev_close": 158.06,
-      "change": 0.101,
-      "pct": 0.064,
+      "change": 0.103,
+      "pct": 0.065,
       "chart": [
         {
           "t": "2026-09-09",
@@ -421,13 +421,13 @@
         },
         {
           "t": "2026-10-09",
-          "c": 158.161
+          "c": 158.163
         }
       ],
       "price_date": "2026-10-09",
-      "as_of": "2026-10-09T06:00:56+00:00",
-      "fetched_at": "2026-10-09T15:00:57.872382+09:00",
-      "valid_until": "2026-10-09T23:00:57.872382+09:00",
+      "as_of": "2026-10-09T06:15:31+00:00",
+      "fetched_at": "2026-10-09T15:15:32.979872+09:00",
+      "valid_until": "2026-10-09T23:15:32.979872+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -535,8 +535,8 @@
       ],
       "price_date": "2026-10-08",
       "as_of": "2026-10-08T21:15:59+00:00",
-      "fetched_at": "2026-10-09T15:00:58.021799+09:00",
-      "valid_until": "2026-10-09T23:00:58.021799+09:00",
+      "fetched_at": "2026-10-09T15:15:33.048174+09:00",
+      "valid_until": "2026-10-09T23:15:33.048174+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -548,35 +548,26 @@
       "decimals": 2,
       "unit": "USD / トロイオンス",
       "instrument_type": "SPOT",
-      "price": 4202.600098,
+      "price": 4193.0,
       "prev_close": null,
       "change": null,
       "pct": null,
       "chart": [],
       "price_date": "2026-10-09",
-      "as_of": "2026-10-09T05:45:10+00:00",
-      "fetched_at": "2026-10-09T14:45:38.223704+09:00",
-      "valid_until": "2026-10-09T08:45:10+00:00",
+      "as_of": "2026-10-09T06:15:10+00:00",
+      "fetched_at": "2026-10-09T15:15:33.322563+09:00",
+      "valid_until": "2026-10-09T09:15:10+00:00",
       "source_label": "Gold API",
-      "source_url": "https://gold-api.com/",
-      "cache_status": "previous",
-      "cache_until": "2026-10-10T14:45:38.223704+09:00",
-      "last_attempt_at": "2026-10-09T15:01:09.220206+09:00",
-      "fetch_error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Read timed out. (read timeout=4)"
+      "source_url": "https://gold-api.com/"
     }
   ],
-  "failures": [
-    {
-      "id": "gold",
-      "error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Read timed out. (read timeout=4)"
-    }
-  ],
+  "failures": [],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "partial",
-  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
-  "updated_at": "2026-10-09T15:01:09.220259+09:00",
-  "last_attempt_at": "2026-10-09T06:01:09.220264+00:00",
-  "fetched_at": "2026-10-09T15:01:09.220259+09:00",
-  "last_success_at": "2026-10-09T15:01:09.220259+09:00",
-  "valid_until": "2026-10-09T23:01:09.220259+09:00"
+  "fetch_status": "ok",
+  "fetch_warning": null,
+  "updated_at": "2026-10-09T15:15:33.322995+09:00",
+  "last_attempt_at": "2026-10-09T06:15:33.323003+00:00",
+  "fetched_at": "2026-10-09T15:15:33.322995+09:00",
+  "last_success_at": "2026-10-09T15:15:33.322995+09:00",
+  "valid_until": "2026-10-09T23:15:33.322995+09:00"
 }
