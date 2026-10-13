@@ -1,61 +1,63 @@
 {
-  "updated_at": "2026-10-14T03:35:35.561158+09:00",
-  "last_attempt_at": "2026-10-14T03:35:35.561169+09:00",
-  "source": "kabutan_mobile",
-  "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
-  "source_url": "https://s.kabutan.jp/warnings/price_increase/",
+  "updated_at": "2026-10-14T03:50:19.631693+09:00",
+  "last_attempt_at": "2026-10-14T03:50:19.631706+09:00",
+  "source": "jpx_yfinance",
+  "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
+  "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
   "scope": "東証全市場（プライム・スタンダード・グロース）",
-  "ranking_definition": "前日比・値上がり率上位30銘柄",
+  "ranking_definition": "JPX上場内国株式の前日比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "prices_fetched_at": "2026-10-13T16:00:00+09:00",
-  "price_time_precision": "minute",
-  "as_of": "2026-10-13T16:00:00+09:00",
-  "fetch_status": "fallback",
-  "fetch_warning": "Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示",
+  "prices_fetched_at": "2026-10-13T18:46:02.165201+00:00",
+  "price_time_precision": "day",
+  "as_of": null,
+  "fetch_status": "ok",
+  "fetch_warning": "",
   "source_attempts": [
     {
       "source": "yfinance_retry",
       "status": "ok",
-      "missing": 544,
+      "missing": 12,
       "retried": 0,
       "recovered": 0,
-      "first_pass_seconds": 260.9,
-      "total_seconds": 263.9
+      "first_pass_seconds": 253.2,
+      "total_seconds": 256.2
     },
     {
       "source": "yfinance_bulk",
       "status": "partial",
-      "prices_fetched_at": "2026-10-13T18:31:09.224833+00:00",
+      "prices_fetched_at": "2026-10-13T18:46:02.165201+00:00",
       "universe_count": 3695,
-      "quoted_count": 3151,
-      "coverage": 0.8528,
+      "quoted_count": 3683,
+      "coverage": 0.9968,
       "session_date": "2026-10-13"
-    },
-    {
-      "source": "kabutan_mobile",
-      "status": "ok",
-      "count": 37,
-      "as_of": "2026-10-13T16:00:00+09:00",
-      "url": "https://s.kabutan.jp/warnings/price_increase/"
     }
   ],
-  "coverage": {},
+  "coverage": {
+    "prices_fetched_at": "2026-10-13T18:46:02.165201+00:00",
+    "universe_count": 3695,
+    "quoted_count": 3683,
+    "coverage": 0.9968
+  },
   "session_date": "2026-10-13",
   "is_fallback": false,
-  "stop_high_count": 10,
-  "near_stop_count": 20,
+  "stop_high_count": 7,
+  "near_stop_count": 23,
   "all_stocks": [
     {
       "code": "4382",
       "name": "HEROZ",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 1398.0,
-      "change_amount": 298.0,
-      "change_pct": 27.09,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 4283000.0,
+      "change_amount": 298.0,
+      "change_pct": 27.091,
+      "volume": 4283000,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -802,24 +804,24 @@
           4283000
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4240",
       "name": "クラスターテクノロジー",
       "market": "東証S",
+      "sector": "化学",
       "price": 382.0,
+      "stop_high_price": 382.0,
+      "is_stop_high": true,
       "change_amount": 80.0,
       "change_pct": 26.49,
+      "volume": 31900,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": true,
-      "volume": 31900.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -1566,24 +1568,24 @@
           31900
         ]
       },
-      "sector": "化学",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "5599",
       "name": "S&J",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 1995.0,
-      "change_amount": 400.0,
-      "change_pct": 25.08,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": 1995.0,
       "is_stop_high": true,
-      "volume": 771700.0,
+      "change_amount": 400.0,
+      "change_pct": 25.078,
+      "volume": 771700,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -2330,24 +2332,24 @@
           771700
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "9250",
       "name": "GRCS",
       "market": "東証G",
+      "sector": "サービス業",
       "price": 1580.0,
-      "change_amount": 300.0,
-      "change_pct": 23.44,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": 1580.0,
       "is_stop_high": true,
-      "volume": 239000.0,
+      "change_amount": 300.0,
+      "change_pct": 23.438,
+      "volume": 239000,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -3094,24 +3096,24 @@
           239000
         ]
       },
-      "sector": "サービス業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3909",
       "name": "ショーケース",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 469.0,
-      "change_amount": 80.0,
-      "change_pct": 20.57,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": 469.0,
       "is_stop_high": true,
-      "volume": 670200.0,
+      "change_amount": 80.0,
+      "change_pct": 20.566,
+      "volume": 670200,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -3858,24 +3860,24 @@
           670200
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "6217",
       "name": "津田駒工業",
       "market": "東証S",
+      "sector": "機械",
       "price": 886.0,
+      "stop_high_price": 886.0,
+      "is_stop_high": true,
       "change_amount": 150.0,
       "change_pct": 20.38,
+      "volume": 241500,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": true,
-      "volume": 241500.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -4622,24 +4624,24 @@
           241500
         ]
       },
-      "sector": "機械",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4498",
       "name": "サイバートラスト",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 1851.0,
-      "change_amount": 279.0,
-      "change_pct": 17.75,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 16713400.0,
+      "change_amount": 279.0,
+      "change_pct": 17.748,
+      "volume": 16713400,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -5386,24 +5388,24 @@
           16713400
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3042",
       "name": "セキュアヴェイル",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 681.0,
-      "change_amount": 100.0,
-      "change_pct": 17.21,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": 681.0,
       "is_stop_high": true,
-      "volume": 1910800.0,
+      "change_amount": 100.0,
+      "change_pct": 17.212,
+      "volume": 1910800,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -6150,24 +6152,24 @@
           1910800
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3996",
       "name": "サインポスト",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 255.0,
-      "change_amount": 36.0,
-      "change_pct": 16.44,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 2220500.0,
+      "change_amount": 36.0,
+      "change_pct": 16.438,
+      "volume": 2220500,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -6914,24 +6916,24 @@
           2220500
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "7069",
       "name": "サイバー・バズ",
       "market": "東証G",
+      "sector": "サービス業",
       "price": 570.0,
-      "change_amount": 80.0,
-      "change_pct": 16.33,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": 570.0,
       "is_stop_high": true,
-      "volume": 26100.0,
+      "change_amount": 80.0,
+      "change_pct": 16.327,
+      "volume": 26100,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -7678,24 +7680,24 @@
           26100
         ]
       },
-      "sector": "サービス業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "436A",
       "name": "サイバーソリューションズ",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 2181.0,
+      "stop_high_price": null,
+      "is_stop_high": false,
       "change_amount": 278.0,
-      "change_pct": 14.61,
+      "change_pct": 14.609,
+      "volume": 4872600,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": true,
-      "volume": 4872600.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -8442,24 +8444,24 @@
           4872600
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "6668",
       "name": "アドテック プラズマ テクノロジー",
       "market": "東証S",
+      "sector": "電気機器",
       "price": 5630.0,
+      "stop_high_price": null,
+      "is_stop_high": false,
       "change_amount": 705.0,
-      "change_pct": 14.31,
+      "change_pct": 14.315,
+      "volume": 19800,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": true,
-      "volume": 19800.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -9206,24 +9208,24 @@
           19800
         ]
       },
-      "sector": "電気機器",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4442",
       "name": "バルテス・ホールディングス",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 494.0,
-      "change_amount": 61.0,
-      "change_pct": 14.09,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 964000.0,
+      "change_amount": 61.0,
+      "change_pct": 14.088,
+      "volume": 964000,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -9970,24 +9972,24 @@
           964000
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "153A",
       "name": "カウリス",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 2999.0,
-      "change_amount": 348.0,
-      "change_pct": 13.13,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 4431700.0,
+      "change_amount": 348.0,
+      "change_pct": 13.127,
+      "volume": 4431700,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -10734,24 +10736,24 @@
           4431700
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4493",
       "name": "サイバーセキュリティクラウド",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 4180.0,
-      "change_amount": 480.0,
-      "change_pct": 12.97,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 12024000.0,
+      "change_amount": 480.0,
+      "change_pct": 12.973,
+      "volume": 12024000,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -11498,24 +11500,24 @@
           12024000
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "5028",
       "name": "セカンドサイトアナリティカ",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 396.0,
-      "change_amount": 41.0,
-      "change_pct": 11.55,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 359300.0,
+      "change_amount": 41.0,
+      "change_pct": 11.549,
+      "volume": 359300,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -12262,24 +12264,24 @@
           359300
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "5341",
       "name": "ASAHI EITOホールディングス",
       "market": "東証S",
+      "sector": "ガラス・土石製品",
       "price": 137.0,
-      "change_amount": 14.0,
-      "change_pct": 11.38,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 2916300.0,
+      "change_amount": 14.0,
+      "change_pct": 11.382,
+      "volume": 2916300,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -13026,24 +13028,24 @@
           2916300
         ]
       },
-      "sector": "ガラス・土石製品",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "1382",
       "name": "ホーブ",
       "market": "東証S",
+      "sector": "水産・農林業",
       "price": 963.0,
-      "change_amount": 98.0,
-      "change_pct": 11.33,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 21900.0,
+      "change_amount": 98.0,
+      "change_pct": 11.329,
+      "volume": 21900,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -13790,24 +13792,24 @@
           21900
         ]
       },
-      "sector": "水産・農林業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3747",
       "name": "インタートレード",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 472.0,
-      "change_amount": 47.0,
-      "change_pct": 11.06,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 1551100.0,
+      "change_amount": 47.0,
+      "change_pct": 11.059,
+      "volume": 1551100,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -14554,24 +14556,24 @@
           1551100
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "6138",
       "name": "ダイジェット工業",
       "market": "東証S",
+      "sector": "機械",
       "price": 2097.0,
-      "change_amount": 191.0,
-      "change_pct": 10.02,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 38700.0,
+      "change_amount": 191.0,
+      "change_pct": 10.021,
+      "volume": 38700,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -15318,24 +15320,24 @@
           38700
         ]
       },
-      "sector": "機械",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "6721",
       "name": "ウインテスト",
       "market": "東証S",
+      "sector": "電気機器",
       "price": 78.0,
-      "change_amount": 7.0,
-      "change_pct": 9.86,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 4359800.0,
+      "change_amount": 7.0,
+      "change_pct": 9.859,
+      "volume": 4359800,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -16082,24 +16084,24 @@
           4359800
         ]
       },
-      "sector": "電気機器",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3858",
       "name": "ユビキタスAI",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 387.0,
-      "change_amount": 34.0,
-      "change_pct": 9.63,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 596900.0,
+      "change_amount": 34.0,
+      "change_pct": 9.632,
+      "volume": 596900,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -16846,24 +16848,24 @@
           596900
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "338A",
       "name": "ZenmuTech",
       "market": "東証G",
+      "sector": "情報・通信業",
       "price": 5210.0,
-      "change_amount": 455.0,
-      "change_pct": 9.57,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 2231400.0,
+      "change_amount": 455.0,
+      "change_pct": 9.569,
+      "volume": 2231400,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -17610,24 +17612,24 @@
           2231400
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4398",
       "name": "ブロードバンドセキュリティ",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 3070.0,
+      "stop_high_price": null,
+      "is_stop_high": false,
       "change_amount": 248.0,
-      "change_pct": 8.79,
+      "change_pct": 8.788,
+      "volume": 1127600,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": true,
-      "volume": 1127600.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -18374,24 +18376,24 @@
           1127600
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "3744",
       "name": "サイオス",
       "market": "東証S",
+      "sector": "情報・通信業",
       "price": 500.0,
+      "stop_high_price": null,
+      "is_stop_high": false,
       "change_amount": 39.0,
       "change_pct": 8.46,
+      "volume": 56500,
+      "description": null,
+      "industry": null,
+      "website": null,
       "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
-      "is_stop_high": false,
-      "volume": 56500.0,
       "chart": {
         "dates": [
           "2026-04-13",
@@ -19138,24 +19140,24 @@
           56500
         ]
       },
-      "sector": "情報・通信業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "9564",
       "name": "FCE",
       "market": "東証S",
+      "sector": "サービス業",
       "price": 605.0,
-      "change_amount": 47.0,
-      "change_pct": 8.42,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 112000.0,
+      "change_amount": 47.0,
+      "change_pct": 8.423,
+      "volume": 112000,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -19902,24 +19904,24 @@
           112000
         ]
       },
-      "sector": "サービス業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "6659",
       "name": "メディアリンクス",
       "market": "東証S",
+      "sector": "電気機器",
       "price": 39.0,
-      "change_amount": 3.0,
-      "change_pct": 8.33,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 3284100.0,
+      "change_amount": 3.0,
+      "change_pct": 8.333,
+      "volume": 3284100,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -20666,24 +20668,24 @@
           3284100
         ]
       },
-      "sector": "電気機器",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "4884",
       "name": "クリングルファーマ",
       "market": "東証G",
+      "sector": "医薬品",
       "price": 696.0,
-      "change_amount": 51.0,
-      "change_pct": 7.91,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 1334500.0,
+      "change_amount": 51.0,
+      "change_pct": 7.907,
+      "volume": 1334500,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -21430,24 +21432,24 @@
           1334500
         ]
       },
-      "sector": "医薬品",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "9812",
       "name": "テーオーホールディングス",
       "market": "東証S",
+      "sector": "小売業",
       "price": 248.0,
-      "change_amount": 18.0,
-      "change_pct": 7.83,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 22900.0,
+      "change_amount": 18.0,
+      "change_pct": 7.826,
+      "volume": 22900,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -22194,24 +22196,24 @@
           22900
         ]
       },
-      "sector": "小売業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     },
     {
       "code": "8129",
       "name": "東邦ホールディングス",
       "market": "東証P",
+      "sector": "卸売業",
       "price": 3975.0,
-      "change_amount": 288.0,
-      "change_pct": 7.81,
-      "price_date": "2026-10-13",
-      "source_checked_at": "2026-10-13T16:00:00+09:00",
+      "stop_high_price": null,
       "is_stop_high": false,
-      "volume": 400300.0,
+      "change_amount": 288.0,
+      "change_pct": 7.811,
+      "volume": 400300,
+      "description": null,
+      "industry": null,
+      "website": null,
+      "price_date": "2026-10-13",
       "chart": {
         "dates": [
           "2026-04-13",
@@ -22958,23 +22960,17 @@
           400300
         ]
       },
-      "sector": "卸売業",
-      "description": null,
       "description_ja": "",
-      "industry": null,
-      "industry_ja": "",
-      "website": null
+      "industry_ja": ""
     }
   ],
   "sector_analysis": {
     "情報・通信業": {
-      "count": 5,
+      "count": 3,
       "codes": [
         "5599",
         "3909",
-        "3042",
-        "436A",
-        "4398"
+        "3042"
       ]
     },
     "サービス業": {
@@ -22995,23 +22991,16 @@
       "codes": [
         "6217"
       ]
-    },
-    "電気機器": {
-      "count": 1,
-      "codes": [
-        "6668"
-      ]
     }
   },
   "theme_keywords": [
     "情報・通信業",
     "サービス業",
     "化学",
-    "機械",
-    "電気機器"
+    "機械"
   ],
-  "fetched_at": "2026-10-14T03:35:35.561158+09:00",
-  "last_success_at": "2026-10-14T03:35:35.561158+09:00",
+  "fetched_at": "2026-10-14T03:50:19.631693+09:00",
+  "last_success_at": "2026-10-14T03:50:19.631693+09:00",
   "valid_until": "2026-10-14T09:30:00+09:00",
   "market": "tse",
   "market_state": "preopen"
