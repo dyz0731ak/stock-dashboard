@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T15:34:19.278456+09:00",
+  "updated_at": "2026-10-14T15:51:07.155906+09:00",
   "article_date": "2026-10-14",
   "checked_date": "2026-10-14",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 111,
+    "tdnet_candidates": 112,
     "selected": 53,
-    "document_failures": 14
+    "document_failures": 15
   },
   "source_failures": [
+    {
+      "code": "365A",
+      "url": "https://www.release.tdnet.info/inbs/140120261014550709.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "3030",
       "url": "https://www.release.tdnet.info/inbs/140120261014550387.pdf",
@@ -3206,8 +3213,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-14T06:34:41.715819+00:00",
-  "fetched_at": "2026-10-14T15:34:19.278456+09:00",
-  "last_success_at": "2026-10-14T15:34:19.278456+09:00",
-  "valid_until": "2026-10-16T03:34:19.278456+09:00"
+  "last_attempt_at": "2026-10-14T06:51:13.256476+00:00",
+  "fetched_at": "2026-10-14T15:51:07.155906+09:00",
+  "last_success_at": "2026-10-14T15:51:07.155906+09:00",
+  "valid_until": "2026-10-16T03:51:07.155906+09:00"
 }
