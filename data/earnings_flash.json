@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T17:21:03.830419+09:00",
+  "updated_at": "2026-10-14T17:33:50.777412+09:00",
   "article_date": "2026-10-14",
   "checked_date": "2026-10-14",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 148,
-    "selected": 69,
-    "document_failures": 29
+    "tdnet_candidates": 150,
+    "selected": 70,
+    "document_failures": 30
   },
   "source_failures": [
+    {
+      "code": "464A",
+      "url": "https://www.release.tdnet.info/inbs/140120261014550614.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "152A",
       "url": "https://www.release.tdnet.info/inbs/140120261014550261.pdf",
@@ -217,6 +224,119 @@
     }
   ],
   "highlights": [
+    {
+      "code": "464A",
+      "name": "QPSホールディングス",
+      "title": "連結業績予想修正に関するお知らせ",
+      "time": "17:30",
+      "published_date": "2026-10-14",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+      "xbrl_url": "",
+      "narrative": "連結業績予想修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "会社予想 売上高",
+          "value": "100億円",
+          "comparison": "100億円 → 100億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 営業利益",
+          "value": "20億円",
+          "comparison": "3億円 → 20億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 経常利益",
+          "value": "32億円",
+          "comparison": "20億円 → 32億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 純利益",
+          "value": "27億円",
+          "comparison": "19億円 → 27億円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "売上高",
+          "current": 10000000000.0,
+          "previous": 10000000000.0,
+          "pct": 0.0,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "営業利益",
+          "current": 2000000000.0,
+          "previous": 300000000.0,
+          "pct": 566.67,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "経常利益",
+          "current": 3200000000.0,
+          "previous": 2000000000.0,
+          "pct": 60.0,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "純利益",
+          "current": 2700000000.0,
+          "previous": 1900000000.0,
+          "pct": 42.11,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "上方修正 +566.7%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +60.0%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +42.1%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +566.7%",
+      "impact_summary": "会社予想営業利益が上方修正 +566.7%（前回会社予想比）。会社予想経常利益が上方修正 +60.0%（前回会社予想比）。会社予想純利益が上方修正 +42.1%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/14 17:30発表",
+      "published_time": "17:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+          "title": "連結業績予想修正に関するお知らせ",
+          "time": "17:30"
+        }
+      ],
+      "company_summary": "小型SAR衛星の開発・製造や、衛星から取得した画像データ販売を手掛ける",
+      "company_summary_source": "https://s.kabutan.jp/stocks/464A/"
+    },
     {
       "code": "3083",
       "name": "スターシーズ",
@@ -1619,136 +1739,128 @@
       ],
       "company_summary": "総合建設コンサル会社",
       "company_summary_source": "https://s.kabutan.jp/stocks/2153/"
-    },
-    {
-      "code": "2305",
-      "name": "スタジオアリス",
-      "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "time": "15:30",
-      "published_date": "2026-10-14",
-      "document_url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220260924539160.zip",
-      "narrative": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 経常利益",
-          "value": "1.74億円",
-          "comparison": "-4.34億円 → 1.74億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 営業利益",
-          "value": "9,500万円",
-          "comparison": "-4.62億円 → 9,500万円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "1,500万円",
-          "comparison": "-3.79億円 → 1,500万円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 売上高",
-          "value": "145.21億円",
-          "comparison": "143.72億円 → 145.21億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "経常利益",
-          "current": 174000000.0,
-          "previous": -434000000.0,
-          "pct": 140.09,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "営業利益",
-          "current": 95000000.0,
-          "previous": -462000000.0,
-          "pct": 120.56,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OperatingIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "純利益",
-          "current": 15000000.0,
-          "previous": -379000000.0,
-          "pct": 103.96,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "売上高",
-          "current": 14521000000.0,
-          "previous": 14372000000.0,
-          "pct": 1.04,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "NetSales",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "経常利益",
-          "value": "黒字転換",
-          "direction": "up"
-        },
-        {
-          "label": "営業利益",
-          "value": "黒字転換",
-          "direction": "up"
-        },
-        {
-          "label": "純利益",
-          "value": "黒字転換",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "黒字転換",
-      "impact_summary": "第2四半期累計経常利益が黒字転換（前年同期比）。第2四半期累計営業利益が黒字転換（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "10/14 15:30発表",
-      "published_time": "15:30",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-          "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "15:30"
-        }
-      ],
-      "company_summary": "子供写真館最大手。SC内などに全国展開",
-      "company_summary_source": "https://s.kabutan.jp/stocks/2305/"
     }
   ],
-  "total": 69,
+  "total": 70,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "464A",
+          "name": "QPSホールディングス",
+          "title": "連結業績予想修正に関するお知らせ",
+          "time": "17:30",
+          "published_date": "2026-10-14",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+          "xbrl_url": "",
+          "narrative": "連結業績予想修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "会社予想 売上高",
+              "value": "100億円",
+              "comparison": "100億円 → 100億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 営業利益",
+              "value": "20億円",
+              "comparison": "3億円 → 20億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 経常利益",
+              "value": "32億円",
+              "comparison": "20億円 → 32億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 純利益",
+              "value": "27億円",
+              "comparison": "19億円 → 27億円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "売上高",
+              "current": 10000000000.0,
+              "previous": 10000000000.0,
+              "pct": 0.0,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "営業利益",
+              "current": 2000000000.0,
+              "previous": 300000000.0,
+              "pct": 566.67,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "経常利益",
+              "current": 3200000000.0,
+              "previous": 2000000000.0,
+              "pct": 60.0,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "純利益",
+              "current": 2700000000.0,
+              "previous": 1900000000.0,
+              "pct": 42.11,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "上方修正 +566.7%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +60.0%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +42.1%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +566.7%",
+          "impact_summary": "会社予想営業利益が上方修正 +566.7%（前回会社予想比）。会社予想経常利益が上方修正 +60.0%（前回会社予想比）。会社予想純利益が上方修正 +42.1%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/14 17:30発表",
+          "published_time": "17:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261014550601.pdf",
+              "title": "連結業績予想修正に関するお知らせ",
+              "time": "17:30"
+            }
+          ],
+          "company_summary": "小型SAR衛星の開発・製造や、衛星から取得した画像データ販売を手掛ける",
+          "company_summary_source": "https://s.kabutan.jp/stocks/464A/"
+        },
         {
           "code": "3083",
           "name": "スターシーズ",
@@ -3151,127 +3263,6 @@
           ],
           "company_summary": "総合建設コンサル会社",
           "company_summary_source": "https://s.kabutan.jp/stocks/2153/"
-        },
-        {
-          "code": "2305",
-          "name": "スタジオアリス",
-          "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "15:30",
-          "published_date": "2026-10-14",
-          "document_url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220260924539160.zip",
-          "narrative": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 経常利益",
-              "value": "1.74億円",
-              "comparison": "-4.34億円 → 1.74億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 営業利益",
-              "value": "9,500万円",
-              "comparison": "-4.62億円 → 9,500万円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "1,500万円",
-              "comparison": "-3.79億円 → 1,500万円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 売上高",
-              "value": "145.21億円",
-              "comparison": "143.72億円 → 145.21億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "経常利益",
-              "current": 174000000.0,
-              "previous": -434000000.0,
-              "pct": 140.09,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "営業利益",
-              "current": 95000000.0,
-              "previous": -462000000.0,
-              "pct": 120.56,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OperatingIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "純利益",
-              "current": 15000000.0,
-              "previous": -379000000.0,
-              "pct": 103.96,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "売上高",
-              "current": 14521000000.0,
-              "previous": 14372000000.0,
-              "pct": 1.04,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "NetSales",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "経常利益",
-              "value": "黒字転換",
-              "direction": "up"
-            },
-            {
-              "label": "営業利益",
-              "value": "黒字転換",
-              "direction": "up"
-            },
-            {
-              "label": "純利益",
-              "value": "黒字転換",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "黒字転換",
-          "impact_summary": "第2四半期累計経常利益が黒字転換（前年同期比）。第2四半期累計営業利益が黒字転換（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "10/14 15:30発表",
-          "published_time": "15:30",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120260924539160.pdf",
-              "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-              "time": "15:30"
-            }
-          ],
-          "company_summary": "子供写真館最大手。SC内などに全国展開",
-          "company_summary_source": "https://s.kabutan.jp/stocks/2305/"
         }
       ]
     }
@@ -3279,8 +3270,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-14T08:21:08.799715+00:00",
-  "fetched_at": "2026-10-14T17:21:03.830419+09:00",
-  "last_success_at": "2026-10-14T17:21:03.830419+09:00",
-  "valid_until": "2026-10-16T05:21:03.830419+09:00"
+  "last_attempt_at": "2026-10-14T08:33:52.423656+00:00",
+  "fetched_at": "2026-10-14T17:33:50.777412+09:00",
+  "last_success_at": "2026-10-14T17:33:50.777412+09:00",
+  "valid_until": "2026-10-16T05:33:50.777412+09:00"
 }
