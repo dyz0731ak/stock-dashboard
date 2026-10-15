@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T16:05:07.061044+09:00",
+  "updated_at": "2026-10-15T16:20:37.638540+09:00",
   "article_date": "2026-10-15",
   "checked_date": "2026-10-15",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 170,
-    "selected": 94,
-    "document_failures": 24
+    "tdnet_candidates": 173,
+    "selected": 95,
+    "document_failures": 25
   },
   "source_failures": [
+    {
+      "code": "6555",
+      "url": "https://www.release.tdnet.info/inbs/140120261015551645.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "185A",
       "url": "https://www.release.tdnet.info/inbs/140120261015551384.pdf",
@@ -182,6 +189,91 @@
     }
   ],
   "highlights": [
+    {
+      "code": "6555",
+      "name": "MSコンサル",
+      "title": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
+      "time": "16:10",
+      "published_date": "2026-10-15",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261015551650.zip",
+      "narrative": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結) / 自己株式取得に係る事項の決定に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "3.5億円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "700,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "発行済株式比",
+          "value": "15.5%",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "9,700万円",
+          "comparison": "5,200万円 → 9,700万円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 97000000.0,
+          "previous": 52000000.0,
+          "pct": 86.54,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParentIFRS",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "大幅増益 +86.5%",
+          "direction": "up"
+        },
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "大幅増益 +86.5%",
+      "impact_summary": "第2四半期累計純利益が大幅増益 +86.5%（前年同期比）。新たな自社株買いを決定（発行済株式の15.5%が上限）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/15 16:10発表",
+      "published_time": "16:10",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+          "title": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "16:10"
+        },
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261015551674.pdf",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "16:10"
+        }
+      ],
+      "company_summary": "覆面調査の大手。外食・小売りなどサービス向け顧客満足度調査",
+      "company_summary_source": "https://s.kabutan.jp/stocks/6555/"
+    },
     {
       "code": "1418",
       "name": "インターライフ",
@@ -1575,136 +1667,100 @@
       ],
       "company_summary": "空調機器・電気・調理場・給排水など小売、飲食店の施設総合メンテナンスが主",
       "company_summary_source": "https://s.kabutan.jp/stocks/6044/"
-    },
-    {
-      "code": "6572",
-      "name": "オープンG",
-      "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "time": "16:00",
-      "published_date": "2026-10-15",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261015551119.zip",
-      "narrative": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "4.55億円",
-          "comparison": "2.54億円 → 4.55億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 経常利益",
-          "value": "6.99億円",
-          "comparison": "3.99億円 → 6.99億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 営業利益",
-          "value": "6.51億円",
-          "comparison": "4.18億円 → 6.51億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 売上高",
-          "value": "46.15億円",
-          "comparison": "38.64億円 → 46.15億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 455000000.0,
-          "previous": 254000000.0,
-          "pct": 79.13,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "経常利益",
-          "current": 699000000.0,
-          "previous": 399000000.0,
-          "pct": 75.19,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "営業利益",
-          "current": 651000000.0,
-          "previous": 418000000.0,
-          "pct": 55.74,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OperatingIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "売上高",
-          "current": 4615000000.0,
-          "previous": 3864000000.0,
-          "pct": 19.44,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "NetSales",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "大幅増益 +79.1%",
-          "direction": "up"
-        },
-        {
-          "label": "経常利益",
-          "value": "大幅増益 +75.2%",
-          "direction": "up"
-        },
-        {
-          "label": "営業利益",
-          "value": "大幅増益 +55.7%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "大幅増益 +79.1%",
-      "impact_summary": "第2四半期累計純利益が大幅増益 +79.1%（前年同期比）。第2四半期累計経常利益が大幅増益 +75.2%（前年同期比）。第2四半期累計営業利益が大幅増益 +55.7%（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "10/15 16:00発表",
-      "published_time": "16:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-          "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "16:00"
-        }
-      ],
-      "company_summary": "事務代行ソフトのロボットアウトソーシング事業が主力",
-      "company_summary_source": "https://s.kabutan.jp/stocks/6572/"
     }
   ],
-  "total": 94,
+  "total": 95,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "6555",
+          "name": "MSコンサル",
+          "title": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "16:10",
+          "published_date": "2026-10-15",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261015551650.zip",
+          "narrative": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結) / 自己株式取得に係る事項の決定に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "3.5億円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "700,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "発行済株式比",
+              "value": "15.5%",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "9,700万円",
+              "comparison": "5,200万円 → 9,700万円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 97000000.0,
+              "previous": 52000000.0,
+              "pct": 86.54,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParentIFRS",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "大幅増益 +86.5%",
+              "direction": "up"
+            },
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "大幅増益 +86.5%",
+          "impact_summary": "第2四半期累計純利益が大幅増益 +86.5%（前年同期比）。新たな自社株買いを決定（発行済株式の15.5%が上限）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/15 16:10発表",
+          "published_time": "16:10",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261015551650.pdf",
+              "title": "2027年2月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
+              "time": "16:10"
+            },
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261015551674.pdf",
+              "title": "自己株式取得に係る事項の決定に関するお知らせ",
+              "time": "16:10"
+            }
+          ],
+          "company_summary": "覆面調査の大手。外食・小売りなどサービス向け顧客満足度調査",
+          "company_summary_source": "https://s.kabutan.jp/stocks/6555/"
+        },
         {
           "code": "1418",
           "name": "インターライフ",
@@ -3098,127 +3154,6 @@
           ],
           "company_summary": "空調機器・電気・調理場・給排水など小売、飲食店の施設総合メンテナンスが主",
           "company_summary_source": "https://s.kabutan.jp/stocks/6044/"
-        },
-        {
-          "code": "6572",
-          "name": "オープンG",
-          "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "16:00",
-          "published_date": "2026-10-15",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261015551119.zip",
-          "narrative": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "4.55億円",
-              "comparison": "2.54億円 → 4.55億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 経常利益",
-              "value": "6.99億円",
-              "comparison": "3.99億円 → 6.99億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 営業利益",
-              "value": "6.51億円",
-              "comparison": "4.18億円 → 6.51億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 売上高",
-              "value": "46.15億円",
-              "comparison": "38.64億円 → 46.15億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 455000000.0,
-              "previous": 254000000.0,
-              "pct": 79.13,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "経常利益",
-              "current": 699000000.0,
-              "previous": 399000000.0,
-              "pct": 75.19,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "営業利益",
-              "current": 651000000.0,
-              "previous": 418000000.0,
-              "pct": 55.74,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OperatingIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "売上高",
-              "current": 4615000000.0,
-              "previous": 3864000000.0,
-              "pct": 19.44,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "NetSales",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "大幅増益 +79.1%",
-              "direction": "up"
-            },
-            {
-              "label": "経常利益",
-              "value": "大幅増益 +75.2%",
-              "direction": "up"
-            },
-            {
-              "label": "営業利益",
-              "value": "大幅増益 +55.7%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "大幅増益 +79.1%",
-          "impact_summary": "第2四半期累計純利益が大幅増益 +79.1%（前年同期比）。第2四半期累計経常利益が大幅増益 +75.2%（前年同期比）。第2四半期累計営業利益が大幅増益 +55.7%（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "10/15 16:00発表",
-          "published_time": "16:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261015551119.pdf",
-              "title": "2027年2月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-              "time": "16:00"
-            }
-          ],
-          "company_summary": "事務代行ソフトのロボットアウトソーシング事業が主力",
-          "company_summary_source": "https://s.kabutan.jp/stocks/6572/"
         }
       ]
     }
@@ -3226,8 +3161,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-15T07:05:21.196714+00:00",
-  "fetched_at": "2026-10-15T16:05:07.061044+09:00",
-  "last_success_at": "2026-10-15T16:05:07.061044+09:00",
-  "valid_until": "2026-10-17T04:05:07.061044+09:00"
+  "last_attempt_at": "2026-10-15T07:20:39.880200+00:00",
+  "fetched_at": "2026-10-15T16:20:37.638540+09:00",
+  "last_success_at": "2026-10-15T16:20:37.638540+09:00",
+  "valid_until": "2026-10-17T04:20:37.638540+09:00"
 }
