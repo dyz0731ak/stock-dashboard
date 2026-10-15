@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T15:35:05.622424+09:00",
+  "updated_at": "2026-10-15T15:49:41.432796+09:00",
   "article_date": "2026-10-15",
   "checked_date": "2026-10-15",
   "sources": [
@@ -7,11 +7,25 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 130,
-    "selected": 72,
-    "document_failures": 16
+    "tdnet_candidates": 133,
+    "selected": 73,
+    "document_failures": 18
   },
   "source_failures": [
+    {
+      "code": "3174",
+      "url": "https://www.release.tdnet.info/inbs/140120261015551051.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "7357",
+      "url": "https://www.release.tdnet.info/inbs/140120261014550843.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "3223",
       "url": "https://www.release.tdnet.info/inbs/140120261014550865.pdf",
@@ -1654,7 +1668,7 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/353A/"
     }
   ],
-  "total": 72,
+  "total": 73,
   "groups": [
     {
       "category": "重要開示",
@@ -3194,8 +3208,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-15T06:35:30.444428+00:00",
-  "fetched_at": "2026-10-15T15:35:05.622424+09:00",
-  "last_success_at": "2026-10-15T15:35:05.622424+09:00",
-  "valid_until": "2026-10-17T03:35:05.622424+09:00"
+  "last_attempt_at": "2026-10-15T06:49:43.162569+00:00",
+  "fetched_at": "2026-10-15T15:49:41.432796+09:00",
+  "last_success_at": "2026-10-15T15:49:41.432796+09:00",
+  "valid_until": "2026-10-17T03:49:41.432796+09:00"
 }
