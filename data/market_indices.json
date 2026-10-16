@@ -91,7 +91,7 @@
       ],
       "price_date": "2026-10-16",
       "as_of": "2026-10-16T06:45:03+00:00",
-      "fetched_at": "2026-10-16T16:15:40.224052+09:00",
+      "fetched_at": "2026-10-16T16:30:47.369587+09:00",
       "valid_until": "2026-10-19T09:30:00+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
@@ -200,8 +200,8 @@
       ],
       "price_date": "2026-10-15",
       "as_of": "2026-10-15T20:00:00+00:00",
-      "fetched_at": "2026-10-16T16:15:40.216924+09:00",
-      "valid_until": "2026-10-17T00:15:40.216924+09:00",
+      "fetched_at": "2026-10-16T16:30:47.410170+09:00",
+      "valid_until": "2026-10-17T00:30:47.410170+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -309,8 +309,8 @@
       ],
       "price_date": "2026-10-15",
       "as_of": "2026-10-15T21:15:59+00:00",
-      "fetched_at": "2026-10-16T16:15:40.312613+09:00",
-      "valid_until": "2026-10-17T00:15:40.312613+09:00",
+      "fetched_at": "2026-10-16T16:30:47.476835+09:00",
+      "valid_until": "2026-10-17T00:30:47.476835+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -322,10 +322,10 @@
       "decimals": 3,
       "unit": "円 / 米ドル",
       "instrument_type": "CURRENCY",
-      "price": 157.961,
+      "price": 157.908,
       "prev_close": 157.957,
-      "change": 0.004,
-      "pct": 0.003,
+      "change": -0.049,
+      "pct": -0.031,
       "chart": [
         {
           "t": "2026-09-16",
@@ -417,13 +417,13 @@
         },
         {
           "t": "2026-10-16",
-          "c": 157.961
+          "c": 157.908
         }
       ],
       "price_date": "2026-10-16",
-      "as_of": "2026-10-16T07:15:39+00:00",
-      "fetched_at": "2026-10-16T16:15:40.318951+09:00",
-      "valid_until": "2026-10-17T00:15:40.318951+09:00",
+      "as_of": "2026-10-16T07:30:47+00:00",
+      "fetched_at": "2026-10-16T16:30:47.540299+09:00",
+      "valid_until": "2026-10-17T00:30:47.540299+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -531,8 +531,8 @@
       ],
       "price_date": "2026-10-15",
       "as_of": "2026-10-15T21:15:59+00:00",
-      "fetched_at": "2026-10-16T16:15:40.397067+09:00",
-      "valid_until": "2026-10-17T00:15:40.397067+09:00",
+      "fetched_at": "2026-10-16T16:30:47.574272+09:00",
+      "valid_until": "2026-10-17T00:30:47.574272+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -544,35 +544,26 @@
       "decimals": 2,
       "unit": "USD / トロイオンス",
       "instrument_type": "SPOT",
-      "price": 4186.200195,
+      "price": 4188.5,
       "prev_close": null,
       "change": null,
       "pct": null,
       "chart": [],
       "price_date": "2026-10-16",
-      "as_of": "2026-10-16T07:11:18+00:00",
-      "fetched_at": "2026-10-16T16:11:22.538695+09:00",
-      "valid_until": "2026-10-16T10:11:18+00:00",
+      "as_of": "2026-10-16T07:30:18+00:00",
+      "fetched_at": "2026-10-16T16:30:47.720926+09:00",
+      "valid_until": "2026-10-16T10:30:18+00:00",
       "source_label": "Gold API",
-      "source_url": "https://gold-api.com/",
-      "cache_status": "previous",
-      "cache_until": "2026-10-17T16:11:22.538695+09:00",
-      "last_attempt_at": "2026-10-16T16:15:41.175720+09:00",
-      "fetch_error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
+      "source_url": "https://gold-api.com/"
     }
   ],
-  "failures": [
-    {
-      "id": "gold",
-      "error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
-    }
-  ],
+  "failures": [],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "partial",
-  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
-  "updated_at": "2026-10-16T16:15:41.175769+09:00",
-  "last_attempt_at": "2026-10-16T07:15:41.175774+00:00",
-  "fetched_at": "2026-10-16T16:15:41.175769+09:00",
-  "last_success_at": "2026-10-16T16:15:41.175769+09:00",
-  "valid_until": "2026-10-17T00:15:41.175769+09:00"
+  "fetch_status": "ok",
+  "fetch_warning": null,
+  "updated_at": "2026-10-16T16:30:47.721359+09:00",
+  "last_attempt_at": "2026-10-16T07:30:47.721364+00:00",
+  "fetched_at": "2026-10-16T16:30:47.721359+09:00",
+  "last_success_at": "2026-10-16T16:30:47.721359+09:00",
+  "valid_until": "2026-10-17T00:30:47.721359+09:00"
 }
