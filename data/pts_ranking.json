@@ -1,6 +1,6 @@
 {
   "updated_at": "2026-10-19T23:50:32.197825+09:00",
-  "last_attempt_at": "2026-10-19T23:50:32.197825+09:00",
+  "last_attempt_at": "2026-10-20T00:05:31.631602+09:00",
   "session_date": "2026-10-19",
   "as_of": "2026-10-19T23:35:00+09:00",
   "source": "kabutan_pts_live",
@@ -9,8 +9,8 @@
   "scope": "ジャパンネクストPTS ナイトタイム・セッション（17:00〜翌06:00）",
   "ranking_definition": "東証終値比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "fetch_status": "ok",
-  "fetch_error": null,
+  "fetch_status": "stale",
+  "fetch_error": "期待セッション=2026-10-19, 取得セッション=2026-10-16",
   "fetch_warning": null,
   "source_attempts": [],
   "all_stocks": [
@@ -22639,5 +22639,13 @@
   "last_success_at": "2026-10-19T23:50:32.197825+09:00",
   "valid_until": "2026-10-20T00:35:00+09:00",
   "market": "pts",
-  "market_state": "open"
+  "market_state": "open",
+  "last_failure": {
+    "source_attempts": [
+      {
+        "source": "kabutan_pts_live",
+        "error": "500 Server Error: Internal Server Error for url: https://s.kabutan.jp/warnings/pts_night_price_increase/?page=1"
+      }
+    ]
+  }
 }
