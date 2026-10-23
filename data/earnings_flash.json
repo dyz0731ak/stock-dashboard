@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T14:20:38.815477+09:00",
+  "updated_at": "2026-10-23T14:35:44.671301+09:00",
   "article_date": "2026-10-23",
   "checked_date": "2026-10-23",
   "sources": [
@@ -7,8 +7,8 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 17,
-    "selected": 5,
+    "tdnet_candidates": 18,
+    "selected": 6,
     "document_failures": 11
   },
   "source_failures": [
@@ -556,6 +556,111 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/9353/"
     },
     {
+      "code": "8541",
+      "name": "愛媛銀",
+      "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+      "time": "14:30",
+      "published_date": "2026-10-23",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261016552501.zip",
+      "narrative": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "通期 経常利益",
+          "value": "117.5億円",
+          "comparison": "94億円 → 117.5億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 純利益",
+          "value": "77億円",
+          "comparison": "65億円 → 77億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 1株配当",
+          "value": "58円",
+          "comparison": "48円 → 58円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "経常利益",
+          "current": 11750000000.0,
+          "previous": 9400000000.0,
+          "pct": 25.0,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 7700000000.0,
+          "previous": 6500000000.0,
+          "pct": 18.46,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "1株配当",
+          "current": 58.0,
+          "previous": 48.0,
+          "pct": 20.83,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "DividendPerShare",
+          "unit": "円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "経常利益",
+          "value": "上方修正 +25.0%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +18.5%",
+          "direction": "up"
+        },
+        {
+          "label": "1株配当",
+          "value": "増配 +20.8%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 90,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +25.0%",
+      "impact_summary": "通期経常利益が上方修正 +25.0%（前回会社予想比）。通期純利益が上方修正 +18.5%（前回会社予想比）。通期1株配当が増配 +20.8%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/23 14:30発表",
+      "published_time": "14:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "銀行単体の資金利益が当初予想を上回る見込みとなったことから、2027年3月期における連結および個別の第2四半期(累計)業績予想を上方修正し、あわせて、通期業績予想についても上方修正するものです。",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+          "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+          "time": "14:30"
+        }
+      ],
+      "company_summary": "愛媛地盤の第2地銀。四国全域に展開",
+      "company_summary_source": "https://s.kabutan.jp/stocks/8541/"
+    },
+    {
       "code": "8381",
       "name": "山陰合銀",
       "title": "業績予想の修正に関するお知らせ",
@@ -651,7 +756,7 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/8381/"
     }
   ],
-  "total": 5,
+  "total": 6,
   "groups": [
     {
       "category": "重要開示",
@@ -1123,6 +1228,111 @@
           "company_summary_source": "https://s.kabutan.jp/stocks/9353/"
         },
         {
+          "code": "8541",
+          "name": "愛媛銀",
+          "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+          "time": "14:30",
+          "published_date": "2026-10-23",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261016552501.zip",
+          "narrative": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "通期 経常利益",
+              "value": "117.5億円",
+              "comparison": "94億円 → 117.5億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 純利益",
+              "value": "77億円",
+              "comparison": "65億円 → 77億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 1株配当",
+              "value": "58円",
+              "comparison": "48円 → 58円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "経常利益",
+              "current": 11750000000.0,
+              "previous": 9400000000.0,
+              "pct": 25.0,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 7700000000.0,
+              "previous": 6500000000.0,
+              "pct": 18.46,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "1株配当",
+              "current": 58.0,
+              "previous": 48.0,
+              "pct": 20.83,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "DividendPerShare",
+              "unit": "円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "経常利益",
+              "value": "上方修正 +25.0%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +18.5%",
+              "direction": "up"
+            },
+            {
+              "label": "1株配当",
+              "value": "増配 +20.8%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 90,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +25.0%",
+          "impact_summary": "通期経常利益が上方修正 +25.0%（前回会社予想比）。通期純利益が上方修正 +18.5%（前回会社予想比）。通期1株配当が増配 +20.8%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/23 14:30発表",
+          "published_time": "14:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "銀行単体の資金利益が当初予想を上回る見込みとなったことから、2027年3月期における連結および個別の第2四半期(累計)業績予想を上方修正し、あわせて、通期業績予想についても上方修正するものです。",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261016552501.pdf",
+              "title": "業績予想の修正及び配当予想の修正(増配)に関するお知らせ",
+              "time": "14:30"
+            }
+          ],
+          "company_summary": "愛媛地盤の第2地銀。四国全域に展開",
+          "company_summary_source": "https://s.kabutan.jp/stocks/8541/"
+        },
+        {
           "code": "8381",
           "name": "山陰合銀",
           "title": "業績予想の修正に関するお知らせ",
@@ -1223,8 +1433,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-23T05:20:39.400530+00:00",
-  "fetched_at": "2026-10-23T14:20:38.815477+09:00",
-  "last_success_at": "2026-10-23T14:20:38.815477+09:00",
-  "valid_until": "2026-10-25T02:20:38.815477+09:00"
+  "last_attempt_at": "2026-10-23T05:35:46.855048+00:00",
+  "fetched_at": "2026-10-23T14:35:44.671301+09:00",
+  "last_success_at": "2026-10-23T14:35:44.671301+09:00",
+  "valid_until": "2026-10-25T02:35:44.671301+09:00"
 }
