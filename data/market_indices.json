@@ -95,7 +95,7 @@
       ],
       "price_date": "2026-10-26",
       "as_of": "2026-10-26T06:45:03+00:00",
-      "fetched_at": "2026-10-26T16:45:44.180820+09:00",
+      "fetched_at": "2026-10-26T17:00:52.793166+09:00",
       "valid_until": "2026-10-27T09:30:00+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
@@ -204,8 +204,8 @@
       ],
       "price_date": "2026-10-23",
       "as_of": "2026-10-23T20:42:55+00:00",
-      "fetched_at": "2026-10-26T16:45:44.175996+09:00",
-      "valid_until": "2026-10-27T00:45:44.175996+09:00",
+      "fetched_at": "2026-10-26T17:00:52.746118+09:00",
+      "valid_until": "2026-10-27T01:00:52.746118+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -313,8 +313,8 @@
       ],
       "price_date": "2026-10-23",
       "as_of": "2026-10-23T21:15:59+00:00",
-      "fetched_at": "2026-10-26T16:45:44.260671+09:00",
-      "valid_until": "2026-10-27T00:45:44.260671+09:00",
+      "fetched_at": "2026-10-26T17:00:52.911284+09:00",
+      "valid_until": "2026-10-27T01:00:52.911284+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -326,10 +326,10 @@
       "decimals": 3,
       "unit": "円 / 米ドル",
       "instrument_type": "CURRENCY",
-      "price": 157.18,
+      "price": 157.107,
       "prev_close": 156.494,
-      "change": 0.686,
-      "pct": 0.438,
+      "change": 0.613,
+      "pct": 0.392,
       "chart": [
         {
           "t": "2026-09-28",
@@ -413,13 +413,13 @@
         },
         {
           "t": "2026-10-26",
-          "c": 157.18
+          "c": 157.107
         }
       ],
       "price_date": "2026-10-26",
-      "as_of": "2026-10-26T07:45:42+00:00",
-      "fetched_at": "2026-10-26T16:45:44.255482+09:00",
-      "valid_until": "2026-10-27T00:45:44.255482+09:00",
+      "as_of": "2026-10-26T08:00:52+00:00",
+      "fetched_at": "2026-10-26T17:00:52.987782+09:00",
+      "valid_until": "2026-10-27T01:00:52.987782+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -527,8 +527,8 @@
       ],
       "price_date": "2026-10-23",
       "as_of": "2026-10-23T21:15:59+00:00",
-      "fetched_at": "2026-10-26T16:45:44.326740+09:00",
-      "valid_until": "2026-10-27T00:45:44.326740+09:00",
+      "fetched_at": "2026-10-26T17:00:53.101298+09:00",
+      "valid_until": "2026-10-27T01:00:53.101298+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -550,16 +550,25 @@
       "fetched_at": "2026-10-26T16:45:44.493461+09:00",
       "valid_until": "2026-10-26T10:45:44+00:00",
       "source_label": "Gold API",
-      "source_url": "https://gold-api.com/"
+      "source_url": "https://gold-api.com/",
+      "cache_status": "previous",
+      "cache_until": "2026-10-27T16:45:44.493461+09:00",
+      "last_attempt_at": "2026-10-26T17:00:53.771026+09:00",
+      "fetch_error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "id": "gold",
+      "error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
+    }
+  ],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "ok",
-  "fetch_warning": null,
-  "updated_at": "2026-10-26T16:45:44.494029+09:00",
-  "last_attempt_at": "2026-10-26T07:45:44.494038+00:00",
-  "fetched_at": "2026-10-26T16:45:44.494029+09:00",
-  "last_success_at": "2026-10-26T16:45:44.494029+09:00",
-  "valid_until": "2026-10-27T00:45:44.494029+09:00"
+  "fetch_status": "partial",
+  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
+  "updated_at": "2026-10-26T17:00:53.771070+09:00",
+  "last_attempt_at": "2026-10-26T08:00:53.771074+00:00",
+  "fetched_at": "2026-10-26T17:00:53.771070+09:00",
+  "last_success_at": "2026-10-26T17:00:53.771070+09:00",
+  "valid_until": "2026-10-27T01:00:53.771070+09:00"
 }
