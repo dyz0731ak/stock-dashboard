@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-29T16:50:07.327932+09:00",
+  "updated_at": "2026-10-29T17:05:41.601936+09:00",
   "article_date": "2026-10-29",
   "checked_date": "2026-10-29",
   "sources": [
@@ -7,8 +7,8 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 210,
-    "selected": 111,
+    "tdnet_candidates": 211,
+    "selected": 112,
     "document_failures": 21
   },
   "source_failures": [
@@ -161,6 +161,127 @@
     }
   ],
   "highlights": [
+    {
+      "code": "9501",
+      "name": "東電力HD",
+      "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "time": "17:00",
+      "published_date": "2026-10-29",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261028558667.zip",
+      "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 営業利益",
+          "value": "-336.64億円",
+          "comparison": "2,170.54億円 → -336.64億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "527.24億円",
+          "comparison": "-7,123.97億円 → 527.24億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 経常利益",
+          "value": "906.29億円",
+          "comparison": "2,821.83億円 → 906.29億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 売上高",
+          "value": "32,713.1億円",
+          "comparison": "31,502.74億円 → 32,713.1億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "営業利益",
+          "current": -33664000000.0,
+          "previous": 217054000000.0,
+          "pct": -115.51,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 52724000000.0,
+          "previous": -712397000000.0,
+          "pct": 107.4,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 90629000000.0,
+          "previous": 282183000000.0,
+          "pct": -67.88,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 3271310000000.0,
+          "previous": 3150274000000.0,
+          "pct": 3.84,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "赤字転落",
+          "direction": "down"
+        },
+        {
+          "label": "純利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "大幅減益 -67.9%",
+          "direction": "down"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "negative",
+      "impact_label": "赤字転落",
+      "impact_summary": "第2四半期累計営業利益が赤字転落（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。第2四半期累計経常利益が大幅減益 -67.9%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/29 17:00発表",
+      "published_time": "17:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "time": "17:00"
+        }
+      ],
+      "company_summary": "福島原発事故の賠償、廃炉の負担重く",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9501/"
+    },
     {
       "code": "7185",
       "name": "ヒロセ通商",
@@ -1415,98 +1536,136 @@
       ],
       "company_summary": "海外中心の金融会社。モンゴル・ハーン銀行が主",
       "company_summary_source": "https://s.kabutan.jp/stocks/8699/"
-    },
-    {
-      "code": "8713",
-      "name": "フィデアHD",
-      "title": "業績予想の修正に関するお知らせ",
-      "time": "16:00",
-      "published_date": "2026-10-29",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261028557551.zip",
-      "narrative": "業績予想の修正に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 経常利益",
-          "value": "42億円",
-          "comparison": "13億円 → 42億円（前回会社予想比）"
-        },
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "29億円",
-          "comparison": "13億円 → 29億円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "経常利益",
-          "current": 4200000000.0,
-          "previous": 1300000000.0,
-          "pct": 223.08,
-          "basis": "前回会社予想比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "純利益",
-          "current": 2900000000.0,
-          "previous": 1300000000.0,
-          "pct": 123.08,
-          "basis": "前回会社予想比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "経常利益",
-          "value": "上方修正 +223.1%",
-          "direction": "up"
-        },
-        {
-          "label": "純利益",
-          "value": "上方修正 +123.1%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "上方修正 +223.1%",
-      "impact_summary": "第2四半期累計経常利益が上方修正 +223.1%（前回会社予想比）。第2四半期累計純利益が上方修正 +123.1%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "10/29 16:00発表",
-      "published_time": "16:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "経常収益について、貸出金利息の増加を主な要因として前年同期比10%以上増加する見込みとなったことから業績予想を公表いたします。 また、経常利益並びに親会社に帰属する中間純利益について、有価証券ポートフォリオ改善に向けた取り組みの中で、有価証券利息配当金の増加などによる資金利益の増加や、役務取引等利益の増加により計画を上回る見込みとなったこと、既存取引先の信用状態の改善などに伴う貸倒引当金繰入額の減少により、与信関係費用が計画を下回る見込みとなったことから、2027年3月期第2四半期(累計)の連結業績予想を上方修正いたします。 なお、2027年3月期通期の連結業績予想につきましては、金融市場等の動向が業績に与える影響を見極める必要があること、並びに2027年1月に予定しております株式会社荘内銀行と株式会社北都銀行の合併に係る一時費用の増加などにより、現時点では2027年3月期通期の業績予想は変更しておりません。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "16:00"
-        }
-      ],
-      "company_summary": "荘内銀、北都銀が県を超えて統合",
-      "company_summary_source": "https://s.kabutan.jp/stocks/8713/"
     }
   ],
-  "total": 111,
+  "total": 112,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "9501",
+          "name": "東電力HD",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "time": "17:00",
+          "published_date": "2026-10-29",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261028558667.zip",
+          "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 営業利益",
+              "value": "-336.64億円",
+              "comparison": "2,170.54億円 → -336.64億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "527.24億円",
+              "comparison": "-7,123.97億円 → 527.24億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 経常利益",
+              "value": "906.29億円",
+              "comparison": "2,821.83億円 → 906.29億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 売上高",
+              "value": "32,713.1億円",
+              "comparison": "31,502.74億円 → 32,713.1億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "営業利益",
+              "current": -33664000000.0,
+              "previous": 217054000000.0,
+              "pct": -115.51,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 52724000000.0,
+              "previous": -712397000000.0,
+              "pct": 107.4,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 90629000000.0,
+              "previous": 282183000000.0,
+              "pct": -67.88,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 3271310000000.0,
+              "previous": 3150274000000.0,
+              "pct": 3.84,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "赤字転落",
+              "direction": "down"
+            },
+            {
+              "label": "純利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "大幅減益 -67.9%",
+              "direction": "down"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "negative",
+          "impact_label": "赤字転落",
+          "impact_summary": "第2四半期累計営業利益が赤字転落（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。第2四半期累計経常利益が大幅減益 -67.9%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/29 17:00発表",
+          "published_time": "17:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261028558667.pdf",
+              "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+              "time": "17:00"
+            }
+          ],
+          "company_summary": "福島原発事故の賠償、廃炉の負担重く",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9501/"
+        },
         {
           "code": "7185",
           "name": "ヒロセ通商",
@@ -2761,89 +2920,6 @@
           ],
           "company_summary": "海外中心の金融会社。モンゴル・ハーン銀行が主",
           "company_summary_source": "https://s.kabutan.jp/stocks/8699/"
-        },
-        {
-          "code": "8713",
-          "name": "フィデアHD",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "16:00",
-          "published_date": "2026-10-29",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261028557551.zip",
-          "narrative": "業績予想の修正に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 経常利益",
-              "value": "42億円",
-              "comparison": "13億円 → 42億円（前回会社予想比）"
-            },
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "29億円",
-              "comparison": "13億円 → 29億円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "経常利益",
-              "current": 4200000000.0,
-              "previous": 1300000000.0,
-              "pct": 223.08,
-              "basis": "前回会社予想比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "純利益",
-              "current": 2900000000.0,
-              "previous": 1300000000.0,
-              "pct": 123.08,
-              "basis": "前回会社予想比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "経常利益",
-              "value": "上方修正 +223.1%",
-              "direction": "up"
-            },
-            {
-              "label": "純利益",
-              "value": "上方修正 +123.1%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "上方修正 +223.1%",
-          "impact_summary": "第2四半期累計経常利益が上方修正 +223.1%（前回会社予想比）。第2四半期累計純利益が上方修正 +123.1%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "10/29 16:00発表",
-          "published_time": "16:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "経常収益について、貸出金利息の増加を主な要因として前年同期比10%以上増加する見込みとなったことから業績予想を公表いたします。 また、経常利益並びに親会社に帰属する中間純利益について、有価証券ポートフォリオ改善に向けた取り組みの中で、有価証券利息配当金の増加などによる資金利益の増加や、役務取引等利益の増加により計画を上回る見込みとなったこと、既存取引先の信用状態の改善などに伴う貸倒引当金繰入額の減少により、与信関係費用が計画を下回る見込みとなったことから、2027年3月期第2四半期(累計)の連結業績予想を上方修正いたします。 なお、2027年3月期通期の連結業績予想につきましては、金融市場等の動向が業績に与える影響を見極める必要があること、並びに2027年1月に予定しております株式会社荘内銀行と株式会社北都銀行の合併に係る一時費用の増加などにより、現時点では2027年3月期通期の業績予想は変更しておりません。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261028557551.pdf",
-              "title": "業績予想の修正に関するお知らせ",
-              "time": "16:00"
-            }
-          ],
-          "company_summary": "荘内銀、北都銀が県を超えて統合",
-          "company_summary_source": "https://s.kabutan.jp/stocks/8713/"
         }
       ]
     }
@@ -2851,8 +2927,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-29T07:50:09.095298+00:00",
-  "fetched_at": "2026-10-29T16:50:07.327932+09:00",
-  "last_success_at": "2026-10-29T16:50:07.327932+09:00",
-  "valid_until": "2026-10-31T04:50:07.327932+09:00"
+  "last_attempt_at": "2026-10-29T08:05:44.266273+00:00",
+  "fetched_at": "2026-10-29T17:05:41.601936+09:00",
+  "last_success_at": "2026-10-29T17:05:41.601936+09:00",
+  "valid_until": "2026-10-31T05:05:41.601936+09:00"
 }
