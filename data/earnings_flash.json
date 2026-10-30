@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-30T16:34:55.844645+09:00",
+  "updated_at": "2026-10-30T16:49:52.983179+09:00",
   "article_date": "2026-10-30",
   "checked_date": "2026-10-30",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 386,
-    "selected": 200,
-    "document_failures": 46
+    "tdnet_candidates": 389,
+    "selected": 201,
+    "document_failures": 47
   },
   "source_failures": [
+    {
+      "code": "5334",
+      "url": "https://www.release.tdnet.info/inbs/140120261029559620.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "1964",
       "url": "https://www.release.tdnet.info/inbs/140120261028558236.pdf",
@@ -336,6 +343,106 @@
     }
   ],
   "highlights": [
+    {
+      "code": "5334",
+      "name": "日特殊陶",
+      "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
+      "time": "16:40",
+      "published_date": "2026-10-30",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261029559539.zip",
+      "narrative": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結) / 業績予想の修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "会社予想 売上高",
+          "value": "8,100億円",
+          "comparison": "7,900億円 → 8,100億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 営業利益",
+          "value": "1,600億円",
+          "comparison": "1,500億円 → 1,600億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 経常利益",
+          "value": "1,600億円",
+          "comparison": "1,500億円 → 1,600億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 純利益",
+          "value": "1,250億円",
+          "comparison": "1,050億円 → 1,250億円（前回会社予想比）"
+        },
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "1,100.4億円",
+          "comparison": "528.87億円 → 1,100.4億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 110040000000.0,
+          "previous": 52887000000.0,
+          "pct": 108.07,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParentIFRS",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "大幅増益 +108.1%",
+          "direction": "up"
+        },
+        {
+          "label": "営業利益",
+          "value": "上方修正 +6.7%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +6.7%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +19.1%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "大幅増益 +108.1%",
+      "impact_summary": "第2四半期累計純利益が大幅増益 +108.1%（前年同期比）。会社予想営業利益が上方修正 +6.7%（前回会社予想比）。会社予想経常利益が上方修正 +6.7%（前回会社予想比）。会社予想純利益が上方修正 +19.1%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "10/30 16:40発表",
+      "published_time": "16:40",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "16:40"
+        },
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261029559613.pdf",
+          "title": "業績予想の修正に関するお知らせ",
+          "time": "16:40"
+        }
+      ],
+      "company_summary": "点火プラグ、排気センサー世界最大手",
+      "company_summary_source": "https://s.kabutan.jp/stocks/5334/"
+    },
     {
       "code": "1939",
       "name": "四電工",
@@ -1717,168 +1824,115 @@
       ],
       "company_summary": "包装機器大手。たばこ、食品、薬品に展開",
       "company_summary_source": "https://s.kabutan.jp/stocks/6360/"
-    },
-    {
-      "code": "6472",
-      "name": "NTN",
-      "title": "業績予想の修正に関するお知らせ",
-      "time": "16:00",
-      "published_date": "2026-10-30",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-      "xbrl_url": "",
-      "narrative": "業績予想の修正に関するお知らせ / 2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "54.61億円",
-          "comparison": "31億円 → 54.61億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 経常利益",
-          "value": "122.02億円",
-          "comparison": "87.27億円 → 122.02億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 営業利益",
-          "value": "173.71億円",
-          "comparison": "128.65億円 → 173.71億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 売上高",
-          "value": "4,135.79億円",
-          "comparison": "4,022.56億円 → 4,135.79億円（前年同期比）"
-        },
-        {
-          "label": "会社予想 売上高",
-          "value": "8,250億円",
-          "comparison": "300万円 → 8,250億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 営業利益",
-          "value": "330億円",
-          "comparison": "100万円 → 330億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 経常利益",
-          "value": "210億円",
-          "comparison": "1.5億円 → 210億円（前回会社予想比）"
-        },
-        {
-          "label": "会社予想 純利益",
-          "value": "150億円",
-          "comparison": "100万円 → 150億円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "売上高",
-          "current": 825000000000.0,
-          "previous": 3000000.0,
-          "pct": 27499900.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "営業利益",
-          "current": 33000000000.0,
-          "previous": 1000000.0,
-          "pct": 3299900.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "経常利益",
-          "current": 21000000000.0,
-          "previous": 150000000.0,
-          "pct": 13900.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        },
-        {
-          "label": "純利益",
-          "current": 15000000000.0,
-          "previous": 1000000.0,
-          "pct": 1499900.0,
-          "basis": "前回会社予想比",
-          "period": "会社予想",
-          "unit": "百万円",
-          "source_format": "PDF"
-        }
-      ],
-      "chips": [
-        {
-          "label": "営業利益",
-          "value": "上方修正 +3299900.0%",
-          "direction": "up"
-        },
-        {
-          "label": "経常利益",
-          "value": "上方修正 +13900.0%",
-          "direction": "up"
-        },
-        {
-          "label": "純利益",
-          "value": "上方修正 +1499900.0%",
-          "direction": "up"
-        },
-        {
-          "label": "純利益",
-          "value": "大幅増益 +76.2%",
-          "direction": "up"
-        },
-        {
-          "label": "経常利益",
-          "value": "大幅増益 +39.8%",
-          "direction": "up"
-        },
-        {
-          "label": "営業利益",
-          "value": "大幅増益 +35.0%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "上方修正 +3299900.0%",
-      "impact_summary": "会社予想営業利益が上方修正 +3299900.0%（前回会社予想比）。会社予想経常利益が上方修正 +13900.0%（前回会社予想比）。会社予想純利益が上方修正 +1499900.0%（前回会社予想比）。第2四半期累計純利益が大幅増益 +76.2%（前年同期比）。第2四半期累計経常利益が大幅増益 +39.8%（前年同期比）。第2四半期累計営業利益が大幅増益 +35.0%（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "10/30 16:00発表",
-      "published_time": "16:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "16:00"
-        },
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261026555872.pdf",
-          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "16:00"
-        }
-      ],
-      "company_summary": "ベアリング大手。等速ジョイントで世界高シェア、ハブベアリングは世界首位",
-      "company_summary_source": "https://s.kabutan.jp/stocks/6472/"
     }
   ],
-  "total": 200,
+  "total": 201,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "5334",
+          "name": "日特殊陶",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "16:40",
+          "published_date": "2026-10-30",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261029559539.zip",
+          "narrative": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結) / 業績予想の修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "会社予想 売上高",
+              "value": "8,100億円",
+              "comparison": "7,900億円 → 8,100億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 営業利益",
+              "value": "1,600億円",
+              "comparison": "1,500億円 → 1,600億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 経常利益",
+              "value": "1,600億円",
+              "comparison": "1,500億円 → 1,600億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 純利益",
+              "value": "1,250億円",
+              "comparison": "1,050億円 → 1,250億円（前回会社予想比）"
+            },
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "1,100.4億円",
+              "comparison": "528.87億円 → 1,100.4億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 110040000000.0,
+              "previous": 52887000000.0,
+              "pct": 108.07,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParentIFRS",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "大幅増益 +108.1%",
+              "direction": "up"
+            },
+            {
+              "label": "営業利益",
+              "value": "上方修正 +6.7%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +6.7%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +19.1%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "大幅増益 +108.1%",
+          "impact_summary": "第2四半期累計純利益が大幅増益 +108.1%（前年同期比）。会社予想営業利益が上方修正 +6.7%（前回会社予想比）。会社予想経常利益が上方修正 +6.7%（前回会社予想比）。会社予想純利益が上方修正 +19.1%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "10/30 16:40発表",
+          "published_time": "16:40",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261029559539.pdf",
+              "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
+              "time": "16:40"
+            },
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261029559613.pdf",
+              "title": "業績予想の修正に関するお知らせ",
+              "time": "16:40"
+            }
+          ],
+          "company_summary": "点火プラグ、排気センサー世界最大手",
+          "company_summary_source": "https://s.kabutan.jp/stocks/5334/"
+        },
         {
           "code": "1939",
           "name": "四電工",
@@ -3260,159 +3314,6 @@
           ],
           "company_summary": "包装機器大手。たばこ、食品、薬品に展開",
           "company_summary_source": "https://s.kabutan.jp/stocks/6360/"
-        },
-        {
-          "code": "6472",
-          "name": "NTN",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "16:00",
-          "published_date": "2026-10-30",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-          "xbrl_url": "",
-          "narrative": "業績予想の修正に関するお知らせ / 2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "54.61億円",
-              "comparison": "31億円 → 54.61億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 経常利益",
-              "value": "122.02億円",
-              "comparison": "87.27億円 → 122.02億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 営業利益",
-              "value": "173.71億円",
-              "comparison": "128.65億円 → 173.71億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 売上高",
-              "value": "4,135.79億円",
-              "comparison": "4,022.56億円 → 4,135.79億円（前年同期比）"
-            },
-            {
-              "label": "会社予想 売上高",
-              "value": "8,250億円",
-              "comparison": "300万円 → 8,250億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 営業利益",
-              "value": "330億円",
-              "comparison": "100万円 → 330億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 経常利益",
-              "value": "210億円",
-              "comparison": "1.5億円 → 210億円（前回会社予想比）"
-            },
-            {
-              "label": "会社予想 純利益",
-              "value": "150億円",
-              "comparison": "100万円 → 150億円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "売上高",
-              "current": 825000000000.0,
-              "previous": 3000000.0,
-              "pct": 27499900.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "営業利益",
-              "current": 33000000000.0,
-              "previous": 1000000.0,
-              "pct": 3299900.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "経常利益",
-              "current": 21000000000.0,
-              "previous": 150000000.0,
-              "pct": 13900.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            },
-            {
-              "label": "純利益",
-              "current": 15000000000.0,
-              "previous": 1000000.0,
-              "pct": 1499900.0,
-              "basis": "前回会社予想比",
-              "period": "会社予想",
-              "unit": "百万円",
-              "source_format": "PDF"
-            }
-          ],
-          "chips": [
-            {
-              "label": "営業利益",
-              "value": "上方修正 +3299900.0%",
-              "direction": "up"
-            },
-            {
-              "label": "経常利益",
-              "value": "上方修正 +13900.0%",
-              "direction": "up"
-            },
-            {
-              "label": "純利益",
-              "value": "上方修正 +1499900.0%",
-              "direction": "up"
-            },
-            {
-              "label": "純利益",
-              "value": "大幅増益 +76.2%",
-              "direction": "up"
-            },
-            {
-              "label": "経常利益",
-              "value": "大幅増益 +39.8%",
-              "direction": "up"
-            },
-            {
-              "label": "営業利益",
-              "value": "大幅増益 +35.0%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "上方修正 +3299900.0%",
-          "impact_summary": "会社予想営業利益が上方修正 +3299900.0%（前回会社予想比）。会社予想経常利益が上方修正 +13900.0%（前回会社予想比）。会社予想純利益が上方修正 +1499900.0%（前回会社予想比）。第2四半期累計純利益が大幅増益 +76.2%（前年同期比）。第2四半期累計経常利益が大幅増益 +39.8%（前年同期比）。第2四半期累計営業利益が大幅増益 +35.0%（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "10/30 16:00発表",
-          "published_time": "16:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261029560217.pdf",
-              "title": "業績予想の修正に関するお知らせ",
-              "time": "16:00"
-            },
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261026555872.pdf",
-              "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-              "time": "16:00"
-            }
-          ],
-          "company_summary": "ベアリング大手。等速ジョイントで世界高シェア、ハブベアリングは世界首位",
-          "company_summary_source": "https://s.kabutan.jp/stocks/6472/"
         }
       ]
     }
@@ -3420,8 +3321,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-10-30T07:35:02.801785+00:00",
-  "fetched_at": "2026-10-30T16:34:55.844645+09:00",
-  "last_success_at": "2026-10-30T16:34:55.844645+09:00",
-  "valid_until": "2026-11-01T04:34:55.844645+09:00"
+  "last_attempt_at": "2026-10-30T07:49:56.334468+00:00",
+  "fetched_at": "2026-10-30T16:49:52.983179+09:00",
+  "last_success_at": "2026-10-30T16:49:52.983179+09:00",
+  "valid_until": "2026-11-01T04:49:52.983179+09:00"
 }
