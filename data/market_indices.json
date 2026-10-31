@@ -103,7 +103,7 @@
       ],
       "price_date": "2026-10-30",
       "as_of": "2026-10-30T06:45:03+00:00",
-      "fetched_at": "2026-10-31T15:15:42.480302+09:00",
+      "fetched_at": "2026-10-31T15:30:57.267002+09:00",
       "valid_until": "2026-11-02T09:30:00+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
@@ -216,8 +216,8 @@
       ],
       "price_date": "2026-10-30",
       "as_of": "2026-10-30T20:47:53+00:00",
-      "fetched_at": "2026-10-31T15:15:42.532384+09:00",
-      "valid_until": "2026-10-31T23:15:42.532384+09:00",
+      "fetched_at": "2026-10-31T15:30:57.267700+09:00",
+      "valid_until": "2026-10-31T23:30:57.267700+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -329,8 +329,8 @@
       ],
       "price_date": "2026-10-30",
       "as_of": "2026-10-30T21:15:59+00:00",
-      "fetched_at": "2026-10-31T15:15:42.619170+09:00",
-      "valid_until": "2026-10-31T23:15:42.619170+09:00",
+      "fetched_at": "2026-10-31T15:30:57.400456+09:00",
+      "valid_until": "2026-10-31T23:30:57.400456+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -438,8 +438,8 @@
       ],
       "price_date": "2026-10-30",
       "as_of": "2026-10-30T20:59:33+00:00",
-      "fetched_at": "2026-10-31T15:15:42.661449+09:00",
-      "valid_until": "2026-10-31T23:15:42.661449+09:00",
+      "fetched_at": "2026-10-31T15:30:57.416485+09:00",
+      "valid_until": "2026-10-31T23:30:57.416485+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -551,8 +551,8 @@
       ],
       "price_date": "2026-10-30",
       "as_of": "2026-10-30T21:15:59+00:00",
-      "fetched_at": "2026-10-31T15:15:42.745092+09:00",
-      "valid_until": "2026-10-31T23:15:42.745092+09:00",
+      "fetched_at": "2026-10-31T15:30:57.526456+09:00",
+      "valid_until": "2026-10-31T23:30:57.526456+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -574,16 +574,25 @@
       "fetched_at": "2026-10-31T15:15:42.879583+09:00",
       "valid_until": "2026-10-31T23:15:42.879583+09:00",
       "source_label": "Gold API",
-      "source_url": "https://gold-api.com/"
+      "source_url": "https://gold-api.com/",
+      "cache_status": "previous",
+      "cache_until": "2026-11-01T15:15:42.879583+09:00",
+      "last_attempt_at": "2026-10-31T15:30:58.427774+09:00",
+      "fetch_error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "id": "gold",
+      "error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
+    }
+  ],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "ok",
-  "fetch_warning": null,
-  "updated_at": "2026-10-31T15:15:42.880070+09:00",
-  "last_attempt_at": "2026-10-31T06:15:42.880081+00:00",
-  "fetched_at": "2026-10-31T15:15:42.880070+09:00",
-  "last_success_at": "2026-10-31T15:15:42.880070+09:00",
-  "valid_until": "2026-10-31T23:15:42.880070+09:00"
+  "fetch_status": "partial",
+  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
+  "updated_at": "2026-10-31T15:30:58.427816+09:00",
+  "last_attempt_at": "2026-10-31T06:30:58.427820+00:00",
+  "fetched_at": "2026-10-31T15:30:58.427816+09:00",
+  "last_success_at": "2026-10-31T15:30:58.427816+09:00",
+  "valid_until": "2026-10-31T23:30:58.427816+09:00"
 }
