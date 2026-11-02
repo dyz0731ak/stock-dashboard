@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T10:06:20.974657+09:00",
+  "updated_at": "2026-11-02T10:21:11.119621+09:00",
   "article_date": "2026-11-02",
   "checked_date": "2026-11-02",
   "sources": [
@@ -7,11 +7,19 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 1,
-    "selected": 1,
-    "document_failures": 0
+    "tdnet_candidates": 3,
+    "selected": 2,
+    "document_failures": 1
   },
-  "source_failures": [],
+  "source_failures": [
+    {
+      "code": "8473",
+      "url": "https://www.release.tdnet.info/inbs/140120261102562069.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    }
+  ],
   "highlights": [
     {
       "code": "8303",
@@ -106,9 +114,86 @@
       ],
       "company_summary": "旧長銀。銀行とノンバンクの機能を併せ持つ総合金融サービス",
       "company_summary_source": "https://s.kabutan.jp/stocks/8303/"
+    },
+    {
+      "code": "8473",
+      "name": "SBI",
+      "title": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+      "time": "10:10",
+      "published_date": "2026-11-02",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261030561832.zip",
+      "narrative": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "2,305.72億円",
+          "comparison": "1,658.01億円 → 2,305.72億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 売上収益",
+          "value": "10,575.15億円",
+          "comparison": "9,025.59億円 → 10,575.15億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 230572000000.0,
+          "previous": 165801000000.0,
+          "pct": 39.07,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParentIFRS",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上収益",
+          "current": 1057515000000.0,
+          "previous": 902559000000.0,
+          "pct": 17.17,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "RevenueIFRS",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "大幅増益 +39.1%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 85,
+      "impact_zone": "positive",
+      "impact_label": "大幅増益 +39.1%",
+      "impact_summary": "第2四半期累計純利益が大幅増益 +39.1%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/02 10:10発表",
+      "published_time": "10:10",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+          "title": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "10:10"
+        }
+      ],
+      "company_summary": "ベンチャーキャピタル大手",
+      "company_summary_source": "https://s.kabutan.jp/stocks/8473/"
     }
   ],
-  "total": 1,
+  "total": 2,
   "groups": [
     {
       "category": "重要開示",
@@ -208,15 +293,92 @@
           ],
           "company_summary": "旧長銀。銀行とノンバンクの機能を併せ持つ総合金融サービス",
           "company_summary_source": "https://s.kabutan.jp/stocks/8303/"
+        },
+        {
+          "code": "8473",
+          "name": "SBI",
+          "title": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "time": "10:10",
+          "published_date": "2026-11-02",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261030561832.zip",
+          "narrative": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "2,305.72億円",
+              "comparison": "1,658.01億円 → 2,305.72億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 売上収益",
+              "value": "10,575.15億円",
+              "comparison": "9,025.59億円 → 10,575.15億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 230572000000.0,
+              "previous": 165801000000.0,
+              "pct": 39.07,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParentIFRS",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上収益",
+              "current": 1057515000000.0,
+              "previous": 902559000000.0,
+              "pct": 17.17,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "RevenueIFRS",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "大幅増益 +39.1%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 85,
+          "impact_zone": "positive",
+          "impact_label": "大幅増益 +39.1%",
+          "impact_summary": "第2四半期累計純利益が大幅増益 +39.1%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/02 10:10発表",
+          "published_time": "10:10",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261030561832.pdf",
+              "title": "2027年3月期  第2四半期(中間期)決算短信〔IFRS〕(連結)",
+              "time": "10:10"
+            }
+          ],
+          "company_summary": "ベンチャーキャピタル大手",
+          "company_summary_source": "https://s.kabutan.jp/stocks/8473/"
         }
       ]
     }
   ],
-  "fetch_status": "ok",
+  "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-02T01:06:22.240557+00:00",
-  "fetched_at": "2026-11-02T10:06:20.974657+09:00",
-  "last_success_at": "2026-11-02T10:06:20.974657+09:00",
-  "valid_until": "2026-11-03T22:06:20.974657+09:00"
+  "last_attempt_at": "2026-11-02T01:21:13.035652+00:00",
+  "fetched_at": "2026-11-02T10:21:11.119621+09:00",
+  "last_success_at": "2026-11-02T10:21:11.119621+09:00",
+  "valid_until": "2026-11-03T22:21:11.119621+09:00"
 }
