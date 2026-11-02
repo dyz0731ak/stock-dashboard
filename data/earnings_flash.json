@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T15:06:18.590545+09:00",
+  "updated_at": "2026-11-02T15:19:19.281927+09:00",
   "article_date": "2026-11-02",
   "checked_date": "2026-11-02",
   "sources": [
@@ -7,8 +7,8 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 42,
-    "selected": 18,
+    "tdnet_candidates": 43,
+    "selected": 19,
     "document_failures": 9
   },
   "source_failures": [
@@ -1613,101 +1613,112 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/5444/"
     },
     {
-      "code": "8303",
-      "name": "SBI新生銀行",
-      "title": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "time": "10:00",
+      "code": "8377",
+      "name": "ほくほく",
+      "title": "業績予想および配当予想の修正に関するお知らせ",
+      "time": "15:15",
       "published_date": "2026-11-02",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261027556932.zip",
-      "narrative": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261030561601.zip",
+      "narrative": "業績予想および配当予想の修正に関するお知らせ",
       "key_numbers": [
         {
-          "label": "第2四半期累計 経常利益",
-          "value": "921.82億円",
-          "comparison": "624.39億円 → 921.82億円（前年同期比）"
+          "label": "通期 経常利益",
+          "value": "1,085億円",
+          "comparison": "890億円 → 1,085億円（前回会社予想比）"
         },
         {
-          "label": "第2四半期累計 経常収益",
-          "value": "4,520.75億円",
-          "comparison": "3,642.15億円 → 4,520.75億円（前年同期比）"
+          "label": "通期 純利益",
+          "value": "750億円",
+          "comparison": "620億円 → 750億円（前回会社予想比）"
         },
         {
-          "label": "第2四半期累計 純利益",
-          "value": "690.96億円",
-          "comparison": "693.66億円 → 690.96億円（前年同期比）"
+          "label": "中間 1株配当",
+          "value": "95円",
+          "comparison": "75円 → 95円（前回会社予想比）"
         }
       ],
       "comparisons": [
         {
           "label": "経常利益",
-          "current": 92182000000.0,
-          "previous": 62439000000.0,
-          "pct": 47.64,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
+          "current": 108500000000.0,
+          "previous": 89000000000.0,
+          "pct": 21.91,
+          "basis": "前回会社予想比",
+          "period": "通期",
           "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
           "fact": "OrdinaryIncome",
           "unit": "百万円"
         },
         {
-          "label": "経常収益",
-          "current": 452075000000.0,
-          "previous": 364215000000.0,
-          "pct": 24.12,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
+          "label": "純利益",
+          "current": 75000000000.0,
+          "previous": 62000000000.0,
+          "pct": 20.97,
+          "basis": "前回会社予想比",
+          "period": "通期",
           "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OrdinaryRevenuesBK",
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
           "unit": "百万円"
         },
         {
-          "label": "純利益",
-          "current": 69096000000.0,
-          "previous": 69366000000.0,
-          "pct": -0.39,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
+          "label": "1株配当",
+          "current": 95.0,
+          "previous": 75.0,
+          "pct": 26.67,
+          "basis": "前回会社予想比",
+          "period": "中間",
+          "consolidated": false,
+          "context": "CurrentYearDuration_SecondQuarterMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "DividendPerShare",
+          "unit": "円"
         }
       ],
       "chips": [
         {
           "label": "経常利益",
-          "value": "大幅増益 +47.6%",
+          "value": "上方修正 +21.9%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +21.0%",
+          "direction": "up"
+        },
+        {
+          "label": "1株配当",
+          "value": "増配 +26.7%",
           "direction": "up"
         }
       ],
-      "impact_score": 89,
+      "impact_score": 90,
       "impact_zone": "positive",
-      "impact_label": "大幅増益 +47.6%",
-      "impact_summary": "第2四半期累計経常利益が大幅増益 +47.6%（前年同期比）。",
+      "impact_label": "増配 +26.7%",
+      "impact_summary": "通期経常利益が上方修正 +21.9%（前回会社予想比）。通期純利益が上方修正 +21.0%（前回会社予想比）。中間1株配当が増配 +26.7%（前回会社予想比）。",
       "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
+      "url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
       "sources": [
         "TDnet"
       ],
       "primary_source": "TDnet",
-      "published_label": "11/02 10:00発表",
-      "published_time": "10:00",
+      "published_label": "11/02 15:15発表",
+      "published_time": "15:15",
       "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "預金・貸出金が堅調に推移し、有価証券を含む資金利益が当初予想を超える見込みとなりました。また、与信費用が計画を下回る見通しであることなどを踏まえ、業績予想を上方修正するものです。",
       "documents": [
         {
-          "url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
-          "title": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "10:00"
+          "url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
+          "title": "業績予想および配当予想の修正に関するお知らせ",
+          "time": "15:15"
         }
       ],
-      "company_summary": "旧長銀。銀行とノンバンクの機能を併せ持つ総合金融サービス",
-      "company_summary_source": "https://s.kabutan.jp/stocks/8303/"
+      "company_summary": "傘下に北陸銀と北海道銀持つ金融持ち株会社",
+      "company_summary_source": "https://s.kabutan.jp/stocks/8377/"
     }
   ],
-  "total": 18,
+  "total": 19,
   "groups": [
     {
       "category": "重要開示",
@@ -3250,98 +3261,109 @@
           "company_summary_source": "https://s.kabutan.jp/stocks/5444/"
         },
         {
-          "code": "8303",
-          "name": "SBI新生銀行",
-          "title": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "10:00",
+          "code": "8377",
+          "name": "ほくほく",
+          "title": "業績予想および配当予想の修正に関するお知らせ",
+          "time": "15:15",
           "published_date": "2026-11-02",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261027556932.zip",
-          "narrative": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261030561601.zip",
+          "narrative": "業績予想および配当予想の修正に関するお知らせ",
           "key_numbers": [
             {
-              "label": "第2四半期累計 経常利益",
-              "value": "921.82億円",
-              "comparison": "624.39億円 → 921.82億円（前年同期比）"
+              "label": "通期 経常利益",
+              "value": "1,085億円",
+              "comparison": "890億円 → 1,085億円（前回会社予想比）"
             },
             {
-              "label": "第2四半期累計 経常収益",
-              "value": "4,520.75億円",
-              "comparison": "3,642.15億円 → 4,520.75億円（前年同期比）"
+              "label": "通期 純利益",
+              "value": "750億円",
+              "comparison": "620億円 → 750億円（前回会社予想比）"
             },
             {
-              "label": "第2四半期累計 純利益",
-              "value": "690.96億円",
-              "comparison": "693.66億円 → 690.96億円（前年同期比）"
+              "label": "中間 1株配当",
+              "value": "95円",
+              "comparison": "75円 → 95円（前回会社予想比）"
             }
           ],
           "comparisons": [
             {
               "label": "経常利益",
-              "current": 92182000000.0,
-              "previous": 62439000000.0,
-              "pct": 47.64,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
+              "current": 108500000000.0,
+              "previous": 89000000000.0,
+              "pct": 21.91,
+              "basis": "前回会社予想比",
+              "period": "通期",
               "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
               "fact": "OrdinaryIncome",
               "unit": "百万円"
             },
             {
-              "label": "経常収益",
-              "current": 452075000000.0,
-              "previous": 364215000000.0,
-              "pct": 24.12,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
+              "label": "純利益",
+              "current": 75000000000.0,
+              "previous": 62000000000.0,
+              "pct": 20.97,
+              "basis": "前回会社予想比",
+              "period": "通期",
               "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OrdinaryRevenuesBK",
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
               "unit": "百万円"
             },
             {
-              "label": "純利益",
-              "current": 69096000000.0,
-              "previous": 69366000000.0,
-              "pct": -0.39,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
+              "label": "1株配当",
+              "current": 95.0,
+              "previous": 75.0,
+              "pct": 26.67,
+              "basis": "前回会社予想比",
+              "period": "中間",
+              "consolidated": false,
+              "context": "CurrentYearDuration_SecondQuarterMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "DividendPerShare",
+              "unit": "円"
             }
           ],
           "chips": [
             {
               "label": "経常利益",
-              "value": "大幅増益 +47.6%",
+              "value": "上方修正 +21.9%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +21.0%",
+              "direction": "up"
+            },
+            {
+              "label": "1株配当",
+              "value": "増配 +26.7%",
               "direction": "up"
             }
           ],
-          "impact_score": 89,
+          "impact_score": 90,
           "impact_zone": "positive",
-          "impact_label": "大幅増益 +47.6%",
-          "impact_summary": "第2四半期累計経常利益が大幅増益 +47.6%（前年同期比）。",
+          "impact_label": "増配 +26.7%",
+          "impact_summary": "通期経常利益が上方修正 +21.9%（前回会社予想比）。通期純利益が上方修正 +21.0%（前回会社予想比）。中間1株配当が増配 +26.7%（前回会社予想比）。",
           "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
+          "url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
           "sources": [
             "TDnet"
           ],
           "primary_source": "TDnet",
-          "published_label": "11/02 10:00発表",
-          "published_time": "10:00",
+          "published_label": "11/02 15:15発表",
+          "published_time": "15:15",
           "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "預金・貸出金が堅調に推移し、有価証券を含む資金利益が当初予想を超える見込みとなりました。また、与信費用が計画を下回る見通しであることなどを踏まえ、業績予想を上方修正するものです。",
           "documents": [
             {
-              "url": "https://www.release.tdnet.info/inbs/140120261027556932.pdf",
-              "title": "2027年3月期  第2四半期(中間期)決算短信〔日本基準〕(連結)",
-              "time": "10:00"
+              "url": "https://www.release.tdnet.info/inbs/140120261030561601.pdf",
+              "title": "業績予想および配当予想の修正に関するお知らせ",
+              "time": "15:15"
             }
           ],
-          "company_summary": "旧長銀。銀行とノンバンクの機能を併せ持つ総合金融サービス",
-          "company_summary_source": "https://s.kabutan.jp/stocks/8303/"
+          "company_summary": "傘下に北陸銀と北海道銀持つ金融持ち株会社",
+          "company_summary_source": "https://s.kabutan.jp/stocks/8377/"
         }
       ]
     }
@@ -3349,8 +3371,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-02T06:06:22.577861+00:00",
-  "fetched_at": "2026-11-02T15:06:18.590545+09:00",
-  "last_success_at": "2026-11-02T15:06:18.590545+09:00",
-  "valid_until": "2026-11-04T03:06:18.590545+09:00"
+  "last_attempt_at": "2026-11-02T06:19:20.638947+00:00",
+  "fetched_at": "2026-11-02T15:19:19.281927+09:00",
+  "last_success_at": "2026-11-02T15:19:19.281927+09:00",
+  "valid_until": "2026-11-04T03:19:19.281927+09:00"
 }
