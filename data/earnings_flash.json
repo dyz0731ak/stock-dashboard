@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T12:17:00.312564+09:00",
+  "updated_at": "2026-11-04T12:32:41.243176+09:00",
   "article_date": "2026-11-04",
   "checked_date": "2026-11-04",
   "sources": [
@@ -7,8 +7,8 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 11,
-    "selected": 4,
+    "tdnet_candidates": 14,
+    "selected": 6,
     "document_failures": 1
   },
   "source_failures": [
@@ -21,6 +21,63 @@
     }
   ],
   "highlights": [
+    {
+      "code": "2317",
+      "name": "システナ",
+      "title": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+      "time": "12:30",
+      "published_date": "2026-11-04",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+      "xbrl_url": "",
+      "narrative": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "100億円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "23,800,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "発行済株式比",
+          "value": "10%",
+          "comparison": "取得枠の上限・発行済株式比"
+        }
+      ],
+      "comparisons": [],
+      "chips": [
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "自社株買い",
+      "impact_summary": "新たな自社株買いを決定（発行済株式の10%が上限）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/04 12:30発表",
+      "published_time": "12:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+          "title": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "12:30"
+        }
+      ],
+      "company_summary": "ソフト開発支援。自動運転用に注力",
+      "company_summary_source": "https://s.kabutan.jp/stocks/2317/"
+    },
     {
       "code": "6366",
       "name": "千代化建",
@@ -355,6 +412,106 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/4203/"
     },
     {
+      "code": "8393",
+      "name": "宮崎銀",
+      "title": "業績予想の上方修正に関するお知らせ",
+      "time": "12:20",
+      "published_date": "2026-11-04",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261027556551.zip",
+      "narrative": "業績予想の上方修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "82億円",
+          "comparison": "69億円 → 82億円（前回会社予想比）"
+        },
+        {
+          "label": "第2四半期累計 経常利益",
+          "value": "115億円",
+          "comparison": "98億円 → 115億円（前回会社予想比）"
+        },
+        {
+          "label": "第2四半期累計 経常収益",
+          "value": "550億円",
+          "comparison": "476億円 → 550億円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 8200000000.0,
+          "previous": 6900000000.0,
+          "pct": 18.84,
+          "basis": "前回会社予想比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 11500000000.0,
+          "previous": 9800000000.0,
+          "pct": 17.35,
+          "basis": "前回会社予想比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常収益",
+          "current": 55000000000.0,
+          "previous": 47600000000.0,
+          "pct": 15.55,
+          "basis": "前回会社予想比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OrdinaryRevenuesBK",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "上方修正 +18.8%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +17.4%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 84,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +18.8%",
+      "impact_summary": "第2四半期累計純利益が上方修正 +18.8%（前回会社予想比）。第2四半期累計経常利益が上方修正 +17.4%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/04 12:20発表",
+      "published_time": "12:20",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "貸出金利息が当初予想を上回る見込みとなったことや、経費が当初予想を下回る見込みとなったこと、また、有価証券ポートフォリオの見直しに伴う債券売却損への対応として株式等売却益を計上したことなどから、2027年3月期第2四半期(累計)の連結および個別の業績予想を上方修正するものであり、経常収益、経常利益、中間純利益いずれも過去最高となる見込みです。 なお、2027年3月期通期の業績予想につきましては、11月上旬に予定しております2027年3月期第2四半期決算発表時にお知らせいたします。",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+          "title": "業績予想の上方修正に関するお知らせ",
+          "time": "12:20"
+        }
+      ],
+      "company_summary": "宮崎地盤の地銀中位。県指定金融機関",
+      "company_summary_source": "https://s.kabutan.jp/stocks/8393/"
+    },
+    {
       "code": "8031",
       "name": "三井物産",
       "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
@@ -432,13 +589,70 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/8031/"
     }
   ],
-  "total": 4,
+  "total": 6,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "2317",
+          "name": "システナ",
+          "title": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "12:30",
+          "published_date": "2026-11-04",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+          "xbrl_url": "",
+          "narrative": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "100億円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "23,800,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "発行済株式比",
+              "value": "10%",
+              "comparison": "取得枠の上限・発行済株式比"
+            }
+          ],
+          "comparisons": [],
+          "chips": [
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "自社株買い",
+          "impact_summary": "新たな自社株買いを決定（発行済株式の10%が上限）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/04 12:30発表",
+          "published_time": "12:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261104563824.pdf",
+              "title": "自己株式の消却及び自己株式取得に係る事項の決定に関するお知らせ",
+              "time": "12:30"
+            }
+          ],
+          "company_summary": "ソフト開発支援。自動運転用に注力",
+          "company_summary_source": "https://s.kabutan.jp/stocks/2317/"
+        },
         {
           "code": "6366",
           "name": "千代化建",
@@ -773,6 +987,106 @@
           "company_summary_source": "https://s.kabutan.jp/stocks/4203/"
         },
         {
+          "code": "8393",
+          "name": "宮崎銀",
+          "title": "業績予想の上方修正に関するお知らせ",
+          "time": "12:20",
+          "published_date": "2026-11-04",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261027556551.zip",
+          "narrative": "業績予想の上方修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "82億円",
+              "comparison": "69億円 → 82億円（前回会社予想比）"
+            },
+            {
+              "label": "第2四半期累計 経常利益",
+              "value": "115億円",
+              "comparison": "98億円 → 115億円（前回会社予想比）"
+            },
+            {
+              "label": "第2四半期累計 経常収益",
+              "value": "550億円",
+              "comparison": "476億円 → 550億円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 8200000000.0,
+              "previous": 6900000000.0,
+              "pct": 18.84,
+              "basis": "前回会社予想比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 11500000000.0,
+              "previous": 9800000000.0,
+              "pct": 17.35,
+              "basis": "前回会社予想比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常収益",
+              "current": 55000000000.0,
+              "previous": 47600000000.0,
+              "pct": 15.55,
+              "basis": "前回会社予想比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OrdinaryRevenuesBK",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "上方修正 +18.8%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +17.4%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 84,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +18.8%",
+          "impact_summary": "第2四半期累計純利益が上方修正 +18.8%（前回会社予想比）。第2四半期累計経常利益が上方修正 +17.4%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/04 12:20発表",
+          "published_time": "12:20",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "貸出金利息が当初予想を上回る見込みとなったことや、経費が当初予想を下回る見込みとなったこと、また、有価証券ポートフォリオの見直しに伴う債券売却損への対応として株式等売却益を計上したことなどから、2027年3月期第2四半期(累計)の連結および個別の業績予想を上方修正するものであり、経常収益、経常利益、中間純利益いずれも過去最高となる見込みです。 なお、2027年3月期通期の業績予想につきましては、11月上旬に予定しております2027年3月期第2四半期決算発表時にお知らせいたします。",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261027556551.pdf",
+              "title": "業績予想の上方修正に関するお知らせ",
+              "time": "12:20"
+            }
+          ],
+          "company_summary": "宮崎地盤の地銀中位。県指定金融機関",
+          "company_summary_source": "https://s.kabutan.jp/stocks/8393/"
+        },
+        {
           "code": "8031",
           "name": "三井物産",
           "title": "2027年3月期 第2四半期(中間期)決算短信〔IFRS〕(連結)",
@@ -855,8 +1169,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-04T03:17:00.651401+00:00",
-  "fetched_at": "2026-11-04T12:17:00.312564+09:00",
-  "last_success_at": "2026-11-04T12:17:00.312564+09:00",
-  "valid_until": "2026-11-06T00:17:00.312564+09:00"
+  "last_attempt_at": "2026-11-04T03:32:43.661736+00:00",
+  "fetched_at": "2026-11-04T12:32:41.243176+09:00",
+  "last_success_at": "2026-11-04T12:32:41.243176+09:00",
+  "valid_until": "2026-11-06T00:32:41.243176+09:00"
 }
