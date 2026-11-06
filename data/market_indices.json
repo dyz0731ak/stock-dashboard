@@ -107,7 +107,11 @@
       "valid_until": "2026-11-06T09:30:00+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
-      "source_endpoint": "query1.finance.yahoo.com"
+      "source_endpoint": "query1.finance.yahoo.com",
+      "cache_status": "previous",
+      "cache_until": "2026-11-07T08:45:40.689075+09:00",
+      "last_attempt_at": "2026-11-06T09:00:57.913567+09:00",
+      "fetch_error": "query1.finance.yahoo.com: Nikkei quote is outside its valid session; query2.finance.yahoo.com: Nikkei quote is outside its valid session; yfinance: Nikkei quote is outside its valid session"
     },
     {
       "id": "dow",
@@ -216,8 +220,8 @@
       ],
       "price_date": "2026-11-05",
       "as_of": "2026-11-05T21:35:51+00:00",
-      "fetched_at": "2026-11-06T08:45:40.682049+09:00",
-      "valid_until": "2026-11-06T16:45:40.682049+09:00",
+      "fetched_at": "2026-11-06T09:00:57.341454+09:00",
+      "valid_until": "2026-11-06T17:00:57.341454+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -329,8 +333,8 @@
       ],
       "price_date": "2026-11-05",
       "as_of": "2026-11-05T22:15:59+00:00",
-      "fetched_at": "2026-11-06T08:45:40.788868+09:00",
-      "valid_until": "2026-11-06T16:45:40.788868+09:00",
+      "fetched_at": "2026-11-06T09:00:57.408532+09:00",
+      "valid_until": "2026-11-06T17:00:57.408532+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -342,15 +346,11 @@
       "decimals": 3,
       "unit": "円 / 米ドル",
       "instrument_type": "CURRENCY",
-      "price": 157.408,
+      "price": 157.457,
       "prev_close": 158.469,
-      "change": -1.061,
-      "pct": -0.67,
+      "change": -1.012,
+      "pct": -0.639,
       "chart": [
-        {
-          "t": "2026-10-05",
-          "c": 157.734
-        },
         {
           "t": "2026-10-06",
           "c": 157.963
@@ -440,14 +440,14 @@
           "c": 158.469
         },
         {
-          "t": "2026-11-05",
-          "c": 157.408
+          "t": "2026-11-06",
+          "c": 157.457
         }
       ],
-      "price_date": "2026-11-05",
-      "as_of": "2026-11-05T23:45:40+00:00",
-      "fetched_at": "2026-11-06T08:45:40.776663+09:00",
-      "valid_until": "2026-11-06T16:45:40.776663+09:00",
+      "price_date": "2026-11-06",
+      "as_of": "2026-11-06T00:00:55+00:00",
+      "fetched_at": "2026-11-06T09:00:57.485981+09:00",
+      "valid_until": "2026-11-06T17:00:57.485981+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -559,8 +559,8 @@
       ],
       "price_date": "2026-11-05",
       "as_of": "2026-11-05T22:15:59+00:00",
-      "fetched_at": "2026-11-06T08:45:40.858046+09:00",
-      "valid_until": "2026-11-06T16:45:40.858046+09:00",
+      "fetched_at": "2026-11-06T09:00:57.668452+09:00",
+      "valid_until": "2026-11-06T17:00:57.668452+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -572,26 +572,31 @@
       "decimals": 2,
       "unit": "USD / トロイオンス",
       "instrument_type": "SPOT",
-      "price": 4097.799805,
+      "price": 4087.699951,
       "prev_close": null,
       "change": null,
       "pct": null,
       "chart": [],
       "price_date": "2026-11-06",
-      "as_of": "2026-11-05T23:45:33+00:00",
-      "fetched_at": "2026-11-06T08:45:41.124602+09:00",
-      "valid_until": "2026-11-06T02:45:33+00:00",
+      "as_of": "2026-11-06T00:00:33+00:00",
+      "fetched_at": "2026-11-06T09:00:57.912995+09:00",
+      "valid_until": "2026-11-06T03:00:33+00:00",
       "source_label": "Gold API",
       "source_url": "https://gold-api.com/"
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "id": "nk225",
+      "error": "query1.finance.yahoo.com: Nikkei quote is outside its valid session; query2.finance.yahoo.com: Nikkei quote is outside its valid session; yfinance: Nikkei quote is outside its valid session"
+    }
+  ],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "ok",
-  "fetch_warning": null,
-  "updated_at": "2026-11-06T08:45:41.125170+09:00",
-  "last_attempt_at": "2026-11-05T23:45:41.125179+00:00",
-  "fetched_at": "2026-11-06T08:45:41.125170+09:00",
-  "last_success_at": "2026-11-06T08:45:41.125170+09:00",
-  "valid_until": "2026-11-06T16:45:41.125170+09:00"
+  "fetch_status": "partial",
+  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
+  "updated_at": "2026-11-06T09:00:57.913593+09:00",
+  "last_attempt_at": "2026-11-06T00:00:57.913597+00:00",
+  "fetched_at": "2026-11-06T09:00:57.913593+09:00",
+  "last_success_at": "2026-11-06T09:00:57.913593+09:00",
+  "valid_until": "2026-11-06T17:00:57.913593+09:00"
 }
