@@ -103,7 +103,7 @@
       ],
       "price_date": "2026-11-06",
       "as_of": "2026-11-06T06:45:02+00:00",
-      "fetched_at": "2026-11-08T21:45:41.920007+09:00",
+      "fetched_at": "2026-11-08T22:00:59.496524+09:00",
       "valid_until": "2026-11-09T09:30:00+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
@@ -216,8 +216,8 @@
       ],
       "price_date": "2026-11-06",
       "as_of": "2026-11-06T21:37:12+00:00",
-      "fetched_at": "2026-11-08T21:45:41.909018+09:00",
-      "valid_until": "2026-11-09T05:45:41.909018+09:00",
+      "fetched_at": "2026-11-08T22:00:59.510094+09:00",
+      "valid_until": "2026-11-09T06:00:59.510094+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -329,8 +329,8 @@
       ],
       "price_date": "2026-11-06",
       "as_of": "2026-11-06T22:15:59+00:00",
-      "fetched_at": "2026-11-08T21:45:42.104713+09:00",
-      "valid_until": "2026-11-09T05:45:42.104713+09:00",
+      "fetched_at": "2026-11-08T22:00:59.578313+09:00",
+      "valid_until": "2026-11-09T06:00:59.578313+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -446,8 +446,8 @@
       ],
       "price_date": "2026-11-08",
       "as_of": "2026-11-08T05:21:16+00:00",
-      "fetched_at": "2026-11-08T21:45:42.124164+09:00",
-      "valid_until": "2026-11-09T05:45:42.124164+09:00",
+      "fetched_at": "2026-11-08T22:00:59.599871+09:00",
+      "valid_until": "2026-11-09T06:00:59.599871+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -559,8 +559,8 @@
       ],
       "price_date": "2026-11-06",
       "as_of": "2026-11-06T22:15:59+00:00",
-      "fetched_at": "2026-11-08T21:45:42.302085+09:00",
-      "valid_until": "2026-11-09T05:45:42.302085+09:00",
+      "fetched_at": "2026-11-08T22:00:59.708305+09:00",
+      "valid_until": "2026-11-09T06:00:59.708305+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -578,29 +578,20 @@
       "pct": null,
       "chart": [],
       "price_date": "2026-11-08",
-      "as_of": "2026-11-08T12:30:22+00:00",
-      "fetched_at": "2026-11-08T21:30:47.340200+09:00",
-      "valid_until": "2026-11-09T05:30:47.340200+09:00",
+      "as_of": "2026-11-08T13:00:52+00:00",
+      "fetched_at": "2026-11-08T22:00:59.767503+09:00",
+      "valid_until": "2026-11-09T06:00:59.767503+09:00",
       "source_label": "Gold API",
-      "source_url": "https://gold-api.com/",
-      "cache_status": "previous",
-      "cache_until": "2026-11-09T21:30:47.340200+09:00",
-      "last_attempt_at": "2026-11-08T21:45:43.090473+09:00",
-      "fetch_error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
+      "source_url": "https://gold-api.com/"
     }
   ],
-  "failures": [
-    {
-      "id": "gold",
-      "error": "HTTPSConnectionPool(host='api.gold-api.com', port=443): Max retries exceeded with url: /price/XAU (Caused by NameResolutionError(\"HTTPSConnection(host='api.gold-api.com', port=443): Failed to resolve 'api.gold-api.com' ([Errno -2] Name or service not known)\"))"
-    }
-  ],
+  "failures": [],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "partial",
-  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
-  "updated_at": "2026-11-08T21:45:43.090534+09:00",
-  "last_attempt_at": "2026-11-08T12:45:43.090539+00:00",
-  "fetched_at": "2026-11-08T21:45:43.090534+09:00",
-  "last_success_at": "2026-11-08T21:45:43.090534+09:00",
-  "valid_until": "2026-11-09T05:45:43.090534+09:00"
+  "fetch_status": "ok",
+  "fetch_warning": null,
+  "updated_at": "2026-11-08T22:00:59.768098+09:00",
+  "last_attempt_at": "2026-11-08T13:00:59.768109+00:00",
+  "fetched_at": "2026-11-08T22:00:59.768098+09:00",
+  "last_success_at": "2026-11-08T22:00:59.768098+09:00",
+  "valid_until": "2026-11-09T06:00:59.768098+09:00"
 }
