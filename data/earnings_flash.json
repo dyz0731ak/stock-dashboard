@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11T13:17:14.028257+09:00",
+  "updated_at": "2026-11-11T13:32:33.491512+09:00",
   "article_date": "2026-11-11",
   "checked_date": "2026-11-11",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 61,
-    "selected": 24,
-    "document_failures": 9
+    "tdnet_candidates": 69,
+    "selected": 28,
+    "document_failures": 10
   },
   "source_failures": [
+    {
+      "code": "7441",
+      "url": "https://www.release.tdnet.info/inbs/140120261110572047.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "4401",
       "url": "https://www.release.tdnet.info/inbs/140120261110572058.pdf",
@@ -77,6 +84,401 @@
     }
   ],
   "highlights": [
+    {
+      "code": "1810",
+      "name": "松井建",
+      "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+      "time": "13:30",
+      "published_date": "2026-11-11",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+      "xbrl_url": "",
+      "narrative": "業績予想の修正及び期末配当予想の修正に関するお知らせ / 2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "26.65億円",
+          "comparison": "19.64億円 → 26.65億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 営業利益",
+          "value": "34.18億円",
+          "comparison": "25.76億円 → 34.18億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 経常利益",
+          "value": "38.16億円",
+          "comparison": "28.76億円 → 38.16億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 売上高",
+          "value": "451.23億円",
+          "comparison": "462.93億円 → 451.23億円（前年同期比）"
+        },
+        {
+          "label": "会社予想 売上高",
+          "value": "1,005億円",
+          "comparison": "960億円 → 1,005億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 営業利益",
+          "value": "72億円",
+          "comparison": "54億円 → 72億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 経常利益",
+          "value": "79億円",
+          "comparison": "59億円 → 79億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 純利益",
+          "value": "54億円",
+          "comparison": "40億円 → 54億円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "売上高",
+          "current": 100500000000.0,
+          "previous": 96000000000.0,
+          "pct": 4.69,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "営業利益",
+          "current": 7200000000.0,
+          "previous": 5400000000.0,
+          "pct": 33.33,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "経常利益",
+          "current": 7900000000.0,
+          "previous": 5900000000.0,
+          "pct": 33.9,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "純利益",
+          "current": 5400000000.0,
+          "previous": 4000000000.0,
+          "pct": 35.0,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "上方修正 +33.3%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +33.9%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +35.0%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "大幅増益 +35.7%",
+          "direction": "up"
+        },
+        {
+          "label": "営業利益",
+          "value": "大幅増益 +32.7%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "大幅増益 +32.7%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +33.3%",
+      "impact_summary": "会社予想営業利益が上方修正 +33.3%（前回会社予想比）。会社予想経常利益が上方修正 +33.9%（前回会社予想比）。会社予想純利益が上方修正 +35.0%（前回会社予想比）。第2四半期累計純利益が大幅増益 +35.7%（前年同期比）。第2四半期累計営業利益が大幅増益 +32.7%（前年同期比）。第2四半期累計経常利益が大幅増益 +32.7%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/11 13:30発表",
+      "published_time": "13:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261110571701.pdf",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "time": "13:30"
+        },
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+          "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+          "time": "13:30"
+        }
+      ],
+      "company_summary": "天正年間創業の建築老舗",
+      "company_summary_source": "https://s.kabutan.jp/stocks/1810/"
+    },
+    {
+      "code": "7441",
+      "name": "Misumi",
+      "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "time": "13:30",
+      "published_date": "2026-11-11",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261110571999.zip",
+      "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 営業利益",
+          "value": "2.35億円",
+          "comparison": "1.21億円 → 2.35億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "3.25億円",
+          "comparison": "1.7億円 → 3.25億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 経常利益",
+          "value": "5.16億円",
+          "comparison": "3.1億円 → 5.16億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 売上高",
+          "value": "305.37億円",
+          "comparison": "288.49億円 → 305.37億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "営業利益",
+          "current": 235000000.0,
+          "previous": 121000000.0,
+          "pct": 94.21,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 325000000.0,
+          "previous": 170000000.0,
+          "pct": 91.18,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 516000000.0,
+          "previous": 310000000.0,
+          "pct": 66.45,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 30537000000.0,
+          "previous": 28849000000.0,
+          "pct": 5.85,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "大幅増益 +94.2%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "大幅増益 +91.2%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "大幅増益 +66.5%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "大幅増益 +94.2%",
+      "impact_summary": "第2四半期累計営業利益が大幅増益 +94.2%（前年同期比）。第2四半期累計純利益が大幅増益 +91.2%（前年同期比）。第2四半期累計経常利益が大幅増益 +66.5%（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/11 13:30発表",
+      "published_time": "13:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "time": "13:30"
+        }
+      ],
+      "company_summary": "ENEOS系九州の有力特約店",
+      "company_summary_source": "https://s.kabutan.jp/stocks/7441/"
+    },
+    {
+      "code": "7213",
+      "name": "レシップHD",
+      "title": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+      "time": "13:20",
+      "published_date": "2026-11-11",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261109569038.zip",
+      "narrative": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+      "key_numbers": [
+        {
+          "label": "第2四半期累計 営業利益",
+          "value": "6.86億円",
+          "comparison": "-2.45億円 → 6.86億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 純利益",
+          "value": "4.8億円",
+          "comparison": "-2.24億円 → 4.8億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 経常利益",
+          "value": "5.58億円",
+          "comparison": "-2.76億円 → 5.58億円（前年同期比）"
+        },
+        {
+          "label": "第2四半期累計 売上高",
+          "value": "107.3億円",
+          "comparison": "82.86億円 → 107.3億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "営業利益",
+          "current": 686000000.0,
+          "previous": -245000000.0,
+          "pct": 380.0,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 480000000.0,
+          "previous": -224000000.0,
+          "pct": 314.29,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 558000000.0,
+          "previous": -276000000.0,
+          "pct": 302.17,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 10730000000.0,
+          "previous": 8286000000.0,
+          "pct": 29.5,
+          "basis": "前年同期比",
+          "period": "第2四半期累計",
+          "consolidated": true,
+          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "黒字転換",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "黒字転換",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "黒字転換",
+      "impact_summary": "第2四半期累計営業利益が黒字転換（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。第2四半期累計経常利益が黒字転換（前年同期比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/11 13:20発表",
+      "published_time": "13:20",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+          "title": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+          "time": "13:20"
+        }
+      ],
+      "company_summary": "車両用電装機器が主力",
+      "company_summary_source": "https://s.kabutan.jp/stocks/7213/"
+    },
     {
       "code": "3405",
       "name": "クラレ",
@@ -1194,318 +1596,410 @@
       ],
       "company_summary": "再生アルミ地金で首位",
       "company_summary_source": "https://s.kabutan.jp/stocks/5702/"
-    },
-    {
-      "code": "5076",
-      "name": "インフロニアHD",
-      "title": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-      "time": "10:40",
-      "published_date": "2026-11-11",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261111572782.zip",
-      "narrative": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "659.01億円",
-          "comparison": "245.58億円 → 659.01億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 65901000000.0,
-          "previous": 24558000000.0,
-          "pct": 168.35,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParentIFRS",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "大幅増益 +168.3%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "大幅増益 +168.3%",
-      "impact_summary": "第2四半期累計純利益が大幅増益 +168.3%（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/11 10:40発表",
-      "published_time": "10:40",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-          "title": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "time": "10:40"
-        }
-      ],
-      "company_summary": "ゼネコン準大手。前田建、前田道、前田製作が経営統合",
-      "company_summary_source": "https://s.kabutan.jp/stocks/5076/"
-    },
-    {
-      "code": "2974",
-      "name": "大英産業",
-      "title": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-      "time": "09:50",
-      "published_date": "2026-11-11",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261111572625.zip",
-      "narrative": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 純利益",
-          "value": "2.65億円",
-          "comparison": "4.66億円 → 2.65億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 経常利益",
-          "value": "4.37億円",
-          "comparison": "7.54億円 → 4.37億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 営業利益",
-          "value": "8.83億円",
-          "comparison": "12.79億円 → 8.83億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 売上高",
-          "value": "338.97億円",
-          "comparison": "376.41億円 → 338.97億円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 265000000.0,
-          "previous": 466000000.0,
-          "pct": -43.13,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "経常利益",
-          "current": 437000000.0,
-          "previous": 754000000.0,
-          "pct": -42.04,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "営業利益",
-          "current": 883000000.0,
-          "previous": 1279000000.0,
-          "pct": -30.96,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OperatingIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "売上高",
-          "current": 33897000000.0,
-          "previous": 37641000000.0,
-          "pct": -9.95,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "NetSales",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "下方修正 -43.1%",
-          "direction": "down"
-        },
-        {
-          "label": "経常利益",
-          "value": "下方修正 -42.0%",
-          "direction": "down"
-        },
-        {
-          "label": "営業利益",
-          "value": "下方修正 -31.0%",
-          "direction": "down"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "negative",
-      "impact_label": "下方修正 -43.1%",
-      "impact_summary": "通期純利益が下方修正 -43.1%（前回会社予想比）。通期経常利益が下方修正 -42.0%（前回会社予想比）。通期営業利益が下方修正 -31.0%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/11 09:50発表",
-      "published_time": "09:50",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "当連結会計年度において、売上高は、分譲住宅(戸建)及び中古住宅の買取再販における販売戸数が当初計画を下回ったことに加え、分譲マンションの一部竣工物件において販売期間が想定より長期化し、売上計上時期が翌期以降となったことなどから、前回発表予想を下回る見込みとなりました。 利益面につきましては、各事業において収益性を重視した仕入れ及び販売活動に取り組んだことにより分譲マンション事業や街づくり事業の売上総利益率は予想を上回ったものの、売上高の減少に加え、分譲住宅(戸建)事業における完成在庫物件の販売促進等による利益率低下により、売上総利益が当初計画を下回る見込みとなったことから、営業利益は前回発表予想を下回る見込みとなりました。 また、営業利益の減少に加え、マンション用地や事業用不動産及び投資用不動産への成長投資に伴う借入残高の増加や、金利上昇による支払利息の増加により、経常利益及び親会社株主に帰属する当期純利益につきましても前回発表予想を下回る見込みとなりました。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-          "title": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-          "time": "09:50"
-        }
-      ],
-      "company_summary": "北九州地盤で新築マンション、一戸建て住宅の販売",
-      "company_summary_source": "https://s.kabutan.jp/stocks/2974/"
-    },
-    {
-      "code": "4401",
-      "name": "ADEKA",
-      "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "time": "13:00",
-      "published_date": "2026-11-11",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261111573194.zip",
-      "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-      "key_numbers": [
-        {
-          "label": "第2四半期累計 純利益",
-          "value": "190.1億円",
-          "comparison": "124.19億円 → 190.1億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 経常利益",
-          "value": "284.97億円",
-          "comparison": "199.99億円 → 284.97億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 営業利益",
-          "value": "276.78億円",
-          "comparison": "197.65億円 → 276.78億円（前年同期比）"
-        },
-        {
-          "label": "第2四半期累計 売上高",
-          "value": "2,231.51億円",
-          "comparison": "1,957.1億円 → 2,231.51億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 19010000000.0,
-          "previous": 12419000000.0,
-          "pct": 53.07,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "経常利益",
-          "current": 28497000000.0,
-          "previous": 19999000000.0,
-          "pct": 42.49,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "営業利益",
-          "current": 27678000000.0,
-          "previous": 19765000000.0,
-          "pct": 40.04,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "OperatingIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "売上高",
-          "current": 223151000000.0,
-          "previous": 195710000000.0,
-          "pct": 14.02,
-          "basis": "前年同期比",
-          "period": "第2四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-          "fact": "NetSales",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "大幅増益 +53.1%",
-          "direction": "up"
-        },
-        {
-          "label": "経常利益",
-          "value": "大幅増益 +42.5%",
-          "direction": "up"
-        },
-        {
-          "label": "営業利益",
-          "value": "大幅増益 +40.0%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 92,
-      "impact_zone": "positive",
-      "impact_label": "大幅増益 +53.1%",
-      "impact_summary": "第2四半期累計純利益が大幅増益 +53.1%（前年同期比）。第2四半期累計経常利益が大幅増益 +42.5%（前年同期比）。第2四半期累計営業利益が大幅増益 +40.0%（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/11 13:00発表",
-      "published_time": "13:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "13:00"
-        }
-      ],
-      "company_summary": "化学品・食品・ライフサイエンスが軸",
-      "company_summary_source": "https://s.kabutan.jp/stocks/4401/"
     }
   ],
-  "total": 24,
+  "total": 28,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "1810",
+          "name": "松井建",
+          "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+          "time": "13:30",
+          "published_date": "2026-11-11",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+          "xbrl_url": "",
+          "narrative": "業績予想の修正及び期末配当予想の修正に関するお知らせ / 2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "26.65億円",
+              "comparison": "19.64億円 → 26.65億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 営業利益",
+              "value": "34.18億円",
+              "comparison": "25.76億円 → 34.18億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 経常利益",
+              "value": "38.16億円",
+              "comparison": "28.76億円 → 38.16億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 売上高",
+              "value": "451.23億円",
+              "comparison": "462.93億円 → 451.23億円（前年同期比）"
+            },
+            {
+              "label": "会社予想 売上高",
+              "value": "1,005億円",
+              "comparison": "960億円 → 1,005億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 営業利益",
+              "value": "72億円",
+              "comparison": "54億円 → 72億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 経常利益",
+              "value": "79億円",
+              "comparison": "59億円 → 79億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 純利益",
+              "value": "54億円",
+              "comparison": "40億円 → 54億円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "売上高",
+              "current": 100500000000.0,
+              "previous": 96000000000.0,
+              "pct": 4.69,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "営業利益",
+              "current": 7200000000.0,
+              "previous": 5400000000.0,
+              "pct": 33.33,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "経常利益",
+              "current": 7900000000.0,
+              "previous": 5900000000.0,
+              "pct": 33.9,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "純利益",
+              "current": 5400000000.0,
+              "previous": 4000000000.0,
+              "pct": 35.0,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "上方修正 +33.3%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +33.9%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +35.0%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "大幅増益 +35.7%",
+              "direction": "up"
+            },
+            {
+              "label": "営業利益",
+              "value": "大幅増益 +32.7%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "大幅増益 +32.7%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +33.3%",
+          "impact_summary": "会社予想営業利益が上方修正 +33.3%（前回会社予想比）。会社予想経常利益が上方修正 +33.9%（前回会社予想比）。会社予想純利益が上方修正 +35.0%（前回会社予想比）。第2四半期累計純利益が大幅増益 +35.7%（前年同期比）。第2四半期累計営業利益が大幅増益 +32.7%（前年同期比）。第2四半期累計経常利益が大幅増益 +32.7%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/11 13:30発表",
+          "published_time": "13:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261110571701.pdf",
+              "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+              "time": "13:30"
+            },
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261110571719.pdf",
+              "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+              "time": "13:30"
+            }
+          ],
+          "company_summary": "天正年間創業の建築老舗",
+          "company_summary_source": "https://s.kabutan.jp/stocks/1810/"
+        },
+        {
+          "code": "7441",
+          "name": "Misumi",
+          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "time": "13:30",
+          "published_date": "2026-11-11",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261110571999.zip",
+          "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 営業利益",
+              "value": "2.35億円",
+              "comparison": "1.21億円 → 2.35億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "3.25億円",
+              "comparison": "1.7億円 → 3.25億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 経常利益",
+              "value": "5.16億円",
+              "comparison": "3.1億円 → 5.16億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 売上高",
+              "value": "305.37億円",
+              "comparison": "288.49億円 → 305.37億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "営業利益",
+              "current": 235000000.0,
+              "previous": 121000000.0,
+              "pct": 94.21,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 325000000.0,
+              "previous": 170000000.0,
+              "pct": 91.18,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 516000000.0,
+              "previous": 310000000.0,
+              "pct": 66.45,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 30537000000.0,
+              "previous": 28849000000.0,
+              "pct": 5.85,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "大幅増益 +94.2%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "大幅増益 +91.2%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "大幅増益 +66.5%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "大幅増益 +94.2%",
+          "impact_summary": "第2四半期累計営業利益が大幅増益 +94.2%（前年同期比）。第2四半期累計純利益が大幅増益 +91.2%（前年同期比）。第2四半期累計経常利益が大幅増益 +66.5%（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/11 13:30発表",
+          "published_time": "13:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261110571999.pdf",
+              "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
+              "time": "13:30"
+            }
+          ],
+          "company_summary": "ENEOS系九州の有力特約店",
+          "company_summary_source": "https://s.kabutan.jp/stocks/7441/"
+        },
+        {
+          "code": "7213",
+          "name": "レシップHD",
+          "title": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+          "time": "13:20",
+          "published_date": "2026-11-11",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261109569038.zip",
+          "narrative": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+          "key_numbers": [
+            {
+              "label": "第2四半期累計 営業利益",
+              "value": "6.86億円",
+              "comparison": "-2.45億円 → 6.86億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 純利益",
+              "value": "4.8億円",
+              "comparison": "-2.24億円 → 4.8億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 経常利益",
+              "value": "5.58億円",
+              "comparison": "-2.76億円 → 5.58億円（前年同期比）"
+            },
+            {
+              "label": "第2四半期累計 売上高",
+              "value": "107.3億円",
+              "comparison": "82.86億円 → 107.3億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "営業利益",
+              "current": 686000000.0,
+              "previous": -245000000.0,
+              "pct": 380.0,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 480000000.0,
+              "previous": -224000000.0,
+              "pct": 314.29,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 558000000.0,
+              "previous": -276000000.0,
+              "pct": 302.17,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 10730000000.0,
+              "previous": 8286000000.0,
+              "pct": 29.5,
+              "basis": "前年同期比",
+              "period": "第2四半期累計",
+              "consolidated": true,
+              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "黒字転換",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "黒字転換",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "黒字転換",
+          "impact_summary": "第2四半期累計営業利益が黒字転換（前年同期比）。第2四半期累計純利益が黒字転換（前年同期比）。第2四半期累計経常利益が黒字転換（前年同期比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/11 13:20発表",
+          "published_time": "13:20",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261109569038.pdf",
+              "title": "2027年3月期第2四半期決算短信(中間期)決算短信〔日本基準〕(連結)",
+              "time": "13:20"
+            }
+          ],
+          "company_summary": "車両用電装機器が主力",
+          "company_summary_source": "https://s.kabutan.jp/stocks/7213/"
+        },
         {
           "code": "3405",
           "name": "クラレ",
@@ -2623,309 +3117,6 @@
           ],
           "company_summary": "再生アルミ地金で首位",
           "company_summary_source": "https://s.kabutan.jp/stocks/5702/"
-        },
-        {
-          "code": "5076",
-          "name": "インフロニアHD",
-          "title": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "time": "10:40",
-          "published_date": "2026-11-11",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261111572782.zip",
-          "narrative": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "659.01億円",
-              "comparison": "245.58億円 → 659.01億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 65901000000.0,
-              "previous": 24558000000.0,
-              "pct": 168.35,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParentIFRS",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "大幅増益 +168.3%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "大幅増益 +168.3%",
-          "impact_summary": "第2四半期累計純利益が大幅増益 +168.3%（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/11 10:40発表",
-          "published_time": "10:40",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261111572782.pdf",
-              "title": "2027年3月期第2四半期(中間期)決算短信〔IFRS〕(連結)",
-              "time": "10:40"
-            }
-          ],
-          "company_summary": "ゼネコン準大手。前田建、前田道、前田製作が経営統合",
-          "company_summary_source": "https://s.kabutan.jp/stocks/5076/"
-        },
-        {
-          "code": "2974",
-          "name": "大英産業",
-          "title": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-          "time": "09:50",
-          "published_date": "2026-11-11",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261111572625.zip",
-          "narrative": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 純利益",
-              "value": "2.65億円",
-              "comparison": "4.66億円 → 2.65億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 経常利益",
-              "value": "4.37億円",
-              "comparison": "7.54億円 → 4.37億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 営業利益",
-              "value": "8.83億円",
-              "comparison": "12.79億円 → 8.83億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 売上高",
-              "value": "338.97億円",
-              "comparison": "376.41億円 → 338.97億円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 265000000.0,
-              "previous": 466000000.0,
-              "pct": -43.13,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "経常利益",
-              "current": 437000000.0,
-              "previous": 754000000.0,
-              "pct": -42.04,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "営業利益",
-              "current": 883000000.0,
-              "previous": 1279000000.0,
-              "pct": -30.96,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OperatingIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "売上高",
-              "current": 33897000000.0,
-              "previous": 37641000000.0,
-              "pct": -9.95,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "NetSales",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "下方修正 -43.1%",
-              "direction": "down"
-            },
-            {
-              "label": "経常利益",
-              "value": "下方修正 -42.0%",
-              "direction": "down"
-            },
-            {
-              "label": "営業利益",
-              "value": "下方修正 -31.0%",
-              "direction": "down"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "negative",
-          "impact_label": "下方修正 -43.1%",
-          "impact_summary": "通期純利益が下方修正 -43.1%（前回会社予想比）。通期経常利益が下方修正 -42.0%（前回会社予想比）。通期営業利益が下方修正 -31.0%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/11 09:50発表",
-          "published_time": "09:50",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "当連結会計年度において、売上高は、分譲住宅(戸建)及び中古住宅の買取再販における販売戸数が当初計画を下回ったことに加え、分譲マンションの一部竣工物件において販売期間が想定より長期化し、売上計上時期が翌期以降となったことなどから、前回発表予想を下回る見込みとなりました。 利益面につきましては、各事業において収益性を重視した仕入れ及び販売活動に取り組んだことにより分譲マンション事業や街づくり事業の売上総利益率は予想を上回ったものの、売上高の減少に加え、分譲住宅(戸建)事業における完成在庫物件の販売促進等による利益率低下により、売上総利益が当初計画を下回る見込みとなったことから、営業利益は前回発表予想を下回る見込みとなりました。 また、営業利益の減少に加え、マンション用地や事業用不動産及び投資用不動産への成長投資に伴う借入残高の増加や、金利上昇による支払利息の増加により、経常利益及び親会社株主に帰属する当期純利益につきましても前回発表予想を下回る見込みとなりました。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261111572625.pdf",
-              "title": "2026年9月期通期連結業績予想の修正に関するお知らせ",
-              "time": "09:50"
-            }
-          ],
-          "company_summary": "北九州地盤で新築マンション、一戸建て住宅の販売",
-          "company_summary_source": "https://s.kabutan.jp/stocks/2974/"
-        },
-        {
-          "code": "4401",
-          "name": "ADEKA",
-          "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "time": "13:00",
-          "published_date": "2026-11-11",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261111573194.zip",
-          "narrative": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-          "key_numbers": [
-            {
-              "label": "第2四半期累計 純利益",
-              "value": "190.1億円",
-              "comparison": "124.19億円 → 190.1億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 経常利益",
-              "value": "284.97億円",
-              "comparison": "199.99億円 → 284.97億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 営業利益",
-              "value": "276.78億円",
-              "comparison": "197.65億円 → 276.78億円（前年同期比）"
-            },
-            {
-              "label": "第2四半期累計 売上高",
-              "value": "2,231.51億円",
-              "comparison": "1,957.1億円 → 2,231.51億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 19010000000.0,
-              "previous": 12419000000.0,
-              "pct": 53.07,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "経常利益",
-              "current": 28497000000.0,
-              "previous": 19999000000.0,
-              "pct": 42.49,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "営業利益",
-              "current": 27678000000.0,
-              "previous": 19765000000.0,
-              "pct": 40.04,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "OperatingIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "売上高",
-              "current": 223151000000.0,
-              "previous": 195710000000.0,
-              "pct": 14.02,
-              "basis": "前年同期比",
-              "period": "第2四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ2Duration_ConsolidatedMember_ResultMember",
-              "fact": "NetSales",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "大幅増益 +53.1%",
-              "direction": "up"
-            },
-            {
-              "label": "経常利益",
-              "value": "大幅増益 +42.5%",
-              "direction": "up"
-            },
-            {
-              "label": "営業利益",
-              "value": "大幅増益 +40.0%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 92,
-          "impact_zone": "positive",
-          "impact_label": "大幅増益 +53.1%",
-          "impact_summary": "第2四半期累計純利益が大幅増益 +53.1%（前年同期比）。第2四半期累計経常利益が大幅増益 +42.5%（前年同期比）。第2四半期累計営業利益が大幅増益 +40.0%（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/11 13:00発表",
-          "published_time": "13:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261111573194.pdf",
-              "title": "2027年3月期 第2四半期(中間期)決算短信〔日本基準〕(連結)",
-              "time": "13:00"
-            }
-          ],
-          "company_summary": "化学品・食品・ライフサイエンスが軸",
-          "company_summary_source": "https://s.kabutan.jp/stocks/4401/"
         }
       ]
     }
@@ -2933,8 +3124,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-11T04:17:14.999917+00:00",
-  "fetched_at": "2026-11-11T13:17:14.028257+09:00",
-  "last_success_at": "2026-11-11T13:17:14.028257+09:00",
-  "valid_until": "2026-11-13T01:17:14.028257+09:00"
+  "last_attempt_at": "2026-11-11T04:32:36.531189+00:00",
+  "fetched_at": "2026-11-11T13:32:33.491512+09:00",
+  "last_success_at": "2026-11-11T13:32:33.491512+09:00",
+  "valid_until": "2026-11-13T01:32:33.491512+09:00"
 }
