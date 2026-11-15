@@ -1,49 +1,42 @@
 {
-  "updated_at": "2026-11-16T01:02:15.814460+09:00",
-  "last_attempt_at": "2026-11-16T01:02:15.814475+09:00",
+  "updated_at": "2026-11-16T01:16:38.971508+09:00",
+  "last_attempt_at": "2026-11-16T01:16:38.971517+09:00",
   "source": "jpx_yfinance",
   "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
   "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
   "scope": "東証全市場（プライム・スタンダード・グロース）",
   "ranking_definition": "JPX上場内国株式の前日比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "prices_fetched_at": "2026-11-15T16:01:10.947472+00:00",
+  "prices_fetched_at": "2026-11-15T16:15:57.891951+00:00",
   "price_time_precision": "day",
   "as_of": null,
   "fetch_status": "ok",
   "fetch_warning": "",
   "source_attempts": [
     {
-      "source": "yfinance_row",
-      "status": "error",
-      "code": "7523",
-      "error": "['Close']",
-      "exception": "KeyError"
-    },
-    {
       "source": "yfinance_retry",
       "status": "ok",
-      "missing": 1,
-      "retried": 1,
+      "missing": 3,
+      "retried": 3,
       "recovered": 0,
-      "first_pass_seconds": 60.9,
-      "total_seconds": 64.0
+      "first_pass_seconds": 37.4,
+      "total_seconds": 40.5
     },
     {
       "source": "yfinance_bulk",
       "status": "partial",
-      "prices_fetched_at": "2026-11-15T16:01:10.947472+00:00",
+      "prices_fetched_at": "2026-11-15T16:15:57.891951+00:00",
       "universe_count": 3686,
-      "quoted_count": 3685,
-      "coverage": 0.9997,
+      "quoted_count": 3683,
+      "coverage": 0.9992,
       "session_date": "2026-11-13"
     }
   ],
   "coverage": {
-    "prices_fetched_at": "2026-11-15T16:01:10.947472+00:00",
+    "prices_fetched_at": "2026-11-15T16:15:57.891951+00:00",
     "universe_count": 3686,
-    "quoted_count": 3685,
-    "coverage": 0.9997
+    "quoted_count": 3683,
+    "coverage": 0.9992
   },
   "session_date": "2026-11-13",
   "is_fallback": false,
@@ -23754,8 +23747,8 @@
     "精密機器",
     "機械"
   ],
-  "fetched_at": "2026-11-16T01:02:15.814460+09:00",
-  "last_success_at": "2026-11-16T01:02:15.814460+09:00",
+  "fetched_at": "2026-11-16T01:16:38.971508+09:00",
+  "last_success_at": "2026-11-16T01:16:38.971508+09:00",
   "valid_until": "2026-11-16T09:30:00+09:00",
   "market": "tse",
   "market_state": "preopen"
