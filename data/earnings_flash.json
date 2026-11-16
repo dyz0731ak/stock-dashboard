@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16T14:47:14.144058+09:00",
+  "updated_at": "2026-11-16T15:02:39.075610+09:00",
   "article_date": "2026-11-16",
   "checked_date": "2026-11-16",
   "sources": [
@@ -7,11 +7,32 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 13,
-    "selected": 6,
-    "document_failures": 3
+    "tdnet_candidates": 18,
+    "selected": 7,
+    "document_failures": 6
   },
   "source_failures": [
+    {
+      "code": "204A",
+      "url": "https://www.release.tdnet.info/inbs/140120261116580956.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "279A",
+      "url": "https://www.release.tdnet.info/inbs/140120261116580848.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "565A",
+      "url": "https://www.release.tdnet.info/inbs/140120261116580832.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "5105",
       "url": "https://www.release.tdnet.info/inbs/140120261113580355.pdf",
@@ -830,9 +851,122 @@
       ],
       "company_summary": "東北地盤警備会社。工事、イベントの交通誘導が主",
       "company_summary_source": "https://s.kabutan.jp/stocks/4754/"
+    },
+    {
+      "code": "204A",
+      "name": "タイヨーパッケー",
+      "title": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+      "time": "15:00",
+      "published_date": "2026-11-16",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+      "xbrl_url": "",
+      "narrative": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "実績 売上高",
+          "value": "43.23億円",
+          "comparison": "44.4億円 → 43.23億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 営業利益",
+          "value": "3.07億円",
+          "comparison": "2.25億円 → 3.07億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 経常利益",
+          "value": "3.26億円",
+          "comparison": "2.35億円 → 3.26億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 純利益",
+          "value": "2.39億円",
+          "comparison": "1.67億円 → 2.39億円（会社予想との差異）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "売上高",
+          "current": 4323000000.0,
+          "previous": 4440000000.0,
+          "pct": -2.64,
+          "basis": "会社予想との差異",
+          "period": "実績",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "営業利益",
+          "current": 307000000.0,
+          "previous": 225000000.0,
+          "pct": 36.44,
+          "basis": "会社予想との差異",
+          "period": "実績",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "経常利益",
+          "current": 326000000.0,
+          "previous": 235000000.0,
+          "pct": 38.72,
+          "basis": "会社予想との差異",
+          "period": "実績",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "純利益",
+          "current": 239000000.0,
+          "previous": 167000000.0,
+          "pct": 43.11,
+          "basis": "会社予想との差異",
+          "period": "実績",
+          "unit": "百万円",
+          "source_format": "PDF"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "予想超過 +36.4%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "予想超過 +38.7%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "予想超過 +43.1%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 82,
+      "impact_zone": "positive",
+      "impact_label": "予想超過 +43.1%",
+      "impact_summary": "実績営業利益が予想超過 +36.4%（会社予想との差異）。実績経常利益が予想超過 +38.7%（会社予想との差異）。実績純利益が予想超過 +43.1%（会社予想との差異）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/16 15:00発表",
+      "published_time": "15:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+          "title": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+          "time": "15:00"
+        }
+      ],
+      "company_summary": "",
+      "company_summary_source": "https://s.kabutan.jp/stocks/204A/"
     }
   ],
-  "total": 6,
+  "total": 7,
   "groups": [
     {
       "category": "重要開示",
@@ -1634,6 +1768,119 @@
           ],
           "company_summary": "東北地盤警備会社。工事、イベントの交通誘導が主",
           "company_summary_source": "https://s.kabutan.jp/stocks/4754/"
+        },
+        {
+          "code": "204A",
+          "name": "タイヨーパッケー",
+          "title": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+          "time": "15:00",
+          "published_date": "2026-11-16",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+          "xbrl_url": "",
+          "narrative": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "実績 売上高",
+              "value": "43.23億円",
+              "comparison": "44.4億円 → 43.23億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 営業利益",
+              "value": "3.07億円",
+              "comparison": "2.25億円 → 3.07億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 経常利益",
+              "value": "3.26億円",
+              "comparison": "2.35億円 → 3.26億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 純利益",
+              "value": "2.39億円",
+              "comparison": "1.67億円 → 2.39億円（会社予想との差異）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "売上高",
+              "current": 4323000000.0,
+              "previous": 4440000000.0,
+              "pct": -2.64,
+              "basis": "会社予想との差異",
+              "period": "実績",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "営業利益",
+              "current": 307000000.0,
+              "previous": 225000000.0,
+              "pct": 36.44,
+              "basis": "会社予想との差異",
+              "period": "実績",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "経常利益",
+              "current": 326000000.0,
+              "previous": 235000000.0,
+              "pct": 38.72,
+              "basis": "会社予想との差異",
+              "period": "実績",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "純利益",
+              "current": 239000000.0,
+              "previous": 167000000.0,
+              "pct": 43.11,
+              "basis": "会社予想との差異",
+              "period": "実績",
+              "unit": "百万円",
+              "source_format": "PDF"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "予想超過 +36.4%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "予想超過 +38.7%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "予想超過 +43.1%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 82,
+          "impact_zone": "positive",
+          "impact_label": "予想超過 +43.1%",
+          "impact_summary": "実績営業利益が予想超過 +36.4%（会社予想との差異）。実績経常利益が予想超過 +38.7%（会社予想との差異）。実績純利益が予想超過 +43.1%（会社予想との差異）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/16 15:00発表",
+          "published_time": "15:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261116581002.pdf",
+              "title": "業績予想と実績の差異及び剰余金の配当(増配)に関するお知らせ",
+              "time": "15:00"
+            }
+          ],
+          "company_summary": "",
+          "company_summary_source": "https://s.kabutan.jp/stocks/204A/"
         }
       ]
     }
@@ -1641,8 +1888,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-16T05:47:14.711580+00:00",
-  "fetched_at": "2026-11-16T14:47:14.144058+09:00",
-  "last_success_at": "2026-11-16T14:47:14.144058+09:00",
-  "valid_until": "2026-11-18T02:47:14.144058+09:00"
+  "last_attempt_at": "2026-11-16T06:02:41.634219+00:00",
+  "fetched_at": "2026-11-16T15:02:39.075610+09:00",
+  "last_success_at": "2026-11-16T15:02:39.075610+09:00",
+  "valid_until": "2026-11-18T03:02:39.075610+09:00"
 }
