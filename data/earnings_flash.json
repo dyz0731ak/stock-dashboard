@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-17T16:47:09.585133+09:00",
+  "updated_at": "2026-11-17T17:02:38.803798+09:00",
   "article_date": "2026-11-17",
   "checked_date": "2026-11-17",
   "sources": [
@@ -7,11 +7,18 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 8,
-    "selected": 5,
-    "document_failures": 3
+    "tdnet_candidates": 11,
+    "selected": 6,
+    "document_failures": 4
   },
   "source_failures": [
+    {
+      "code": "4265",
+      "url": "https://www.release.tdnet.info/inbs/140120261117582059.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "399A",
       "url": "https://www.release.tdnet.info/inbs/140120261117582028.pdf",
@@ -156,6 +163,152 @@
       ],
       "company_summary": "IT活用のリノベーション・中古住宅仲介サイト「カウカモ」企画・開発・運営",
       "company_summary_source": "https://s.kabutan.jp/stocks/2978/"
+    },
+    {
+      "code": "9941",
+      "name": "太洋物産",
+      "title": "2026年9月期 決算短信〔日本基準〕(連結)",
+      "time": "17:00",
+      "published_date": "2026-11-17",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261117582248.zip",
+      "narrative": "2026年9月期 決算短信〔日本基準〕(連結) / 個別業績予想と実績値との差異及び連結決算への移行に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "実績 売上高",
+          "value": "210.54億円",
+          "comparison": "250.52億円 → 210.54億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 営業利益",
+          "value": "3.37億円",
+          "comparison": "2.9億円 → 3.37億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 経常利益",
+          "value": "2.49億円",
+          "comparison": "2.28億円 → 2.49億円（会社予想との差異）"
+        },
+        {
+          "label": "実績 純利益",
+          "value": "1.76億円",
+          "comparison": "1.82億円 → 1.76億円（会社予想との差異）"
+        },
+        {
+          "label": "通期 経常利益",
+          "value": "2.49億円",
+          "comparison": "1.73億円 → 2.49億円（前年同期比）"
+        },
+        {
+          "label": "通期 営業利益",
+          "value": "3.37億円",
+          "comparison": "2.47億円 → 3.37億円（前年同期比）"
+        },
+        {
+          "label": "通期 純利益",
+          "value": "1.76億円",
+          "comparison": "1.48億円 → 1.76億円（前年同期比）"
+        },
+        {
+          "label": "通期 売上高",
+          "value": "210.54億円",
+          "comparison": "196.62億円 → 210.54億円（前年同期比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "経常利益",
+          "current": 249000000.0,
+          "previous": 173000000.0,
+          "pct": 43.93,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "営業利益",
+          "current": 337000000.0,
+          "previous": 247000000.0,
+          "pct": 36.44,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 176000000.0,
+          "previous": 148000000.0,
+          "pct": 18.92,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+          "fact": "NetIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 21054000000.0,
+          "previous": 19662000000.0,
+          "pct": 7.08,
+          "basis": "前年同期比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "経常利益",
+          "value": "大幅増益 +43.9%",
+          "direction": "up"
+        },
+        {
+          "label": "営業利益",
+          "value": "大幅増益 +36.4%",
+          "direction": "up"
+        },
+        {
+          "label": "営業利益",
+          "value": "予想超過 +16.2%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 87,
+      "impact_zone": "positive",
+      "impact_label": "大幅増益 +43.9%",
+      "impact_summary": "通期経常利益が大幅増益 +43.9%（前年同期比）。通期営業利益が大幅増益 +36.4%（前年同期比）。実績営業利益が予想超過 +16.2%（会社予想との差異）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/17 17:00発表",
+      "published_time": "17:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+          "title": "2026年9月期 決算短信〔日本基準〕(連結)",
+          "time": "17:00"
+        },
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261113579803.pdf",
+          "title": "個別業績予想と実績値との差異及び連結決算への移行に関するお知らせ",
+          "time": "17:00"
+        }
+      ],
+      "company_summary": "農畜産物輸入が主力。化粧品など中国向け事業に注力",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9941/"
     },
     {
       "code": "6577",
@@ -446,7 +599,7 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/7419/"
     }
   ],
-  "total": 5,
+  "total": 6,
   "groups": [
     {
       "category": "重要開示",
@@ -574,6 +727,152 @@
           ],
           "company_summary": "IT活用のリノベーション・中古住宅仲介サイト「カウカモ」企画・開発・運営",
           "company_summary_source": "https://s.kabutan.jp/stocks/2978/"
+        },
+        {
+          "code": "9941",
+          "name": "太洋物産",
+          "title": "2026年9月期 決算短信〔日本基準〕(連結)",
+          "time": "17:00",
+          "published_date": "2026-11-17",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261117582248.zip",
+          "narrative": "2026年9月期 決算短信〔日本基準〕(連結) / 個別業績予想と実績値との差異及び連結決算への移行に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "実績 売上高",
+              "value": "210.54億円",
+              "comparison": "250.52億円 → 210.54億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 営業利益",
+              "value": "3.37億円",
+              "comparison": "2.9億円 → 3.37億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 経常利益",
+              "value": "2.49億円",
+              "comparison": "2.28億円 → 2.49億円（会社予想との差異）"
+            },
+            {
+              "label": "実績 純利益",
+              "value": "1.76億円",
+              "comparison": "1.82億円 → 1.76億円（会社予想との差異）"
+            },
+            {
+              "label": "通期 経常利益",
+              "value": "2.49億円",
+              "comparison": "1.73億円 → 2.49億円（前年同期比）"
+            },
+            {
+              "label": "通期 営業利益",
+              "value": "3.37億円",
+              "comparison": "2.47億円 → 3.37億円（前年同期比）"
+            },
+            {
+              "label": "通期 純利益",
+              "value": "1.76億円",
+              "comparison": "1.48億円 → 1.76億円（前年同期比）"
+            },
+            {
+              "label": "通期 売上高",
+              "value": "210.54億円",
+              "comparison": "196.62億円 → 210.54億円（前年同期比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "経常利益",
+              "current": 249000000.0,
+              "previous": 173000000.0,
+              "pct": 43.93,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "営業利益",
+              "current": 337000000.0,
+              "previous": 247000000.0,
+              "pct": 36.44,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 176000000.0,
+              "previous": 148000000.0,
+              "pct": 18.92,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+              "fact": "NetIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 21054000000.0,
+              "previous": 19662000000.0,
+              "pct": 7.08,
+              "basis": "前年同期比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_NonConsolidatedMember_ResultMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "経常利益",
+              "value": "大幅増益 +43.9%",
+              "direction": "up"
+            },
+            {
+              "label": "営業利益",
+              "value": "大幅増益 +36.4%",
+              "direction": "up"
+            },
+            {
+              "label": "営業利益",
+              "value": "予想超過 +16.2%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 87,
+          "impact_zone": "positive",
+          "impact_label": "大幅増益 +43.9%",
+          "impact_summary": "通期経常利益が大幅増益 +43.9%（前年同期比）。通期営業利益が大幅増益 +36.4%（前年同期比）。実績営業利益が予想超過 +16.2%（会社予想との差異）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/17 17:00発表",
+          "published_time": "17:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261117582248.pdf",
+              "title": "2026年9月期 決算短信〔日本基準〕(連結)",
+              "time": "17:00"
+            },
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261113579803.pdf",
+              "title": "個別業績予想と実績値との差異及び連結決算への移行に関するお知らせ",
+              "time": "17:00"
+            }
+          ],
+          "company_summary": "農畜産物輸入が主力。化粧品など中国向け事業に注力",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9941/"
         },
         {
           "code": "6577",
@@ -869,8 +1168,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-17T07:47:11.902939+00:00",
-  "fetched_at": "2026-11-17T16:47:09.585133+09:00",
-  "last_success_at": "2026-11-17T16:47:09.585133+09:00",
-  "valid_until": "2026-11-19T04:47:09.585133+09:00"
+  "last_attempt_at": "2026-11-17T08:02:40.638814+00:00",
+  "fetched_at": "2026-11-17T17:02:38.803798+09:00",
+  "last_success_at": "2026-11-17T17:02:38.803798+09:00",
+  "valid_until": "2026-11-19T05:02:38.803798+09:00"
 }
