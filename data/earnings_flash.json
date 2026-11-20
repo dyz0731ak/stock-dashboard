@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-20T15:46:53.645272+09:00",
+  "updated_at": "2026-11-20T16:02:25.386120+09:00",
   "article_date": "2026-11-20",
   "checked_date": "2026-11-20",
   "sources": [
@@ -7,11 +7,60 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 16,
-    "selected": 9,
-    "document_failures": 6
+    "tdnet_candidates": 25,
+    "selected": 10,
+    "document_failures": 13
   },
   "source_failures": [
+    {
+      "code": "2094",
+      "url": "https://www.release.tdnet.info/inbs/140120261120584183.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "2555",
+      "url": "https://www.release.tdnet.info/inbs/140120261120584176.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "3448",
+      "url": "https://www.release.tdnet.info/inbs/140120261120583812.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "360A",
+      "url": "https://www.release.tdnet.info/inbs/140120261120584188.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "406A",
+      "url": "https://www.release.tdnet.info/inbs/140120261119583689.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "540A",
+      "url": "https://www.release.tdnet.info/inbs/140120261120584166.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
+    {
+      "code": "9243",
+      "url": "https://www.release.tdnet.info/inbs/140120261120583818.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    },
     {
       "code": "1773",
       "url": "https://www.release.tdnet.info/inbs/140120261120583999.pdf",
@@ -64,8 +113,23 @@
       "published_date": "2026-11-20",
       "document_url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
       "xbrl_url": "",
-      "narrative": "連結子会社の業績予想の修正に関するお知らせ",
+      "narrative": "連結子会社の業績予想の修正に関するお知らせ / 自己株式取得に係る事項の一部変更(取得枠の拡大)に関するお知らせ (会社法第459条第1項の規定による定款の定めに基づく自己株式の取得)",
       "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "0.1619万円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "20,000,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "発行済株式比",
+          "value": "3%",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
         {
           "label": "会社予想 売上高",
           "value": "615億円",
@@ -144,12 +208,17 @@
           "label": "純利益",
           "value": "下方修正 -53.1%",
           "direction": "down"
+        },
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
         }
       ],
       "impact_score": 95,
       "impact_zone": "negative",
       "impact_label": "下方修正 -53.1%",
-      "impact_summary": "会社予想営業利益が上方修正 +10.0%（前回会社予想比）。会社予想経常利益が上方修正 +15.0%（前回会社予想比）。会社予想純利益が下方修正 -53.1%（前回会社予想比）。",
+      "impact_summary": "会社予想営業利益が上方修正 +10.0%（前回会社予想比）。会社予想経常利益が上方修正 +15.0%（前回会社予想比）。会社予想純利益が下方修正 -53.1%（前回会社予想比）。新たな自社株買いを決定（発行済株式の3%が上限）。",
       "category": "重要開示",
       "url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
       "sources": [
@@ -160,6 +229,11 @@
       "published_time": "15:40",
       "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
       "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261120583975.pdf",
+          "title": "自己株式取得に係る事項の一部変更(取得枠の拡大)に関するお知らせ (会社法第459条第1項の規定による定款の定めに基づく自己株式の取得)",
+          "time": "16:00"
+        },
         {
           "url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
           "title": "連結子会社の業績予想の修正に関するお知らせ",
@@ -690,6 +764,67 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/3321/"
     },
     {
+      "code": "4124",
+      "name": "大阪油化工業",
+      "title": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+      "time": "16:00",
+      "published_date": "2026-11-20",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261119583151.zip",
+      "narrative": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "通期 1株配当",
+          "value": "26円",
+          "comparison": "78円 → 26円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "1株配当",
+          "current": 26.0,
+          "previous": 78.0,
+          "pct": -66.67,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "DividendPerShare",
+          "unit": "円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "1株配当",
+          "value": "減配 -66.7%",
+          "direction": "down"
+        }
+      ],
+      "impact_score": 90,
+      "impact_zone": "negative",
+      "impact_label": "減配 -66.7%",
+      "impact_summary": "通期1株配当が減配 -66.7%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/20 16:00発表",
+      "published_time": "16:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "1.株式分割の目的 株式分割を行い、投資単位当たりの金額を引き下げることにより、当社株式の流動性の向上及び投資家層の拡大を図ることを目的としております。 2.株式分割の概要 (1)分割の方法 2026年12月31日(木)(実質上は2026年12月30日(水))を基準日として、同日の最終株主名簿に記録された株主の所有する普通株式1株につき、3株の割合をもって分割します。 (2)分割により増加する株式数 ・株式分割前の発行済株式総数 : 846,700株 ・今回の分割により増加する株式数 : 1,693,400株 ・株式分割後の発行済株式総数 : 2,540,100株 ・株式分割後の発行可能株式総数 : 5,568,000株 (注)株式分割前の発行済株式総数は、2026年11月20日現在のものです。 (3)分割の日程 ・基準日公告日 : 2026年12月11日(金) ・基準日 : 2026年12月31日(木)(実質上は2026年12月30日(水)) ・効力発生日 : 2027年1月1日(金) 3.株式分割に伴う定款の一部変更 (1)定款変更の理由 今回の株式分割に伴い、会社法第 184 条第2項の規定に基づき、2027年1月1日(金)をもって当社定款第6条(発行可能株式総数)を変更いたします。 (2)定款変更の内容 変更の内容は下記のとおりです。 ・現行定款 (発行可能株式総数) 第6条 当会社の発行する株式の総数は、185万6千株とする。 ・変更後 (発行可能株式総数) 第6条 当会社の発行する株式の総数は、556万8千株とする。 (3)定款変更の日程 定款の一部変更の効力発生日 : 2027年1月1日(金) 4.配当予想の修正 今回の株式分割に伴い、2026年11月13日公表の「2026年9月期 決算短信」に記載の2027年9月期の配当予想金額を以下のとおり修正いたします。",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+          "title": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+          "time": "16:00"
+        }
+      ],
+      "company_summary": "化学物質を分離・精製する精密蒸留が主力",
+      "company_summary_source": "https://s.kabutan.jp/stocks/4124/"
+    },
+    {
       "code": "5078",
       "name": "セレコーポレーション",
       "title": "株式分割及び配当予想の修正に関するお知らせ",
@@ -987,7 +1122,7 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/5038/"
     }
   ],
-  "total": 9,
+  "total": 10,
   "groups": [
     {
       "category": "重要開示",
@@ -1002,8 +1137,23 @@
           "published_date": "2026-11-20",
           "document_url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
           "xbrl_url": "",
-          "narrative": "連結子会社の業績予想の修正に関するお知らせ",
+          "narrative": "連結子会社の業績予想の修正に関するお知らせ / 自己株式取得に係る事項の一部変更(取得枠の拡大)に関するお知らせ (会社法第459条第1項の規定による定款の定めに基づく自己株式の取得)",
           "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "0.1619万円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "20,000,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "発行済株式比",
+              "value": "3%",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
             {
               "label": "会社予想 売上高",
               "value": "615億円",
@@ -1082,12 +1232,17 @@
               "label": "純利益",
               "value": "下方修正 -53.1%",
               "direction": "down"
+            },
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
             }
           ],
           "impact_score": 95,
           "impact_zone": "negative",
           "impact_label": "下方修正 -53.1%",
-          "impact_summary": "会社予想営業利益が上方修正 +10.0%（前回会社予想比）。会社予想経常利益が上方修正 +15.0%（前回会社予想比）。会社予想純利益が下方修正 -53.1%（前回会社予想比）。",
+          "impact_summary": "会社予想営業利益が上方修正 +10.0%（前回会社予想比）。会社予想経常利益が上方修正 +15.0%（前回会社予想比）。会社予想純利益が下方修正 -53.1%（前回会社予想比）。新たな自社株買いを決定（発行済株式の3%が上限）。",
           "category": "重要開示",
           "url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
           "sources": [
@@ -1098,6 +1253,11 @@
           "published_time": "15:40",
           "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
           "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261120583975.pdf",
+              "title": "自己株式取得に係る事項の一部変更(取得枠の拡大)に関するお知らせ (会社法第459条第1項の規定による定款の定めに基づく自己株式の取得)",
+              "time": "16:00"
+            },
             {
               "url": "https://www.release.tdnet.info/inbs/140120261119583637.pdf",
               "title": "連結子会社の業績予想の修正に関するお知らせ",
@@ -1628,6 +1788,67 @@
           "company_summary_source": "https://s.kabutan.jp/stocks/3321/"
         },
         {
+          "code": "4124",
+          "name": "大阪油化工業",
+          "title": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+          "time": "16:00",
+          "published_date": "2026-11-20",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261119583151.zip",
+          "narrative": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "通期 1株配当",
+              "value": "26円",
+              "comparison": "78円 → 26円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "1株配当",
+              "current": 26.0,
+              "previous": 78.0,
+              "pct": -66.67,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "DividendPerShare",
+              "unit": "円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "1株配当",
+              "value": "減配 -66.7%",
+              "direction": "down"
+            }
+          ],
+          "impact_score": 90,
+          "impact_zone": "negative",
+          "impact_label": "減配 -66.7%",
+          "impact_summary": "通期1株配当が減配 -66.7%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/20 16:00発表",
+          "published_time": "16:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "1.株式分割の目的 株式分割を行い、投資単位当たりの金額を引き下げることにより、当社株式の流動性の向上及び投資家層の拡大を図ることを目的としております。 2.株式分割の概要 (1)分割の方法 2026年12月31日(木)(実質上は2026年12月30日(水))を基準日として、同日の最終株主名簿に記録された株主の所有する普通株式1株につき、3株の割合をもって分割します。 (2)分割により増加する株式数 ・株式分割前の発行済株式総数 : 846,700株 ・今回の分割により増加する株式数 : 1,693,400株 ・株式分割後の発行済株式総数 : 2,540,100株 ・株式分割後の発行可能株式総数 : 5,568,000株 (注)株式分割前の発行済株式総数は、2026年11月20日現在のものです。 (3)分割の日程 ・基準日公告日 : 2026年12月11日(金) ・基準日 : 2026年12月31日(木)(実質上は2026年12月30日(水)) ・効力発生日 : 2027年1月1日(金) 3.株式分割に伴う定款の一部変更 (1)定款変更の理由 今回の株式分割に伴い、会社法第 184 条第2項の規定に基づき、2027年1月1日(金)をもって当社定款第6条(発行可能株式総数)を変更いたします。 (2)定款変更の内容 変更の内容は下記のとおりです。 ・現行定款 (発行可能株式総数) 第6条 当会社の発行する株式の総数は、185万6千株とする。 ・変更後 (発行可能株式総数) 第6条 当会社の発行する株式の総数は、556万8千株とする。 (3)定款変更の日程 定款の一部変更の効力発生日 : 2027年1月1日(金) 4.配当予想の修正 今回の株式分割に伴い、2026年11月13日公表の「2026年9月期 決算短信」に記載の2027年9月期の配当予想金額を以下のとおり修正いたします。",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261119583151.pdf",
+              "title": "株式分割及び株式分割に伴う定款の一部変更並びに配当予想の修正に関するお知らせ",
+              "time": "16:00"
+            }
+          ],
+          "company_summary": "化学物質を分離・精製する精密蒸留が主力",
+          "company_summary_source": "https://s.kabutan.jp/stocks/4124/"
+        },
+        {
           "code": "5078",
           "name": "セレコーポレーション",
           "title": "株式分割及び配当予想の修正に関するお知らせ",
@@ -1930,8 +2151,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-20T06:46:54.787067+00:00",
-  "fetched_at": "2026-11-20T15:46:53.645272+09:00",
-  "last_success_at": "2026-11-20T15:46:53.645272+09:00",
-  "valid_until": "2026-11-22T03:46:53.645272+09:00"
+  "last_attempt_at": "2026-11-20T07:02:30.967939+00:00",
+  "fetched_at": "2026-11-20T16:02:25.386120+09:00",
+  "last_success_at": "2026-11-20T16:02:25.386120+09:00",
+  "valid_until": "2026-11-22T04:02:25.386120+09:00"
 }
