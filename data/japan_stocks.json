@@ -1,63 +1,61 @@
 {
-  "updated_at": "2026-11-20T23:47:21.624695+09:00",
-  "last_attempt_at": "2026-11-20T23:47:21.624711+09:00",
-  "source": "jpx_yfinance",
-  "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
-  "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
+  "updated_at": "2026-11-21T00:02:55.195159+09:00",
+  "last_attempt_at": "2026-11-21T00:02:55.195171+09:00",
+  "source": "kabutan_mobile",
+  "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
+  "source_url": "https://s.kabutan.jp/warnings/price_increase/",
   "scope": "東証全市場（プライム・スタンダード・グロース）",
-  "ranking_definition": "JPX上場内国株式の前日比・値上がり率上位30銘柄",
+  "ranking_definition": "前日比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "prices_fetched_at": "2026-11-20T14:46:09.571468+00:00",
-  "price_time_precision": "day",
-  "as_of": null,
-  "fetch_status": "ok",
-  "fetch_warning": "",
+  "prices_fetched_at": "2026-11-20T16:00:00+09:00",
+  "price_time_precision": "minute",
+  "as_of": "2026-11-20T16:00:00+09:00",
+  "fetch_status": "fallback",
+  "fetch_warning": "Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示",
   "source_attempts": [
     {
       "source": "yfinance_retry",
       "status": "ok",
-      "missing": 21,
-      "retried": 21,
+      "missing": 3686,
+      "retried": 0,
       "recovered": 0,
-      "first_pass_seconds": 67.5,
-      "total_seconds": 71.1
+      "first_pass_seconds": 81.5,
+      "total_seconds": 81.5
     },
     {
       "source": "yfinance_bulk",
       "status": "partial",
-      "prices_fetched_at": "2026-11-20T14:46:09.571468+00:00",
+      "prices_fetched_at": "2026-11-20T15:01:31.280897+00:00",
       "universe_count": 3686,
-      "quoted_count": 3665,
-      "coverage": 0.9943,
+      "quoted_count": 0,
+      "coverage": 0.0,
       "session_date": "2026-11-20"
+    },
+    {
+      "source": "kabutan_mobile",
+      "status": "ok",
+      "count": 34,
+      "as_of": "2026-11-20T16:00:00+09:00",
+      "url": "https://s.kabutan.jp/warnings/price_increase/"
     }
   ],
-  "coverage": {
-    "prices_fetched_at": "2026-11-20T14:46:09.571468+00:00",
-    "universe_count": 3686,
-    "quoted_count": 3665,
-    "coverage": 0.9943
-  },
+  "coverage": {},
   "session_date": "2026-11-20",
   "is_fallback": false,
-  "stop_high_count": 2,
-  "near_stop_count": 28,
+  "stop_high_count": 4,
+  "near_stop_count": 26,
   "all_stocks": [
     {
       "code": "4586",
       "name": "メドレックス",
       "market": "東証S",
-      "sector": "医薬品",
       "price": 107.0,
-      "stop_high_price": 107.0,
-      "is_stop_high": true,
       "change_amount": 30.0,
-      "change_pct": 38.961,
-      "volume": 48351100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 38.96,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 48351100.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -184,8 +182,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           73.0,
@@ -312,8 +309,7 @@
           38.0,
           39.0,
           47.0,
-          50.0,
-          83.0
+          50.0
         ],
         "highs": [
           74.0,
@@ -440,8 +436,7 @@
           40.0,
           54.0,
           50.0,
-          77.0,
-          107.0
+          77.0
         ],
         "lows": [
           71.0,
@@ -568,8 +563,7 @@
           36.0,
           37.0,
           44.0,
-          50.0,
-          76.0
+          50.0
         ],
         "closes": [
           72.0,
@@ -696,8 +690,7 @@
           39.0,
           50.0,
           47.0,
-          77.0,
-          107.0
+          77.0
         ],
         "volumes": [
           498900,
@@ -824,28 +817,27 @@
           1681500,
           9832100,
           4406100,
-          24380400,
-          48351100
+          24380400
         ]
       },
+      "sector": "医薬品",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3624",
       "name": "アクセルマーク",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 185.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 46.0,
-      "change_pct": 33.094,
-      "volume": 23368900,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 33.09,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 23368900.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -972,8 +964,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           61.0,
@@ -1100,8 +1091,7 @@
           33.0,
           70.0,
           78.0,
-          115.0,
-          119.0
+          115.0
         ],
         "highs": [
           64.0,
@@ -1228,8 +1218,7 @@
           61.0,
           89.0,
           107.0,
-          148.0,
-          185.0
+          148.0
         ],
         "lows": [
           60.0,
@@ -1356,8 +1345,7 @@
           32.0,
           70.0,
           73.0,
-          112.0,
-          90.0
+          112.0
         ],
         "closes": [
           61.0,
@@ -1484,8 +1472,7 @@
           61.0,
           87.0,
           100.0,
-          139.0,
-          185.0
+          139.0
         ],
         "volumes": [
           319200,
@@ -1612,28 +1599,27 @@
           10699600,
           17208600,
           12506100,
-          22323200,
-          23368900
+          22323200
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "9258",
       "name": "CS-C",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 244.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 38.0,
-      "change_pct": 18.447,
-      "volume": 16600,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 18.45,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 16600.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -1760,8 +1746,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           317.0,
@@ -1888,8 +1873,7 @@
           255.0,
           257.0,
           253.0,
-          224.0,
-          222.0
+          224.0
         ],
         "highs": [
           317.0,
@@ -2016,8 +2000,7 @@
           255.0,
           257.0,
           253.0,
-          231.0,
-          245.0
+          231.0
         ],
         "lows": [
           306.0,
@@ -2144,8 +2127,7 @@
           249.0,
           247.0,
           218.0,
-          206.0,
-          214.0
+          206.0
         ],
         "closes": [
           307.0,
@@ -2272,8 +2254,7 @@
           249.0,
           247.0,
           232.0,
-          206.0,
-          244.0
+          206.0
         ],
         "volumes": [
           1500,
@@ -2400,28 +2381,27 @@
           1800,
           2400,
           24100,
-          8200,
-          16600
+          8200
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3416",
       "name": "ピクスタ",
       "market": "東証S",
-      "sector": "小売業",
       "price": 966.0,
-      "stop_high_price": 966.0,
-      "is_stop_high": true,
       "change_amount": 150.0,
-      "change_pct": 18.382,
-      "volume": 398600,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 18.38,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 398600.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -2548,8 +2528,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           865.0,
@@ -2676,8 +2655,7 @@
           950.0,
           945.0,
           1004.0,
-          993.0,
-          936.0
+          993.0
         ],
         "highs": [
           871.0,
@@ -2804,8 +2782,7 @@
           1013.0,
           1030.0,
           1004.0,
-          1019.0,
-          965.0
+          1019.0
         ],
         "lows": [
           857.0,
@@ -2932,8 +2909,7 @@
           948.0,
           905.0,
           930.0,
-          815.0,
-          890.0
+          815.0
         ],
         "closes": [
           857.0,
@@ -3060,8 +3036,7 @@
           1013.0,
           1013.0,
           965.0,
-          816.0,
-          966.0
+          816.0
         ],
         "volumes": [
           1200,
@@ -3188,28 +3163,27 @@
           435400,
           421400,
           103800,
-          291700,
-          398600
+          291700
         ]
       },
+      "sector": "小売業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "5240",
       "name": "monoAI technology",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 133.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 17.0,
-      "change_pct": 14.655,
-      "volume": 3671500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 14.66,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 3671500.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -3336,8 +3310,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           134.0,
@@ -3464,8 +3437,7 @@
           125.0,
           122.0,
           120.0,
-          119.0,
-          120.0
+          119.0
         ],
         "highs": [
           137.0,
@@ -3592,8 +3564,7 @@
           128.0,
           123.0,
           123.0,
-          119.0,
-          165.0
+          119.0
         ],
         "lows": [
           129.0,
@@ -3720,8 +3691,7 @@
           123.0,
           116.0,
           118.0,
-          116.0,
-          119.0
+          116.0
         ],
         "closes": [
           129.0,
@@ -3848,8 +3818,7 @@
           123.0,
           121.0,
           119.0,
-          116.0,
-          133.0
+          116.0
         ],
         "volumes": [
           92400,
@@ -3976,28 +3945,27 @@
           164100,
           89300,
           43100,
-          36400,
-          3671500
+          36400
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "5133",
       "name": "テリロジーホールディングス",
       "market": "東証S",
-      "sector": "情報・通信業",
       "price": 414.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 37.0,
-      "change_pct": 9.814,
-      "volume": 3881100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 9.81,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 3881100.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -4124,8 +4092,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           327.0,
@@ -4252,8 +4219,7 @@
           352.0,
           377.0,
           360.0,
-          374.0,
-          393.0
+          374.0
         ],
         "highs": [
           328.0,
@@ -4380,8 +4346,7 @@
           426.0,
           379.0,
           397.0,
-          382.0,
-          450.0
+          382.0
         ],
         "lows": [
           313.0,
@@ -4508,8 +4473,7 @@
           350.0,
           350.0,
           360.0,
-          355.0,
-          391.0
+          355.0
         ],
         "closes": [
           316.0,
@@ -4636,8 +4600,7 @@
           385.0,
           356.0,
           370.0,
-          377.0,
-          414.0
+          377.0
         ],
         "volumes": [
           178000,
@@ -4764,28 +4727,27 @@
           760000,
           629800,
           1639400,
-          494400,
-          3881100
+          494400
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3664",
       "name": "WIZE",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 15.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1.0,
-      "change_pct": 7.143,
-      "volume": 31948400,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 7.14,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 31948400.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -4912,8 +4874,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           28.0,
@@ -5040,8 +5001,7 @@
           13.0,
           13.0,
           13.0,
-          13.0,
-          15.0
+          13.0
         ],
         "highs": [
           29.0,
@@ -5168,8 +5128,7 @@
           14.0,
           13.0,
           13.0,
-          14.0,
-          15.0
+          14.0
         ],
         "lows": [
           24.0,
@@ -5296,7 +5255,6 @@
           13.0,
           12.0,
           12.0,
-          13.0,
           13.0
         ],
         "closes": [
@@ -5424,8 +5382,7 @@
           13.0,
           13.0,
           13.0,
-          14.0,
-          15.0
+          14.0
         ],
         "volumes": [
           10234500,
@@ -5552,28 +5509,27 @@
           14308400,
           29265900,
           20113500,
-          36836400,
-          31948400
+          36836400
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "446A",
       "name": "ノースサンド",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 2389.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 154.0,
       "change_pct": 6.89,
-      "volume": 1900600,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1900600.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -5700,8 +5656,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           1258.0,
@@ -5828,8 +5783,7 @@
           2554.0,
           2550.0,
           2307.0,
-          2244.0,
-          2285.0
+          2244.0
         ],
         "highs": [
           1261.0,
@@ -5956,8 +5910,7 @@
           2630.0,
           2580.0,
           2312.0,
-          2249.0,
-          2405.0
+          2249.0
         ],
         "lows": [
           1160.0,
@@ -6084,8 +6037,7 @@
           2398.0,
           2329.0,
           2236.0,
-          2235.0,
-          2262.0
+          2235.0
         ],
         "closes": [
           1203.0,
@@ -6212,8 +6164,7 @@
           2600.0,
           2329.0,
           2252.0,
-          2235.0,
-          2389.0
+          2235.0
         ],
         "volumes": [
           435500,
@@ -6340,28 +6291,27 @@
           1307100,
           3399600,
           6234300,
-          6495100,
-          1900600
+          6495100
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6573",
       "name": "CRAVIA",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 17.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1.0,
       "change_pct": 6.25,
-      "volume": 5050400,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 5050400.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -6488,8 +6438,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           29.0,
@@ -6616,8 +6565,7 @@
           16.0,
           16.0,
           17.0,
-          17.0,
-          16.0
+          17.0
         ],
         "highs": [
           30.0,
@@ -6744,8 +6692,7 @@
           17.0,
           17.0,
           17.0,
-          17.0,
-          21.0
+          17.0
         ],
         "lows": [
           28.0,
@@ -6872,7 +6819,6 @@
           16.0,
           15.0,
           15.0,
-          16.0,
           16.0
         ],
         "closes": [
@@ -7000,8 +6946,7 @@
           16.0,
           17.0,
           17.0,
-          16.0,
-          17.0
+          16.0
         ],
         "volumes": [
           785100,
@@ -7128,28 +7073,27 @@
           662600,
           1529300,
           687500,
-          144400,
-          5050400
+          144400
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3815",
       "name": "メディア工房",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 434.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 25.0,
-      "change_pct": 6.112,
-      "volume": 38800,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 6.11,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 38800.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -7276,8 +7220,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           447.0,
@@ -7404,8 +7347,7 @@
           470.0,
           443.0,
           445.0,
-          410.0,
-          417.0
+          410.0
         ],
         "highs": [
           447.0,
@@ -7532,8 +7474,7 @@
           470.0,
           449.0,
           447.0,
-          434.0,
-          441.0
+          434.0
         ],
         "lows": [
           444.0,
@@ -7660,8 +7601,7 @@
           441.0,
           433.0,
           442.0,
-          399.0,
-          414.0
+          399.0
         ],
         "closes": [
           445.0,
@@ -7788,8 +7728,7 @@
           445.0,
           442.0,
           442.0,
-          409.0,
-          434.0
+          409.0
         ],
         "volumes": [
           7100,
@@ -7916,28 +7855,27 @@
           30400,
           13800,
           5200,
-          59700,
-          38800
+          59700
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "9331",
       "name": "キャスター",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 572.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 32.0,
-      "change_pct": 5.926,
-      "volume": 35900,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 5.93,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 35900.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -8064,8 +8002,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           670.0,
@@ -8192,8 +8129,7 @@
           535.0,
           526.0,
           560.0,
-          530.0,
-          540.0
+          530.0
         ],
         "highs": [
           677.0,
@@ -8320,8 +8256,7 @@
           535.0,
           560.0,
           560.0,
-          540.0,
-          588.0
+          540.0
         ],
         "lows": [
           666.0,
@@ -8448,7 +8383,6 @@
           515.0,
           525.0,
           549.0,
-          521.0,
           521.0
         ],
         "closes": [
@@ -8576,8 +8510,7 @@
           523.0,
           560.0,
           560.0,
-          540.0,
-          572.0
+          540.0
         ],
         "volumes": [
           1600,
@@ -8704,28 +8637,27 @@
           2500,
           21900,
           1400,
-          1800,
-          35900
+          1800
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "5721",
       "name": "エスクリプトエナジー",
       "market": "東証S",
-      "sector": "非鉄金属",
       "price": 38.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 2.0,
-      "change_pct": 5.556,
-      "volume": 2060800,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 5.56,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 2060800.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -8852,8 +8784,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           78.0,
@@ -8976,7 +8907,6 @@
           35.0,
           36.0,
           37.0,
-          36.0,
           36.0,
           36.0,
           36.0,
@@ -9108,8 +9038,7 @@
           37.0,
           37.0,
           37.0,
-          37.0,
-          39.0
+          37.0
         ],
         "lows": [
           76.0,
@@ -9232,7 +9161,6 @@
           35.0,
           35.0,
           36.0,
-          35.0,
           35.0,
           35.0,
           35.0,
@@ -9364,8 +9292,7 @@
           36.0,
           35.0,
           36.0,
-          36.0,
-          38.0
+          36.0
         ],
         "volumes": [
           1659200,
@@ -9492,28 +9419,27 @@
           1238300,
           1314700,
           779600,
-          1072500,
-          2060800
+          1072500
         ]
       },
+      "sector": "非鉄金属",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "4370",
       "name": "モビルス",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 267.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 13.0,
-      "change_pct": 5.118,
-      "volume": 14700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 5.12,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 14700.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -9640,8 +9566,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           301.0,
@@ -9768,8 +9693,7 @@
           272.0,
           270.0,
           272.0,
-          264.0,
-          250.0
+          264.0
         ],
         "highs": [
           355.0,
@@ -9896,8 +9820,7 @@
           278.0,
           274.0,
           272.0,
-          270.0,
-          267.0
+          270.0
         ],
         "lows": [
           301.0,
@@ -10024,8 +9947,7 @@
           272.0,
           266.0,
           267.0,
-          254.0,
-          245.0
+          254.0
         ],
         "closes": [
           334.0,
@@ -10152,8 +10074,7 @@
           273.0,
           274.0,
           267.0,
-          254.0,
-          267.0
+          254.0
         ],
         "volumes": [
           389700,
@@ -10280,28 +10201,27 @@
           700,
           4300,
           2100,
-          11100,
-          14700
+          11100
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "469A",
       "name": "フィットクルー",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 968.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 47.0,
-      "change_pct": 5.103,
-      "volume": 5200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 5.1,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 5200.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -10428,8 +10348,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           1400.0,
@@ -10556,8 +10475,7 @@
           926.0,
           925.0,
           910.0,
-          906.0,
-          918.0
+          906.0
         ],
         "highs": [
           1404.0,
@@ -10684,8 +10602,7 @@
           950.0,
           925.0,
           910.0,
-          933.0,
-          969.0
+          933.0
         ],
         "lows": [
           1372.0,
@@ -10812,8 +10729,7 @@
           920.0,
           905.0,
           904.0,
-          903.0,
-          900.0
+          903.0
         ],
         "closes": [
           1385.0,
@@ -10940,8 +10856,7 @@
           928.0,
           912.0,
           910.0,
-          921.0,
-          968.0
+          921.0
         ],
         "volumes": [
           5800,
@@ -11068,28 +10983,27 @@
           3100,
           1200,
           500,
-          1900,
-          5200
+          1900
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6058",
       "name": "ベクトル",
       "market": "東証P",
-      "sector": "サービス業",
       "price": 2120.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 96.0,
-      "change_pct": 4.743,
-      "volume": 1615000,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 4.74,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1615000.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -11216,8 +11130,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           1278.0,
@@ -11344,8 +11257,7 @@
           2245.0,
           2166.0,
           2197.0,
-          2061.0,
-          2002.0
+          2061.0
         ],
         "highs": [
           1293.0,
@@ -11472,8 +11384,7 @@
           2288.0,
           2237.0,
           2202.0,
-          2080.0,
-          2160.0
+          2080.0
         ],
         "lows": [
           1252.0,
@@ -11600,8 +11511,7 @@
           2167.0,
           2114.0,
           2018.0,
-          2006.0,
-          1964.0
+          2006.0
         ],
         "closes": [
           1254.0,
@@ -11728,8 +11638,7 @@
           2194.0,
           2210.0,
           2070.0,
-          2024.0,
-          2120.0
+          2024.0
         ],
         "volumes": [
           267800,
@@ -11856,28 +11765,27 @@
           831000,
           781500,
           1166800,
-          522600,
-          1615000
+          522600
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6706",
       "name": "電気興業",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 3100.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 140.0,
       "change_pct": 4.73,
-      "volume": 87000,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 87000.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -12004,8 +11912,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           3430.0,
@@ -12132,8 +12039,7 @@
           3165.0,
           2951.0,
           3040.0,
-          2979.0,
-          2922.0
+          2979.0
         ],
         "highs": [
           3430.0,
@@ -12260,8 +12166,7 @@
           3240.0,
           3030.0,
           3145.0,
-          2991.0,
-          3135.0
+          2991.0
         ],
         "lows": [
           3370.0,
@@ -12388,8 +12293,7 @@
           3145.0,
           2879.0,
           2995.0,
-          2895.0,
-          2902.0
+          2895.0
         ],
         "closes": [
           3415.0,
@@ -12516,8 +12420,7 @@
           3155.0,
           3010.0,
           2995.0,
-          2960.0,
-          3100.0
+          2960.0
         ],
         "volumes": [
           54000,
@@ -12644,28 +12547,27 @@
           20200,
           129600,
           30400,
-          91900,
-          87000
+          91900
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6630",
       "name": "ヤーマン",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 499.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 22.0,
-      "change_pct": 4.612,
-      "volume": 412700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 4.61,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 412700.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -12792,8 +12694,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           716.86,
@@ -12920,8 +12821,7 @@
           586.0,
           506.0,
           506.0,
-          499.0,
-          476.0
+          499.0
         ],
         "highs": [
           724.81,
@@ -13048,8 +12948,7 @@
           586.0,
           519.0,
           514.0,
-          500.0,
-          502.0
+          500.0
         ],
         "lows": [
           710.89,
@@ -13176,7 +13075,6 @@
           586.0,
           495.0,
           498.0,
-          476.0,
           476.0
         ],
         "closes": [
@@ -13304,8 +13202,7 @@
           586.0,
           506.0,
           501.0,
-          477.0,
-          499.0
+          477.0
         ],
         "volumes": [
           58000,
@@ -13432,28 +13329,27 @@
           132200,
           1308100,
           421200,
-          562000,
-          412700
+          562000
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "9557",
       "name": "エアークローゼット",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 183.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 8.0,
-      "change_pct": 4.571,
-      "volume": 354500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 4.57,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 354500.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -13580,8 +13476,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           197.0,
@@ -13708,8 +13603,7 @@
           181.0,
           194.0,
           173.0,
-          191.0,
-          161.0
+          191.0
         ],
         "highs": [
           201.0,
@@ -13836,8 +13730,7 @@
           195.0,
           194.0,
           183.0,
-          207.0,
-          209.0
+          207.0
         ],
         "lows": [
           194.0,
@@ -13964,8 +13857,7 @@
           170.0,
           166.0,
           165.0,
-          172.0,
-          159.0
+          172.0
         ],
         "closes": [
           194.0,
@@ -14092,8 +13984,7 @@
           192.0,
           174.0,
           183.0,
-          175.0,
-          183.0
+          175.0
         ],
         "volumes": [
           75500,
@@ -14220,28 +14111,27 @@
           29700,
           73500,
           52000,
-          51700,
-          354500
+          51700
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3053",
       "name": "ペッパーフードサービス",
       "market": "東証S",
-      "sector": "小売業",
       "price": 238.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 10.0,
-      "change_pct": 4.386,
-      "volume": 1065000,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 4.39,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1065000.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -14368,8 +14258,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           195.0,
@@ -14496,8 +14385,7 @@
           216.0,
           219.0,
           228.0,
-          228.0,
-          225.0
+          228.0
         ],
         "highs": [
           195.0,
@@ -14624,8 +14512,7 @@
           216.0,
           227.0,
           230.0,
-          229.0,
-          239.0
+          229.0
         ],
         "lows": [
           189.0,
@@ -14752,8 +14639,7 @@
           211.0,
           218.0,
           222.0,
-          220.0,
-          223.0
+          220.0
         ],
         "closes": [
           194.0,
@@ -14880,8 +14766,7 @@
           215.0,
           224.0,
           227.0,
-          228.0,
-          238.0
+          228.0
         ],
         "volumes": [
           306400,
@@ -15008,28 +14893,27 @@
           340900,
           912700,
           611300,
-          747900,
-          1065000
+          747900
         ]
       },
+      "sector": "小売業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "652A",
       "name": "トグルホールディングス",
       "market": "東証G",
-      "sector": "不動産業",
       "price": 4015.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 160.0,
       "change_pct": 4.15,
-      "volume": 289600,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 289600.0,
       "chart": {
         "dates": [
           "2026-10-30",
@@ -15045,8 +14929,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           3760.0,
@@ -15062,8 +14945,7 @@
           3900.0,
           3735.0,
           3815.0,
-          3795.0,
-          3785.0
+          3795.0
         ],
         "highs": [
           3965.0,
@@ -15079,8 +14961,7 @@
           3900.0,
           4025.0,
           3870.0,
-          3920.0,
-          4125.0
+          3920.0
         ],
         "lows": [
           3640.0,
@@ -15096,8 +14977,7 @@
           3575.0,
           3700.0,
           3660.0,
-          3665.0,
-          3785.0
+          3665.0
         ],
         "closes": [
           3640.0,
@@ -15113,8 +14993,7 @@
           3775.0,
           3815.0,
           3750.0,
-          3855.0,
-          4015.0
+          3855.0
         ],
         "volumes": [
           2003700,
@@ -15130,28 +15009,27 @@
           392000,
           198300,
           178300,
-          117800,
-          289600
+          117800
         ]
       },
+      "sector": "不動産業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "5962",
       "name": "浅香工業",
       "market": "東証S",
-      "sector": "その他製品",
       "price": 2400.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 92.0,
-      "change_pct": 3.986,
-      "volume": 4200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.99,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 4200.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -15278,8 +15156,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           1765.0,
@@ -15406,8 +15283,7 @@
           2307.0,
           2307.0,
           2342.0,
-          2308.0,
-          2309.0
+          2308.0
         ],
         "highs": [
           1765.0,
@@ -15534,8 +15410,7 @@
           2307.0,
           2307.0,
           2342.0,
-          2308.0,
-          2400.0
+          2308.0
         ],
         "lows": [
           1765.0,
@@ -15662,8 +15537,7 @@
           2257.0,
           2257.0,
           2342.0,
-          2308.0,
-          2309.0
+          2308.0
         ],
         "closes": [
           1765.0,
@@ -15790,8 +15664,7 @@
           2257.0,
           2292.0,
           2342.0,
-          2308.0,
-          2400.0
+          2308.0
         ],
         "volumes": [
           200,
@@ -15918,28 +15791,27 @@
           500,
           900,
           100,
-          400,
-          4200
+          400
         ]
       },
+      "sector": "その他製品",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "5580",
       "name": "プロディライト",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 1568.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 59.0,
       "change_pct": 3.91,
-      "volume": 2100,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 2100.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -16066,8 +15938,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           1486.0,
@@ -16194,8 +16065,7 @@
           1585.0,
           1523.0,
           1569.0,
-          1483.0,
-          1499.0
+          1483.0
         ],
         "highs": [
           1486.0,
@@ -16322,8 +16192,7 @@
           1585.0,
           1576.0,
           1569.0,
-          1511.0,
-          1568.0
+          1511.0
         ],
         "lows": [
           1440.0,
@@ -16450,8 +16319,7 @@
           1563.0,
           1500.0,
           1502.0,
-          1481.0,
-          1498.0
+          1481.0
         ],
         "closes": [
           1441.0,
@@ -16578,8 +16446,7 @@
           1563.0,
           1576.0,
           1502.0,
-          1509.0,
-          1568.0
+          1509.0
         ],
         "volumes": [
           1300,
@@ -16706,28 +16573,27 @@
           1400,
           2500,
           1300,
-          2300,
-          2100
+          2300
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "4069",
       "name": "BlueMeme",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 376.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 14.0,
-      "change_pct": 3.867,
-      "volume": 8800,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.87,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 8800.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -16854,8 +16720,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           898.0,
@@ -16982,8 +16847,7 @@
           411.0,
           398.0,
           409.0,
-          375.0,
-          364.0
+          375.0
         ],
         "highs": [
           899.0,
@@ -17110,8 +16974,7 @@
           411.0,
           399.0,
           409.0,
-          375.0,
-          378.0
+          375.0
         ],
         "lows": [
           872.0,
@@ -17238,8 +17101,7 @@
           397.0,
           398.0,
           374.0,
-          359.0,
-          362.0
+          359.0
         ],
         "closes": [
           872.0,
@@ -17366,8 +17228,7 @@
           398.0,
           398.0,
           375.0,
-          362.0,
-          376.0
+          362.0
         ],
         "volumes": [
           6800,
@@ -17494,28 +17355,27 @@
           3100,
           800,
           4400,
-          9600,
-          8800
+          9600
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6740",
       "name": "ジャパンディスプレイ",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 27.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1.0,
-      "change_pct": 3.846,
-      "volume": 12881000,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.85,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 12881000.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -17642,8 +17502,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           67.0,
@@ -17770,8 +17629,7 @@
           32.0,
           29.0,
           28.0,
-          27.0,
-          26.0
+          27.0
         ],
         "highs": [
           68.0,
@@ -17898,8 +17756,7 @@
           32.0,
           30.0,
           29.0,
-          28.0,
-          27.0
+          28.0
         ],
         "lows": [
           62.0,
@@ -18026,8 +17883,7 @@
           29.0,
           27.0,
           26.0,
-          26.0,
-          25.0
+          26.0
         ],
         "closes": [
           62.0,
@@ -18154,8 +18010,7 @@
           29.0,
           27.0,
           28.0,
-          26.0,
-          27.0
+          26.0
         ],
         "volumes": [
           65535900,
@@ -18282,28 +18137,27 @@
           12041500,
           11597000,
           20931500,
-          15120200,
-          12881000
+          15120200
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "7058",
       "name": "共栄セキュリティーサービス",
       "market": "東証S",
-      "sector": "サービス業",
       "price": 3035.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 105.0,
-      "change_pct": 3.584,
-      "volume": 4700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.58,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 4700.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -18430,8 +18284,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           2956.65,
@@ -18558,8 +18411,7 @@
           2820.0,
           2867.0,
           2866.0,
-          2869.0,
-          3020.0
+          2869.0
         ],
         "highs": [
           2956.65,
@@ -18686,8 +18538,7 @@
           2820.0,
           2867.0,
           2868.0,
-          2930.0,
-          3050.0
+          2930.0
         ],
         "lows": [
           2908.49,
@@ -18814,8 +18665,7 @@
           2820.0,
           2867.0,
           2866.0,
-          2869.0,
-          2880.0
+          2869.0
         ],
         "closes": [
           2908.5,
@@ -18942,8 +18792,7 @@
           2820.0,
           2867.0,
           2868.0,
-          2930.0,
-          3035.0
+          2930.0
         ],
         "volumes": [
           1600,
@@ -19070,28 +18919,27 @@
           100,
           100,
           200,
-          1100,
-          4700
+          1100
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6334",
       "name": "明治機械",
       "market": "東証S",
-      "sector": "機械",
       "price": 475.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 15.0,
-      "change_pct": 3.261,
-      "volume": 5700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.26,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 5700.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -19218,8 +19066,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           407.0,
@@ -19346,8 +19193,7 @@
           432.0,
           409.0,
           440.0,
-          442.0,
-          460.0
+          442.0
         ],
         "highs": [
           411.0,
@@ -19474,8 +19320,7 @@
           432.0,
           451.0,
           449.0,
-          460.0,
-          475.0
+          460.0
         ],
         "lows": [
           401.0,
@@ -19602,8 +19447,7 @@
           404.0,
           401.0,
           432.0,
-          419.0,
-          456.0
+          419.0
         ],
         "closes": [
           411.0,
@@ -19730,8 +19574,7 @@
           425.0,
           448.0,
           449.0,
-          460.0,
-          475.0
+          460.0
         ],
         "volumes": [
           7700,
@@ -19858,28 +19701,27 @@
           6200,
           9800,
           6900,
-          6400,
-          5700
+          6400
         ]
       },
+      "sector": "機械",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "441A",
       "name": "NE",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 228.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 7.0,
-      "change_pct": 3.167,
-      "volume": 75100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.17,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 75100.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -20006,8 +19848,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           273.0,
@@ -20134,8 +19975,7 @@
           227.0,
           225.0,
           232.0,
-          220.0,
-          226.0
+          220.0
         ],
         "highs": [
           282.0,
@@ -20262,8 +20102,7 @@
           235.0,
           233.0,
           232.0,
-          225.0,
-          245.0
+          225.0
         ],
         "lows": [
           260.0,
@@ -20390,7 +20229,6 @@
           220.0,
           222.0,
           222.0,
-          214.0,
           214.0
         ],
         "closes": [
@@ -20518,8 +20356,7 @@
           222.0,
           224.0,
           225.0,
-          221.0,
-          228.0
+          221.0
         ],
         "volumes": [
           97500,
@@ -20646,28 +20483,27 @@
           41700,
           27300,
           10300,
-          33000,
-          75100
+          33000
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "7077",
       "name": "ALiNKインターネット",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 1083.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 33.0,
-      "change_pct": 3.143,
-      "volume": 36900,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.14,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 36900.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -20794,8 +20630,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           999.0,
@@ -20922,8 +20757,7 @@
           1030.0,
           1060.0,
           1058.0,
-          1032.0,
-          1050.0
+          1032.0
         ],
         "highs": [
           999.0,
@@ -21050,8 +20884,7 @@
           1060.0,
           1085.0,
           1058.0,
-          1050.0,
-          1114.0
+          1050.0
         ],
         "lows": [
           997.0,
@@ -21178,8 +21011,7 @@
           1030.0,
           1060.0,
           1058.0,
-          1032.0,
-          1001.0
+          1032.0
         ],
         "closes": [
           997.0,
@@ -21306,8 +21138,7 @@
           1035.0,
           1069.0,
           1058.0,
-          1050.0,
-          1083.0
+          1050.0
         ],
         "volumes": [
           600,
@@ -21434,816 +21265,27 @@
           4800,
           7500,
           300,
-          2900,
-          36900
+          2900
         ]
       },
-      "description_ja": "",
-      "industry_ja": ""
-    },
-    {
-      "code": "7064",
-      "name": "ハウテレビジョン",
-      "market": "東証S",
       "sector": "サービス業",
-      "price": 988.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
-      "change_amount": 30.0,
-      "change_pct": 3.132,
-      "volume": 500,
       "description": null,
-      "industry": null,
-      "website": null,
-      "price_date": "2026-11-20",
-      "chart": {
-        "dates": [
-          "2026-05-20",
-          "2026-05-21",
-          "2026-05-22",
-          "2026-05-25",
-          "2026-05-26",
-          "2026-05-27",
-          "2026-05-28",
-          "2026-05-29",
-          "2026-06-01",
-          "2026-06-02",
-          "2026-06-03",
-          "2026-06-04",
-          "2026-06-05",
-          "2026-06-08",
-          "2026-06-09",
-          "2026-06-10",
-          "2026-06-11",
-          "2026-06-12",
-          "2026-06-15",
-          "2026-06-16",
-          "2026-06-17",
-          "2026-06-18",
-          "2026-06-19",
-          "2026-06-22",
-          "2026-06-23",
-          "2026-06-24",
-          "2026-06-25",
-          "2026-06-26",
-          "2026-06-29",
-          "2026-06-30",
-          "2026-07-01",
-          "2026-07-02",
-          "2026-07-03",
-          "2026-07-06",
-          "2026-07-07",
-          "2026-07-08",
-          "2026-07-09",
-          "2026-07-10",
-          "2026-07-13",
-          "2026-07-14",
-          "2026-07-15",
-          "2026-07-16",
-          "2026-07-17",
-          "2026-07-21",
-          "2026-07-22",
-          "2026-07-23",
-          "2026-07-24",
-          "2026-07-27",
-          "2026-07-28",
-          "2026-07-29",
-          "2026-07-30",
-          "2026-07-31",
-          "2026-08-03",
-          "2026-08-04",
-          "2026-08-05",
-          "2026-08-06",
-          "2026-08-07",
-          "2026-08-10",
-          "2026-08-12",
-          "2026-08-13",
-          "2026-08-14",
-          "2026-08-17",
-          "2026-08-18",
-          "2026-08-19",
-          "2026-08-20",
-          "2026-08-21",
-          "2026-08-24",
-          "2026-08-25",
-          "2026-08-26",
-          "2026-08-27",
-          "2026-08-28",
-          "2026-08-31",
-          "2026-09-01",
-          "2026-09-02",
-          "2026-09-03",
-          "2026-09-04",
-          "2026-09-07",
-          "2026-09-08",
-          "2026-09-09",
-          "2026-09-10",
-          "2026-09-11",
-          "2026-09-14",
-          "2026-09-15",
-          "2026-09-16",
-          "2026-09-17",
-          "2026-09-18",
-          "2026-09-24",
-          "2026-09-25",
-          "2026-09-28",
-          "2026-09-29",
-          "2026-09-30",
-          "2026-10-01",
-          "2026-10-02",
-          "2026-10-05",
-          "2026-10-06",
-          "2026-10-07",
-          "2026-10-08",
-          "2026-10-09",
-          "2026-10-13",
-          "2026-10-14",
-          "2026-10-15",
-          "2026-10-16",
-          "2026-10-19",
-          "2026-10-20",
-          "2026-10-21",
-          "2026-10-22",
-          "2026-10-23",
-          "2026-10-26",
-          "2026-10-27",
-          "2026-10-28",
-          "2026-10-29",
-          "2026-10-30",
-          "2026-11-02",
-          "2026-11-04",
-          "2026-11-05",
-          "2026-11-06",
-          "2026-11-09",
-          "2026-11-10",
-          "2026-11-11",
-          "2026-11-12",
-          "2026-11-13",
-          "2026-11-16",
-          "2026-11-17",
-          "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
-        ],
-        "opens": [
-          816.0,
-          822.0,
-          844.0,
-          822.0,
-          810.0,
-          801.0,
-          791.0,
-          803.0,
-          775.0,
-          752.0,
-          767.0,
-          799.0,
-          814.0,
-          814.0,
-          816.0,
-          820.0,
-          969.0,
-          969.0,
-          838.0,
-          820.0,
-          830.0,
-          836.0,
-          833.0,
-          846.0,
-          881.0,
-          895.0,
-          853.0,
-          833.0,
-          851.0,
-          845.0,
-          847.0,
-          850.0,
-          855.0,
-          849.0,
-          849.0,
-          854.0,
-          848.0,
-          846.0,
-          845.0,
-          873.0,
-          861.0,
-          873.0,
-          873.0,
-          864.0,
-          856.0,
-          864.0,
-          859.0,
-          870.0,
-          870.0,
-          870.0,
-          855.0,
-          845.0,
-          831.0,
-          850.0,
-          860.0,
-          860.0,
-          859.0,
-          860.0,
-          860.0,
-          869.0,
-          866.0,
-          869.0,
-          888.0,
-          865.0,
-          876.0,
-          863.0,
-          870.0,
-          870.0,
-          883.0,
-          880.0,
-          900.0,
-          918.0,
-          901.0,
-          952.0,
-          963.0,
-          984.0,
-          1020.0,
-          986.0,
-          995.0,
-          925.0,
-          929.0,
-          932.0,
-          955.0,
-          998.0,
-          1017.0,
-          1044.0,
-          1047.0,
-          1022.0,
-          1002.0,
-          971.0,
-          983.0,
-          1011.0,
-          1022.0,
-          1019.0,
-          996.0,
-          990.0,
-          995.0,
-          986.0,
-          1001.0,
-          1015.0,
-          1015.0,
-          1010.0,
-          1020.0,
-          1021.0,
-          1021.0,
-          1042.0,
-          1030.0,
-          1057.0,
-          1081.0,
-          1046.0,
-          1041.0,
-          1013.0,
-          1012.0,
-          1001.0,
-          950.0,
-          1000.0,
-          914.0,
-          929.0,
-          920.0,
-          925.0,
-          942.0,
-          938.0,
-          920.0,
-          935.0,
-          958.0,
-          988.0
-        ],
-        "highs": [
-          816.0,
-          844.0,
-          846.0,
-          835.0,
-          814.0,
-          814.0,
-          811.0,
-          808.0,
-          790.0,
-          767.0,
-          786.0,
-          825.0,
-          838.0,
-          816.0,
-          832.0,
-          834.0,
-          969.0,
-          969.0,
-          850.0,
-          827.0,
-          846.0,
-          841.0,
-          843.0,
-          869.0,
-          924.0,
-          895.0,
-          853.0,
-          845.0,
-          855.0,
-          845.0,
-          856.0,
-          855.0,
-          856.0,
-          854.0,
-          854.0,
-          854.0,
-          848.0,
-          864.0,
-          873.0,
-          884.0,
-          881.0,
-          878.0,
-          873.0,
-          864.0,
-          865.0,
-          866.0,
-          870.0,
-          870.0,
-          870.0,
-          871.0,
-          855.0,
-          846.0,
-          850.0,
-          860.0,
-          861.0,
-          860.0,
-          860.0,
-          879.0,
-          875.0,
-          869.0,
-          876.0,
-          882.0,
-          898.0,
-          878.0,
-          878.0,
-          878.0,
-          875.0,
-          890.0,
-          883.0,
-          909.0,
-          918.0,
-          923.0,
-          955.0,
-          964.0,
-          1000.0,
-          1001.0,
-          1023.0,
-          1025.0,
-          1021.0,
-          965.0,
-          960.0,
-          975.0,
-          1028.0,
-          1036.0,
-          1048.0,
-          1048.0,
-          1047.0,
-          1022.0,
-          1027.0,
-          1031.0,
-          1043.0,
-          1023.0,
-          1022.0,
-          1019.0,
-          1011.0,
-          991.0,
-          996.0,
-          1000.0,
-          1010.0,
-          1019.0,
-          1015.0,
-          1013.0,
-          1021.0,
-          1021.0,
-          1041.0,
-          1042.0,
-          1049.0,
-          1092.0,
-          1110.0,
-          1061.0,
-          1048.0,
-          1023.0,
-          1012.0,
-          1001.0,
-          1017.0,
-          1000.0,
-          914.0,
-          935.0,
-          937.0,
-          927.0,
-          942.0,
-          940.0,
-          920.0,
-          1019.0,
-          958.0,
-          988.0
-        ],
-        "lows": [
-          803.0,
-          806.0,
-          813.0,
-          806.0,
-          800.0,
-          800.0,
-          790.0,
-          790.0,
-          752.0,
-          752.0,
-          762.0,
-          784.0,
-          810.0,
-          801.0,
-          813.0,
-          819.0,
-          969.0,
-          824.0,
-          824.0,
-          809.0,
-          830.0,
-          832.0,
-          832.0,
-          846.0,
-          880.0,
-          853.0,
-          853.0,
-          832.0,
-          843.0,
-          845.0,
-          847.0,
-          850.0,
-          855.0,
-          849.0,
-          846.0,
-          847.0,
-          846.0,
-          845.0,
-          845.0,
-          865.0,
-          861.0,
-          873.0,
-          860.0,
-          855.0,
-          856.0,
-          862.0,
-          859.0,
-          870.0,
-          869.0,
-          856.0,
-          830.0,
-          826.0,
-          831.0,
-          831.0,
-          859.0,
-          859.0,
-          858.0,
-          836.0,
-          855.0,
-          858.0,
-          866.0,
-          864.0,
-          876.0,
-          865.0,
-          876.0,
-          863.0,
-          870.0,
-          868.0,
-          880.0,
-          880.0,
-          900.0,
-          905.0,
-          901.0,
-          937.0,
-          962.0,
-          972.0,
-          988.0,
-          974.0,
-          989.0,
-          901.0,
-          912.0,
-          932.0,
-          955.0,
-          998.0,
-          1016.0,
-          1007.0,
-          1020.0,
-          1022.0,
-          1000.0,
-          956.0,
-          982.0,
-          1006.0,
-          1000.0,
-          999.0,
-          986.0,
-          960.0,
-          995.0,
-          986.0,
-          1000.0,
-          1014.0,
-          995.0,
-          1003.0,
-          1020.0,
-          1000.0,
-          1006.0,
-          1001.0,
-          1020.0,
-          1047.0,
-          1046.0,
-          1044.0,
-          1011.0,
-          1012.0,
-          1006.0,
-          950.0,
-          950.0,
-          914.0,
-          914.0,
-          925.0,
-          918.0,
-          925.0,
-          942.0,
-          930.0,
-          920.0,
-          935.0,
-          958.0,
-          988.0
-        ],
-        "closes": [
-          809.0,
-          844.0,
-          813.0,
-          815.0,
-          805.0,
-          803.0,
-          803.0,
-          790.0,
-          752.0,
-          752.0,
-          786.0,
-          825.0,
-          819.0,
-          803.0,
-          819.0,
-          819.0,
-          969.0,
-          824.0,
-          824.0,
-          827.0,
-          844.0,
-          839.0,
-          843.0,
-          866.0,
-          910.0,
-          853.0,
-          853.0,
-          836.0,
-          843.0,
-          845.0,
-          856.0,
-          855.0,
-          855.0,
-          854.0,
-          854.0,
-          851.0,
-          846.0,
-          864.0,
-          873.0,
-          873.0,
-          873.0,
-          873.0,
-          860.0,
-          856.0,
-          864.0,
-          866.0,
-          870.0,
-          870.0,
-          870.0,
-          870.0,
-          830.0,
-          831.0,
-          850.0,
-          860.0,
-          860.0,
-          859.0,
-          860.0,
-          859.0,
-          869.0,
-          866.0,
-          869.0,
-          878.0,
-          876.0,
-          867.0,
-          878.0,
-          870.0,
-          875.0,
-          876.0,
-          880.0,
-          891.0,
-          918.0,
-          915.0,
-          955.0,
-          963.0,
-          984.0,
-          1000.0,
-          993.0,
-          1008.0,
-          1021.0,
-          959.0,
-          935.0,
-          963.0,
-          1028.0,
-          1022.0,
-          1048.0,
-          1048.0,
-          1022.0,
-          1022.0,
-          1001.0,
-          1031.0,
-          1026.0,
-          1022.0,
-          1000.0,
-          1014.0,
-          993.0,
-          985.0,
-          996.0,
-          1000.0,
-          1010.0,
-          1014.0,
-          995.0,
-          1010.0,
-          1021.0,
-          1005.0,
-          1041.0,
-          1030.0,
-          1031.0,
-          1072.0,
-          1046.0,
-          1050.0,
-          1011.0,
-          1012.0,
-          1006.0,
-          965.0,
-          1010.0,
-          914.0,
-          914.0,
-          925.0,
-          935.0,
-          927.0,
-          942.0,
-          931.0,
-          920.0,
-          958.0,
-          958.0,
-          988.0
-        ],
-        "volumes": [
-          2800,
-          800,
-          1800,
-          8200,
-          3100,
-          3400,
-          5800,
-          5600,
-          8200,
-          3300,
-          3900,
-          25700,
-          3200,
-          600,
-          3400,
-          6500,
-          3700,
-          94900,
-          14800,
-          21200,
-          4000,
-          800,
-          2500,
-          9300,
-          13100,
-          6200,
-          0,
-          3000,
-          2900,
-          500,
-          800,
-          1200,
-          800,
-          400,
-          1500,
-          1200,
-          500,
-          2700,
-          12200,
-          2700,
-          5600,
-          1500,
-          300,
-          1500,
-          900,
-          2600,
-          700,
-          500,
-          1400,
-          2300,
-          800,
-          1200,
-          600,
-          2300,
-          1200,
-          900,
-          900,
-          4500,
-          7300,
-          900,
-          1600,
-          7800,
-          2900,
-          1400,
-          900,
-          2100,
-          1300,
-          1900,
-          1000,
-          6000,
-          7600,
-          5100,
-          7300,
-          3000,
-          9600,
-          9200,
-          8400,
-          7100,
-          14500,
-          46100,
-          8900,
-          9600,
-          4800,
-          5700,
-          1400,
-          2000,
-          1100,
-          0,
-          2100,
-          1800,
-          6700,
-          2500,
-          1000,
-          1000,
-          1900,
-          1800,
-          500,
-          500,
-          1700,
-          1100,
-          2100,
-          2000,
-          200,
-          3200,
-          25100,
-          4700,
-          4200,
-          12000,
-          10500,
-          1200,
-          700,
-          2200,
-          400,
-          9400,
-          2200,
-          12500,
-          0,
-          2400,
-          11000,
-          300,
-          300,
-          3500,
-          200,
-          2400,
-          0,
-          500
-        ]
-      },
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6440",
       "name": "JUKI",
       "market": "東証P",
-      "sector": "機械",
       "price": 627.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 19.0,
-      "change_pct": 3.125,
-      "volume": 1125200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 3.13,
       "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1125200.0,
       "chart": {
         "dates": [
           "2026-05-20",
@@ -22370,8 +21412,7 @@
           "2026-11-16",
           "2026-11-17",
           "2026-11-18",
-          "2026-11-19",
-          "2026-11-20"
+          "2026-11-19"
         ],
         "opens": [
           562.0,
@@ -22498,8 +21539,7 @@
           598.0,
           599.0,
           598.0,
-          594.0,
-          598.0
+          594.0
         ],
         "highs": [
           564.0,
@@ -22626,8 +21666,7 @@
           614.0,
           605.0,
           608.0,
-          608.0,
-          647.0
+          608.0
         ],
         "lows": [
           533.0,
@@ -22754,8 +21793,7 @@
           590.0,
           584.0,
           581.0,
-          580.0,
-          592.0
+          580.0
         ],
         "closes": [
           545.0,
@@ -22882,8 +21920,7 @@
           596.0,
           589.0,
           598.0,
-          608.0,
-          627.0
+          608.0
         ],
         "volumes": [
           581000,
@@ -23010,12 +22047,797 @@
           576700,
           322600,
           337100,
-          349000,
-          1125200
+          349000
         ]
       },
+      "sector": "機械",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
+    },
+    {
+      "code": "6099",
+      "name": "エラン",
+      "market": "東証P",
+      "price": 778.0,
+      "change_amount": 23.0,
+      "change_pct": 3.05,
+      "price_date": "2026-11-20",
+      "source_checked_at": "2026-11-20T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 810800.0,
+      "chart": {
+        "dates": [
+          "2026-05-20",
+          "2026-05-21",
+          "2026-05-22",
+          "2026-05-25",
+          "2026-05-26",
+          "2026-05-27",
+          "2026-05-28",
+          "2026-05-29",
+          "2026-06-01",
+          "2026-06-02",
+          "2026-06-03",
+          "2026-06-04",
+          "2026-06-05",
+          "2026-06-08",
+          "2026-06-09",
+          "2026-06-10",
+          "2026-06-11",
+          "2026-06-12",
+          "2026-06-15",
+          "2026-06-16",
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-19",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-03",
+          "2026-07-06",
+          "2026-07-07",
+          "2026-07-08",
+          "2026-07-09",
+          "2026-07-10",
+          "2026-07-13",
+          "2026-07-14",
+          "2026-07-15",
+          "2026-07-16",
+          "2026-07-17",
+          "2026-07-21",
+          "2026-07-22",
+          "2026-07-23",
+          "2026-07-24",
+          "2026-07-27",
+          "2026-07-28",
+          "2026-07-29",
+          "2026-07-30",
+          "2026-07-31",
+          "2026-08-03",
+          "2026-08-04",
+          "2026-08-05",
+          "2026-08-06",
+          "2026-08-07",
+          "2026-08-10",
+          "2026-08-12",
+          "2026-08-13",
+          "2026-08-14",
+          "2026-08-17",
+          "2026-08-18",
+          "2026-08-19",
+          "2026-08-20",
+          "2026-08-21",
+          "2026-08-24",
+          "2026-08-25",
+          "2026-08-26",
+          "2026-08-27",
+          "2026-08-28",
+          "2026-08-31",
+          "2026-09-01",
+          "2026-09-02",
+          "2026-09-03",
+          "2026-09-04",
+          "2026-09-07",
+          "2026-09-08",
+          "2026-09-09",
+          "2026-09-10",
+          "2026-09-11",
+          "2026-09-14",
+          "2026-09-15",
+          "2026-09-16",
+          "2026-09-17",
+          "2026-09-18",
+          "2026-09-24",
+          "2026-09-25",
+          "2026-09-28",
+          "2026-09-29",
+          "2026-09-30",
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-05",
+          "2026-10-06",
+          "2026-10-07",
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-13",
+          "2026-10-14",
+          "2026-10-15",
+          "2026-10-16",
+          "2026-10-19",
+          "2026-10-20",
+          "2026-10-21",
+          "2026-10-22",
+          "2026-10-23",
+          "2026-10-26",
+          "2026-10-27",
+          "2026-10-28",
+          "2026-10-29",
+          "2026-10-30",
+          "2026-11-02",
+          "2026-11-04",
+          "2026-11-05",
+          "2026-11-06",
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13",
+          "2026-11-16",
+          "2026-11-17",
+          "2026-11-18",
+          "2026-11-19"
+        ],
+        "opens": [
+          718.0,
+          711.0,
+          700.0,
+          705.0,
+          695.0,
+          695.0,
+          701.0,
+          697.0,
+          692.0,
+          683.0,
+          674.0,
+          676.0,
+          678.0,
+          691.0,
+          700.0,
+          700.0,
+          710.0,
+          716.0,
+          715.0,
+          725.0,
+          719.0,
+          716.0,
+          715.0,
+          712.0,
+          709.0,
+          718.0,
+          730.0,
+          740.0,
+          741.0,
+          752.0,
+          746.0,
+          760.0,
+          758.0,
+          750.0,
+          747.0,
+          744.0,
+          760.0,
+          761.0,
+          761.0,
+          760.0,
+          767.0,
+          784.0,
+          782.0,
+          792.0,
+          795.0,
+          781.0,
+          772.0,
+          774.0,
+          787.0,
+          796.0,
+          804.0,
+          773.0,
+          771.0,
+          730.0,
+          753.0,
+          751.0,
+          754.0,
+          771.0,
+          765.0,
+          776.0,
+          757.0,
+          754.0,
+          748.0,
+          748.0,
+          751.0,
+          765.0,
+          759.0,
+          762.0,
+          759.0,
+          756.0,
+          750.0,
+          753.0,
+          747.0,
+          742.0,
+          747.0,
+          728.0,
+          723.0,
+          723.0,
+          719.0,
+          709.0,
+          705.0,
+          710.0,
+          713.0,
+          716.0,
+          725.0,
+          744.0,
+          736.0,
+          730.0,
+          730.0,
+          721.0,
+          716.0,
+          712.0,
+          708.0,
+          701.0,
+          696.0,
+          697.0,
+          700.0,
+          697.0,
+          711.0,
+          730.0,
+          726.0,
+          726.0,
+          730.0,
+          723.0,
+          725.0,
+          719.0,
+          726.0,
+          727.0,
+          733.0,
+          729.0,
+          714.0,
+          737.0,
+          730.0,
+          735.0,
+          769.0,
+          777.0,
+          766.0,
+          778.0,
+          783.0,
+          774.0,
+          783.0,
+          793.0,
+          795.0,
+          768.0,
+          750.0
+        ],
+        "highs": [
+          718.0,
+          718.0,
+          708.0,
+          708.0,
+          701.0,
+          701.0,
+          703.0,
+          706.0,
+          695.0,
+          683.0,
+          680.0,
+          678.0,
+          699.0,
+          707.0,
+          700.0,
+          722.0,
+          716.0,
+          720.0,
+          726.0,
+          725.0,
+          728.0,
+          726.0,
+          716.0,
+          715.0,
+          718.0,
+          729.0,
+          742.0,
+          740.0,
+          771.0,
+          757.0,
+          755.0,
+          769.0,
+          762.0,
+          757.0,
+          752.0,
+          766.0,
+          764.0,
+          763.0,
+          764.0,
+          769.0,
+          795.0,
+          792.0,
+          792.0,
+          807.0,
+          795.0,
+          781.0,
+          775.0,
+          790.0,
+          798.0,
+          806.0,
+          804.0,
+          780.0,
+          772.0,
+          755.0,
+          765.0,
+          761.0,
+          770.0,
+          772.0,
+          780.0,
+          776.0,
+          762.0,
+          755.0,
+          753.0,
+          756.0,
+          771.0,
+          766.0,
+          769.0,
+          766.0,
+          768.0,
+          765.0,
+          756.0,
+          754.0,
+          753.0,
+          747.0,
+          749.0,
+          729.0,
+          727.0,
+          727.0,
+          719.0,
+          712.0,
+          714.0,
+          718.0,
+          724.0,
+          728.0,
+          744.0,
+          744.0,
+          738.0,
+          734.0,
+          733.0,
+          724.0,
+          720.0,
+          714.0,
+          710.0,
+          702.0,
+          702.0,
+          707.0,
+          700.0,
+          709.0,
+          731.0,
+          736.0,
+          734.0,
+          732.0,
+          735.0,
+          731.0,
+          725.0,
+          725.0,
+          745.0,
+          738.0,
+          738.0,
+          733.0,
+          741.0,
+          750.0,
+          741.0,
+          755.0,
+          790.0,
+          780.0,
+          780.0,
+          784.0,
+          795.0,
+          790.0,
+          787.0,
+          806.0,
+          795.0,
+          768.0,
+          763.0
+        ],
+        "lows": [
+          701.0,
+          702.0,
+          700.0,
+          695.0,
+          691.0,
+          694.0,
+          692.0,
+          692.0,
+          682.0,
+          669.0,
+          664.0,
+          670.0,
+          678.0,
+          687.0,
+          689.0,
+          700.0,
+          703.0,
+          709.0,
+          715.0,
+          708.0,
+          711.0,
+          707.0,
+          707.0,
+          706.0,
+          707.0,
+          712.0,
+          727.0,
+          730.0,
+          741.0,
+          741.0,
+          745.0,
+          753.0,
+          747.0,
+          745.0,
+          741.0,
+          744.0,
+          752.0,
+          755.0,
+          754.0,
+          760.0,
+          761.0,
+          780.0,
+          781.0,
+          789.0,
+          781.0,
+          771.0,
+          760.0,
+          774.0,
+          784.0,
+          789.0,
+          779.0,
+          762.0,
+          734.0,
+          724.0,
+          750.0,
+          746.0,
+          751.0,
+          758.0,
+          756.0,
+          759.0,
+          748.0,
+          744.0,
+          738.0,
+          746.0,
+          751.0,
+          761.0,
+          757.0,
+          757.0,
+          759.0,
+          752.0,
+          748.0,
+          746.0,
+          744.0,
+          735.0,
+          733.0,
+          719.0,
+          715.0,
+          717.0,
+          711.0,
+          706.0,
+          703.0,
+          710.0,
+          713.0,
+          716.0,
+          725.0,
+          732.0,
+          726.0,
+          726.0,
+          726.0,
+          714.0,
+          712.0,
+          709.0,
+          701.0,
+          696.0,
+          695.0,
+          697.0,
+          692.0,
+          696.0,
+          711.0,
+          727.0,
+          723.0,
+          724.0,
+          721.0,
+          723.0,
+          713.0,
+          717.0,
+          725.0,
+          724.0,
+          727.0,
+          710.0,
+          711.0,
+          730.0,
+          725.0,
+          735.0,
+          768.0,
+          747.0,
+          759.0,
+          770.0,
+          778.0,
+          770.0,
+          771.0,
+          784.0,
+          771.0,
+          753.0,
+          746.0
+        ],
+        "closes": [
+          711.0,
+          705.0,
+          705.0,
+          701.0,
+          695.0,
+          699.0,
+          696.0,
+          692.0,
+          684.0,
+          674.0,
+          676.0,
+          676.0,
+          694.0,
+          692.0,
+          696.0,
+          711.0,
+          716.0,
+          715.0,
+          725.0,
+          720.0,
+          712.0,
+          714.0,
+          712.0,
+          712.0,
+          716.0,
+          729.0,
+          740.0,
+          737.0,
+          755.0,
+          744.0,
+          753.0,
+          759.0,
+          749.0,
+          747.0,
+          745.0,
+          760.0,
+          755.0,
+          761.0,
+          758.0,
+          761.0,
+          787.0,
+          781.0,
+          785.0,
+          795.0,
+          783.0,
+          772.0,
+          772.0,
+          786.0,
+          792.0,
+          804.0,
+          779.0,
+          771.0,
+          741.0,
+          745.0,
+          755.0,
+          754.0,
+          767.0,
+          758.0,
+          776.0,
+          761.0,
+          751.0,
+          752.0,
+          744.0,
+          754.0,
+          771.0,
+          762.0,
+          762.0,
+          763.0,
+          760.0,
+          752.0,
+          754.0,
+          750.0,
+          746.0,
+          743.0,
+          733.0,
+          722.0,
+          725.0,
+          722.0,
+          713.0,
+          712.0,
+          710.0,
+          716.0,
+          720.0,
+          725.0,
+          744.0,
+          734.0,
+          731.0,
+          730.0,
+          732.0,
+          718.0,
+          718.0,
+          712.0,
+          701.0,
+          699.0,
+          701.0,
+          701.0,
+          697.0,
+          706.0,
+          727.0,
+          727.0,
+          729.0,
+          728.0,
+          723.0,
+          726.0,
+          719.0,
+          722.0,
+          734.0,
+          737.0,
+          732.0,
+          714.0,
+          741.0,
+          735.0,
+          735.0,
+          743.0,
+          783.0,
+          751.0,
+          773.0,
+          782.0,
+          781.0,
+          785.0,
+          778.0,
+          798.0,
+          771.0,
+          759.0,
+          755.0
+        ],
+        "volumes": [
+          94100,
+          130700,
+          87000,
+          132400,
+          62500,
+          78200,
+          68500,
+          101700,
+          141700,
+          106900,
+          75900,
+          81400,
+          116200,
+          101600,
+          69000,
+          192500,
+          86200,
+          101300,
+          80800,
+          67000,
+          106600,
+          60500,
+          43600,
+          60800,
+          59900,
+          96500,
+          111000,
+          94900,
+          214400,
+          83400,
+          45900,
+          79900,
+          94100,
+          47400,
+          47200,
+          79600,
+          50700,
+          51600,
+          45300,
+          48000,
+          171200,
+          63300,
+          76300,
+          111000,
+          56500,
+          36000,
+          41300,
+          51200,
+          60500,
+          111200,
+          346900,
+          128400,
+          124100,
+          182900,
+          94300,
+          82100,
+          85400,
+          57700,
+          98200,
+          97800,
+          130200,
+          100300,
+          111100,
+          70400,
+          111000,
+          64500,
+          87400,
+          60600,
+          51700,
+          61000,
+          55400,
+          69000,
+          135600,
+          94800,
+          60700,
+          142800,
+          96900,
+          60100,
+          69400,
+          56600,
+          79300,
+          67800,
+          54400,
+          57300,
+          120800,
+          62200,
+          82300,
+          89700,
+          64700,
+          123200,
+          57100,
+          46600,
+          86300,
+          67300,
+          106100,
+          51400,
+          68200,
+          81600,
+          103000,
+          90000,
+          119400,
+          56500,
+          71300,
+          87000,
+          62800,
+          55500,
+          115800,
+          65800,
+          73400,
+          120800,
+          314800,
+          166700,
+          148000,
+          115000,
+          237100,
+          214400,
+          144200,
+          110500,
+          98700,
+          85200,
+          53400,
+          173100,
+          72700,
+          54000,
+          85800
+        ]
+      },
+      "sector": "サービス業",
+      "description": null,
+      "description_ja": "",
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     }
   ],
   "sector_analysis": {
@@ -23025,20 +22847,34 @@
         "4586"
       ]
     },
+    "サービス業": {
+      "count": 1,
+      "codes": [
+        "9258"
+      ]
+    },
     "小売業": {
       "count": 1,
       "codes": [
         "3416"
       ]
+    },
+    "非鉄金属": {
+      "count": 1,
+      "codes": [
+        "5721"
+      ]
     }
   },
   "theme_keywords": [
     "医薬品",
-    "小売業"
+    "サービス業",
+    "小売業",
+    "非鉄金属"
   ],
-  "fetched_at": "2026-11-20T23:47:21.624695+09:00",
-  "last_success_at": "2026-11-20T23:47:21.624695+09:00",
+  "fetched_at": "2026-11-21T00:02:55.195159+09:00",
+  "last_success_at": "2026-11-21T00:02:55.195159+09:00",
   "valid_until": "2026-11-24T09:30:00+09:00",
   "market": "tse",
-  "market_state": "closed"
+  "market_state": "holiday"
 }
