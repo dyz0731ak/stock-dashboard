@@ -1,6 +1,7 @@
 /* Company descriptions are cached separately from market quotes. */
 (() => {
   'use strict';
+  const chartPage = new URL('chart/', document.currentScript.src);
   let companies = {}, loading = true, activeCode = null, opener = null;
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safeURL = value => {
@@ -28,7 +29,7 @@
       <div class="company-dialog-body"><p class="company-lead">${esc(hasInfo ? p.summary : unavailable)}</p>
       ${hasInfo ? `<section><h3>どんな会社？</h3><p class="company-description">${esc(p.description)}</p></section>` : ''}
       ${hasInfo && p.themes?.length ? `<section><h3>関連する事業・テーマ</h3><div class="company-themes">${p.themes.map(t=>`<span>${esc(t)}</span>`).join('')}</div><small>取得元による分類。今回の株価上昇理由を示すものではありません。</small></section>` : ''}
-      <section><h3>企業・業績を詳しく見る</h3><div class="company-links">${hasInfo ? link(p.website, '企業公式サイト') : ''}${link(`https://s.kabutan.jp/stocks/${activeCode}/finance/`, '決算・業績')}${link(`https://s.kabutan.jp/stocks/${activeCode}/news/`, '企業ニュース・開示')}${link(`https://s.kabutan.jp/stocks/${activeCode}/`, '株価・企業基本情報')}</div></section>
+      <section><h3>企業・業績を詳しく見る</h3><div class="company-links"><a href="${esc(chartPage.href)}?code=${encodeURIComponent(activeCode)}">チャート分析</a>${hasInfo ? link(p.website, '企業公式サイト') : ''}${link(`https://s.kabutan.jp/stocks/${activeCode}/finance/`, '決算・業績')}${link(`https://s.kabutan.jp/stocks/${activeCode}/news/`, '企業ニュース・開示')}${link(`https://s.kabutan.jp/stocks/${activeCode}/`, '株価・企業基本情報')}</div></section>
       <footer class="company-source">${hasInfo ? link(p.source_url, '企業概要の出典：株探') : ''}<span>企業情報の最終取得 ${esc(dateLabel(p.fetched_at))}</span>${p.fetch_status === 'error' ? '<span class="company-warning">再取得に失敗しています。取得済みの企業情報です。</span>' : ''}${p.description && !hasInfo ? '<span class="company-warning">企業情報の確認期限を過ぎたため、古い説明は表示していません。</span>' : ''}</footer></div>`;
     dialog.querySelector('.company-close').onclick = () => dialog.close();
   }

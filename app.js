@@ -710,7 +710,7 @@ async function boot() {
   }));
   refreshing = false;
 }
-const links = [...document.querySelectorAll('#navTabs a')];
+const links = [...document.querySelectorAll('#navTabs a[href^="#"]')];
 window.addEventListener('scroll', () => {
   let current = links[0];
   links.forEach(link=> { const section=document.querySelector(link.getAttribute('href')); if(section && section.getBoundingClientRect().top<120) current=link; });

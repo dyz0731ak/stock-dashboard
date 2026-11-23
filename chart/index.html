@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>チャート分析 | 投資の砦</title>
+  <link rel="stylesheet" href="chart.css?v=20261124-refresh">
+  <script defer src="vendor/lightweight-charts-5.0.9.js"></script>
+  <script type="module" src="chart.js?v=20261124-refresh"></script>
+</head>
+<body>
+  <header class="site-header"><div class="frame"><a class="brand" href="../">投資の<span>砦</span></a><a href="../">マーケット監視室</a></div></header>
+  <main class="frame">
+    <div class="page-head">
+      <h1>チャート分析</h1>
+      <form id="symbol-form" role="search">
+        <label for="symbol">銘柄コード・銘柄名</label>
+        <div class="search"><input id="symbol" placeholder="例：593A、トヨタ" autocomplete="off" list="symbols" maxlength="80" required><button type="submit">表示</button></div>
+        <datalist id="symbols"></datalist>
+        <p id="search-message" role="status"></p>
+      </form>
+    </div>
+    <div class="analysis-layout">
+      <section class="panel" aria-labelledby="instrument">
+        <div class="panel-head">
+          <h2 id="instrument"></h2>
+          <div class="intervals" aria-label="時間足" role="group">
+            <button type="button" data-interval="5m" aria-pressed="false">5分足</button>
+            <button type="button" data-interval="1h" aria-pressed="false">1時間足</button>
+            <button type="button" data-interval="1d" aria-pressed="false">日足</button>
+            <button type="button" data-interval="1w" aria-pressed="false">週足</button>
+            <button type="button" data-interval="1mo" aria-pressed="false">月足</button>
+          </div>
+          <div class="chart-actions">
+            <button type="button" id="sma-toggle" aria-pressed="false">SMA 14</button>
+            <button type="button" id="reset" disabled>表示範囲を戻す</button>
+          </div>
+        </div>
+        <div class="price-readout" id="prices" aria-label="選択中の足の四本値と出来高"></div>
+        <div class="plot">
+          <div id="chart" aria-label="ローソク足・出来高・RSIチャート"></div>
+          <div class="rsi-readout" id="rsi" hidden>
+            <span>RSI 14 終値</span> <strong id="rsi-value"></strong>
+            <span id="sma-readout" hidden>SMA 14 <strong id="sma-value"></strong></span>
+          </div>
+        </div>
+        <div class="panel-foot">
+          <div><p id="status" role="status">チャートを読み込み中…</p><p id="refresh-status"></p></div>
+          <a href="https://www.tradingview.com/lightweight-charts/" target="_blank" rel="noopener">Lightweight Charts™ by TradingView</a>
+        </div>
+      </section>
+      <aside class="watchlist" aria-labelledby="watchlist-title">
+        <div class="watchlist-head">
+          <h2 id="watchlist-title">ウォッチリスト</h2>
+          <button id="watch-add" type="button">＋ 表示中の銘柄</button>
+        </div>
+        <div class="watchlist-scroll">
+          <table class="watchlist-table">
+            <thead><tr><th scope="col">銘柄</th><th scope="col">終値</th><th scope="col">前日比</th><th scope="col" aria-label="削除"></th></tr></thead>
+            <tbody id="watch-rows"></tbody>
+          </table>
+        </div>
+        <p id="watch-status" role="status"></p>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
