@@ -156,4 +156,4 @@ python scripts/check_site.py
 
 表示中のチャートは1分ごとに確認し、ウォッチリストは銘柄ごとに約5分ごとに確認します。非表示のタブでは自動確認を休止し、取得に失敗した場合は前回の表示を保持します。同じデータは ETag で再検証可能です。確認間隔は、配信元の遅延や更新頻度とは異なります。
 
-公開時は、公開表示に利用できる配信元から `data/stock_history/<銘柄コード>/<時間足>.json` を同一オリジンで提供します。時間足のキーは `5m`、`1h`、`1d`、`1w`、`1mo` です。レスポンスには `code`、`interval`、`source` と `bars` を含めてください。足は UNIX 秒の `time`、`open`、`high`、`low`、`close`、`volume`（不明時は null）を持ち、`time` の昇順で重複なく返します。公開前にティアフォー（593A）と長期履歴のある銘柄で、全時間足と最終足の時刻を照合します。
+ConoHa WINGでは、`.htaccess` が `data/stock_history/<銘柄コード>/<時間足>.json` をPHPハンドラにルーティングします。PHPはYahoo Financeの履歴を取得し、同一銘柄・時間足のリクエストをキャッシュします。本番と同じ処理を確認するには `php -S 127.0.0.1:8878 scripts/preview-stock-router.php` で起動します。時間足のキーは `5m`、`1h`、`1d`、`1w`、`1mo` です。レスポンスには `code`、`interval`、`source` と `bars` を含めてください。足は UNIX 秒の `time`、`open`、`high`、`low`、`close`、`volume`（不明時は null）を持ち、`time` の昇順で重複なく返します。公開前にティアフォー（593A）と長期履歴のある銘柄で、全時間足と最終足の時刻を照合します。

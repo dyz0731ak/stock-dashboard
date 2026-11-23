@@ -259,7 +259,7 @@ async function load(background = false) {
     } else {
       status.textContent = 'この時間足のデータがありません。';
     }
-    refreshStatus.textContent = `最終確認 ${checkedTime.format(new Date())} JST · 1分ごとに確認`;
+    refreshStatus.textContent = result.stale ? '配信元の更新待ち · 前回データを表示中' : `最終確認 ${checkedTime.format(new Date())} JST · 1分ごとに確認`;
     updateFailures = 0;
   } catch {
     if (request !== controller) return;
