@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T15:47:01.297728+09:00",
+  "updated_at": "2026-11-25T16:02:32.620403+09:00",
   "article_date": "2026-11-25",
   "checked_date": "2026-11-25",
   "sources": [
@@ -7,11 +7,19 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 8,
-    "selected": 7,
-    "document_failures": 0
+    "tdnet_candidates": 11,
+    "selected": 8,
+    "document_failures": 1
   },
-  "source_failures": [],
+  "source_failures": [
+    {
+      "code": "3719",
+      "url": "https://www.release.tdnet.info/inbs/140120261119583581.pdf",
+      "errors": [
+        "未対応の原資料形式：数値・比較を確認できず選定から除外"
+      ]
+    }
+  ],
   "highlights": [
     {
       "code": "3839",
@@ -486,9 +494,56 @@
       ],
       "company_summary": "業務アプリの設計開発や運用保守",
       "company_summary_source": "https://s.kabutan.jp/stocks/4012/"
+    },
+    {
+      "code": "559A",
+      "name": "梅乃宿酒造",
+      "title": "自己株式取得に係る事項の決定に関するお知らせ",
+      "time": "16:00",
+      "published_date": "2026-11-25",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+      "xbrl_url": "",
+      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "発行済株式比",
+          "value": "0.66%",
+          "comparison": "取得枠の上限・発行済株式比"
+        }
+      ],
+      "comparisons": [],
+      "chips": [
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 72,
+      "impact_zone": "positive",
+      "impact_label": "自社株買い",
+      "impact_summary": "新たな自社株買いを決定（発行済株式の0.66%が上限）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/25 16:00発表",
+      "published_time": "16:00",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "16:00"
+        }
+      ],
+      "company_summary": "日本酒、リキュール、各種飲料の製造・販売および商品開発を手掛ける",
+      "company_summary_source": "https://s.kabutan.jp/stocks/559A/"
     }
   ],
-  "total": 7,
+  "total": 8,
   "groups": [
     {
       "category": "重要開示",
@@ -968,15 +1023,62 @@
           ],
           "company_summary": "業務アプリの設計開発や運用保守",
           "company_summary_source": "https://s.kabutan.jp/stocks/4012/"
+        },
+        {
+          "code": "559A",
+          "name": "梅乃宿酒造",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "16:00",
+          "published_date": "2026-11-25",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+          "xbrl_url": "",
+          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "発行済株式比",
+              "value": "0.66%",
+              "comparison": "取得枠の上限・発行済株式比"
+            }
+          ],
+          "comparisons": [],
+          "chips": [
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 72,
+          "impact_zone": "positive",
+          "impact_label": "自社株買い",
+          "impact_summary": "新たな自社株買いを決定（発行済株式の0.66%が上限）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/25 16:00発表",
+          "published_time": "16:00",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
+              "title": "自己株式取得に係る事項の決定に関するお知らせ",
+              "time": "16:00"
+            }
+          ],
+          "company_summary": "日本酒、リキュール、各種飲料の製造・販売および商品開発を手掛ける",
+          "company_summary_source": "https://s.kabutan.jp/stocks/559A/"
         }
       ]
     }
   ],
-  "fetch_status": "ok",
+  "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-25T06:47:02.650183+00:00",
-  "fetched_at": "2026-11-25T15:47:01.297728+09:00",
-  "last_success_at": "2026-11-25T15:47:01.297728+09:00",
-  "valid_until": "2026-11-27T03:47:01.297728+09:00"
+  "last_attempt_at": "2026-11-25T07:02:34.763890+00:00",
+  "fetched_at": "2026-11-25T16:02:32.620403+09:00",
+  "last_success_at": "2026-11-25T16:02:32.620403+09:00",
+  "valid_until": "2026-11-27T04:02:32.620403+09:00"
 }
