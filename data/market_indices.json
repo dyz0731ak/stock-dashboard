@@ -7,10 +7,10 @@
       "decimals": 2,
       "unit": "円",
       "instrument_type": "INDEX",
-      "price": 57314.34,
+      "price": 57247.14,
       "prev_close": 56436.6484,
-      "change": 877.6916,
-      "pct": 1.555,
+      "change": 810.4916,
+      "pct": 1.436,
       "chart": [
         {
           "t": "2026-10-26",
@@ -90,13 +90,13 @@
         },
         {
           "t": "2026-11-25",
-          "c": 57314.34
+          "c": 57247.14
         }
       ],
       "price_date": "2026-11-25",
-      "as_of": "2026-11-25T01:15:40+00:00",
-      "fetched_at": "2026-11-25T10:30:45.318685+09:00",
-      "valid_until": "2026-11-25T02:15:40+00:00",
+      "as_of": "2026-11-25T01:30:30+00:00",
+      "fetched_at": "2026-11-25T10:45:35.384660+09:00",
+      "valid_until": "2026-11-25T02:30:30+00:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^N225/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -204,8 +204,8 @@
       ],
       "price_date": "2026-11-24",
       "as_of": "2026-11-24T21:54:25+00:00",
-      "fetched_at": "2026-11-25T10:30:45.312077+09:00",
-      "valid_until": "2026-11-25T18:30:45.312077+09:00",
+      "fetched_at": "2026-11-25T10:45:35.396899+09:00",
+      "valid_until": "2026-11-25T18:45:35.396899+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^DJI/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -313,8 +313,8 @@
       ],
       "price_date": "2026-11-24",
       "as_of": "2026-11-24T22:15:59+00:00",
-      "fetched_at": "2026-11-25T10:30:45.395603+09:00",
-      "valid_until": "2026-11-25T18:30:45.395603+09:00",
+      "fetched_at": "2026-11-25T10:45:35.531987+09:00",
+      "valid_until": "2026-11-25T18:45:35.531987+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^IXIC/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -326,10 +326,10 @@
       "decimals": 3,
       "unit": "円 / 米ドル",
       "instrument_type": "CURRENCY",
-      "price": 159.304,
+      "price": 159.284,
       "prev_close": 159.009,
-      "change": 0.295,
-      "pct": 0.186,
+      "change": 0.275,
+      "pct": 0.173,
       "chart": [
         {
           "t": "2026-10-26",
@@ -421,13 +421,13 @@
         },
         {
           "t": "2026-11-25",
-          "c": 159.304
+          "c": 159.284
         }
       ],
       "price_date": "2026-11-25",
-      "as_of": "2026-11-25T01:30:44+00:00",
-      "fetched_at": "2026-11-25T10:30:45.445616+09:00",
-      "valid_until": "2026-11-25T18:30:45.445616+09:00",
+      "as_of": "2026-11-25T01:45:33+00:00",
+      "fetched_at": "2026-11-25T10:45:35.527870+09:00",
+      "valid_until": "2026-11-25T18:45:35.527870+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/JPY=X/",
       "source_endpoint": "query1.finance.yahoo.com"
@@ -535,25 +535,39 @@
       ],
       "price_date": "2026-11-24",
       "as_of": "2026-11-24T22:15:59+00:00",
-      "fetched_at": "2026-11-25T10:30:45.536803+09:00",
-      "valid_until": "2026-11-25T18:30:45.536803+09:00",
+      "fetched_at": "2026-11-25T10:45:35.654206+09:00",
+      "valid_until": "2026-11-25T18:45:35.654206+09:00",
       "source_label": "Yahoo Finance",
       "source_url": "https://finance.yahoo.com/quote/^SOX/",
       "source_endpoint": "query1.finance.yahoo.com"
-    }
-  ],
-  "failures": [
+    },
     {
       "id": "gold",
-      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "ticker": "XAU",
+      "label": "金スポット",
+      "decimals": 2,
+      "unit": "USD / トロイオンス",
+      "instrument_type": "SPOT",
+      "price": 3550.800049,
+      "prev_close": null,
+      "change": null,
+      "pct": null,
+      "chart": [],
+      "price_date": "2026-11-25",
+      "as_of": "2026-11-25T01:45:15+00:00",
+      "fetched_at": "2026-11-25T10:45:35.815125+09:00",
+      "valid_until": "2026-11-25T04:45:15+00:00",
+      "source_label": "Gold API",
+      "source_url": "https://gold-api.com/"
     }
   ],
+  "failures": [],
   "source": "Yahoo Finance / Gold API",
-  "fetch_status": "partial",
-  "fetch_warning": "取得失敗1指標。取得済みの実値は基準時刻付きで保持",
-  "updated_at": "2026-11-25T10:30:46.744654+09:00",
-  "last_attempt_at": "2026-11-25T01:30:46.744663+00:00",
-  "fetched_at": "2026-11-25T10:30:46.744654+09:00",
-  "last_success_at": "2026-11-25T10:30:46.744654+09:00",
-  "valid_until": "2026-11-25T18:30:46.744654+09:00"
+  "fetch_status": "ok",
+  "fetch_warning": null,
+  "updated_at": "2026-11-25T10:45:35.815630+09:00",
+  "last_attempt_at": "2026-11-25T01:45:35.815637+00:00",
+  "fetched_at": "2026-11-25T10:45:35.815630+09:00",
+  "last_success_at": "2026-11-25T10:45:35.815630+09:00",
+  "valid_until": "2026-11-25T18:45:35.815630+09:00"
 }
