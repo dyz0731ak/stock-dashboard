@@ -1,360 +1,41 @@
 {
-  "updated_at": "2026-11-26T12:17:21.116793+09:00",
-  "article_date": "2026-11-25",
+  "updated_at": "2026-11-26T12:32:12.256102+09:00",
+  "article_date": "2026-11-26",
   "checked_date": "2026-11-26",
   "sources": [
     "TDnet"
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 12,
-    "selected": 8,
-    "document_failures": 2
+    "tdnet_candidates": 1,
+    "selected": 1,
+    "document_failures": 0
   },
-  "source_failures": [
-    {
-      "code": "6576",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585582.pdf",
-      "errors": [
-        "未対応の原資料形式：数値・比較を確認できず選定から除外"
-      ]
-    },
-    {
-      "code": "3719",
-      "url": "https://www.release.tdnet.info/inbs/140120261119583581.pdf",
-      "errors": [
-        "未対応の原資料形式：数値・比較を確認できず選定から除外"
-      ]
-    }
-  ],
+  "source_failures": [],
   "highlights": [
     {
-      "code": "3839",
-      "name": "ODK",
-      "title": "業績予想の修正に関するお知らせ",
-      "time": "15:40",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585652.zip",
-      "narrative": "業績予想の修正に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 純利益",
-          "value": "1億円",
-          "comparison": "3億円 → 1億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 営業利益",
-          "value": "2.3億円",
-          "comparison": "4.6億円 → 2.3億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 経常利益",
-          "value": "2.8億円",
-          "comparison": "5億円 → 2.8億円（前回会社予想比）"
-        },
-        {
-          "label": "通期 売上高",
-          "value": "63億円",
-          "comparison": "70億円 → 63億円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 100000000.0,
-          "previous": 300000000.0,
-          "pct": -66.67,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "ProfitAttributableToOwnersOfParent",
-          "unit": "百万円"
-        },
-        {
-          "label": "営業利益",
-          "current": 230000000.0,
-          "previous": 460000000.0,
-          "pct": -50.0,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OperatingIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "経常利益",
-          "current": 280000000.0,
-          "previous": 500000000.0,
-          "pct": -44.0,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "OrdinaryIncome",
-          "unit": "百万円"
-        },
-        {
-          "label": "売上高",
-          "current": 6300000000.0,
-          "previous": 7000000000.0,
-          "pct": -10.0,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": true,
-          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "NetSales",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "下方修正 -66.7%",
-          "direction": "down"
-        },
-        {
-          "label": "営業利益",
-          "value": "下方修正 -50.0%",
-          "direction": "down"
-        },
-        {
-          "label": "経常利益",
-          "value": "下方修正 -44.0%",
-          "direction": "down"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "negative",
-      "impact_label": "下方修正 -66.7%",
-      "impact_summary": "通期純利益が下方修正 -66.7%（前回会社予想比）。通期営業利益が下方修正 -50.0%（前回会社予想比）。通期経常利益が下方修正 -44.0%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 15:40発表",
-      "published_time": "15:40",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "2027年3月期通期連結業績予想につきましては、下記の要因により業績予想を下回る見込みとなりました。 売上高は、医療関連サービスにおける案件拡大に向けた取組みや教育業務における新規大学向け決済ソリューションの営業活動を推進してまいりましたが、今年度中の導入が困難な状況となりました。加えて、既存案件の業務範囲拡大及び新規受託も未達となった結果、当初の売上計画を下回る見込みです。また、新サービス『iStudy AIシリーズ』におきましても、販売の立ち上がりが遅れております。さらに、NINJAPAN株式会社においては、新卒人材紹介事業の展開を計画しておりましたが、直近の業績動向を鑑み、事業ポートフォリオ見直しの一環として同事業からの撤退を決定いたしました。 利益面におきましては、かかる状況を踏まえ、外部要員費の削減や広告宣伝費の抑制等に努めたものの、減収による影響を吸収するには至らず、営業利益及び経常利益ともに前回発表予想を下回る見込みとなりました。 さらに、当第2四半期連結会計期間におきまして、NINJAPAN株式会社に係るのれん残高及び事業用有形固定資産の全額に対し、減損損失4,700万円を計上いたしました。これにともない、親会社株主に帰属する当期純利益につきましても、当初の計画を下回る見込みとなりました。 これらの結果、2026年4月30日に公表した2027年3月期通期連結業績予想を修正いたします。 <業績予想に関する注意事項> 上記の予想は、現時点で入手可能な情報に基づき算出したものであり、実際の業績は今後様々な要因によって異なる結果となる可能性があります。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "15:40"
-        }
-      ],
-      "company_summary": "システム開発・運営会社",
-      "company_summary_source": "https://s.kabutan.jp/stocks/3839/"
-    },
-    {
-      "code": "2501",
-      "name": "サッポロビール",
-      "title": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-      "time": "15:00",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/081220261125585756.zip",
-      "narrative": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-      "key_numbers": [
-        {
-          "label": "第3四半期累計 純利益",
-          "value": "3,017.88億円",
-          "comparison": "108.92億円 → 3,017.88億円（前年同期比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "純利益",
-          "current": 301788000000.0,
-          "previous": 10892000000.0,
-          "pct": 2670.73,
-          "basis": "前年同期比",
-          "period": "第3四半期累計",
-          "consolidated": true,
-          "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
-          "fact": "ProfitAttributableToOwnersOfParentIFRS",
-          "unit": "百万円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "純利益",
-          "value": "大幅増益 +2670.7%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 95,
-      "impact_zone": "positive",
-      "impact_label": "大幅増益 +2670.7%",
-      "impact_summary": "第3四半期累計純利益が大幅増益 +2670.7%（前年同期比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 15:00発表",
-      "published_time": "15:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-          "title": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-          "time": "15:00"
-        }
-      ],
-      "company_summary": "ビール類国内大手。ポッカと統合",
-      "company_summary_source": "https://s.kabutan.jp/stocks/2501/"
-    },
-    {
-      "code": "3678",
-      "name": "メディアドゥ",
-      "title": "配当予想の上方修正(特別配当)に関するお知らせ",
-      "time": "15:30",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585700.zip",
-      "narrative": "配当予想の上方修正(特別配当)に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 1株配当",
-          "value": "100円",
-          "comparison": "55円 → 100円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "1株配当",
-          "current": 100.0,
-          "previous": 55.0,
-          "pct": 81.82,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": false,
-          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "DividendPerShare",
-          "unit": "円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "1株配当",
-          "value": "増配 +81.8%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 90,
-      "impact_zone": "positive",
-      "impact_label": "増配 +81.8%",
-      "impact_summary": "通期1株配当が増配 +81.8%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 15:30発表",
-      "published_time": "15:30",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "当社は、株主の皆様に対する利益還元を重要な経営課題と認識するとともに、将来の持続的な成長に必要な設備投資等や経営基盤の強化も重要な経営目標として位置づけております。そのため、内部留保を確保しつつ、財政状態及び業績動向等、経営状態を総合的に判断して利益配当を行っていくことを基本的な方針としております。 当期の期末配当については、期初時点では2026年2月期に引き続き1株当たり40円を予定しておりましたが、2026年10月14日に公表いたしました「業績予想及び配当予想の上方修正に関するお知らせ」に記載の通り、当社の連結子会社であった Quality Solutions, Inc.、NetGalley, LLC 及びその傘下子会社3社の全株式及び全持分を譲渡したことに伴い、親会社株主に帰属する当期純利益を上方修正したため、当社の還元方針である総還元性向30%を維持するべく1株当たり55円へと上方修正しておりました。 その後、当社の財務状況及び今後の資金計画等を改めて精査した結果、当該株式及び持分の譲渡に伴う資金の創出により、将来の成長投資に向けた資金を確保しつつも、さらなる株主還元を実施できる財務基盤が整っていると判断いたしました。追加の株主還元にあたりましては、原資となる資金が株式及び持分譲渡に伴う一時的なものであることを踏まえ、継続的な普通配当の増配ではなく、特別配当として株主の皆様へ還元することといたしました。 なお、本日開示いたしました「取引先におけるサービス停止(不正アクセス)に伴う当社業績への影響に関するお知らせ」に記載の通り、取引先におけるサービス停止に伴う当社業績への一時的な影響は見込まれるものの、当社の事業基盤および今後の収益力に重大な影響を及ぼすものではないと判断しております。 これらの状況を総合的に勘案した結果、株主の皆様へのさらなる還元を目的として、前回予",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-          "title": "配当予想の上方修正(特別配当)に関するお知らせ",
-          "time": "15:30"
-        }
-      ],
-      "company_summary": "電子書籍取次最大手。コミック配信中心の独自システムに強み",
-      "company_summary_source": "https://s.kabutan.jp/stocks/3678/"
-    },
-    {
-      "code": "3454",
-      "name": "ファーストブラザーズ",
-      "title": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-      "time": "11:35",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585751.zip",
-      "narrative": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 1株配当",
-          "value": "54円",
-          "comparison": "37円 → 54円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "1株配当",
-          "current": 54.0,
-          "previous": 37.0,
-          "pct": 45.95,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": false,
-          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "DividendPerShare",
-          "unit": "円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "1株配当",
-          "value": "増配 +46.0%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 90,
-      "impact_zone": "positive",
-      "impact_label": "増配 +46.0%",
-      "impact_summary": "通期1株配当が増配 +46.0%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 11:35発表",
-      "published_time": "11:35",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "当社は、2026年7月10日公表の「株主還元方針および株価と株主資本コストを意識した事業の方向性について」でお示ししたとおり、配当の基準を、株主資本を基準とするシンプルで予測しやすい仕組みに改めることといたしました。従来は、直前期の利益に連動する中間配当を組み合わせていたため、配当額が予想しにくい面がありました。あわせて、資本コストや株価を意識した経営の一環として、DOEを2.0%から2.5%に引き上げます。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-          "title": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-          "time": "11:35"
-        }
-      ],
-      "company_summary": "投資銀行事業。不動産の自己勘定投資と私募ファンド運用",
-      "company_summary_source": "https://s.kabutan.jp/stocks/3454/"
-    },
-    {
-      "code": "7273",
-      "name": "イクヨ",
-      "title": "自己株式取得に係る事項の決定に関するお知らせ",
-      "time": "14:40",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
+      "code": "8336",
+      "name": "武蔵野銀",
+      "title": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
+      "time": "12:20",
+      "published_date": "2026-11-26",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
       "xbrl_url": "",
-      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+      "narrative": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
       "key_numbers": [
         {
           "label": "取得上限額",
-          "value": "26億円",
+          "value": "100億円",
           "comparison": "取得枠の上限・発行済株式比"
         },
         {
           "label": "取得上限株数",
-          "value": "2,000,000株",
+          "value": "6,000,000株",
           "comparison": "取得枠の上限・発行済株式比"
         },
         {
           "label": "発行済株式比",
-          "value": "3.42%",
+          "value": "6.03%",
           "comparison": "取得枠の上限・発行済株式比"
         }
       ],
@@ -366,191 +47,31 @@
           "direction": "up"
         }
       ],
-      "impact_score": 80,
+      "impact_score": 88,
       "impact_zone": "positive",
       "impact_label": "自社株買い",
-      "impact_summary": "新たな自社株買いを決定（発行済株式の3.42%が上限）。",
+      "impact_summary": "新たな自社株買いを決定（発行済株式の6.03%が上限）。",
       "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
+      "url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
       "sources": [
         "TDnet"
       ],
       "primary_source": "TDnet",
-      "published_label": "11/25 14:40発表",
-      "published_time": "14:40",
+      "published_label": "11/26 12:20発表",
+      "published_time": "12:20",
       "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
       "documents": [
         {
-          "url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "14:40"
+          "url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
+          "title": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
+          "time": "12:20"
         }
       ],
-      "company_summary": "自動車部品メーカー。内外装樹脂製品が主力",
-      "company_summary_source": "https://s.kabutan.jp/stocks/7273/"
-    },
-    {
-      "code": "8789",
-      "name": "フィンテック",
-      "title": "自己株式取得に係る事項の決定に関するお知らせ",
-      "time": "13:00",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-      "xbrl_url": "",
-      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "取得上限額",
-          "value": "3億円",
-          "comparison": "取得枠の上限・発行済株式比"
-        },
-        {
-          "label": "発行済株式比",
-          "value": "1.61%",
-          "comparison": "取得枠の上限・発行済株式比"
-        }
-      ],
-      "comparisons": [],
-      "chips": [
-        {
-          "label": "資本政策",
-          "value": "自社株買い",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 75,
-      "impact_zone": "positive",
-      "impact_label": "自社株買い",
-      "impact_summary": "新たな自社株買いを決定（発行済株式の1.61%が上限）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 13:00発表",
-      "published_time": "13:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "13:00"
-        }
-      ],
-      "company_summary": "財務助言や事業承継など企業支援が主力",
-      "company_summary_source": "https://s.kabutan.jp/stocks/8789/"
-    },
-    {
-      "code": "4012",
-      "name": "アクシス",
-      "title": "配当予想の修正に関するお知らせ",
-      "time": "12:00",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261124584785.zip",
-      "narrative": "配当予想の修正に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "通期 1株配当",
-          "value": "62円",
-          "comparison": "60円 → 62円（前回会社予想比）"
-        }
-      ],
-      "comparisons": [
-        {
-          "label": "1株配当",
-          "current": 62.0,
-          "previous": 60.0,
-          "pct": 3.33,
-          "basis": "前回会社予想比",
-          "period": "通期",
-          "consolidated": false,
-          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-          "fact": "DividendPerShare",
-          "unit": "円"
-        }
-      ],
-      "chips": [
-        {
-          "label": "1株配当",
-          "value": "増配 +3.3%",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 73,
-      "impact_zone": "positive",
-      "impact_label": "増配 +3.3%",
-      "impact_summary": "通期1株配当が増配 +3.3%（前回会社予想比）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 12:00発表",
-      "published_time": "12:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "company_explanation": "当社は、2026年12月期の配当性向を35%とする方針でございます。2026年11月20日に実施しました「 自己株式立会外買付取引」の結果、配当金支払総額が減少することになりましたので、配当性向を35%とするために、1株当たり配当金額を62円とさせていただくことといたしました。株主の皆様におかれましては、今後ともより一層のご支援を賜りますようよろしくお願い申し上げます。",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-          "title": "配当予想の修正に関するお知らせ",
-          "time": "12:00"
-        }
-      ],
-      "company_summary": "業務アプリの設計開発や運用保守",
-      "company_summary_source": "https://s.kabutan.jp/stocks/4012/"
-    },
-    {
-      "code": "559A",
-      "name": "梅乃宿酒造",
-      "title": "自己株式取得に係る事項の決定に関するお知らせ",
-      "time": "16:00",
-      "published_date": "2026-11-25",
-      "document_url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-      "xbrl_url": "",
-      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
-      "key_numbers": [
-        {
-          "label": "発行済株式比",
-          "value": "0.66%",
-          "comparison": "取得枠の上限・発行済株式比"
-        }
-      ],
-      "comparisons": [],
-      "chips": [
-        {
-          "label": "資本政策",
-          "value": "自社株買い",
-          "direction": "up"
-        }
-      ],
-      "impact_score": 72,
-      "impact_zone": "positive",
-      "impact_label": "自社株買い",
-      "impact_summary": "新たな自社株買いを決定（発行済株式の0.66%が上限）。",
-      "category": "重要開示",
-      "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-      "sources": [
-        "TDnet"
-      ],
-      "primary_source": "TDnet",
-      "published_label": "11/25 16:00発表",
-      "published_time": "16:00",
-      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-      "documents": [
-        {
-          "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "16:00"
-        }
-      ],
-      "company_summary": "日本酒、リキュール、各種飲料の製造・販売および商品開発を手掛ける",
-      "company_summary_source": "https://s.kabutan.jp/stocks/559A/"
+      "company_summary": "埼玉地盤で全域に店舗網",
+      "company_summary_source": "https://s.kabutan.jp/stocks/8336/"
     }
   ],
-  "total": 8,
+  "total": 1,
   "groups": [
     {
       "category": "重要開示",
@@ -558,332 +79,28 @@
       "zone": "decision",
       "items": [
         {
-          "code": "3839",
-          "name": "ODK",
-          "title": "業績予想の修正に関するお知らせ",
-          "time": "15:40",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585652.zip",
-          "narrative": "業績予想の修正に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 純利益",
-              "value": "1億円",
-              "comparison": "3億円 → 1億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 営業利益",
-              "value": "2.3億円",
-              "comparison": "4.6億円 → 2.3億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 経常利益",
-              "value": "2.8億円",
-              "comparison": "5億円 → 2.8億円（前回会社予想比）"
-            },
-            {
-              "label": "通期 売上高",
-              "value": "63億円",
-              "comparison": "70億円 → 63億円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 100000000.0,
-              "previous": 300000000.0,
-              "pct": -66.67,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "ProfitAttributableToOwnersOfParent",
-              "unit": "百万円"
-            },
-            {
-              "label": "営業利益",
-              "current": 230000000.0,
-              "previous": 460000000.0,
-              "pct": -50.0,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OperatingIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "経常利益",
-              "current": 280000000.0,
-              "previous": 500000000.0,
-              "pct": -44.0,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "OrdinaryIncome",
-              "unit": "百万円"
-            },
-            {
-              "label": "売上高",
-              "current": 6300000000.0,
-              "previous": 7000000000.0,
-              "pct": -10.0,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": true,
-              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "NetSales",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "下方修正 -66.7%",
-              "direction": "down"
-            },
-            {
-              "label": "営業利益",
-              "value": "下方修正 -50.0%",
-              "direction": "down"
-            },
-            {
-              "label": "経常利益",
-              "value": "下方修正 -44.0%",
-              "direction": "down"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "negative",
-          "impact_label": "下方修正 -66.7%",
-          "impact_summary": "通期純利益が下方修正 -66.7%（前回会社予想比）。通期営業利益が下方修正 -50.0%（前回会社予想比）。通期経常利益が下方修正 -44.0%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 15:40発表",
-          "published_time": "15:40",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "2027年3月期通期連結業績予想につきましては、下記の要因により業績予想を下回る見込みとなりました。 売上高は、医療関連サービスにおける案件拡大に向けた取組みや教育業務における新規大学向け決済ソリューションの営業活動を推進してまいりましたが、今年度中の導入が困難な状況となりました。加えて、既存案件の業務範囲拡大及び新規受託も未達となった結果、当初の売上計画を下回る見込みです。また、新サービス『iStudy AIシリーズ』におきましても、販売の立ち上がりが遅れております。さらに、NINJAPAN株式会社においては、新卒人材紹介事業の展開を計画しておりましたが、直近の業績動向を鑑み、事業ポートフォリオ見直しの一環として同事業からの撤退を決定いたしました。 利益面におきましては、かかる状況を踏まえ、外部要員費の削減や広告宣伝費の抑制等に努めたものの、減収による影響を吸収するには至らず、営業利益及び経常利益ともに前回発表予想を下回る見込みとなりました。 さらに、当第2四半期連結会計期間におきまして、NINJAPAN株式会社に係るのれん残高及び事業用有形固定資産の全額に対し、減損損失4,700万円を計上いたしました。これにともない、親会社株主に帰属する当期純利益につきましても、当初の計画を下回る見込みとなりました。 これらの結果、2026年4月30日に公表した2027年3月期通期連結業績予想を修正いたします。 <業績予想に関する注意事項> 上記の予想は、現時点で入手可能な情報に基づき算出したものであり、実際の業績は今後様々な要因によって異なる結果となる可能性があります。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585652.pdf",
-              "title": "業績予想の修正に関するお知らせ",
-              "time": "15:40"
-            }
-          ],
-          "company_summary": "システム開発・運営会社",
-          "company_summary_source": "https://s.kabutan.jp/stocks/3839/"
-        },
-        {
-          "code": "2501",
-          "name": "サッポロビール",
-          "title": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-          "time": "15:00",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/081220261125585756.zip",
-          "narrative": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-          "key_numbers": [
-            {
-              "label": "第3四半期累計 純利益",
-              "value": "3,017.88億円",
-              "comparison": "108.92億円 → 3,017.88億円（前年同期比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "純利益",
-              "current": 301788000000.0,
-              "previous": 10892000000.0,
-              "pct": 2670.73,
-              "basis": "前年同期比",
-              "period": "第3四半期累計",
-              "consolidated": true,
-              "context": "CurrentAccumulatedQ3Duration_ConsolidatedMember_ResultMember",
-              "fact": "ProfitAttributableToOwnersOfParentIFRS",
-              "unit": "百万円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "純利益",
-              "value": "大幅増益 +2670.7%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 95,
-          "impact_zone": "positive",
-          "impact_label": "大幅増益 +2670.7%",
-          "impact_summary": "第3四半期累計純利益が大幅増益 +2670.7%（前年同期比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 15:00発表",
-          "published_time": "15:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585756.pdf",
-              "title": "2026年12月期第3四半期決算短信〔IFRS〕(連結)(開示事項の追加及び公認会計士等による期中レビューの完了)",
-              "time": "15:00"
-            }
-          ],
-          "company_summary": "ビール類国内大手。ポッカと統合",
-          "company_summary_source": "https://s.kabutan.jp/stocks/2501/"
-        },
-        {
-          "code": "3678",
-          "name": "メディアドゥ",
-          "title": "配当予想の上方修正(特別配当)に関するお知らせ",
-          "time": "15:30",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585700.zip",
-          "narrative": "配当予想の上方修正(特別配当)に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 1株配当",
-              "value": "100円",
-              "comparison": "55円 → 100円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "1株配当",
-              "current": 100.0,
-              "previous": 55.0,
-              "pct": 81.82,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": false,
-              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "DividendPerShare",
-              "unit": "円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "1株配当",
-              "value": "増配 +81.8%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 90,
-          "impact_zone": "positive",
-          "impact_label": "増配 +81.8%",
-          "impact_summary": "通期1株配当が増配 +81.8%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 15:30発表",
-          "published_time": "15:30",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "当社は、株主の皆様に対する利益還元を重要な経営課題と認識するとともに、将来の持続的な成長に必要な設備投資等や経営基盤の強化も重要な経営目標として位置づけております。そのため、内部留保を確保しつつ、財政状態及び業績動向等、経営状態を総合的に判断して利益配当を行っていくことを基本的な方針としております。 当期の期末配当については、期初時点では2026年2月期に引き続き1株当たり40円を予定しておりましたが、2026年10月14日に公表いたしました「業績予想及び配当予想の上方修正に関するお知らせ」に記載の通り、当社の連結子会社であった Quality Solutions, Inc.、NetGalley, LLC 及びその傘下子会社3社の全株式及び全持分を譲渡したことに伴い、親会社株主に帰属する当期純利益を上方修正したため、当社の還元方針である総還元性向30%を維持するべく1株当たり55円へと上方修正しておりました。 その後、当社の財務状況及び今後の資金計画等を改めて精査した結果、当該株式及び持分の譲渡に伴う資金の創出により、将来の成長投資に向けた資金を確保しつつも、さらなる株主還元を実施できる財務基盤が整っていると判断いたしました。追加の株主還元にあたりましては、原資となる資金が株式及び持分譲渡に伴う一時的なものであることを踏まえ、継続的な普通配当の増配ではなく、特別配当として株主の皆様へ還元することといたしました。 なお、本日開示いたしました「取引先におけるサービス停止(不正アクセス)に伴う当社業績への影響に関するお知らせ」に記載の通り、取引先におけるサービス停止に伴う当社業績への一時的な影響は見込まれるものの、当社の事業基盤および今後の収益力に重大な影響を及ぼすものではないと判断しております。 これらの状況を総合的に勘案した結果、株主の皆様へのさらなる還元を目的として、前回予",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585700.pdf",
-              "title": "配当予想の上方修正(特別配当)に関するお知らせ",
-              "time": "15:30"
-            }
-          ],
-          "company_summary": "電子書籍取次最大手。コミック配信中心の独自システムに強み",
-          "company_summary_source": "https://s.kabutan.jp/stocks/3678/"
-        },
-        {
-          "code": "3454",
-          "name": "ファーストブラザーズ",
-          "title": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-          "time": "11:35",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261125585751.zip",
-          "narrative": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 1株配当",
-              "value": "54円",
-              "comparison": "37円 → 54円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "1株配当",
-              "current": 54.0,
-              "previous": 37.0,
-              "pct": 45.95,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": false,
-              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "DividendPerShare",
-              "unit": "円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "1株配当",
-              "value": "増配 +46.0%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 90,
-          "impact_zone": "positive",
-          "impact_label": "増配 +46.0%",
-          "impact_summary": "通期1株配当が増配 +46.0%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 11:35発表",
-          "published_time": "11:35",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "当社は、2026年7月10日公表の「株主還元方針および株価と株主資本コストを意識した事業の方向性について」でお示ししたとおり、配当の基準を、株主資本を基準とするシンプルで予測しやすい仕組みに改めることといたしました。従来は、直前期の利益に連動する中間配当を組み合わせていたため、配当額が予想しにくい面がありました。あわせて、資本コストや株価を意識した経営の一環として、DOEを2.0%から2.5%に引き上げます。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585751.pdf",
-              "title": "配当方針の変更(DOE基準引き上げ)、配当予想の修正(特別配当の実施)及び株主優待制度の変更に関するお知らせ",
-              "time": "11:35"
-            }
-          ],
-          "company_summary": "投資銀行事業。不動産の自己勘定投資と私募ファンド運用",
-          "company_summary_source": "https://s.kabutan.jp/stocks/3454/"
-        },
-        {
-          "code": "7273",
-          "name": "イクヨ",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "14:40",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
+          "code": "8336",
+          "name": "武蔵野銀",
+          "title": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
+          "time": "12:20",
+          "published_date": "2026-11-26",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
           "xbrl_url": "",
-          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+          "narrative": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
           "key_numbers": [
             {
               "label": "取得上限額",
-              "value": "26億円",
+              "value": "100億円",
               "comparison": "取得枠の上限・発行済株式比"
             },
             {
               "label": "取得上限株数",
-              "value": "2,000,000株",
+              "value": "6,000,000株",
               "comparison": "取得枠の上限・発行済株式比"
             },
             {
               "label": "発行済株式比",
-              "value": "3.42%",
+              "value": "6.03%",
               "comparison": "取得枠の上限・発行済株式比"
             }
           ],
@@ -895,197 +112,37 @@
               "direction": "up"
             }
           ],
-          "impact_score": 80,
+          "impact_score": 88,
           "impact_zone": "positive",
           "impact_label": "自社株買い",
-          "impact_summary": "新たな自社株買いを決定（発行済株式の3.42%が上限）。",
+          "impact_summary": "新たな自社株買いを決定（発行済株式の6.03%が上限）。",
           "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
+          "url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
           "sources": [
             "TDnet"
           ],
           "primary_source": "TDnet",
-          "published_label": "11/25 14:40発表",
-          "published_time": "14:40",
+          "published_label": "11/26 12:20発表",
+          "published_time": "12:20",
           "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
           "documents": [
             {
-              "url": "https://www.release.tdnet.info/inbs/140120261125586000.pdf",
-              "title": "自己株式取得に係る事項の決定に関するお知らせ",
-              "time": "14:40"
+              "url": "https://www.release.tdnet.info/inbs/140120261125585750.pdf",
+              "title": "自己株式の取得に係る事項の変更(取得期間の延長)に関するお知らせ",
+              "time": "12:20"
             }
           ],
-          "company_summary": "自動車部品メーカー。内外装樹脂製品が主力",
-          "company_summary_source": "https://s.kabutan.jp/stocks/7273/"
-        },
-        {
-          "code": "8789",
-          "name": "フィンテック",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "13:00",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-          "xbrl_url": "",
-          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "取得上限額",
-              "value": "3億円",
-              "comparison": "取得枠の上限・発行済株式比"
-            },
-            {
-              "label": "発行済株式比",
-              "value": "1.61%",
-              "comparison": "取得枠の上限・発行済株式比"
-            }
-          ],
-          "comparisons": [],
-          "chips": [
-            {
-              "label": "資本政策",
-              "value": "自社株買い",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 75,
-          "impact_zone": "positive",
-          "impact_label": "自社株買い",
-          "impact_summary": "新たな自社株買いを決定（発行済株式の1.61%が上限）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 13:00発表",
-          "published_time": "13:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585706.pdf",
-              "title": "自己株式取得に係る事項の決定に関するお知らせ",
-              "time": "13:00"
-            }
-          ],
-          "company_summary": "財務助言や事業承継など企業支援が主力",
-          "company_summary_source": "https://s.kabutan.jp/stocks/8789/"
-        },
-        {
-          "code": "4012",
-          "name": "アクシス",
-          "title": "配当予想の修正に関するお知らせ",
-          "time": "12:00",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261124584785.zip",
-          "narrative": "配当予想の修正に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "通期 1株配当",
-              "value": "62円",
-              "comparison": "60円 → 62円（前回会社予想比）"
-            }
-          ],
-          "comparisons": [
-            {
-              "label": "1株配当",
-              "current": 62.0,
-              "previous": 60.0,
-              "pct": 3.33,
-              "basis": "前回会社予想比",
-              "period": "通期",
-              "consolidated": false,
-              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
-              "fact": "DividendPerShare",
-              "unit": "円"
-            }
-          ],
-          "chips": [
-            {
-              "label": "1株配当",
-              "value": "増配 +3.3%",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 73,
-          "impact_zone": "positive",
-          "impact_label": "増配 +3.3%",
-          "impact_summary": "通期1株配当が増配 +3.3%（前回会社予想比）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 12:00発表",
-          "published_time": "12:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "company_explanation": "当社は、2026年12月期の配当性向を35%とする方針でございます。2026年11月20日に実施しました「 自己株式立会外買付取引」の結果、配当金支払総額が減少することになりましたので、配当性向を35%とするために、1株当たり配当金額を62円とさせていただくことといたしました。株主の皆様におかれましては、今後ともより一層のご支援を賜りますようよろしくお願い申し上げます。",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261124584785.pdf",
-              "title": "配当予想の修正に関するお知らせ",
-              "time": "12:00"
-            }
-          ],
-          "company_summary": "業務アプリの設計開発や運用保守",
-          "company_summary_source": "https://s.kabutan.jp/stocks/4012/"
-        },
-        {
-          "code": "559A",
-          "name": "梅乃宿酒造",
-          "title": "自己株式取得に係る事項の決定に関するお知らせ",
-          "time": "16:00",
-          "published_date": "2026-11-25",
-          "document_url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-          "xbrl_url": "",
-          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
-          "key_numbers": [
-            {
-              "label": "発行済株式比",
-              "value": "0.66%",
-              "comparison": "取得枠の上限・発行済株式比"
-            }
-          ],
-          "comparisons": [],
-          "chips": [
-            {
-              "label": "資本政策",
-              "value": "自社株買い",
-              "direction": "up"
-            }
-          ],
-          "impact_score": 72,
-          "impact_zone": "positive",
-          "impact_label": "自社株買い",
-          "impact_summary": "新たな自社株買いを決定（発行済株式の0.66%が上限）。",
-          "category": "重要開示",
-          "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-          "sources": [
-            "TDnet"
-          ],
-          "primary_source": "TDnet",
-          "published_label": "11/25 16:00発表",
-          "published_time": "16:00",
-          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
-          "documents": [
-            {
-              "url": "https://www.release.tdnet.info/inbs/140120261125585994.pdf",
-              "title": "自己株式取得に係る事項の決定に関するお知らせ",
-              "time": "16:00"
-            }
-          ],
-          "company_summary": "日本酒、リキュール、各種飲料の製造・販売および商品開発を手掛ける",
-          "company_summary_source": "https://s.kabutan.jp/stocks/559A/"
+          "company_summary": "埼玉地盤で全域に店舗網",
+          "company_summary_source": "https://s.kabutan.jp/stocks/8336/"
         }
       ]
     }
   ],
-  "fetch_status": "partial",
+  "fetch_status": "ok",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-26T03:17:22.108972+00:00",
-  "fetched_at": "2026-11-26T12:17:21.116793+09:00",
-  "last_success_at": "2026-11-26T12:17:21.116793+09:00",
-  "valid_until": "2026-11-28T00:17:21.116793+09:00"
+  "last_attempt_at": "2026-11-26T03:32:13.539683+00:00",
+  "fetched_at": "2026-11-26T12:32:12.256102+09:00",
+  "last_success_at": "2026-11-26T12:32:12.256102+09:00",
+  "valid_until": "2026-11-28T00:32:12.256102+09:00"
 }
