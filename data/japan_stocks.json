@@ -1,43 +1,45 @@
 {
-  "updated_at": "2026-11-27T23:46:58.038174+09:00",
-  "last_attempt_at": "2026-11-27T23:46:58.038190+09:00",
-  "source": "jpx_yfinance",
-  "source_label": "JPX公式上場銘柄一覧 × Yahoo Finance日足",
-  "source_url": "https://www.jpx.co.jp/markets/statistics-equities/misc/01.html",
+  "updated_at": "2026-11-28T00:02:45.167093+09:00",
+  "last_attempt_at": "2026-11-28T00:02:45.167109+09:00",
+  "source": "kabutan_mobile",
+  "source_label": "株探 東証P/S/Gの値上がり率ランキング（15分遅延）",
+  "source_url": "https://s.kabutan.jp/warnings/price_increase/",
   "scope": "東証全市場（プライム・スタンダード・グロース）",
-  "ranking_definition": "JPX上場内国株式の前日比・値上がり率上位30銘柄",
+  "ranking_definition": "前日比・値上がり率上位30銘柄",
   "ranking_count": 30,
-  "prices_fetched_at": "2026-11-27T14:46:01.389774+00:00",
-  "price_time_precision": "day",
-  "as_of": null,
-  "fetch_status": "ok",
-  "fetch_warning": "",
+  "prices_fetched_at": "2026-11-27T16:00:00+09:00",
+  "price_time_precision": "minute",
+  "as_of": "2026-11-27T16:00:00+09:00",
+  "fetch_status": "fallback",
+  "fetch_warning": "Yahoo日足の取得に失敗したため、株探の市場日時を検証して上位30件を表示",
   "source_attempts": [
     {
       "source": "yfinance_retry",
       "status": "ok",
-      "missing": 52,
-      "retried": 52,
+      "missing": 3686,
+      "retried": 0,
       "recovered": 0,
-      "first_pass_seconds": 52.1,
-      "total_seconds": 56.0
+      "first_pass_seconds": 72.0,
+      "total_seconds": 72.0
     },
     {
       "source": "yfinance_bulk",
       "status": "partial",
-      "prices_fetched_at": "2026-11-27T14:46:01.389774+00:00",
+      "prices_fetched_at": "2026-11-27T15:01:30.796239+00:00",
       "universe_count": 3686,
-      "quoted_count": 3634,
-      "coverage": 0.9859,
+      "quoted_count": 0,
+      "coverage": 0.0,
       "session_date": "2026-11-27"
+    },
+    {
+      "source": "kabutan_mobile",
+      "status": "ok",
+      "count": 37,
+      "as_of": "2026-11-27T16:00:00+09:00",
+      "url": "https://s.kabutan.jp/warnings/price_increase/"
     }
   ],
-  "coverage": {
-    "prices_fetched_at": "2026-11-27T14:46:01.389774+00:00",
-    "universe_count": 3686,
-    "quoted_count": 3634,
-    "coverage": 0.9859
-  },
+  "coverage": {},
   "session_date": "2026-11-27",
   "is_fallback": false,
   "stop_high_count": 3,
@@ -47,17 +49,13 @@
       "code": "6085",
       "name": "アーキテクツ・スタジオ・ジャパン",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 61.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 19.0,
-      "change_pct": 45.238,
-      "volume": 15928500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 45.24,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 15928500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -183,8 +181,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           514.0,
@@ -310,8 +307,7 @@
           46.0,
           44.0,
           47.0,
-          42.0,
-          41.0
+          42.0
         ],
         "highs": [
           514.0,
@@ -437,8 +433,7 @@
           46.0,
           49.0,
           48.0,
-          44.0,
-          65.0
+          44.0
         ],
         "lows": [
           423.0,
@@ -564,7 +559,6 @@
           43.0,
           44.0,
           43.0,
-          41.0,
           41.0
         ],
         "closes": [
@@ -691,8 +685,7 @@
           44.0,
           47.0,
           43.0,
-          42.0,
-          61.0
+          42.0
         ],
         "volumes": [
           6345100,
@@ -818,28 +811,27 @@
           1466800,
           1999900,
           1274300,
-          1489500,
-          15928500
+          1489500
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "281A",
       "name": "インフォメティス",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 320.0,
-      "stop_high_price": 320.0,
-      "is_stop_high": true,
       "change_amount": 80.0,
-      "change_pct": 33.333,
-      "volume": 1715500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 33.33,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 1715500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -965,8 +957,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           890.0,
@@ -1092,8 +1083,7 @@
           261.0,
           264.0,
           245.0,
-          232.0,
-          238.0
+          232.0
         ],
         "highs": [
           897.0,
@@ -1219,8 +1209,7 @@
           261.0,
           265.0,
           246.0,
-          244.0,
-          320.0
+          244.0
         ],
         "lows": [
           811.0,
@@ -1346,8 +1335,7 @@
           243.0,
           250.0,
           235.0,
-          232.0,
-          238.0
+          232.0
         ],
         "closes": [
           825.0,
@@ -1473,8 +1461,7 @@
           245.0,
           254.0,
           237.0,
-          240.0,
-          320.0
+          240.0
         ],
         "volumes": [
           717900,
@@ -1600,28 +1587,27 @@
           89700,
           58600,
           96300,
-          61200,
-          1715500
+          61200
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6721",
       "name": "ウインテスト",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 100.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 19.0,
-      "change_pct": 23.457,
-      "volume": 12675700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 23.46,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 12675700.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -1747,8 +1733,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           87.0,
@@ -1874,8 +1859,7 @@
           91.0,
           92.0,
           82.0,
-          83.0,
-          82.0
+          83.0
         ],
         "highs": [
           87.0,
@@ -2001,8 +1985,7 @@
           93.0,
           95.0,
           83.0,
-          86.0,
-          103.0
+          86.0
         ],
         "lows": [
           85.0,
@@ -2128,8 +2111,7 @@
           87.0,
           82.0,
           79.0,
-          80.0,
-          82.0
+          80.0
         ],
         "closes": [
           86.0,
@@ -2255,8 +2237,7 @@
           88.0,
           84.0,
           81.0,
-          81.0,
-          100.0
+          81.0
         ],
         "volumes": [
           393400,
@@ -2382,28 +2363,27 @@
           2691900,
           2190600,
           1139800,
-          1671700,
-          12675700
+          1671700
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "7640",
       "name": "トップカルチャー",
       "market": "東証S",
-      "sector": "小売業",
       "price": 160.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 30.0,
-      "change_pct": 23.077,
-      "volume": 4029200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 23.08,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 4029200.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -2529,8 +2509,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           182.0,
@@ -2656,8 +2635,7 @@
           140.0,
           136.0,
           127.0,
-          128.0,
-          165.0
+          128.0
         ],
         "highs": [
           185.0,
@@ -2783,8 +2761,7 @@
           141.0,
           136.0,
           130.0,
-          130.0,
-          178.0
+          130.0
         ],
         "lows": [
           179.0,
@@ -2910,8 +2887,7 @@
           136.0,
           125.0,
           126.0,
-          127.0,
-          151.0
+          127.0
         ],
         "closes": [
           179.0,
@@ -3037,8 +3013,7 @@
           136.0,
           128.0,
           127.0,
-          130.0,
-          160.0
+          130.0
         ],
         "volumes": [
           14300,
@@ -3164,28 +3139,27 @@
           17100,
           48600,
           26900,
-          18800,
-          4029200
+          18800
         ]
       },
+      "sector": "小売業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "4437",
       "name": "gooddaysホールディングス",
       "market": "東証G",
-      "sector": "情報・通信業",
       "price": 664.0,
-      "stop_high_price": 664.0,
-      "is_stop_high": true,
       "change_amount": 100.0,
       "change_pct": 17.73,
-      "volume": 8600,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 8600.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -3311,8 +3285,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           974.0,
@@ -3438,7 +3411,6 @@
           586.0,
           565.0,
           582.0,
-          564.0,
           564.0
         ],
         "highs": [
@@ -3565,8 +3537,7 @@
           586.0,
           574.0,
           582.0,
-          564.0,
-          664.0
+          564.0
         ],
         "lows": [
           915.0,
@@ -3692,8 +3663,7 @@
           549.0,
           565.0,
           550.0,
-          564.0,
-          557.0
+          564.0
         ],
         "closes": [
           922.0,
@@ -3819,8 +3789,7 @@
           556.0,
           574.0,
           554.0,
-          564.0,
-          664.0
+          564.0
         ],
         "volumes": [
           8100,
@@ -3946,28 +3915,27 @@
           2400,
           1900,
           4700,
-          100,
-          8600
+          100
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "8894",
       "name": "REVOLUTION",
       "market": "東証S",
-      "sector": "不動産業",
       "price": 14.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 2.0,
-      "change_pct": 16.667,
-      "volume": 646800,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 16.67,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 646800.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -4093,8 +4061,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           28.0,
@@ -4220,8 +4187,7 @@
           13.0,
           13.0,
           13.0,
-          13.0,
-          12.0
+          13.0
         ],
         "highs": [
           29.0,
@@ -4347,8 +4313,7 @@
           14.0,
           14.0,
           14.0,
-          13.0,
-          14.0
+          13.0
         ],
         "lows": [
           27.0,
@@ -4474,7 +4439,6 @@
           13.0,
           13.0,
           13.0,
-          12.0,
           12.0
         ],
         "closes": [
@@ -4601,8 +4565,7 @@
           13.0,
           13.0,
           13.0,
-          12.0,
-          14.0
+          12.0
         ],
         "volumes": [
           731600,
@@ -4728,28 +4691,27 @@
           247400,
           84500,
           364000,
-          485100,
-          646800
+          485100
         ]
       },
+      "sector": "不動産業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "2138",
       "name": "クルーズ",
       "market": "東証S",
-      "sector": "情報・通信業",
       "price": 500.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 70.0,
-      "change_pct": 16.279,
-      "volume": 1160500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 16.28,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1160500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -4875,8 +4837,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           512.0,
@@ -5002,8 +4963,7 @@
           449.0,
           435.0,
           437.0,
-          429.0,
-          510.0
+          429.0
         ],
         "highs": [
           518.0,
@@ -5129,8 +5089,7 @@
           450.0,
           440.0,
           441.0,
-          435.0,
-          510.0
+          435.0
         ],
         "lows": [
           504.0,
@@ -5256,8 +5215,7 @@
           438.0,
           433.0,
           434.0,
-          428.0,
-          475.0
+          428.0
         ],
         "closes": [
           518.0,
@@ -5383,8 +5341,7 @@
           438.0,
           435.0,
           436.0,
-          430.0,
-          500.0
+          430.0
         ],
         "volumes": [
           41200,
@@ -5510,28 +5467,27 @@
           14000,
           20900,
           4400,
-          17100,
-          1160500
+          17100
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "278A",
       "name": "Terra Drone",
       "market": "東証G",
-      "sector": "精密機器",
       "price": 5110.0,
-      "stop_high_price": 5110.0,
-      "is_stop_high": true,
       "change_amount": 700.0,
-      "change_pct": 15.873,
-      "volume": 86100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 15.87,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": true,
+      "volume": 86100.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -5657,8 +5613,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           4850.0,
@@ -5784,8 +5739,7 @@
           4860.0,
           4810.0,
           4530.0,
-          4260.0,
-          5110.0
+          4260.0
         ],
         "highs": [
           4890.0,
@@ -5911,8 +5865,7 @@
           4910.0,
           4980.0,
           4565.0,
-          4505.0,
-          5110.0
+          4505.0
         ],
         "lows": [
           4330.0,
@@ -6038,8 +5991,7 @@
           4550.0,
           4690.0,
           4160.0,
-          4260.0,
-          5110.0
+          4260.0
         ],
         "closes": [
           4605.0,
@@ -6165,8 +6117,7 @@
           4590.0,
           4700.0,
           4190.0,
-          4410.0,
-          5110.0
+          4410.0
         ],
         "volumes": [
           1913000,
@@ -6292,28 +6243,27 @@
           581200,
           495500,
           594100,
-          558500,
-          86100
+          558500
         ]
       },
+      "sector": "精密機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6627",
       "name": "テラプローブ",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 1358.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 179.0,
-      "change_pct": 15.182,
-      "volume": 610700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 15.18,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 610700.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -6439,8 +6389,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           2412.0,
@@ -6566,8 +6515,7 @@
           1243.0,
           1302.0,
           1196.0,
-          1170.0,
-          1205.0
+          1170.0
         ],
         "highs": [
           2488.0,
@@ -6693,8 +6641,7 @@
           1246.0,
           1380.0,
           1201.0,
-          1233.0,
-          1370.0
+          1233.0
         ],
         "lows": [
           2320.0,
@@ -6820,8 +6767,7 @@
           1172.0,
           1292.0,
           1134.0,
-          1169.0,
-          1192.0
+          1169.0
         ],
         "closes": [
           2384.0,
@@ -6947,8 +6893,7 @@
           1188.0,
           1328.0,
           1144.0,
-          1179.0,
-          1358.0
+          1179.0
         ],
         "volumes": [
           745000,
@@ -7074,28 +7019,27 @@
           518800,
           696200,
           518800,
-          348900,
-          610700
+          348900
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6696",
       "name": "トラース・オン・プロダクト",
       "market": "東証G",
-      "sector": "電気機器",
       "price": 280.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 36.0,
-      "change_pct": 14.754,
-      "volume": 102800,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 14.75,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 102800.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -7221,8 +7165,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           344.0,
@@ -7348,8 +7291,7 @@
           246.0,
           253.0,
           248.0,
-          232.0,
-          252.0
+          232.0
         ],
         "highs": [
           345.0,
@@ -7475,8 +7417,7 @@
           254.0,
           254.0,
           303.0,
-          254.0,
-          280.0
+          254.0
         ],
         "lows": [
           310.0,
@@ -7602,8 +7543,7 @@
           245.0,
           246.0,
           232.0,
-          232.0,
-          241.0
+          232.0
         ],
         "closes": [
           315.0,
@@ -7729,8 +7669,7 @@
           253.0,
           254.0,
           232.0,
-          244.0,
-          280.0
+          244.0
         ],
         "volumes": [
           163400,
@@ -7856,28 +7795,27 @@
           10700,
           8700,
           253100,
-          45600,
-          102800
+          45600
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6597",
       "name": "HPCシステムズ",
       "market": "東証G",
-      "sector": "電気機器",
       "price": 2202.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 268.0,
-      "change_pct": 13.857,
-      "volume": 82500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.86,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 82500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -8003,8 +7941,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           4171.5,
@@ -8130,8 +8067,7 @@
           2151.0,
           2221.0,
           2080.0,
-          1946.0,
-          1958.0
+          1946.0
         ],
         "highs": [
           4866.74,
@@ -8257,8 +8193,7 @@
           2170.0,
           2240.0,
           2080.0,
-          2004.0,
-          2212.0
+          2004.0
         ],
         "lows": [
           3928.16,
@@ -8384,8 +8319,7 @@
           2058.0,
           2152.0,
           1907.0,
-          1926.0,
-          1958.0
+          1926.0
         ],
         "closes": [
           4866.7,
@@ -8511,8 +8445,7 @@
           2121.0,
           2180.0,
           1923.0,
-          1934.0,
-          2202.0
+          1934.0
         ],
         "volumes": [
           854100,
@@ -8638,28 +8571,27 @@
           94900,
           85400,
           120200,
-          63600,
-          82500
+          63600
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6668",
       "name": "アドテック プラズマ テクノロジー",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 3670.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 440.0,
-      "change_pct": 13.622,
-      "volume": 180100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.62,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 180100.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -8785,8 +8717,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           3215.48,
@@ -8912,8 +8843,7 @@
           3520.0,
           3635.0,
           3330.0,
-          3200.0,
-          3270.0
+          3200.0
         ],
         "highs": [
           3285.17,
@@ -9039,8 +8969,7 @@
           3595.0,
           3795.0,
           3370.0,
-          3335.0,
-          3670.0
+          3335.0
         ],
         "lows": [
           2979.55,
@@ -9166,8 +9095,7 @@
           3275.0,
           3580.0,
           3050.0,
-          3150.0,
-          3260.0
+          3150.0
         ],
         "closes": [
           3071.1,
@@ -9293,8 +9221,7 @@
           3305.0,
           3705.0,
           3070.0,
-          3230.0,
-          3670.0
+          3230.0
         ],
         "volumes": [
           101800,
@@ -9420,28 +9347,27 @@
           268300,
           210900,
           279200,
-          303400,
-          180100
+          303400
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "7826",
       "name": "フルヤ金属",
       "market": "東証P",
-      "sector": "その他製品",
       "price": 8320.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 980.0,
-      "change_pct": 13.351,
-      "volume": 433700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.35,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 433700.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -9567,8 +9493,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           9218.6,
@@ -9694,8 +9619,7 @@
           7470.0,
           7630.0,
           7160.0,
-          7030.0,
-          7450.0
+          7030.0
         ],
         "highs": [
           9346.09,
@@ -9821,8 +9745,7 @@
           7600.0,
           8000.0,
           7210.0,
-          7540.0,
-          8350.0
+          7540.0
         ],
         "lows": [
           8522.3,
@@ -9948,8 +9871,7 @@
           7130.0,
           7550.0,
           6720.0,
-          7030.0,
-          7420.0
+          7030.0
         ],
         "closes": [
           8728.2,
@@ -10075,8 +9997,7 @@
           7180.0,
           7690.0,
           6830.0,
-          7340.0,
-          8320.0
+          7340.0
         ],
         "volumes": [
           743100,
@@ -10202,28 +10123,27 @@
           549400,
           377100,
           369900,
-          333000,
-          433700
+          333000
         ]
       },
+      "sector": "その他製品",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6834",
       "name": "精工技研",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 3705.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 435.0,
-      "change_pct": 13.303,
-      "volume": 1077200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.3,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1077200.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -10349,8 +10269,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           5801.56,
@@ -10476,8 +10395,7 @@
           3510.0,
           3760.0,
           3405.0,
-          3155.0,
-          3410.0
+          3155.0
         ],
         "highs": [
           5831.48,
@@ -10603,8 +10521,7 @@
           3605.0,
           3965.0,
           3410.0,
-          3400.0,
-          3705.0
+          3400.0
         ],
         "lows": [
           5436.47,
@@ -10730,8 +10647,7 @@
           3405.0,
           3635.0,
           3110.0,
-          3125.0,
-          3365.0
+          3125.0
         ],
         "closes": [
           5486.3,
@@ -10857,8 +10773,7 @@
           3420.0,
           3810.0,
           3110.0,
-          3270.0,
-          3705.0
+          3270.0
         ],
         "volumes": [
           1138500,
@@ -10984,28 +10899,27 @@
           1033800,
           1120200,
           1258200,
-          1335700,
-          1077200
+          1335700
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "186A",
       "name": "アストロスケールホールディングス",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 892.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 104.0,
-      "change_pct": 13.198,
-      "volume": 3423700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.2,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 3423700.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -11131,8 +11045,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           3000.0,
@@ -11258,8 +11171,7 @@
           869.0,
           855.0,
           806.0,
-          773.0,
-          799.0
+          773.0
         ],
         "highs": [
           3015.0,
@@ -11385,8 +11297,7 @@
           875.0,
           877.0,
           806.0,
-          807.0,
-          907.0
+          807.0
         ],
         "lows": [
           2616.0,
@@ -11512,8 +11423,7 @@
           806.0,
           845.0,
           750.0,
-          772.0,
-          799.0
+          772.0
         ],
         "closes": [
           2694.0,
@@ -11639,8 +11549,7 @@
           810.0,
           854.0,
           758.0,
-          788.0,
-          892.0
+          788.0
         ],
         "volumes": [
           30912200,
@@ -11766,28 +11675,27 @@
           2892300,
           2086200,
           3611400,
-          2216900,
-          3423700
+          2216900
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6855",
       "name": "日本電子材料",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 6200.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 720.0,
-      "change_pct": 13.139,
-      "volume": 1076600,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 13.14,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1076600.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -11913,8 +11821,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           8828.51,
@@ -12040,8 +11947,7 @@
           5440.0,
           5840.0,
           5290.0,
-          5290.0,
-          5580.0
+          5290.0
         ],
         "highs": [
           9086.43,
@@ -12167,8 +12073,7 @@
           5700.0,
           6120.0,
           5310.0,
-          5670.0,
-          6290.0
+          5670.0
         ],
         "lows": [
           7816.71,
@@ -12294,8 +12199,7 @@
           5260.0,
           5750.0,
           4970.0,
-          5280.0,
-          5540.0
+          5280.0
         ],
         "closes": [
           7896.1,
@@ -12421,8 +12325,7 @@
           5340.0,
           5810.0,
           5170.0,
-          5480.0,
-          6200.0
+          5480.0
         ],
         "volumes": [
           1147000,
@@ -12548,28 +12451,27 @@
           1510800,
           943700,
           824500,
-          700400,
-          1076600
+          700400
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6777",
       "name": "santec Holdings",
       "market": "東証S",
-      "sector": "電気機器",
       "price": 16940.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1930.0,
-      "change_pct": 12.858,
-      "volume": 200200,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.86,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 200200.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -12695,8 +12597,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           26444.52,
@@ -12822,8 +12723,7 @@
           17020.0,
           17810.0,
           15820.0,
-          14560.0,
-          15330.0
+          14560.0
         ],
         "highs": [
           26593.37,
@@ -12949,8 +12849,7 @@
           17630.0,
           18410.0,
           15960.0,
-          15400.0,
-          16940.0
+          15400.0
         ],
         "lows": [
           24082.87,
@@ -13076,8 +12975,7 @@
           16260.0,
           17300.0,
           13990.0,
-          14460.0,
-          15060.0
+          14460.0
         ],
         "closes": [
           24866.8,
@@ -13203,8 +13101,7 @@
           16420.0,
           17360.0,
           14140.0,
-          15010.0,
-          16940.0
+          15010.0
         ],
         "volumes": [
           223200,
@@ -13330,28 +13227,27 @@
           233700,
           182200,
           243900,
-          207700,
-          200200
+          207700
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3237",
       "name": "イントランス",
       "market": "東証G",
-      "sector": "不動産業",
       "price": 62.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 7.0,
-      "change_pct": 12.727,
-      "volume": 23743600,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.73,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 23743600.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -13477,8 +13373,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           69.0,
@@ -13604,7 +13499,6 @@
           52.0,
           62.0,
           70.0,
-          58.0,
           58.0
         ],
         "highs": [
@@ -13731,8 +13625,7 @@
           79.0,
           78.0,
           77.0,
-          60.0,
-          79.0
+          60.0
         ],
         "lows": [
           69.0,
@@ -13858,8 +13751,7 @@
           49.0,
           52.0,
           57.0,
-          55.0,
-          56.0
+          55.0
         ],
         "closes": [
           70.0,
@@ -13985,8 +13877,7 @@
           52.0,
           74.0,
           61.0,
-          55.0,
-          62.0
+          55.0
         ],
         "volumes": [
           24500,
@@ -14112,28 +14003,27 @@
           24776600,
           16935700,
           6466100,
-          2092900,
-          23743600
+          2092900
         ]
       },
+      "sector": "不動産業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "485A",
       "name": "パワーエックス",
       "market": "東証G",
-      "sector": "電気機器",
       "price": 1798.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 203.0,
-      "change_pct": 12.727,
-      "volume": 6205400,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.73,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 6205400.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -14259,8 +14149,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           4600.0,
@@ -14386,8 +14275,7 @@
           1648.0,
           1599.0,
           1619.0,
-          1556.0,
-          1619.0
+          1556.0
         ],
         "highs": [
           4753.33,
@@ -14513,8 +14401,7 @@
           1701.0,
           1704.0,
           1623.0,
-          1645.0,
-          1847.0
+          1645.0
         ],
         "lows": [
           4500.0,
@@ -14640,8 +14527,7 @@
           1511.0,
           1583.0,
           1509.0,
-          1530.0,
-          1618.0
+          1530.0
         ],
         "closes": [
           4530.0,
@@ -14767,8 +14653,7 @@
           1534.0,
           1677.0,
           1555.0,
-          1595.0,
-          1798.0
+          1595.0
         ],
         "volumes": [
           1558200,
@@ -14894,28 +14779,27 @@
           6362100,
           3333600,
           3066100,
-          2953000,
-          6205400
+          2953000
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "7721",
       "name": "東京計器",
       "market": "東証P",
-      "sector": "精密機器",
       "price": 4320.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 485.0,
-      "change_pct": 12.647,
-      "volume": 555400,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.65,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 555400.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -15041,8 +14925,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           6900.0,
@@ -15168,8 +15051,7 @@
           4250.0,
           4270.0,
           4060.0,
-          3920.0,
-          3900.0
+          3920.0
         ],
         "highs": [
           6940.0,
@@ -15295,8 +15177,7 @@
           4325.0,
           4425.0,
           4075.0,
-          3950.0,
-          4350.0
+          3950.0
         ],
         "lows": [
           6290.0,
@@ -15422,8 +15303,7 @@
           4070.0,
           4245.0,
           3845.0,
-          3815.0,
-          3890.0
+          3815.0
         ],
         "closes": [
           6350.0,
@@ -15549,8 +15429,7 @@
           4075.0,
           4260.0,
           3915.0,
-          3835.0,
-          4320.0
+          3835.0
         ],
         "volumes": [
           304700,
@@ -15676,28 +15555,27 @@
           375200,
           347400,
           439600,
-          326200,
-          555400
+          326200
         ]
       },
+      "sector": "精密機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6526",
       "name": "ソシオネクスト",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 1662.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 185.5,
-      "change_pct": 12.563,
-      "volume": 8662500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.56,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 8662500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -15823,8 +15701,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           2860.01,
@@ -15950,8 +15827,7 @@
           1680.0,
           1620.0,
           1495.5,
-          1473.0,
-          1506.5
+          1473.0
         ],
         "highs": [
           2860.01,
@@ -16077,8 +15953,7 @@
           1699.0,
           1686.5,
           1501.0,
-          1519.0,
-          1662.0
+          1519.0
         ],
         "lows": [
           2612.45,
@@ -16204,8 +16079,7 @@
           1554.0,
           1606.0,
           1431.0,
-          1454.5,
-          1473.0
+          1454.5
         ],
         "closes": [
           2787.4,
@@ -16331,8 +16205,7 @@
           1570.5,
           1615.5,
           1443.0,
-          1476.5,
-          1662.0
+          1476.5
         ],
         "volumes": [
           14887800,
@@ -16458,28 +16331,27 @@
           6415500,
           5314600,
           6910000,
-          4423800,
-          8662500
+          4423800
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "4047",
       "name": "関東電化工業",
       "market": "東証P",
-      "sector": "化学",
       "price": 1598.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 178.0,
-      "change_pct": 12.535,
-      "volume": 742100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.54,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 742100.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -16605,8 +16477,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           3500.41,
@@ -16732,8 +16603,7 @@
           1437.0,
           1451.0,
           1425.0,
-          1400.0,
-          1435.0
+          1400.0
         ],
         "highs": [
           3510.3,
@@ -16859,8 +16729,7 @@
           1451.0,
           1537.0,
           1425.0,
-          1468.0,
-          1599.0
+          1468.0
         ],
         "lows": [
           3238.38,
@@ -16986,8 +16855,7 @@
           1373.0,
           1451.0,
           1353.0,
-          1384.0,
-          1429.0
+          1384.0
         ],
         "closes": [
           3292.8,
@@ -17113,8 +16981,7 @@
           1391.0,
           1495.0,
           1373.0,
-          1420.0,
-          1598.0
+          1420.0
         ],
         "volumes": [
           1331700,
@@ -17240,28 +17107,27 @@
           829500,
           691000,
           561000,
-          626700,
-          742100
+          626700
         ]
       },
+      "sector": "化学",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "8918",
       "name": "ランド",
       "market": "東証S",
-      "sector": "不動産業",
       "price": 9.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1.0,
       "change_pct": 12.5,
-      "volume": 151610800,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 151610800.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -17387,8 +17253,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           10.0,
@@ -17512,7 +17377,6 @@
           9.0,
           9.0,
           9.0,
-          8.0,
           8.0,
           8.0,
           8.0
@@ -17641,7 +17505,6 @@
           9.0,
           8.0,
           8.0,
-          9.0,
           9.0
         ],
         "lows": [
@@ -17768,8 +17631,7 @@
           7.0,
           7.0,
           7.0,
-          7.0,
-          8.0
+          7.0
         ],
         "closes": [
           10.0,
@@ -17895,8 +17757,7 @@
           8.0,
           7.0,
           8.0,
-          8.0,
-          9.0
+          8.0
         ],
         "volumes": [
           242511200,
@@ -18022,28 +17883,27 @@
           127502100,
           139651300,
           105121600,
-          170525700,
-          151610800
+          170525700
         ]
       },
+      "sector": "不動産業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6871",
       "name": "日本マイクロニクス",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 9659.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1061.0,
       "change_pct": 12.34,
-      "volume": 1786600,
-      "description": null,
-      "industry": null,
-      "website": null,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1786600.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -18169,8 +18029,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           17400.0,
@@ -18296,8 +18155,7 @@
           9300.0,
           9500.0,
           8523.0,
-          8260.0,
-          8745.0
+          8260.0
         ],
         "highs": [
           17890.0,
@@ -18423,8 +18281,7 @@
           9343.0,
           9939.0,
           8556.0,
-          8790.0,
-          9726.0
+          8790.0
         ],
         "lows": [
           15580.0,
@@ -18550,8 +18407,7 @@
           8682.0,
           9418.0,
           8101.0,
-          8181.0,
-          8605.0
+          8181.0
         ],
         "closes": [
           15660.0,
@@ -18677,8 +18533,7 @@
           8802.0,
           9547.0,
           8179.0,
-          8598.0,
-          9659.0
+          8598.0
         ],
         "volumes": [
           1450000,
@@ -18804,28 +18659,27 @@
           2396100,
           1690700,
           1310100,
-          1721700,
-          1786600
+          1721700
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "3840",
       "name": "ヴィクトン",
       "market": "東証S",
-      "sector": "情報・通信業",
       "price": 55.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 6.0,
-      "change_pct": 12.245,
-      "volume": 583400,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.24,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 583400.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -18951,8 +18805,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           57.0,
@@ -19078,8 +18931,7 @@
           49.0,
           46.0,
           48.0,
-          49.0,
-          52.0
+          49.0
         ],
         "highs": [
           58.0,
@@ -19205,8 +19057,7 @@
           50.0,
           49.0,
           50.0,
-          50.0,
-          55.0
+          50.0
         ],
         "lows": [
           56.0,
@@ -19332,8 +19183,7 @@
           44.0,
           46.0,
           47.0,
-          48.0,
-          50.0
+          48.0
         ],
         "closes": [
           58.0,
@@ -19459,8 +19309,7 @@
           48.0,
           49.0,
           50.0,
-          49.0,
-          55.0
+          49.0
         ],
         "volumes": [
           320500,
@@ -19586,28 +19435,27 @@
           618000,
           177900,
           99500,
-          86100,
-          583400
+          86100
         ]
       },
+      "sector": "情報・通信業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6787",
       "name": "メイコー",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 9900.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 1080.0,
-      "change_pct": 12.245,
-      "volume": 3015500,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.24,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 3015500.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -19733,8 +19581,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           20146.41,
@@ -19860,8 +19707,7 @@
           8070.0,
           8300.0,
           8150.0,
-          8440.0,
-          9120.0
+          8440.0
         ],
         "highs": [
           20196.21,
@@ -19987,8 +19833,7 @@
           8160.0,
           9070.0,
           8150.0,
-          9080.0,
-          9970.0
+          9080.0
         ],
         "lows": [
           18502.82,
@@ -20114,8 +19959,7 @@
           7480.0,
           8250.0,
           7350.0,
-          8340.0,
-          8870.0
+          8340.0
         ],
         "closes": [
           18876.4,
@@ -20241,8 +20085,7 @@
           7720.0,
           8730.0,
           7740.0,
-          8820.0,
-          9900.0
+          8820.0
         ],
         "volumes": [
           1146600,
@@ -20368,28 +20211,27 @@
           2049700,
           2380000,
           2642500,
-          1975800,
-          3015500
+          1975800
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6508",
       "name": "明電舎",
       "market": "東証P",
-      "sector": "電気機器",
       "price": 6881.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 750.0,
-      "change_pct": 12.233,
-      "volume": 753000,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.23,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 753000.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -20515,8 +20357,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           11318.15,
@@ -20642,8 +20483,7 @@
           6487.0,
           6698.0,
           6197.0,
-          6115.0,
-          6431.0
+          6115.0
         ],
         "highs": [
           11318.15,
@@ -20769,8 +20609,7 @@
           6580.0,
           6859.0,
           6215.0,
-          6257.0,
-          6886.0
+          6257.0
         ],
         "lows": [
           10692.67,
@@ -20896,8 +20735,7 @@
           6185.0,
           6560.0,
           6040.0,
-          6068.0,
-          6231.0
+          6068.0
         ],
         "closes": [
           10722.5,
@@ -21023,8 +20861,7 @@
           6198.0,
           6694.0,
           6089.0,
-          6131.0,
-          6881.0
+          6131.0
         ],
         "volumes": [
           349400,
@@ -21150,28 +20987,27 @@
           339700,
           397900,
           404900,
-          318400,
-          753000
+          318400
         ]
       },
+      "sector": "電気機器",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "6166",
       "name": "中村超硬",
       "market": "東証G",
-      "sector": "機械",
       "price": 406.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 44.0,
-      "change_pct": 12.155,
-      "volume": 842700,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.15,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 842700.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -21297,8 +21133,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           478.0,
@@ -21424,8 +21259,7 @@
           367.0,
           367.0,
           373.0,
-          365.0,
-          368.0
+          365.0
         ],
         "highs": [
           485.0,
@@ -21551,8 +21385,7 @@
           373.0,
           383.0,
           380.0,
-          375.0,
-          442.0
+          375.0
         ],
         "lows": [
           460.0,
@@ -21678,8 +21511,7 @@
           362.0,
           367.0,
           361.0,
-          362.0,
-          368.0
+          362.0
         ],
         "closes": [
           470.0,
@@ -21805,8 +21637,7 @@
           363.0,
           376.0,
           364.0,
-          362.0,
-          406.0
+          362.0
         ],
         "volumes": [
           161000,
@@ -21932,28 +21763,27 @@
           61500,
           59200,
           74000,
-          63300,
-          842700
+          63300
         ]
       },
+      "sector": "機械",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "8783",
       "name": "abc",
       "market": "東証S",
-      "sector": "その他金融業",
       "price": 37.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 4.0,
-      "change_pct": 12.121,
-      "volume": 442300,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 12.12,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 442300.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -22079,8 +21909,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           118.0,
@@ -22206,8 +22035,7 @@
           35.0,
           33.0,
           33.0,
-          32.0,
-          34.0
+          32.0
         ],
         "highs": [
           118.0,
@@ -22333,8 +22161,7 @@
           36.0,
           35.0,
           34.0,
-          34.0,
-          38.0
+          34.0
         ],
         "lows": [
           107.0,
@@ -22460,8 +22287,7 @@
           33.0,
           33.0,
           32.0,
-          32.0,
-          33.0
+          32.0
         ],
         "closes": [
           110.0,
@@ -22587,8 +22413,7 @@
           33.0,
           33.0,
           32.0,
-          33.0,
-          37.0
+          33.0
         ],
         "volumes": [
           726500,
@@ -22714,28 +22539,27 @@
           487200,
           307600,
           244100,
-          269200,
-          442300
+          269200
         ]
       },
+      "sector": "その他金融業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     },
     {
       "code": "2370",
       "name": "メディネット",
       "market": "東証G",
-      "sector": "サービス業",
       "price": 19.0,
-      "stop_high_price": null,
-      "is_stop_high": false,
       "change_amount": 2.0,
-      "change_pct": 11.765,
-      "volume": 1457100,
-      "description": null,
-      "industry": null,
-      "website": null,
+      "change_pct": 11.76,
       "price_date": "2026-11-27",
+      "source_checked_at": "2026-11-27T16:00:00+09:00",
+      "is_stop_high": false,
+      "volume": 1457100.0,
       "chart": {
         "dates": [
           "2026-05-27",
@@ -22861,8 +22685,7 @@
           "2026-11-20",
           "2026-11-24",
           "2026-11-25",
-          "2026-11-26",
-          "2026-11-27"
+          "2026-11-26"
         ],
         "opens": [
           28.0,
@@ -22988,8 +22811,7 @@
           16.0,
           16.0,
           16.0,
-          15.0,
-          17.0
+          15.0
         ],
         "highs": [
           28.0,
@@ -23115,8 +22937,7 @@
           17.0,
           16.0,
           17.0,
-          18.0,
-          19.0
+          18.0
         ],
         "lows": [
           27.0,
@@ -23242,8 +23063,7 @@
           15.0,
           15.0,
           15.0,
-          15.0,
-          17.0
+          15.0
         ],
         "closes": [
           28.0,
@@ -23369,8 +23189,7 @@
           16.0,
           16.0,
           16.0,
-          17.0,
-          19.0
+          17.0
         ],
         "volumes": [
           370700,
@@ -23496,12 +23315,15 @@
           2317000,
           631600,
           1939700,
-          2517300,
-          1457100
+          2517300
         ]
       },
+      "sector": "サービス業",
+      "description": null,
       "description_ja": "",
-      "industry_ja": ""
+      "industry": null,
+      "industry_ja": "",
+      "website": null
     }
   ],
   "sector_analysis": {
@@ -23523,9 +23345,9 @@
     "情報・通信業",
     "精密機器"
   ],
-  "fetched_at": "2026-11-27T23:46:58.038174+09:00",
-  "last_success_at": "2026-11-27T23:46:58.038174+09:00",
+  "fetched_at": "2026-11-28T00:02:45.167093+09:00",
+  "last_success_at": "2026-11-28T00:02:45.167093+09:00",
   "valid_until": "2026-11-30T09:30:00+09:00",
   "market": "tse",
-  "market_state": "closed"
+  "market_state": "holiday"
 }
