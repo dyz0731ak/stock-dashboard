@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T15:17:23.931679+09:00",
+  "updated_at": "2026-11-27T15:32:42.680063+09:00",
   "article_date": "2026-11-27",
   "checked_date": "2026-11-27",
   "sources": [
@@ -7,8 +7,8 @@
   ],
   "source": "TDnet 適時開示（XBRL / PDF）",
   "source_counts": {
-    "tdnet_candidates": 9,
-    "selected": 1,
+    "tdnet_candidates": 15,
+    "selected": 7,
     "document_failures": 6
   },
   "source_failures": [
@@ -56,6 +56,529 @@
     }
   ],
   "highlights": [
+    {
+      "code": "7279",
+      "name": "ハイレックス",
+      "title": "通期業績予想の修正に関するお知らせ",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261127587502.zip",
+      "narrative": "通期業績予想の修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "通期 営業利益",
+          "value": "20億円",
+          "comparison": "54億円 → 20億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 経常利益",
+          "value": "50億円",
+          "comparison": "74億円 → 50億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 純利益",
+          "value": "300億円",
+          "comparison": "368.5億円 → 300億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 売上高",
+          "value": "4,200億円",
+          "comparison": "4,010億円 → 4,200億円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "営業利益",
+          "current": 2000000000.0,
+          "previous": 5400000000.0,
+          "pct": -62.96,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 5000000000.0,
+          "previous": 7400000000.0,
+          "pct": -32.43,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "純利益",
+          "current": 30000000000.0,
+          "previous": 36850000000.0,
+          "pct": -18.59,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "売上高",
+          "current": 420000000000.0,
+          "previous": 401000000000.0,
+          "pct": 4.74,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "NetSales",
+          "unit": "百万円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "下方修正 -63.0%",
+          "direction": "down"
+        },
+        {
+          "label": "経常利益",
+          "value": "下方修正 -32.4%",
+          "direction": "down"
+        },
+        {
+          "label": "純利益",
+          "value": "下方修正 -18.6%",
+          "direction": "down"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "negative",
+      "impact_label": "下方修正 -63.0%",
+      "impact_summary": "通期営業利益が下方修正 -63.0%（前回会社予想比）。通期経常利益が下方修正 -32.4%（前回会社予想比）。通期純利益が下方修正 -18.6%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "(1)\t売上高 売上高につきましては、中国における販売減少があった一方、米州における販売増加に加え、為替相場が当初の想定よりも円安で推移したことによる海外子会社の売上高の円貨換算額の増加もあり、前回発表予想を上回る見込みとなりました。 (2)\t営業利益 利益面につきましては、第4四半期に入り、中国、米州、日本および韓国において想定以上の減益要因が重なり、第4四半期の営業損益について約19億円の損失となる見込みであることから、今回、通期業績予想を修正することといたしました。 1. 中国 中国では、中国市場における新興電気自動車メーカーの販売拡大に伴い、当社の主要取引先である既存の中国自動車メーカーの市場シェアが低下したことなどから、第4四半期に販売数量が急減しました。これに伴い、工場の操業度が低下し、固定費負担が増加しました。 また、中国市場における価格競争が厳しさを増す中、主要顧客からの値引き要請に対して粘り強く交渉を続けておりましたが、第4四半期に一定規模の値引きを受け入れる形で妥結し、利益を押し下げました。これに対し、各種コストダウン策を進めたものの、その影響を吸収するには至りませんでした。 2. 米州 米州では、中東情勢の影響により材料価格および海上輸送費が上昇する一方、顧客への販売価格への転嫁 に時間を要したことから、コスト負担が先行しました。また、メキシコでは、売上および仕入の多くが米ドル建てであるのに対して、人件費の発生はメキシコペソ建てであるため、第3四半期から第4四半期にかけてのメキシコペソ高により、米ドルベースでの労務費負担が増加しました。 加えて、2026年7月に清算を決定した米国の拠点では、一時的な生産性の著しい低下に伴い、労務費が増加しました。これらの要因が重なったことにより、第4四半期の収益性が悪化しました。 3. 日本 日本では、中東情勢の影響に",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+          "title": "通期業績予想の修正に関するお知らせ",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "コントロールケーブル世界首位",
+      "company_summary_source": "https://s.kabutan.jp/stocks/7279/"
+    },
+    {
+      "code": "9009",
+      "name": "京成",
+      "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+      "xbrl_url": "https://www.release.tdnet.info/inbs/091220261126587141.zip",
+      "narrative": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "通期 純利益",
+          "value": "642億円",
+          "comparison": "393億円 → 642億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 経常利益",
+          "value": "557億円",
+          "comparison": "505億円 → 557億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 営業利益",
+          "value": "317億円",
+          "comparison": "310億円 → 317億円（前回会社予想比）"
+        },
+        {
+          "label": "通期 1株配当",
+          "value": "30円",
+          "comparison": "22円 → 30円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "純利益",
+          "current": 64200000000.0,
+          "previous": 39300000000.0,
+          "pct": 63.36,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "ProfitAttributableToOwnersOfParent",
+          "unit": "百万円"
+        },
+        {
+          "label": "経常利益",
+          "current": 55700000000.0,
+          "previous": 50500000000.0,
+          "pct": 10.3,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OrdinaryIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "営業利益",
+          "current": 31700000000.0,
+          "previous": 31000000000.0,
+          "pct": 2.26,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": true,
+          "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "OperatingIncome",
+          "unit": "百万円"
+        },
+        {
+          "label": "1株配当",
+          "current": 30.0,
+          "previous": 22.0,
+          "pct": 36.36,
+          "basis": "前回会社予想比",
+          "period": "通期",
+          "consolidated": false,
+          "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+          "fact": "DividendPerShare",
+          "unit": "円"
+        }
+      ],
+      "chips": [
+        {
+          "label": "純利益",
+          "value": "上方修正 +63.4%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +10.3%",
+          "direction": "up"
+        },
+        {
+          "label": "1株配当",
+          "value": "増配 +36.4%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 95,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +63.4%",
+      "impact_summary": "通期純利益が上方修正 +63.4%（前回会社予想比）。通期経常利益が上方修正 +10.3%（前回会社予想比）。通期1株配当が増配 +36.4%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "company_explanation": "2026年11月25日付で行われた株式会社オリエンタルランド普通株式の売却(以下「本譲渡」といいます。)に伴う特別利益(関係会社株式売却益)の計上、2026年10月1日付の株式取得により千葉日石株式会社を子会社化した影響等により、従来予想を上方修正しております。 なお、業績予想については、発表日現在で入手可能な情報に基づき作成しているものであり、実際の業績は、今後様々な要因によって予想数値と異なる場合があります。",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+          "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "上野－成田空港路線が収益の柱",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9009/"
+    },
+    {
+      "code": "567A",
+      "name": "ディープラス",
+      "title": "業績予想の修正に関するお知らせ",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+      "xbrl_url": "",
+      "narrative": "業績予想の修正に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "会社予想 売上高",
+          "value": "124億円",
+          "comparison": "110億円 → 124億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 営業利益",
+          "value": "6.7億円",
+          "comparison": "5.48億円 → 6.7億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 経常利益",
+          "value": "6.1億円",
+          "comparison": "5.01億円 → 6.1億円（前回会社予想比）"
+        },
+        {
+          "label": "会社予想 純利益",
+          "value": "4.1億円",
+          "comparison": "3.28億円 → 4.1億円（前回会社予想比）"
+        }
+      ],
+      "comparisons": [
+        {
+          "label": "売上高",
+          "current": 12400000000.0,
+          "previous": 11000000000.0,
+          "pct": 12.73,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "営業利益",
+          "current": 670000000.0,
+          "previous": 548000000.0,
+          "pct": 22.26,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "経常利益",
+          "current": 610000000.0,
+          "previous": 501000000.0,
+          "pct": 21.76,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        },
+        {
+          "label": "純利益",
+          "current": 410000000.0,
+          "previous": 328000000.0,
+          "pct": 25.0,
+          "basis": "前回会社予想比",
+          "period": "会社予想",
+          "unit": "百万円",
+          "source_format": "PDF"
+        }
+      ],
+      "chips": [
+        {
+          "label": "営業利益",
+          "value": "上方修正 +22.3%",
+          "direction": "up"
+        },
+        {
+          "label": "経常利益",
+          "value": "上方修正 +21.8%",
+          "direction": "up"
+        },
+        {
+          "label": "純利益",
+          "value": "上方修正 +25.0%",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 90,
+      "impact_zone": "positive",
+      "impact_label": "上方修正 +25.0%",
+      "impact_summary": "会社予想営業利益が上方修正 +22.3%（前回会社予想比）。会社予想経常利益が上方修正 +21.8%（前回会社予想比）。会社予想純利益が上方修正 +25.0%（前回会社予想比）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+          "title": "業績予想の修正に関するお知らせ",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "",
+      "company_summary_source": "https://s.kabutan.jp/stocks/567A/"
+    },
+    {
+      "code": "9889",
+      "name": "JBCC HD",
+      "title": "自己株式取得に係る事項の決定に関するお知らせ",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+      "xbrl_url": "",
+      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "10億円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "625,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "発行済株式比",
+          "value": "1%",
+          "comparison": "取得枠の上限・発行済株式比"
+        }
+      ],
+      "comparisons": [],
+      "chips": [
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 73,
+      "impact_zone": "positive",
+      "impact_label": "自社株買い",
+      "impact_summary": "新たな自社株買いを決定（発行済株式の1%が上限）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "ITサービス大手。超高速開発やクラウド、セキュリティ、データ連携などに強み",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9889/"
+    },
+    {
+      "code": "9023",
+      "name": "東京メトロ",
+      "title": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+      "xbrl_url": "",
+      "narrative": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+      "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "18億円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "1,000,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "発行済株式比",
+          "value": "0.17%",
+          "comparison": "取得枠の上限・発行済株式比"
+        }
+      ],
+      "comparisons": [],
+      "chips": [
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 71,
+      "impact_zone": "positive",
+      "impact_label": "自社株買い",
+      "impact_summary": "新たな自社株買いを決定（発行済株式の0.17%が上限）。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "首都圏で地下鉄事業の運営や流通・不動産・情報通信事業を手掛ける",
+      "company_summary_source": "https://s.kabutan.jp/stocks/9023/"
+    },
+    {
+      "code": "6941",
+      "name": "山一電機",
+      "title": "自己株式取得に係る事項の決定に関するお知らせ",
+      "time": "15:30",
+      "published_date": "2026-11-27",
+      "document_url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+      "xbrl_url": "",
+      "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+      "key_numbers": [
+        {
+          "label": "取得上限額",
+          "value": "20億円",
+          "comparison": "取得枠の上限・発行済株式比"
+        },
+        {
+          "label": "取得上限株数",
+          "value": "400,000株",
+          "comparison": "取得枠の上限・発行済株式比"
+        }
+      ],
+      "comparisons": [],
+      "chips": [
+        {
+          "label": "資本政策",
+          "value": "自社株買い",
+          "direction": "up"
+        }
+      ],
+      "impact_score": 70,
+      "impact_zone": "positive",
+      "impact_label": "自社株買い",
+      "impact_summary": "新たな自社株買いを決定。",
+      "category": "重要開示",
+      "url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+      "sources": [
+        "TDnet"
+      ],
+      "primary_source": "TDnet",
+      "published_label": "11/27 15:30発表",
+      "published_time": "15:30",
+      "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+      "documents": [
+        {
+          "url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "15:30"
+        }
+      ],
+      "company_summary": "半導体検査用ソケット大手",
+      "company_summary_source": "https://s.kabutan.jp/stocks/6941/"
+    },
     {
       "code": "9301",
       "name": "三菱倉",
@@ -109,13 +632,536 @@
       "company_summary_source": "https://s.kabutan.jp/stocks/9301/"
     }
   ],
-  "total": 1,
+  "total": 7,
   "groups": [
     {
       "category": "重要開示",
       "display": "重要開示",
       "zone": "decision",
       "items": [
+        {
+          "code": "7279",
+          "name": "ハイレックス",
+          "title": "通期業績予想の修正に関するお知らせ",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261127587502.zip",
+          "narrative": "通期業績予想の修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "通期 営業利益",
+              "value": "20億円",
+              "comparison": "54億円 → 20億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 経常利益",
+              "value": "50億円",
+              "comparison": "74億円 → 50億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 純利益",
+              "value": "300億円",
+              "comparison": "368.5億円 → 300億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 売上高",
+              "value": "4,200億円",
+              "comparison": "4,010億円 → 4,200億円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "営業利益",
+              "current": 2000000000.0,
+              "previous": 5400000000.0,
+              "pct": -62.96,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 5000000000.0,
+              "previous": 7400000000.0,
+              "pct": -32.43,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "純利益",
+              "current": 30000000000.0,
+              "previous": 36850000000.0,
+              "pct": -18.59,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "売上高",
+              "current": 420000000000.0,
+              "previous": 401000000000.0,
+              "pct": 4.74,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "NetSales",
+              "unit": "百万円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "下方修正 -63.0%",
+              "direction": "down"
+            },
+            {
+              "label": "経常利益",
+              "value": "下方修正 -32.4%",
+              "direction": "down"
+            },
+            {
+              "label": "純利益",
+              "value": "下方修正 -18.6%",
+              "direction": "down"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "negative",
+          "impact_label": "下方修正 -63.0%",
+          "impact_summary": "通期営業利益が下方修正 -63.0%（前回会社予想比）。通期経常利益が下方修正 -32.4%（前回会社予想比）。通期純利益が下方修正 -18.6%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "(1)\t売上高 売上高につきましては、中国における販売減少があった一方、米州における販売増加に加え、為替相場が当初の想定よりも円安で推移したことによる海外子会社の売上高の円貨換算額の増加もあり、前回発表予想を上回る見込みとなりました。 (2)\t営業利益 利益面につきましては、第4四半期に入り、中国、米州、日本および韓国において想定以上の減益要因が重なり、第4四半期の営業損益について約19億円の損失となる見込みであることから、今回、通期業績予想を修正することといたしました。 1. 中国 中国では、中国市場における新興電気自動車メーカーの販売拡大に伴い、当社の主要取引先である既存の中国自動車メーカーの市場シェアが低下したことなどから、第4四半期に販売数量が急減しました。これに伴い、工場の操業度が低下し、固定費負担が増加しました。 また、中国市場における価格競争が厳しさを増す中、主要顧客からの値引き要請に対して粘り強く交渉を続けておりましたが、第4四半期に一定規模の値引きを受け入れる形で妥結し、利益を押し下げました。これに対し、各種コストダウン策を進めたものの、その影響を吸収するには至りませんでした。 2. 米州 米州では、中東情勢の影響により材料価格および海上輸送費が上昇する一方、顧客への販売価格への転嫁 に時間を要したことから、コスト負担が先行しました。また、メキシコでは、売上および仕入の多くが米ドル建てであるのに対して、人件費の発生はメキシコペソ建てであるため、第3四半期から第4四半期にかけてのメキシコペソ高により、米ドルベースでの労務費負担が増加しました。 加えて、2026年7月に清算を決定した米国の拠点では、一時的な生産性の著しい低下に伴い、労務費が増加しました。これらの要因が重なったことにより、第4四半期の収益性が悪化しました。 3. 日本 日本では、中東情勢の影響に",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261127587502.pdf",
+              "title": "通期業績予想の修正に関するお知らせ",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "コントロールケーブル世界首位",
+          "company_summary_source": "https://s.kabutan.jp/stocks/7279/"
+        },
+        {
+          "code": "9009",
+          "name": "京成",
+          "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+          "xbrl_url": "https://www.release.tdnet.info/inbs/091220261126587141.zip",
+          "narrative": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "通期 純利益",
+              "value": "642億円",
+              "comparison": "393億円 → 642億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 経常利益",
+              "value": "557億円",
+              "comparison": "505億円 → 557億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 営業利益",
+              "value": "317億円",
+              "comparison": "310億円 → 317億円（前回会社予想比）"
+            },
+            {
+              "label": "通期 1株配当",
+              "value": "30円",
+              "comparison": "22円 → 30円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "純利益",
+              "current": 64200000000.0,
+              "previous": 39300000000.0,
+              "pct": 63.36,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "ProfitAttributableToOwnersOfParent",
+              "unit": "百万円"
+            },
+            {
+              "label": "経常利益",
+              "current": 55700000000.0,
+              "previous": 50500000000.0,
+              "pct": 10.3,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OrdinaryIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "営業利益",
+              "current": 31700000000.0,
+              "previous": 31000000000.0,
+              "pct": 2.26,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": true,
+              "context": "CurrentYearDuration_ConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "OperatingIncome",
+              "unit": "百万円"
+            },
+            {
+              "label": "1株配当",
+              "current": 30.0,
+              "previous": 22.0,
+              "pct": 36.36,
+              "basis": "前回会社予想比",
+              "period": "通期",
+              "consolidated": false,
+              "context": "CurrentYearDuration_AnnualMember_NonConsolidatedMember_CurrentMember_ForecastMember",
+              "fact": "DividendPerShare",
+              "unit": "円"
+            }
+          ],
+          "chips": [
+            {
+              "label": "純利益",
+              "value": "上方修正 +63.4%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +10.3%",
+              "direction": "up"
+            },
+            {
+              "label": "1株配当",
+              "value": "増配 +36.4%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 95,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +63.4%",
+          "impact_summary": "通期純利益が上方修正 +63.4%（前回会社予想比）。通期経常利益が上方修正 +10.3%（前回会社予想比）。通期1株配当が増配 +36.4%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "company_explanation": "2026年11月25日付で行われた株式会社オリエンタルランド普通株式の売却(以下「本譲渡」といいます。)に伴う特別利益(関係会社株式売却益)の計上、2026年10月1日付の株式取得により千葉日石株式会社を子会社化した影響等により、従来予想を上方修正しております。 なお、業績予想については、発表日現在で入手可能な情報に基づき作成しているものであり、実際の業績は、今後様々な要因によって予想数値と異なる場合があります。",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261126587141.pdf",
+              "title": "業績予想の修正及び期末配当予想の修正に関するお知らせ",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "上野－成田空港路線が収益の柱",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9009/"
+        },
+        {
+          "code": "567A",
+          "name": "ディープラス",
+          "title": "業績予想の修正に関するお知らせ",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+          "xbrl_url": "",
+          "narrative": "業績予想の修正に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "会社予想 売上高",
+              "value": "124億円",
+              "comparison": "110億円 → 124億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 営業利益",
+              "value": "6.7億円",
+              "comparison": "5.48億円 → 6.7億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 経常利益",
+              "value": "6.1億円",
+              "comparison": "5.01億円 → 6.1億円（前回会社予想比）"
+            },
+            {
+              "label": "会社予想 純利益",
+              "value": "4.1億円",
+              "comparison": "3.28億円 → 4.1億円（前回会社予想比）"
+            }
+          ],
+          "comparisons": [
+            {
+              "label": "売上高",
+              "current": 12400000000.0,
+              "previous": 11000000000.0,
+              "pct": 12.73,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "営業利益",
+              "current": 670000000.0,
+              "previous": 548000000.0,
+              "pct": 22.26,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "経常利益",
+              "current": 610000000.0,
+              "previous": 501000000.0,
+              "pct": 21.76,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            },
+            {
+              "label": "純利益",
+              "current": 410000000.0,
+              "previous": 328000000.0,
+              "pct": 25.0,
+              "basis": "前回会社予想比",
+              "period": "会社予想",
+              "unit": "百万円",
+              "source_format": "PDF"
+            }
+          ],
+          "chips": [
+            {
+              "label": "営業利益",
+              "value": "上方修正 +22.3%",
+              "direction": "up"
+            },
+            {
+              "label": "経常利益",
+              "value": "上方修正 +21.8%",
+              "direction": "up"
+            },
+            {
+              "label": "純利益",
+              "value": "上方修正 +25.0%",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 90,
+          "impact_zone": "positive",
+          "impact_label": "上方修正 +25.0%",
+          "impact_summary": "会社予想営業利益が上方修正 +22.3%（前回会社予想比）。会社予想経常利益が上方修正 +21.8%（前回会社予想比）。会社予想純利益が上方修正 +25.0%（前回会社予想比）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261127587447.pdf",
+              "title": "業績予想の修正に関するお知らせ",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "",
+          "company_summary_source": "https://s.kabutan.jp/stocks/567A/"
+        },
+        {
+          "code": "9889",
+          "name": "JBCC HD",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+          "xbrl_url": "",
+          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "10億円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "625,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "発行済株式比",
+              "value": "1%",
+              "comparison": "取得枠の上限・発行済株式比"
+            }
+          ],
+          "comparisons": [],
+          "chips": [
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 73,
+          "impact_zone": "positive",
+          "impact_label": "自社株買い",
+          "impact_summary": "新たな自社株買いを決定（発行済株式の1%が上限）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261126587156.pdf",
+              "title": "自己株式取得に係る事項の決定に関するお知らせ",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "ITサービス大手。超高速開発やクラウド、セキュリティ、データ連携などに強み",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9889/"
+        },
+        {
+          "code": "9023",
+          "name": "東京メトロ",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+          "xbrl_url": "",
+          "narrative": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+          "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "18億円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "1,000,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "発行済株式比",
+              "value": "0.17%",
+              "comparison": "取得枠の上限・発行済株式比"
+            }
+          ],
+          "comparisons": [],
+          "chips": [
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 71,
+          "impact_zone": "positive",
+          "impact_label": "自社株買い",
+          "impact_summary": "新たな自社株買いを決定（発行済株式の0.17%が上限）。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261127587529.pdf",
+              "title": "自己株式取得に係る事項の決定に関するお知らせ(会社法第165条第2項の規定による定款の定めに基づく自己株式の取得)",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "首都圏で地下鉄事業の運営や流通・不動産・情報通信事業を手掛ける",
+          "company_summary_source": "https://s.kabutan.jp/stocks/9023/"
+        },
+        {
+          "code": "6941",
+          "name": "山一電機",
+          "title": "自己株式取得に係る事項の決定に関するお知らせ",
+          "time": "15:30",
+          "published_date": "2026-11-27",
+          "document_url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+          "xbrl_url": "",
+          "narrative": "自己株式取得に係る事項の決定に関するお知らせ",
+          "key_numbers": [
+            {
+              "label": "取得上限額",
+              "value": "20億円",
+              "comparison": "取得枠の上限・発行済株式比"
+            },
+            {
+              "label": "取得上限株数",
+              "value": "400,000株",
+              "comparison": "取得枠の上限・発行済株式比"
+            }
+          ],
+          "comparisons": [],
+          "chips": [
+            {
+              "label": "資本政策",
+              "value": "自社株買い",
+              "direction": "up"
+            }
+          ],
+          "impact_score": 70,
+          "impact_zone": "positive",
+          "impact_label": "自社株買い",
+          "impact_summary": "新たな自社株買いを決定。",
+          "category": "重要開示",
+          "url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+          "sources": [
+            "TDnet"
+          ],
+          "primary_source": "TDnet",
+          "published_label": "11/27 15:30発表",
+          "published_time": "15:30",
+          "consensus_status": "市場予想データなし（会社予想・前年実績との比較）",
+          "documents": [
+            {
+              "url": "https://www.release.tdnet.info/inbs/140120261127587280.pdf",
+              "title": "自己株式取得に係る事項の決定に関するお知らせ",
+              "time": "15:30"
+            }
+          ],
+          "company_summary": "半導体検査用ソケット大手",
+          "company_summary_source": "https://s.kabutan.jp/stocks/6941/"
+        },
         {
           "code": "9301",
           "name": "三菱倉",
@@ -174,8 +1220,8 @@
   "fetch_status": "partial",
   "selection_note": "時価総額を問わず、利益の大幅増減・黒字赤字転換・業績修正・増減配・自社株買いを重要度順に掲載。比較は前年実績または前回会社予想。市場予想は未取得。",
   "empty_message": "対象日の重要開示はありません（TDnet確認済み）。",
-  "last_attempt_at": "2026-11-27T06:17:24.394915+00:00",
-  "fetched_at": "2026-11-27T15:17:23.931679+09:00",
-  "last_success_at": "2026-11-27T15:17:23.931679+09:00",
-  "valid_until": "2026-11-29T03:17:23.931679+09:00"
+  "last_attempt_at": "2026-11-27T06:32:47.255802+00:00",
+  "fetched_at": "2026-11-27T15:32:42.680063+09:00",
+  "last_success_at": "2026-11-27T15:32:42.680063+09:00",
+  "valid_until": "2026-11-29T03:32:42.680063+09:00"
 }
